@@ -9,12 +9,12 @@
 title:
   en: Computer science @KIT
   de: Informatik @KIT
-email: daniel@pollithy.com
+email: info@cs-k.it
 description:
   en: An information source about studying computer science at Karlsruher Institute of Technology
   de: Eine Informationsquelle über das Informatikstudium am Karlsruher Institut für Technologie
 index:
-  en:
+  en: index.html
   de: uebersicht.html
 feed:
   en: /feed.xml
