@@ -20,7 +20,7 @@ feed:
   en: /feed.xml
   de: /feed_de.xml
 baseurl: "/study-guide" # the subpath of your site, e.g. /blog
-url: "http://yourdomain.com" # the base hostname & protocol for your site
+url: "https://cs-k.it" # the base hostname & protocol for your site
 # twitter_username: jekyllrb
 github_username:  cs-kit
 
