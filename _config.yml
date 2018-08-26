@@ -15,10 +15,10 @@ description:
   de: Eine Informationsquelle über das Informatikstudium am Karlsruher Institut für Technologie
 index:
   en:
-  de: accueil.html
+  de: uebersicht.html
 feed:
   en: /feed.xml
-  de: /flux.xml
+  de: /feed_de.xml
 baseurl: "/study-guide" # the subpath of your site, e.g. /blog
 url: "http://yourdomain.com" # the base hostname & protocol for your site
 twitter_username: jekyllrb
