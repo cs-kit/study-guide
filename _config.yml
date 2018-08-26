@@ -9,7 +9,7 @@
 title:
   en: Computer science @KIT
   de: Informatik @KIT
-email: your-email@domain.com
+email: daniel@pollithy.com
 description:
   en: An information source about studying computer science at Karlsruher Institute of Technology
   de: Eine Informationsquelle über das Informatikstudium am Karlsruher Institut für Technologie
@@ -21,7 +21,7 @@ feed:
   de: /feed_de.xml
 baseurl: "/study-guide" # the subpath of your site, e.g. /blog
 url: "http://yourdomain.com" # the base hostname & protocol for your site
-twitter_username: jekyllrb
+# twitter_username: jekyllrb
 github_username:  cs-kit
 
 # Build settings
