@@ -26,3 +26,6 @@ github_username:  cs-kit
 
 # Build settings
 markdown: kramdown
+
+# Exclude for build
+exclude: [.idea]

@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Master computer science
-permalink: /master/
+permalink: /master-en/
 ref: master
 excerpt: Information about the master program in computer science and its specializations
 lang: en
