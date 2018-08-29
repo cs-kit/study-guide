@@ -2,7 +2,9 @@
 
   <div class="wrapper">
 
-    <a class="site-title" href="{{ site.baseurl }}/{{ site.index[page.lang] }}">{{ site.title[page.lang] }}</a>
+    {% if page.layout != 'main' %}
+      <a class="site-title" href="{{ site.baseurl }}/{{ site.index[page.lang] }}">{{ site.title[page.lang] }}</a>
+    {% endif %}
 
     <nav class="site-nav">
       <a href="#" class="menu-icon">
@@ -14,12 +16,32 @@
       </a>
 
       <div class="trigger">
+        {% assign this_page_lang = page.lang %}
         {% assign pages=site.pages | where:"lang", page.lang | sort:"nav_order" %}
         {% for my_page in pages %}
           {% if my_page.title %}
           <a class="page-link" href="{{ my_page.url | prepend: site.baseurl }}">{{ my_page.title }}</a>
           {% endif %}
         {% endfor %}
+
+        <!-- Langugage Picker -->
+        <!-- Posts -->
+          {% assign posts=site.posts | where:"ref", page.ref | sort: 'lang' %}
+          {% for post in posts %}
+            <!-- Show Language Button of lang that is not displayed -->
+            {% if post.ref and post.lang != this_page_lang %}
+              <a href="{{ post.url | prepend: site.baseurl }}" class="page-link lang {{ post.lang }}">{{ post.lang }}</a>
+            {% endif %}
+        {% endfor %}
+
+        <!-- Pages -->
+          {% assign pages=site.pages | where:"ref", page.ref | sort: 'lang' %}
+          {% for page in pages %}
+          <!-- Show Language Button of lang that is not displayed -->
+          {% if page.ref and page.lang != this_page_lang %}
+              <a href="{{ page.url | prepend: site.baseurl }}" class=" page-link lang {{ page.lang }}">{{ page.lang }}</a>
+            {% endif %}
+          {% endfor %}
       </div>
     </nav>
 
@@ -27,10 +49,4 @@
 
 </header>
 
-<div class="wrapper" style="text-align: right; line-height: 2em">
-  {% assign posts=site.posts | where:"ref", page.ref | sort: 'lang' %}
-  {% for post in posts %} <a href="{{ post.url | prepend: site.baseurl }}" class="{{ post.lang }}">{{ post.lang }}</a> {% endfor %}
 
-  {% assign pages=site.pages | where:"ref", page.ref | sort: 'lang' %}
-  {% for page in pages %} <a href="{{ page.url | prepend: site.baseurl }}" class="{{ page.lang }}">{{ page.lang }}</a> {% endfor %}
-</div>

@@ -10,9 +10,6 @@ title:
   en: Computer science @KIT
   de: Informatik @KIT
 email: info@cs-k.it
-description:
-  en: An information source about studying computer science at Karlsruher Institute of Technology
-  de: Eine Informationsquelle über das Informatikstudium am Karlsruher Institut für Technologie
 index:
   en: index.html
   de: uebersicht.html
@@ -29,3 +26,17 @@ markdown: kramdown
 
 # Exclude for build
 exclude: [.idea]
+
+# Translations
+description:
+  en: An information source about studying computer science at Karlsruher Institute of Technology
+  de: Eine Informationsquelle über das Informatikstudium am Karlsruher Institut für Technologie
+more:
+  en: Read more
+  de: Mehr lesen
+overview:
+  en: All posts
+  de: Alle Artikel
+date_format:
+  en: %b %-d, %Y
+  de: %-d. %b %Y

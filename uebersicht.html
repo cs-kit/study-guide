@@ -1,22 +1,35 @@
 ---
-layout: default
+layout: main
 ref: index
 lang: de
 ---
 
 <div class="home">
 
-  <h1 class="page-heading">Artikel</h1>
+  <div class="about-info">
+      <h1>Über {{ site.title[page.lang] }}</h1>
+
+      <div>
+        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore
+        magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
+        no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+        eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et
+        ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+      </div>
+
+
+  </div>
+
+  <h1>Alle Artikel</h1>
 
   <ul class="post-list">
     {% assign posts=site.posts | where:"lang", page.lang %}
     {% for post in posts %}
       <li>
-        <span class="post-meta">{{ post.date | date: "%-d. %b %Y" }}</span>
-
-        <h2>
-          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-        </h2>
+        <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">
+          <span class="post-meta">{{ post.date | date: "%-d. %b %Y" }}</span>
+          <h2 class="post-link">{{ post.title }}</h2>
+        </a>
       </li>
     {% endfor %}
   </ul>
