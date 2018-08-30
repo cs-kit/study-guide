@@ -21,6 +21,11 @@ url: "https://cs-k.it" # the base hostname & protocol for your site
 # twitter_username: jekyllrb
 github_username:  cs-kit
 
+# github on site
+github:
+  username: cs-kit
+  url: https://github.com/cs-kit
+
 # Build settings
 markdown: kramdown
 
@@ -37,6 +42,57 @@ more:
 overview:
   en: All posts
   de: Alle Artikel
-date_format:
-  en: %b %-d, %Y
-  de: %-d. %b %Y
+contact:
+  en: Contact us!
+  de: Schreib uns!
+
+t:
+  en:
+    latest-posts:  "Latest Posts"
+    read-more:  "Read More →"
+    show-more:  "Show More →"
+    loading:  "Loading..."
+    on-word: "on"
+    contact: "Contact"
+    contact-page: "contact.md"
+    read-time: "min"
+    comments: "comments"
+    go-to-home-page: "Go to the Home Page"
+    months:
+      january: "Jan"
+      february: "Feb"
+      march: "Mar"
+      april: "Apr"
+      may: "May"
+      june: "Jun"
+      july: "Jul"
+      august: "Aug"
+      september: "Sep"
+      october: "Oct"
+      november: "Nov"
+      december : "Dec"
+  de:
+      latest-posts:  "Neuste Artikel"
+      read-more:  "Weiterlesen →"
+      show-more:  "Mehr →"
+      loading:  "Lädt..."
+      on-word: "on"
+      contact: "Kontakt"
+      contact-page: "contact.md"
+      read-time: "min"
+      comments: "comments"
+      go-to-home-page: "Zurück zur Startseite"
+      months:
+        january: "Jan"
+        february: "Feb"
+        march: "Mär"
+        april: "Apr"
+        may: "Mai"
+        june: "Jun"
+        july: "Jul"
+        august: "Aug"
+        september: "Sep"
+        october: "Okt"
+        november: "Nov"
+        december : "Dez"
+

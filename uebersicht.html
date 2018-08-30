@@ -1,37 +1,17 @@
 ---
-layout: main
+layout: default
 ref: index
+header: true
 lang: de
 ---
 
-<div class="home">
+<h1>Über {{ site.title[page.lang] }}</h1>
 
-  <div class="about-info">
-      <h1>Über {{ site.title[page.lang] }}</h1>
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore
+magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
+no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et
+ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
 
-      <div>
-        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore
-        magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
-        no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
-        eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et
-        ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-      </div>
-
-
-  </div>
-
-  <h1>Alle Artikel</h1>
-
-  <ul class="post-list">
-    {% assign posts=site.posts | where:"lang", page.lang %}
-    {% for post in posts %}
-      <li>
-        <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">
-          <span class="post-meta">{{ post.date | date: "%-d. %b %Y" }}</span>
-          <h2 class="post-link">{{ post.title }}</h2>
-        </a>
-      </li>
-    {% endfor %}
-  </ul>
-
-</div>
+<h1>Aktuelle Artikel</h1>
+{% include all-posts.html lang=page.lang max_posts=3 max_post_tags=3 %}

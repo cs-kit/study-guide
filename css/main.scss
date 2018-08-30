@@ -4,7 +4,6 @@
 @charset "utf-8";
 
 
-
 // Our variables
 $base-font-family: "Open Sans", sans-serif;
 $base-font-size:   16px;
@@ -42,7 +41,7 @@ $header-bg-color-secondary: #155799 !default;
 $section-headings-color: #6c9494 !default; // #999999 #159957
 $section-headings-color-opacity: rgba(108, 148, 148, 0.7) !default; // #999999 #159957
 $body-text-color: #24292e !default; // 606c71
-$body-link-color: #1e6bb8 !default;
+$body-link-color: #486161 !default;
 $blockquote-text-color: #6a737d !default; // 819198
 $link-hover-text-color: #b5aeb1 !default; // 819198
 $link-text-color: #4a4a4a !default; // 819198
@@ -91,7 +90,8 @@ $hr-border-color: #eff0f1 !default;
 
 // Import partials from `sass_dir` (defaults to `_sass`)
 @import
-        "base",
-        "layout",
+        //"base",
+        //"layout",
+        "simple_styles",
         "syntax-highlighting"
 ;

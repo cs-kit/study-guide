@@ -1,0 +1,18 @@
+<!-- Langugage Picker -->
+<!-- Posts -->
+{% assign posts=site.posts | where:"ref", page.ref | sort: 'lang' %}
+{% for post in posts %}
+<!-- Show Language Button of lang that is not displayed -->
+{% if post.ref and post.lang != this_page_lang %}
+<a href="{{ post.url | prepend: site.baseurl }}" class="lang">{{ post.lang }}</a>
+{% endif %}
+{% endfor %}
+
+<!-- Pages -->
+{% assign pages=site.pages | where:"ref", page.ref | sort: 'lang' %}
+{% for page in pages %}
+<!-- Show Language Button of lang that is not displayed -->
+{% if page.ref and page.lang != this_page_lang %}
+<a href="{{ page.url | prepend: site.baseurl }}" class="lang">{{ page.lang }}</a>
+{% endif %}
+{% endfor %}
