@@ -15,7 +15,5 @@ Informationen über Bewerbung, Wohnen und Administratives
 <hr>
 <br>
 
+{% include posts_of_category.html category=site.categories.general cat_name=page.title%}
 
-Alle Posts der Kategorie **general**:
-
-{% include posts_of_category.html category=site.categories.general %}

@@ -1,53 +1,11 @@
-<!--<ul>
-  {% assign posts=include.category | where:"lang", page.lang %}
-  {% for post in posts %}
-    {% if post.url %}
-        <li>  <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a> </li>
-    {% endif %}
-  {% endfor %}
-</ul>-->
-
 {% assign category = include.category %}
 {% assign lang = include.lang %}
 {% assign posts_lang = site.posts | where:"lang", lang %}
 {% assign max_posts = include.max_posts | posts_lang.size %}
 {% assign max_post_tags = include.max_post_tags | posts_lang.size %}
-<ul class="post-list">
-    {% for post in posts_lang limit:max_posts %}
-    <li>
 
-    {% if site.show_post_image_posts_list %}
-    <div style="height:100px;width:100%;margin-bottom:13px;background:url('{{post.header.image | prepend: site.baseurl }}') center center repeat;">
-    </div>
-    {% endif %}
-    <h2>
-      <a class="post-link" href="{{ post.url | prepend: site.baseurl }}" title="{{ post.title }}">{{ post.title | escape }}</a>
-    </h2>
+{% include post_list.html %}
 
-    <div class="post-meta-list">
-      {% include post-meta-info.html post_date=post.date post_url=post.url post_lang=post.lang %}
-    </div>
-
-    <span>{{ post.excerpt | default: post.tagline | markdownify | truncatewords: 140 }}</span>
-
-    {%if post.tags.size > 0 %}
-    <div class="post-meta-list post-tag-list">
-      {% for tag in post.tags limit:max_post_tags %}
-      <code>{{ tag | escape }}</code>&nbsp;
-      {% endfor %}
-      {% if max_post_tags < post.tags.size %}
-      <code>...</code>
-      {% endif %}
-    </div>
-    {%endif %}
-
-    <div class="post-meta-list">    <a href="{{ post.url | prepend: site.baseurl }}" title="{{ post.title }}">
-        {{ site.t[lang].read-more }}</a></div>
-
-  </li>
-    {% endfor %}
-
-</ul>
 {% if max_posts < posts_lang.size %}
 {% capture category_url %}{% include get-page-url.html page_ref=category page_lang=lang %}{% endcapture %}
 <a href="{{ category_url }}" class="btn btn-dark">{{ site.t[lang].show-more }}</a>

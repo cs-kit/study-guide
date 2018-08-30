@@ -6,6 +6,7 @@ date:   2018-08-27 09:00:00 +0100
 categories: master
 excerpt: Testing jekyll
 lang: de
+tags: tag1 tag2 tag3 tag4 tag5
 ---
 
 TEST MASTER ARTIKEL DEUTSCH

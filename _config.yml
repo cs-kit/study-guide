@@ -71,6 +71,8 @@ t:
       october: "Oct"
       november: "Nov"
       december : "Dec"
+    all-posts-category: "All posts in the category"
+
   de:
       latest-posts:  "Neuste Artikel"
       read-more:  "Weiterlesen →"
@@ -95,4 +97,5 @@ t:
         october: "Okt"
         november: "Nov"
         december : "Dez"
+      all-posts-category: "Alle Artikel der Kategorie"
 

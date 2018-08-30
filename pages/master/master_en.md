@@ -18,6 +18,4 @@ Semester schedule and more
 <br>
 
 
-All posts in the category **master**:
-
-{% include posts_of_category.html category=site.categories.master %}
+{% include posts_of_category.html category=site.categories.master cat_name=page.title%}

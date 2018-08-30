@@ -14,7 +14,4 @@ Information about application, housing and administrations
 <hr>
 <br>
 
-
-All posts in the category **general**:
-
-{% include posts_of_category.html category=site.categories.general %}
+{% include posts_of_category.html category=site.categories.general cat_name=page.title%}

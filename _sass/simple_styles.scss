@@ -472,3 +472,52 @@ a {
   } // social-icons
 
 }
+
+.horizontal_separator {
+  border-bottom: 1px solid $line-color;
+  width: 100%;
+}
+
+.page-post-list {
+  margin-left: 0;
+  padding: 0;
+  list-style: none;
+
+  &:hover {
+    background-color: $border-color;
+    border: none;
+  }
+}
+
+/**
+ * Post list
+ */
+.post-list {
+  margin-left: 0;
+  padding: 0;
+  list-style: none;
+
+  > li {
+    //margin-bottom: $spacing-unit * 1.1;
+    border-bottom: 1px solid $line-color;
+    padding: 15px;
+
+    &:hover {
+      background-color: $border-color;
+      border: none;
+    }
+  }
+
+  > li > h2 {
+    margin-top: 0rem;
+    margin-bottom: 0rem;
+  }
+}
+
+//overwrite
+.main-content{
+  h2 {
+    margin-bottom: 0px;
+  }
+}
+
