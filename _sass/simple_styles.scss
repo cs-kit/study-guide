@@ -121,7 +121,7 @@ a {
 }
 
 .project-name {
-  margin-top: 0;
+  margin-top: 60px;
   margin-bottom: 0.1rem;
 
   @include large {
@@ -210,7 +210,7 @@ a {
   h4,
   h5,
   h6 {
-    margin-top: 4rem;
+    //margin-top: 4rem;
     margin-bottom: 1.5rem;
     font-weight: normal;
     color: $section-headings-color;
@@ -231,7 +231,7 @@ a {
 
   pre {
     padding: 0.8rem;
-    margin-top: 0;
+    margin: 55px auto;
     margin-bottom: 1rem;
     font: 1rem Consolas, "Liberation Mono", Menlo, Courier, monospace;
     color: $code-text-color;
@@ -489,6 +489,86 @@ a {
   }
 }
 
+//overwrite
+.main-content{
+  h1, h2 {
+    margin-bottom: 0px;
+  }
+}
+
+.post-meta {
+  margin-top: 0;
+  margin-bottom: 30px!important;
+}
+
+
+/**
+ * Posts
+ */
+.post-header {
+  //margin-bottom: $spacing-unit;
+  margin-top: 100px!important;
+}
+
+.post-title {
+  font-size: 42px;
+  letter-spacing: -1px;
+  line-height: 1;
+  margin-bottom: 0.5rem!important;
+  margin-top: 1.5rem!important;
+
+  @include media-query($on-laptop) {
+    font-size: 36px;
+  }
+}
+
+.post-subtitle {
+  font-size: 18px;
+  letter-spacing: -1px;
+  color: $light-grey;
+  line-height: 1;
+  margin-bottom: 1.5rem!important;
+
+  @include media-query($on-laptop) {
+    font-size: 26px;
+  }
+}
+
+.post-img {
+  padding: 20px 50px;
+}
+
+
+.post-content {
+  margin-bottom: $spacing-unit;
+
+  h2 {
+    font-size: 32px;
+
+    @include media-query($on-laptop) {
+      font-size: 28px;
+    }
+  }
+
+  h3 {
+    font-size: 26px;
+
+    @include media-query($on-laptop) {
+      font-size: 22px;
+    }
+  }
+
+  h4 {
+    font-size: 20px;
+
+    @include media-query($on-laptop) {
+      font-size: 18px;
+    }
+  }
+}
+
+
+
 /**
  * Post list
  */
@@ -514,10 +594,66 @@ a {
   }
 }
 
-//overwrite
-.main-content{
-  h2 {
-    margin-bottom: 0px;
+
+/* The sidebar menu */
+
+.post-container {
+  display: flex;
+  flex-wrap: wrap;
+
+  .post-main {
+    flex-grow: 2;
+    order: 3;
   }
+
+  .post-header {
+    flex-grow: 2;
+    order: 1;
+  }
+
+  .sidenav {
+    //height: 100% - $spacing-unit * 1.865; /* Full-height: remove this if you want "auto" height */
+    width: 160px; /* Set the width of the sidebar */
+    //position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    z-index: 1; /* Stay on top */
+    float: right;
+    //top: 100px;
+    //right: 100px;
+    overflow: hidden; /* Disable horizontal scroll */
+    margin-top: 120px;
+    border-left: 1px solid $line-color;
+    list-style: none;
+    padding: 10px;
+    color: $light-grey!important;
+    flex-grow: 1;
+    order: 2;
+
+    > li > ul {
+      padding-left: 20px;
+      list-style: none;
+      color: $light-grey!important;
+    }
+
+    a {
+      color: $section-headings-color;
+      line-height: $base-line-height;
+
+      // Gaps between nav items, but not on the last one
+      &:not(:last-child) {
+        margin-right: 20px;
+      }
+
+      &,
+      &:visited {
+        text-decoration: none;
+      }
+
+      &:hover {
+        color: $dark-grey!important;
+      }
+    }
+  }
+
 }
+
 

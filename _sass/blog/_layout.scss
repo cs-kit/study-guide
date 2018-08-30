@@ -5,8 +5,15 @@
   border-bottom: 1px solid $grey-color-light;
   min-height: $spacing-unit * 1.865;
 
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  background: white;
+  z-index: 2;
+
   // Positioning context for the mobile navigation icon
-  position: relative;
+  //position: relative;
 }
 
 .site-title {
@@ -166,7 +173,7 @@
 .post-meta {
   font-size: $small-font-size;
   color: $grey-color;
-  padding: 35px 0px 35px 0px;
+  //padding: 35px 0px 35px 0px;
 }
 
 .post-meta-list {

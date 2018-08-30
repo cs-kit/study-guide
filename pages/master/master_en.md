@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Master computer science
+img: /assets/coffe_code.jpg
 permalink: /master-en/
 ref: master
 excerpt: Information about the master program in computer science and its specializations

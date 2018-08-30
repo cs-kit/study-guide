@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Generelles
+img: /assets/karlsruhe.jpg
 permalink: /general-de/
 ref: general
 excerpt: Informationen über Bewerbung, Wohnen und Administratives
@@ -8,8 +9,9 @@ lang: de
 nav_order: 0
 ---
 
-Informationen über Bewerbung, Wohnen und Administratives
-
+## Linksammlung
+Alle wichtigen Links sind [**hier**]({% post_url 2018-08-30-Links %}) zusammengefasst. Dieser Artikel wird ständig überarbeitet und soll daher
+einen möglichst vollständigen Überblick bieten.
 
 <br>
 <hr>
