@@ -178,6 +178,7 @@ a {
 .main-content {
   word-wrap: break-word;
   min-height: 84vh;
+  padding: 0 15px;
 
   :first-child {
     margin-top: 0;
@@ -185,18 +186,18 @@ a {
 
   @include large {
     max-width: $large-breakpoint;
-    padding: 1rem 6rem; //3
+    padding: 20px; //3
     margin: 0 auto;
     font-size: 1.1rem;
   }
 
   @include medium {
-    padding: 1rem 4rem; //3
+    padding: 20px; //3
     font-size: 1.1rem;
   }
 
   @include small {
-    padding: 0.5rem 1rem; //2
+    padding: 10px; //2
     font-size: 1rem;
   }
 
@@ -599,11 +600,26 @@ a {
 
 .post-container {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: wrap-reverse;
+  padding: 0 15px;
 
   .post-main {
     flex-grow: 2;
-    order: 3;
+    order: 1;
+    height: auto;
+
+    @include large {
+      width: 68%;
+    }
+
+    @include medium {
+      width: 68%;
+    }
+
+    @include small {
+      width: 100%;
+    }
+
   }
 
   .post-header {
@@ -611,9 +627,9 @@ a {
     order: 1;
   }
 
+  // Ebene 1
   .sidenav {
     //height: 100% - $spacing-unit * 1.865; /* Full-height: remove this if you want "auto" height */
-    width: 160px; /* Set the width of the sidebar */
     //position: fixed; /* Fixed Sidebar (stay in place on scroll) */
     z-index: 1; /* Stay on top */
     float: right;
@@ -623,12 +639,40 @@ a {
     margin-top: 120px;
     border-left: 1px solid $line-color;
     list-style: none;
-    padding: 10px;
+    padding: 15px;
     color: $light-grey!important;
     flex-grow: 1;
     order: 2;
+    font-size: 15px;
+    margin-left: 2%;
 
+
+    > li {
+      border-bottom: 1px solid $line-color;
+      padding-bottom: 10px;
+      padding-top: 10px;
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+
+    // Ebene 2
     > li > ul {
+      padding-left: 20px;
+      list-style: none;
+      color: $light-grey!important;
+    }
+
+    // Ebene 3
+    > li > ul > li > ul {
+      padding-left: 20px;
+      list-style: none;
+      color: $light-grey!important;
+    }
+
+    // Ebene 4
+    > li > ul > li > ul li > ul {
       padding-left: 20px;
       list-style: none;
       color: $light-grey!important;
@@ -637,6 +681,7 @@ a {
     a {
       color: $section-headings-color;
       line-height: $base-line-height;
+      margin: 10px 0;
 
       // Gaps between nav items, but not on the last one
       &:not(:last-child) {
@@ -652,7 +697,21 @@ a {
         color: $dark-grey!important;
       }
     }
+
+    @include large {
+      width: 30%;
+    }
+
+    @include medium {
+      width: 30%;
+    }
+
+    @include small {
+      width: 100%;
+    }
   }
+
+
 
 }
 
