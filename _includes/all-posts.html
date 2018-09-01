@@ -1,7 +1,5 @@
-{% assign category = include.category %}
-{% assign lang = include.lang %}
-{% assign posts_lang = site.posts | where:"lang", lang %}
-{% assign max_posts = include.max_posts | posts_lang.size %}
-{% assign max_post_tags = include.max_post_tags | posts_lang.size %}
+{% assign posts = site.posts | where:"lang", include.lang %}
+{% assign max_posts = include.max_posts | posts.size %}
+{% assign max_post_tags = include.max_post_tags | posts.size %}
 
 {% include post_list.html %}

@@ -10,8 +10,5 @@ nav_order: 0
 show_in_nav: true
 ---
 
-<br>
-<hr>
-<br>
 
 {% include posts_of_category.html category=site.categories.general cat_name=page.title%}

@@ -16,6 +16,7 @@ index:
 feed:
   en: /feed-en.xml
   de: /feed-de.xml
+
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://cs-k.it" # the base hostname & protocol for your site
 # twitter_username: jekyllrb
@@ -75,6 +76,8 @@ t:
       november: "Nov"
       december : "Dec"
     all-posts-category: "All posts in the category"
+    privacy: "Privacy"
+    privacy_url: "/privacy"
 
   de:
       latest-posts:  "Neuste Artikel"
@@ -101,4 +104,6 @@ t:
         november: "Nov"
         december : "Dez"
       all-posts-category: "Alle Artikel der Kategorie"
+      privacy: "Datenschutz"
+      privacy_url: "/datenschutz"
 

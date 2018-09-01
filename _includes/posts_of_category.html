@@ -7,8 +7,6 @@
 
 {{ site.t[page.lang].all-posts-category }} <strong>{{ cat_name }}</strong>:
 
-{% assign lang = include.lang %}
-{% assign posts_lang = posts | where:"lang", lang %}
 
 {% include post_list.html %}
 

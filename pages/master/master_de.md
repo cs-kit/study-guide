@@ -12,8 +12,5 @@ show_in_nav: true
 
 
 
-<br>
-<hr>
-<br>
 
 {% include posts_of_category.html category=site.categories.master cat_name=page.title%}
