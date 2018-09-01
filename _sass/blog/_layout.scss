@@ -66,9 +66,9 @@
   }
 
   .lang {
-    color: $dark-grey!important;
+    color: $section-headings-color;
     padding: 3px 4px;
-    border: 1px solid $dark-grey;
+    border: 1px solid $section-headings-color;
     border-radius: 2px;
 
     &,
@@ -77,7 +77,16 @@
     }
 
     &:hover {
-      color: $light-grey!important;
+      color: white;
+      background-color: $section-headings-color;
+    }
+
+    @include small {
+       margin-right: 20px;
+    }
+
+    @include medium {
+       margin-right: 20px;
     }
   }
 

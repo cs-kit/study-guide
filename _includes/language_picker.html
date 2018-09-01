@@ -1,10 +1,12 @@
-<!-- Langugage Picker -->
+	<!-- Langugage Picker -->
 <!-- Posts -->
 {% assign posts=site.posts | where:"ref", page.ref | sort: 'lang' %}
 {% for post in posts %}
 <!-- Show Language Button of lang that is not displayed -->
 {% if post.ref and post.lang != this_page_lang %}
-<a href="{{ post.url | prepend: site.baseurl }}" class="lang">{{ post.lang }}</a>
+
+<a href="{{ post.url | prepend: site.baseurl }}" class="lang"><strong>{{ this_page_lang }}</strong> / {{ post.lang }}</a> 
+
 {% endif %}
 {% endfor %}
 
