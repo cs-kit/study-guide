@@ -21,6 +21,9 @@ url: "https://cs-k.it" # the base hostname & protocol for your site
 # twitter_username: jekyllrb
 github_username:  cs-kit
 
+# slow reading speed for article reading time
+words_per_minute: 100
+
 # github on site
 github:
   username: cs-kit
