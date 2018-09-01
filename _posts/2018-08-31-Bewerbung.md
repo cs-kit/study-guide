@@ -6,6 +6,7 @@ date:   2018-08-31 07:00:00 +0100
 categories: general
 excerpt: Was für Dokumente braucht man für die Bewerbung beim KIT? Bis wann versenden?
 lang: de
+tags: organize application
 ---
 
 Informationen zu:

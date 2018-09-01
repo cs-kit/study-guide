@@ -11,7 +11,7 @@ show_in_nav: true
 ---
 
 ## Linksammlung
-Alle wichtigen Links sind [**hier**]({% post_url 2018-08-30-Links %}) zusammengefasst. Dieser Artikel wird ständig überarbeitet und soll daher
+Alle wichtigen Links sind [**hier**]({% post_url 2018-08-30-Links-de %}) zusammengefasst. Dieser Artikel wird ständig überarbeitet und soll daher
 einen möglichst vollständigen Überblick bieten.
 
 
