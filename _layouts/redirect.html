@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+{% include head.html %}
+<meta http-equiv="Refresh" content="{{ page.redirect_sleep_seconds }}; url={{ page.redirect_to }}">
+
+<body>
+
+{% include top_nav.html %}
+{% if page.header == true %}
+  {% include header.html %}
+{% endif %}
+
+
+<div class="main-content">
+  <article class="post">
+
+  <header class="post-header" style="text-align: center">
+    <h1 class="post-title">{{ page.title }}</h1>
+
+    <div class="post-subtitle">
+      {{ page.excerpt }}
+    </div>
+
+    <img class="post-img" src="{{page.img}}" />
+  </header>
+
+  <div class="post-content">
+    {{ content }}
+  </div>
+
+</article>
+</div>
+
+{% include footer.html %}
+
+</body>
+
+</html>

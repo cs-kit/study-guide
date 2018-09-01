@@ -36,6 +36,14 @@ markdown: kramdown
 # Exclude for build
 exclude: [.idea]
 
+# post url
+permalink: /:categories/:title:output_ext
+
+# Grouped content
+collections: 
+  forwards:
+    output: true
+
 # Translations
 description:
   en: An information source about studying computer science at Karlsruher Institute of Technology
