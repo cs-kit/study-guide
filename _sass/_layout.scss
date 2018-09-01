@@ -2,7 +2,6 @@
  * Site header
  */
 .site-header {
-    border-top: 5px solid $grey-color-dark;
     border-bottom: 1px solid $grey-color-light;
     min-height: 56px;
 
@@ -33,13 +32,23 @@
     }
 
     .page-link {
-        color: $text-color;
+        color: $link-text-color;
         line-height: $base-line-height;
 
         // Gaps between nav items, but not on the last one
         &:not(:last-child) {
             margin-right: 20px;
         }
+
+        &:hover {
+            color: $link-hover-text-color;
+        }
+    }
+
+    .lang {
+        border: 1px solid $grey-color-dark;
+        border-radius: 2px;
+        padding: 2px 4px;
     }
 
     @include media-query($on-palm) {
@@ -180,7 +189,7 @@
     list-style: none;
 
     > li {
-        margin-bottom: $spacing-unit;
+        //margin-bottom: $spacing-unit;
     }
 }
 
@@ -192,6 +201,7 @@
 .post-link {
     display: block;
     font-size: 24px;
+    color: $grey-color-dark;
 }
 
 
@@ -200,11 +210,11 @@
  * Posts
  */
 .post-header {
-    margin-bottom: $spacing-unit;
+    //margin-bottom: $spacing-unit;
 }
 
 .post-title {
-    font-size: 42px;
+    font-size: 100px;
     letter-spacing: -1px;
     line-height: 1;
 
@@ -240,3 +250,137 @@
         }
     }
 }
+
+
+/*
+Main
+ */
+
+.btn {
+    display: inline-block;
+    margin-bottom: 1rem;
+    color: rgba(255, 255, 255, 0.7);
+    background-color: $section-headings-color-opacity;
+    border-color: rgba(255, 255, 255, 0.2);
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 0.3rem;
+    transition: color 0.2s, background-color 0.2s, border-color 0.2s;
+
+    &:hover {
+        color: rgba(0, 0, 0, 0.8);
+        text-decoration: none;
+        background-color: rgba(255, 255, 255, 0.2);
+        border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    + .btn {
+        margin-left: 1rem;
+    }
+
+    @include large {
+        padding: 0.75rem 1rem;
+    }
+
+    @include medium {
+        padding: 0.6rem 0.9rem;
+        font-size: 0.9rem;
+    }
+
+    @include small {
+        display: block;
+        width: 30%;
+        margin: auto;
+        padding: 0.75rem;
+        font-size: 0.9rem;
+
+        + .btn {
+            margin-top: 1rem;
+            margin-left: 0;
+        }
+    }
+}
+
+.page-header {
+    color: $header-heading-color;
+    text-align: center;
+    background-size: inherit;
+    background: linear-gradient(0deg,rgba(0,0,0,0.2),rgba(0,0,0,0.0)), url('/assets/header_img.png') center center repeat;
+
+    h1 {
+        color: $section-headings-color;
+    }
+
+    h2 {
+        color: $blockquote-text-color;
+    }
+
+    @include large {
+        padding: 5rem 6rem;
+    }
+
+    @include medium {
+        padding: 3rem 4rem;
+    }
+
+    @include small {
+        padding: 2rem 1rem;
+    }
+}
+
+.project-name {
+    margin-top: 0;
+    margin-bottom: 0.1rem;
+
+    @include large {
+        font-size: 3.25rem;
+    }
+
+    @include medium {
+        font-size: 2.25rem;
+    }
+
+    @include small {
+        font-size: 1.75rem;
+    }
+}
+
+.project-tagline {
+    margin-bottom: 2rem;
+    font-weight: normal;
+    opacity: 1;
+    color: #eeeeee;
+
+    @include large {
+        font-size: 1.25rem;
+    }
+
+    @include medium {
+        font-size: 1.15rem;
+    }
+
+    @include small {
+        font-size: 1rem;
+    }
+}
+
+.about-info {
+    border-bottom: 1px solid $line-color;
+    margin-bottom: 20px;
+
+    div {
+        padding: 15px 0;
+    }
+
+    h1 {
+        font-size: $base-font-size-header-main;
+    }
+}
+
+.home {
+    h1 {
+        font-size: $base-font-size-header-main;
+    }
+}
+
+

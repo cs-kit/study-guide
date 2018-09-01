@@ -1,8 +1,14 @@
-<ul>
-  {% assign posts=include.category | where:"lang", page.lang %}
-  {% for post in posts %}
-    {% if post.url %}
-        <li>  <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a> </li>
-    {% endif %}
-  {% endfor %}
-</ul>
+{% assign posts=include.category | where:"lang", page.lang %}
+{% assign cat_name=include.cat_name %}
+
+<!--TODO: Filter Posts-->
+
+{% include separator.html %}
+
+{{ site.t[page.lang].all-posts-category }} <strong>{{ cat_name }}</strong>:
+
+{% assign lang = include.lang %}
+{% assign posts_lang = posts | where:"lang", lang %}
+
+{% include post_list.html %}
+

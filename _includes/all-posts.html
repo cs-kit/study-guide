@@ -1,0 +1,12 @@
+{% assign category = include.category %}
+{% assign lang = include.lang %}
+{% assign posts_lang = site.posts | where:"lang", lang %}
+{% assign max_posts = include.max_posts | posts_lang.size %}
+{% assign max_post_tags = include.max_post_tags | posts_lang.size %}
+
+{% include post_list.html %}
+
+{% if max_posts < posts_lang.size %}
+{% capture category_url %}{% include get-page-url.html page_ref=category page_lang=lang %}{% endcapture %}
+<a href="{{ category_url }}" class="btn btn-dark">{{ site.t[lang].show-more }}</a>
+{% endif %}

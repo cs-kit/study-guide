@@ -3,8 +3,14 @@ layout: default
 ---
 <article class="post">
 
-  <header class="post-header">
+  <header class="post-header" style="text-align: center">
     <h1 class="post-title">{{ page.title }}</h1>
+
+    <div class="post-subtitle">
+      {{ page.excerpt }}
+    </div>
+
+    <img class="post-img" src="{{page.img}}" />
   </header>
 
   <div class="post-content">

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html class="html_post">
 
 {% include head.html %}
 
-<body>
+<body class="flex_body_post">
 
 {% include top_nav.html %}
 {% if page.header == true %}
@@ -11,11 +11,14 @@
 {% endif %}
 
 
-<div class="main-content" style="margin-bottom: 60px;">
+
+
+
   {{ content }}
-</div>
 
 {% include footer.html %}
+
+
 
 </body>
 

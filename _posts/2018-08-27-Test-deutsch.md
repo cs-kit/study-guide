@@ -3,9 +3,12 @@ layout: post
 title:  "Test"
 ref: test
 date:   2018-08-27 09:00:00 +0100
-categories: bachelor
+categories: master
 excerpt: Testing jekyll
 lang: de
+tags: tag1 tag2 tag3 tag4 tag5
 ---
 
-dddd
+TEST MASTER ARTIKEL DEUTSCH
+
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
