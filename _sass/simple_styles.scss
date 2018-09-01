@@ -387,7 +387,7 @@ a {
 
   @include small {
     font-size: 0.9rem;
-    margin-bottom: 0.5rem;
+    //margin-bottom: 0.5rem;
   }
 }
 
@@ -506,10 +506,6 @@ a {
 /**
  * Posts
  */
-.post-header {
-  //margin-bottom: $spacing-unit;
-  margin-top: 100px!important;
-}
 
 .post-title {
   font-size: 42px;
@@ -622,97 +618,143 @@ a {
 
   }
 
-  .post-header {
-    flex-grow: 2;
-    order: 1;
-  }
-
-  // Ebene 1
-  .sidenav {
-    //height: 100% - $spacing-unit * 1.865; /* Full-height: remove this if you want "auto" height */
-    //position: fixed; /* Fixed Sidebar (stay in place on scroll) */
-    z-index: 1; /* Stay on top */
-    float: right;
-    //top: 100px;
-    //right: 100px;
-    overflow: hidden; /* Disable horizontal scroll */
-    margin-top: 120px;
-    border-left: 1px solid $line-color;
-    list-style: none;
-    padding: 15px;
-    color: $light-grey!important;
-    flex-grow: 1;
-    order: 2;
-    font-size: 15px;
-    margin-left: 2%;
 
 
-    > li {
-      border-bottom: 1px solid $line-color;
-      padding-bottom: 10px;
-      padding-top: 10px;
 
-      &:last-child {
-        border-bottom: none;
-      }
-    }
 
-    // Ebene 2
-    > li > ul {
-      padding-left: 20px;
-      list-style: none;
-      color: $light-grey!important;
-    }
 
-    // Ebene 3
-    > li > ul > li > ul {
-      padding-left: 20px;
-      list-style: none;
-      color: $light-grey!important;
-    }
 
-    // Ebene 4
-    > li > ul > li > ul li > ul {
-      padding-left: 20px;
-      list-style: none;
-      color: $light-grey!important;
-    }
+}
+
+.sidenav-wrapper {
+  OL { counter-reset: item }
+  LI { display: block }
+  LI:before { content: counters(item, ".") " "; counter-increment: item }
+}
+
+
+// Ebene 1
+.sidenav {
+  z-index: 1; /* Stay on top */
+  float: right;
+  margin-top: 120px;
+  border-left: 1px solid $line-color;
+  list-style: none;
+  padding: 15px;
+  font-size: 15px;
+  margin-left: 2%;
+  white-space: nowrap;
+
+  > li {
+    border-bottom: 1px solid $line-color;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    color:$darkest-grey;
 
     a {
-      color: $section-headings-color;
-      line-height: $base-line-height;
-      margin: 10px 0;
-
-      // Gaps between nav items, but not on the last one
-      &:not(:last-child) {
-        margin-right: 20px;
-      }
-
-      &,
-      &:visited {
-        text-decoration: none;
-      }
-
-      &:hover {
-        color: $dark-grey!important;
-      }
+      color:$darkest-grey;
     }
 
-    @include large {
-      width: 30%;
-    }
-
-    @include medium {
-      width: 30%;
-    }
-
-    @include small {
-      width: 100%;
+    &:last-child {
+      border-bottom: none;
     }
   }
 
+  // Ebene 2
+  > li > ol {
+    padding-left: 20px;
+    list-style: none;
+    color:$dark-grey;
+    a {
+      color:$dark-grey;
+    }
+  }
+
+  // Ebene 3
+  > li > ol > li > ol {
+    padding-left: 20px;
+    list-style: none;
+    color:$mid-grey;
+    a {
+      color:$mid-grey;
+    }
+  }
+
+  // Ebene 4
+  > li > ol > li > ol li > ol {
+    padding-left: 20px;
+    list-style: none;
+    color:$light-grey;
+    a {
+      color:$light-grey;
+    }
+  }
+
+  a {
+    //color: $section-headings-color;
+    line-height: $base-line-height;
+    margin: 10px 0;
+
+    // Gaps between nav items, but not on the last one
+    &:not(:last-child) {
+      margin-right: 20px;
+    }
+
+    &,
+    &:visited {
+      text-decoration: none;
+    }
+
+    &:hover {
+      color: $dark-grey!important;
+    }
+  }
+
+  @include large {
+  }
+
+  @include medium {
+  }
+
+  @include small {
+    display: none;
+  }
+}
 
 
+// Below Daniel
+
+.html_post {
+  height: 100%;
+}
+.flex_body_post {
+  height: 100%;
+  overflow: hidden;
+  margin: 0px;
+  display: flex;
+}
+
+.column {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+#left {
+  flex-shrink: 0;
+  background-color: white;
+}
+#right {
+  background-color: #f3f3f3;
+}
+.bottom {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 20px;
 }
 
 

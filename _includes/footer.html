@@ -1,4 +1,4 @@
-<footer class="site-footer">
+<footer class="site-footer" style="position: fixed; bottom: 0; width: 100%; height:60px; background-color: white;">
   <div class="main-content">
     <!-- Github icon -->
     <span class="my-span-icon">
@@ -11,7 +11,7 @@
   </span>
 
     <!-- RSS icon -->
-    <span class="my-span-icon hide-on-small">
+    <span class="my-span-icon">
     <a href="{{ '/feed-' | prepend: site.baseurl | prepend: site.url | append: page.lang | append: '.xml' }}"
        target="_blank"
        aria-label="RSS feed"
