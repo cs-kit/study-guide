@@ -7,6 +7,7 @@ ref: master
 excerpt: Information about the master program in computer science and its specializations
 lang: en
 nav_order: 1
+show_in_nav: true
 ---
 
 Information about the master program in computer science and its specializations

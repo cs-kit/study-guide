@@ -7,6 +7,7 @@ ref: master
 excerpt: Alle wichtigen Informationen zum Informatik Master am Karlsruher Institut für Technologie
 lang: de
 nav_order: 1
+show_in_nav: true
 ---
 
 

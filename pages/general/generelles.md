@@ -7,6 +7,7 @@ ref: general
 excerpt: Informationen über Bewerbung, Wohnen und Administratives
 lang: de
 nav_order: 0
+show_in_nav: true
 ---
 
 ## Linksammlung

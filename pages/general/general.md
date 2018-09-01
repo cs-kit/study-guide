@@ -7,6 +7,7 @@ ref: general
 excerpt: Information about application, housing and administrations
 lang: en
 nav_order: 0
+show_in_nav: true
 ---
 
 <br>

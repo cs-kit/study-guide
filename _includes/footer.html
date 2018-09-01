@@ -1,5 +1,6 @@
-<footer class="site-footer" style="position: fixed; bottom: 0; width: 100%; height:60px; background-color: white;">
-  <div class="main-content">
+<footer class="site-footer" style="position: fixed; bottom: 0; width: 100%; height:60px; background-color: white; ">
+  <div style="position:relative;">
+  <div style="position: absolute; top: 50%; transform: translateY(40%); left:5%;">
     <!-- Github icon -->
     <span class="my-span-icon">
     <a href="{{ site.github.url }}"
@@ -29,9 +30,11 @@
       </a>
     </span>
 
-    <div class="impressum" style="float:right;">
+  </div>
+
+<span class="impressum" style="position: absolute; top: 50%; transform: translateY(80%); right:5%;">
       <a href="/datenschutz">Datenschutz</a>
-    </div>
+    </span>
 
   </div>
 
