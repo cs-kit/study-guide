@@ -76,24 +76,24 @@ schlechtesten Ergebnisse nicht in den Schnitt einberechnen lassen.
 
 Modulhandbuch:
 
-      "Grundsätzlich kann jede Erfolgskontrolle (mündlicher, schriftlicher oder anderer Art) einmal wiederholt werden. Im Falle
-      einer schriftlichen Prüfung erfolgt nach zweimaligem Nichtbestehen zeitnah (in der Regel im selben Prüfungszeitraum)
-      eine mündliche Nachprüfung. In dieser können nur noch die Noten “ausreichend” (4,0) oder “nicht ausreichend” (5,0)
-      vergeben werden. Ist eine Prüfung endgültig nicht bestanden, so gilt der Prüfungsanspruch im Fach Informatik und für alle
-      artverwandten Studiengänge als verloren. Eine Teilnahme an weiteren Prüfungen ist nicht möglich. Durch Genehmigung
-      eines Antrags auf Zweitwiederholung können weitere Prüfungen unter Vorbehalt (http://www.informatik.kit.edu/faq-
-      info.php) abgelegt werden. Der Studierende bekommt diese aber im Erfolgsfall erst angerechnet, wenn die endgültig nicht
-      bestandene Prüfung bestanden wurde. Der Prüfungsanspruch gilt erst dann als wiederhergestellt, wenn die nicht bestandene
-      Prüfung bestanden ist. Studienleistungen (unbenotete Erfolgskontrolle) können beliebig wiederholt werden, falls in der
-      Modul- oder Teillleistungsbeschreibung keine weiteren Regelungen vorgesehen sind. Der Zweitwiederholungsantrag ist bei
-      dem Informatik Studiengangservice (ISS) schriftlich einzureichen."
+      "Grundsätzlich kann jede Erfolgskontrolle (mündlicher, schriftlicher oder
+        anderer Art) einmal wiederholt werden. Im Falle einer schriftlichen
+        Prüfung erfolgt nach zweimaligem Nichtbestehen zeitnah
+        (in der Regel im selben Prüfungszeitraum)eine mündliche Nachprüfung.
+        In dieser können nur noch die Noten “ausreichend” (4,0) oder
+        “nicht ausreichend” (5,0) vergeben werden. Ist eine Prüfung endgültig
+        nicht bestanden, so gilt der Prüfungsanspruch im Fach Informatik und
+        für alle artverwandten Studiengänge als verloren. Eine Teilnahme an
+        weiteren Prüfungen ist nicht möglich."
 
 **Abmeldung von Klausuren**
 
-      "Danach ist ohne Angabe von Gründen bis zur Ausgabe der Prüfungsaufgaben bei schriftlichen Prüfungen eine Abmeldung
-      (persönlich und schriftlich) nur noch direkt beim zuständigen Prüfer möglich. Die Abmeldung von einer mündlichen Prüfung
-      erfolgt beim zuständigen Prüfer bzw. seinem Sekretariat. Die Abmeldung muss spätestens drei Werktage vor dem
-      Prüfungstermin erklärt werden. Ein persönliches Erscheinen kann für die Abmeldung verlangt werden. "
+      "Danach ist ohne Angabe von Gründen bis zur Ausgabe der Prüfungsaufgaben
+      bei schriftlichen Prüfungen eine Abmeldung (persönlich und schriftlich)
+      nur noch direkt beim zuständigen Prüfer möglich. Die Abmeldung von einer
+      mündlichen Prüfung erfolgt beim zuständigen Prüfer bzw. seinem Sekretariat.
+      Die Abmeldung muss spätestens drei Werktage vor dem Prüfungstermin erklärt
+       werden. Ein persönliches Erscheinen kann für die Abmeldung verlangt werden. "
 
 Siehe auch im [Wiki zu Prüfungen](https://www.informatik.kit.edu/faq-wiki/doku.php?id=pruefungen)
 
@@ -117,7 +117,9 @@ Siehe hierzu:
 
 ## Stammmodule
 
-Laut Modulhandbuch: "Stammmodule vermitteln erweiterte Grundlagen aus sehr spezifischen Bereichen der Informatik."
+Laut Modulhandbuch:
+
+      "Stammmodule vermitteln erweiterte Grundlagen aus sehr spezifischen Bereichen der Informatik."
 
 **Im Wintersemester gibt es andere Stammmodule als im Sommersemester.**
 
@@ -133,20 +135,25 @@ Wähle zwei Vertiefungsfächer (á 15 - 52 LP) aus der folgenden Liste:
 
 ![Master Informatik Vertiefungsfaecher](../assets/images/Vertiefungsfaecher.png "Master Informatik Vertiefungsfaecher")
 
-      "Für Studierende, die nach der SPO 2015 studieren, gilt außerdem: In jedem Vertiefungsfach müssen mind. 10 LP aus
-      Vorlesungen (keine Stammvorlesungen) erbracht werden. Ausnahme bildet VF8 Telematik: Im VF Telematik müssen mind. 8 LP aus Vorlesungen (keine Stammvorlesung) erbracht werden. Anstelle mehrerer mündlicher Prüfungen zu Modulen eines
-      Vertiefungsfachs kann eine modulübergreifende Prüfung zu diesen Modulen durchgeführt werden. Darüber entscheidet
-      der/die Prüfer/in.
-      Insgesamt können in einem Vertiefungsfach bis zu 52 LP erbracht werden, jedoch können insgesamt im Studium nicht
-      mehr als 120 LP absolviert werden."
+      "Für Studierende, die nach der SPO 2015 studieren, gilt außerdem: In jedem
+      Vertiefungsfach müssen mind. 10 LP aus Vorlesungen (keine Stammvorlesungen)
+      erbracht werden. Ausnahme bildet VF8 Telematik: Im VF Telematik müssen
+      mind. 8 LP aus Vorlesungen (keine Stammvorlesung) erbracht werden.
+      Anstelle mehrerer mündlicher Prüfungen zu Modulen eines Vertiefungsfachs
+      kann eine modulübergreifende Prüfung zu diesen Modulen durchgeführt werden.
+      Darüber entscheidet der/die Prüfer/in. Insgesamt können in einem
+      Vertiefungsfach bis zu 52 LP erbracht werden, jedoch können insgesamt im
+      Studium nicht mehr als 120 LP absolviert werden."
 
 
 **ACHTUNG! 12-18 LP durch Vertiefungsfächer und Wahlbereich. Mindestens 3 LP Seminare. Mindestens 6 LP Praktika.**
 
-      "Für Studierende, die nach der SPO 2015 studieren, gilt: Es müssen mind. 3 LP durch Seminare und mind. 6 LP durch
-      Praktika in den Vertiefungsfächern und dem Wahlbereich erbracht werden. Insgesamt müssen mind. 12 LP durch Praktika
+      "Für Studierende, die nach der SPO 2015 studieren, gilt: Es müssen mind.
+      3 LP durch Seminare und mind. 6 LP durch Praktika in den Vertiefungsfächern
+      und dem Wahlbereich erbracht werden. Insgesamt müssen mind. 12 LP durch Praktika
       und Seminare erbracht werden (s. auch. Abbildung 1).
-      Für alle Studierenden gilt: Es dürfen insgesamt max. 18 LP durch Praktika und Seminare erbracht werden."
+      Für alle Studierenden gilt: Es dürfen insgesamt max. 18 LP durch Praktika
+      und Seminare erbracht werden."
 
 ## Wahlbereich
 
@@ -215,17 +222,24 @@ Es gibt folgende Profile
 Folgende Auszüge aus dem Modulhandbuch sind interessant im Bezug auf die Profile:
 
 **Studienplan am Anfang des Semesters festlegen:**
-  *Studierenden, die ein Profil absolvieren möchten, wird stark empfohlen, am Anfang des Studiums einen Studienplan zu
-  erstellen. Dafür steht Anlage 1 zur Verfügung (siehe auch http://www.informatik.kit.edu/formulare.php#block1936).
-  Der Studienplan kann zur Planungssicherheit im Rahmen einer Beratung beim Informatik Studiengangservice (ISS)
-  überprüft werden (http://www.informatik.kit.edu/3724.php). Der ISS überprüft zusammen mit dem/der Studierenden,
-  ob die Bedingungen für das Studienprofil und für den Masterstudiengang erfüllt sind.*
+
+      "Studierenden, die ein Profil absolvieren möchten, wird stark empfohlen,
+      am Anfang des Studiums einen Studienplan zu erstellen. Dafür steht Anlage 1
+       zur Verfügung (siehe auch http://www.informatik.kit.edu/formulare.php#block1936).
+      Der Studienplan kann zur Planungssicherheit im Rahmen einer Beratung beim
+      Informatik Studiengangservice (ISS) überprüft werden
+      (http://www.informatik.kit.edu/3724.php). Der ISS überprüft zusammen mit
+      dem/der Studierenden, ob die Bedingungen für das Studienprofil und für den
+      Masterstudiengang erfüllt sind."
 
 **Auswirkungen eines Studienprofils:**
-*In der Regel beschränkt ein Studienprofil die thematische Ausrichtung der Masterarbeit und enthält Regelungen
-zur Wahl von Modulen im Umfang von mindestens 45 Leistungspunkten. [...] Ein Studienprofil kann Bedingungen aufstellen zu
-– dem Themenbereich der Masterarbeit,
-– den zu wählenden Vertiefungsfächern,
-– dem zu wählenden Ergänzungsfach,
-– den innerhalb der Vertiefungsfächer, dem Ergänzungsfach und der Überfachlichen Qualifikationen zu
-belegenden Modulen (einschließlich Stammmodulen, Praktika und Seminaren).*
+
+      "In der Regel beschränkt ein Studienprofil die thematische Ausrichtung der
+      Masterarbeit und enthält Regelungen zur Wahl von Modulen im Umfang von mindestens
+      45 Leistungspunkten. [...] Ein Studienprofil kann Bedingungen aufstellen zu
+      – dem Themenbereich der Masterarbeit,
+      – den zu wählenden Vertiefungsfächern,
+      – dem zu wählenden Ergänzungsfach,
+      – den innerhalb der Vertiefungsfächer, dem Ergänzungsfach und der
+      Überfachlichen Qualifikationen zu belegenden Modulen
+      (einschließlich Stammmodulen, Praktika und Seminaren)."
