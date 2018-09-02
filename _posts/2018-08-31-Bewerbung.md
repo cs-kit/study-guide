@@ -40,7 +40,7 @@ Die Anforderungen an deinen (fast) abgeschlossenen Bachelor sind [hier](https://
 
 **Im Studienjahr 2017/18 wurden von 284 Bewerbern 189 zugelassen.**
 
-Es wird eine Liste aller Bewerbungen erstellt, welche nach Punkten sortiert wird. Man kann insgesamt 175 Punkte bekommen. 120 Punkte für Informatik- und Mathematikleistungen. Bis zu 40 Punkte für die "Gesamtnote der Abschlussprüfung". Die restlichen Punkte werden durch Berufserfahrung, akademische Leistungen und Berufserfahrung aufgefüllt.
+Es wird eine Liste aller Bewerbungen erstellt, welche nach Punkten sortiert wird. Man kann insgesamt 175 Punkte bekommen. 120 Punkte für Informatik- und Mathematikleistungen. Bis zu 40 Punkte für die "Gesamtnote der Abschlussprüfung". Die restlichen Punkte werden durch Berufserfahrung, akademische Leistungen und Ehrenamt aufgefüllt.
 
 **Was heißt das?** Das ist natürlich alles wage gehalten, daher ist es wahrscheinlich am anschaulichsten sich die Noten von zugelassenen Studenten anzusehen:
 
