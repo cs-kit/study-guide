@@ -4,7 +4,9 @@ title:  "Bewerbung Master Informatik"
 ref: application
 date:   2018-08-31 07:00:00 +0100
 categories: general
-excerpt: Was für Dokumente braucht man für die Bewerbung beim KIT? Bis wann versenden?
+excerpt: Was für Dokumente braucht man für die Bewerbung beim KIT?
+         Bis wann muss man diese versenden? Welcher Notenschnitt reicht aus?
+         Wann bekommt man Rückmeldung, ob man zugelassen wurde.
 lang: de
 tags: organize application
 ---
@@ -18,8 +20,8 @@ Informationen zu:
 
 Regelstudienzeit: 4 Semester (maximal 7)
 
-[Übersicht](https://www.informatik.kit.edu/7718.php) | 
-[Modulhandbuch](http://www.informatik.kit.edu/1956.php#block1933) | 
+[Übersicht](https://www.informatik.kit.edu/7718.php) |
+[Modulhandbuch](http://www.informatik.kit.edu/1956.php#block1933) |
 [Umfangreiche Broschüre](https://www.sle.kit.edu/downloads/studiengaenge/KIT_Informatik_BA_MA.pdf)
 
 ## Fristen
@@ -77,7 +79,7 @@ Als Beispiel folgt der Zeitverlauf, wann ich welche Aktionen getätigt habe und 
  - Das Portal hatte ab dem 15. Mai geöffnet (-> Bewerbungsschluss 15. Juli)
  - Die Dokumente zu besorgen ist in zwei Wochen möglich. **Online und Brief circa 2. Juni versendet.**
  - Bewerbungseingangsbestätigung kam am 6. Juni per Mail
- - Zulassung per E-Mail: **30. Juli** 
+ - Zulassung per E-Mail: **30. Juli**
  - Zulassung per Post: circa 15. August
  - Dokumente für Immatrikulation nachreichen: 14. August
  - Semesterbeitrag bezahlen: 15. August
@@ -88,13 +90,3 @@ Weitere Dinge, die passieren mussten:
 - Mietwohnung suchen: 1. - 20. August
 - In Familienversicherung melden
 - Ummeldung Wohnsitz
-
-
-
-
-
-
-
-
-
-
