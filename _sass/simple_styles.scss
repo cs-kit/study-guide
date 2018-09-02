@@ -188,7 +188,8 @@ a {
   }
 
   @include large {
-    max-width: $large-breakpoint;
+    //max-width: $large-breakpoint;
+    max-width: 90%;
     padding: 20px; //3
     //margin: 0 auto;
     margin-left:auto;
@@ -756,10 +757,10 @@ a {
   flex-shrink: 1;
   background-color: white;
 
-  //flex-basis: 1em; 
+  //flex-basis: 1em;
 }
 #right {
-  flex-shrink: 0;	
+  flex-shrink: 0;
   //background-color: #f3f3f3;
 
   @include large {
@@ -809,6 +810,3 @@ a {
     color:$section-headings-color;
   }
 }
-
-
-
