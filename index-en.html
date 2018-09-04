@@ -1,0 +1,23 @@
+---
+layout: default
+ref: index
+header: true
+lang: en
+---
+
+<h1>About {{ site.title[page.lang] }}</h1>
+
+<p>This website is intended to provide a personal experience report on the
+  Master of Computer Science at KIT, best practices in dealing with
+  administration/deadlines/etc and a collection place for lecture scripts.</p>
+
+<p>The motivation for this comes from the fact that you can put a lot of energy in
+lecture summaries and exercise sheets, but then they are archived on the computer.
+And we would have liked to have found more detailed information about the course of studies
+before applying for the master at KIT.</p>
+
+<p>It was not possible to find easy accessible information whether it is possible to get
+  accepted with your average grade or not.</p>
+
+<h1>Latest Articles</h1>
+{% include all-posts.html lang=page.lang max_posts=3 max_post_tags=3 %}

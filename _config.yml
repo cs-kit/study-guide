@@ -11,8 +11,8 @@ title:
   de: Informatik @KIT
 email: info@cs-k.it
 index:
-  en: index.html
-  de: uebersicht.html
+  en: index-en.html
+  de: index.html
 feed:
   en: /feed-en.xml
   de: /feed-de.xml
