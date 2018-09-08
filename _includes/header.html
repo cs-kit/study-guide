@@ -2,5 +2,11 @@
     <h1 class="project-name">{{ site.title[page.lang] }}</h1>
     <h2 class="project-tagline">{{ site.description[page.lang] }}</h2>
 
-    <a href="#" class="btn">{{ site.more[page.lang] }}</a>
+    {% assign this_page_lang = page.lang %}
+    {% assign pages=site.pages | where:"lang", page.lang | where:"show_in_nav", true | sort:"nav_order" %}
+    {% for my_page in pages %}
+    {% if my_page.title %}
+    <a href="{{ my_page.url | prepend: site.baseurl }}" class="btn">{{ my_page.title }}</a>
+    {% endif %}
+    {% endfor %}
 </section>
