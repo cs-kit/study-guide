@@ -15,7 +15,7 @@ show_in_nav: true
   <li>
     <a href="{{ forward.url }}">
       {{ forward.title }} - {{ forward.excerpt }}
-      <i>{{ site.url }}{{ forward.url }}  </i>
+      <i>{{ site.url }}<strong>{{ forward.url }}</strong>  </i>
     </a>
   
   </li>
