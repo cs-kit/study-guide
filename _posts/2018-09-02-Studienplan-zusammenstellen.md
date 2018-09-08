@@ -18,8 +18,8 @@ und worauf du achten musst.
 Alle Informationen sind folgenden Quellen zu entnehmen:
 
  - [Alle Formulare Informatik](https://www.informatik.kit.edu/formulare.php)
- - [Modulhandbuch WS 2018/19](cs-k.it/modul)
- - [Wiki Informatik](cs-k.it/wiki)
+ - [Modulhandbuch WS 2018/19](https://cs-k.it/modul)
+ - [Wiki Informatik](https://cs-k.it/wiki)
 
 ## Struktur
 
@@ -117,6 +117,8 @@ Siehe hierzu:
 
 ## Stammmodule
 
+Man muss vier Stammmodule belegen. Alle haben 6 LP.
+
 Laut Modulhandbuch:
 
       "Stammmodule vermitteln erweiterte Grundlagen aus sehr spezifischen Bereichen der Informatik."
@@ -128,6 +130,7 @@ Laut Modulhandbuch:
 **Überlegung:** Wenn man im ersten Semester die vier Stammmodule belegt, dann kommt man bereits auf
 4x6 ECTS = 24 ECTS. Dann hat man sich noch nicht für ein Profil oder Vertiefungsfach
 entschieden und kann quasi noch abwarten, welche Vorlesung einem am besten gefällt.
+Jedoch muss man beachten, dass jedes Studienprofil das ein oder andere Stammmodul verlangt.
 
 ## Vertiefungsfächer
 
