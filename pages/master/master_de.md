@@ -52,8 +52,12 @@ Profil: **Noch nicht gewählt**
 ## Student B
 
 Von Informatik der LMU zum WS18/19 ans KIT für den Master in Informatik gewechselt.  
-Er konnte sich vor dem ersten Semester nicht entscheiden, ob er als Studienprofil
-lieber <a href="/robotik">Robotik</a> oder <a href="/ai">Künstliche Intelligenz</a> wählen wollte.
+
+
+Ich kann mich vor dem ersten Semester nicht entscheiden, ob ich lieber das
+Studienprofil <a href="/robotik">Robotik</a> oder <a href="/ki">Künstliche Intelligenz</a> wählen wollte.
+Daher baue ich mein erstes Semester wahrscheinlich so auf, dass ich mich noch
+im zweiten Semester entscheiden kann.
 
 Das Stammmodul für KI ist Kognitive Systeme. Für Robotik muss man Mindestens
 Robotik 1 oder Echtzeitsysteme belegt haben.
@@ -76,7 +80,10 @@ Vorlesungen:
  - Seminar: Neuronale Netze und künstliche Intelligenz (3 LP, WS)
 
  Das Ergänzungsfach muss für das Profil Robotik eines der folgenden sein:
- Mathematik, Elektro- und Informationstechnik oder Maschinenbau
+ Mathematik, Elektro- und Informationstechnik oder Maschinenbau.
+
+
+
 
 
  <table style="">
@@ -94,17 +101,18 @@ Vorlesungen:
      <td>Robotik 1 (6 LP), Telematik (6 LP)</td>
      <td>Maschinelles Lernen 1 (3 LP), Seminar: Neuronale Netze und künstliche Intelligenz (3 LP)</td>
      <td></td>
-     <td>Mess- und Regelungstechnik  [M-MACH-102564] (7 LP)</td>
+     <td></td>
      <td>[M-INFO-102418] Praxis der Forschung 1. Semester - Details unklar (12 LP)</td>
-     <td>37</td>
+     <td>30</td>
    </tr>
    <tr>
      <td>2</td>
      <td>Kognitive Systeme (6 LP), Rechnerstrukturen (6 LP)</td>
-     <td>Mustererkennung (3 LP), Deep Learning und Neuronale Netze (6 LP)</td>
-     <td>Robotik 2 (3 LP)</td>
-     <td>Verhaltensgenerierung für Fahrzeuge [Befindet sich nicht im Modulkatalog, vielleicht möglich] (~3 LP),
-     Automotive Vision / Fahrzeugsehen [Befindet sich nicht im Modulkatalog, vielleicht möglich] (~5 LP) </td>
+     <td>Mustererkennung (3 LP), Deep Learning und Neuronale Netze (6 LP),
+     Deep Learning für Computer Vision (3 LP, SS),
+     Praktikum Forschungsprojekt: Anthropomatik praktisch erfahren (8 LP, SS)</td>
+     <td>Robotik 2 (3 LP), Einführung in die Bildfolgenauswertung (3 LP, SS)</td>
+     <td></td>
      <td>[M-INFO-102423] Praxis der Forschung 2. Semester - Details unklar (12 LP)
      </td>
      <td></td>
@@ -112,8 +120,8 @@ Vorlesungen:
    <tr>
      <td>3</td>
      <td></td>
-     <td></td>
-     <td></td>
+     <td>Grundlagen der automatischen Spracherkennung (6 LP, WS)</td>
+     <td>Probabilistische Planung (6 LP, WS)</td>
      <td></td>
      <td></td>
    </tr>
@@ -123,6 +131,23 @@ Vorlesungen:
      <td>30</td>
    </tr>
  </table>
+
+### Vertiefungsfach KI
+
+
+
+### Ergänzungsfach
+
+ Wenn ich nicht "Praxis der Forschung" belegen sollte, dann würde ich als
+ Ergänzungsfach einzelne Kurse aus Maschinenbau belegen wollen.
+
+  - Mess- und Regelungstechnik  [M-MACH-102564] (7 LP, WS): Ist die Voraussetzung für
+    die folgenden Kurse
+  - Verhaltensgenerierung für Fahrzeuge [Befindet sich nicht im Modulkatalog, vielleicht möglich] (~3 LP, SS)
+  - Automotive Vision / Fahrzeugsehen [Befindet sich nicht im Modulkatalog, vielleicht möglich] (~5 LP, SS)
+
+
+### Anforderungen erfüllt?
 
  ☑ 4 Stammmodule belegen
 
