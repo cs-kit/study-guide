@@ -22,7 +22,7 @@ aus dem Studium transportieren.
 Von Medieninformatik der LMU zum WS18/19 ans KIT für den Master in Informatik gewechselt.  
 
 Beim Durchsehen der Veranstaltungen habe ich gemerkt, dass Veranstaltungen, die mich interessieren,
-vor allem durch das Profil [Dateninsensives Rechnen](https://www.informatik.kit.edu/downloads/2018_08_profil_DIC_aug2018.pdf) abgedeckt werden. Daher werde ich mich vermutlich 
+vor allem durch das Profil [Dateninsensives Rechnen](https://www.informatik.kit.edu/downloads/2018_08_profil_DIC_aug2018.pdf) abgedeckt werden. Daher werde ich mich vermutlich
 für dieses Profil entscheiden.
 
 Ein möglicher Studenplan könnte daher wie folgt aussehen:
@@ -99,7 +99,7 @@ Ein möglicher Studenplan könnte daher wie folgt aussehen:
  ☑ Wahlblock (W): Veranstaltungen aus dem Wahlblock (siehe PDF) **23 LP**  
  ☑ Ergänzungsfach (E): min. 9 LP aus dem Erfänzungsfach "Betriebswirtschaftslehre für datenintensives Rechnen" (siehe PDF) **10 LP**  
  ☑ insgesamt mindestens 54 LP aus den obigen Punkten  **73 LP**
- 
+
 ### Anforderungen erfüllt?
  ☑ 4 Stammmodule belegen  
  ☑ 2 Vertiefungsfächer (á 15 - 52 LP)  
@@ -109,8 +109,8 @@ Ein möglicher Studenplan könnte daher wie folgt aussehen:
  ☑ Es dürfen insgesamt max. 18 LP durch Praktika und Seminare erbracht werden.   
  ☑ Ergänzungsfach:  9 - 18 LP  
  ☑ Überfachliche Qualifikation:  2 - 6 LP  
- 
- 
+
+
 Insgesamt fehlen mir also noch 3 LP Semiinar und 2 LP Praktikum. Ich habe insgesamt noch 4 LP übrig. Darüber wird abgeschnitten.
 
 
@@ -168,7 +168,7 @@ Vorlesungen:
    <tr>
      <td>1 (WS)</td>
      <td>Robotik 1 (6 LP), Telematik (6 LP)</td>
-     <td>Maschinelles Lernen 1 (3 LP), Seminar: Neuronale Netze und künstliche Intelligenz (3 LP), ... Grundlagen der automatischen Spracherkennung (6 LP), 
+     <td>Maschinelles Lernen 1 (3 LP), Seminar: Neuronale Netze und künstliche Intelligenz (3 LP), ... Grundlagen der automatischen Spracherkennung (6 LP),
 	 Automatische Sichtprüfung und Bildverarbeitung (6 LP)</td>
      <td></td>
      <td></td>
@@ -191,7 +191,7 @@ Vorlesungen:
      <td>3</td>
      <td></td>
      <td>Grundlagen der automatischen Spracherkennung (6 LP, WS)</td>
-     <td>Probabilistische Planung (6 LP, WS)</td>
+     <td>Probabilistische Planung (6 LP, WS), Mechano-Informatik in der Robotik (4 LP, WS)</td>
      <td></td>
      <td></td>
    </tr>

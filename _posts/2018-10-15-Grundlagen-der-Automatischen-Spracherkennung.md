@@ -17,7 +17,7 @@ Link zu den [Folien](https://ilias.studium.kit.edu/goto.php?target=file_884805_d
 
 Webseite: [http://isl.ira.uka.de](http://isl.ira.uka.de)
 
-Videos von WS18/19 auf DIVA: [DIVA Videos](https://mediaservice.bibliothek.kit.edu/#/details/DIVA-2017-518)
+Videos von WS17/18 auf DIVA: [DIVA Videos](https://mediaservice.bibliothek.kit.edu/#/details/DIVA-2017-518)
 
 WS 2013/2014 auf Youtube: [Playlist](https://www.youtube.com/playlist?list=PLfk0Dfh13pBMPGYh-vP9c6rSwkYcTUFo3)
 
