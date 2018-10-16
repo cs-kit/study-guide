@@ -1,11 +1,11 @@
 ---
 layout: post
-title:  "Erste Woche am KIT"
+title:  "Einführungswoche am KIT"
 ref: first_week
 date:   2018-10-14 09:00:00 +0100
 categories: master
 excerpt: Orientierungsphase am KIT, Einführungsveranstaltungen
-         und Administratives... In der ersten Woche ist einiges los.
+         und Administratives... Was vor dem Semesterstart zu beachten ist
 lang: de
 tags: organize getting-started
 ---
@@ -21,8 +21,10 @@ Während dieser Woche gibt es Dinge, die man erledigen sollte:
 
 ### Einführung am Montag
 
-Eine erste "Vorlesung" für alle neuen Informatik- und Mathematik-Studenten. Man sollte schon hingehen, sonst verpasst man
-wichtige und witzige Informationen.
+Eine erste "Vorlesung" für alle neuen Informatik- und Mathematik-Studenten im Audimax. Man sollte schon hingehen, sonst verpasst man
+interessante und witzige Informationen.
+
+![](/assets/images/audimax.jpg)
 
 ### FBI am Mittwoch
 
@@ -36,8 +38,16 @@ Siehe [Studienplan zusammenstellen](/master/Studienplan-zusammenstellen.html).
 
 ### Abend in Stadthalle
 
+Am Freitagabend findet die Begrüßung aller Erstsemester in der Stadthalle von Karlsruhe statt. Es wird Musik gespielt, der Präsident und der Oberbürgermeister sprechen, es gibt Preisverleihungen und auflockernde Elemente.
+Die Veranstaltung ist ganz nett, da es auch ein Getränk und einen Snack gibt, aber ehrlich gesagt verpasst man nichts wichtiges, wenn man keine Zeit hat.
+
 
 ## O-Phase
+
+Die O-Phase wird von der Fachschaft organisiert und hat zum Ziel die Studenten untereinander zu vernetzen und sie mit dem Campus und der Stadt vertraut zu machen.
+Da das KIT eine Campus-Uni ist, möchte man auch seinem Namen gerecht werden und es fühlt sich in der Tat ein bisschen wie in einem College-Film an: Es gibt 10-20 O-Phasen-Gruppen mit eigenen T-Shirts, Maskottchen und Schlachtrufen.
+
+Für Masterstudenten empfiehlt sich wahrscheinlich die Gruppe "Second Contact", da sie explizit für höhere Semester gedacht ist.
 
 Der Zeitplan der o-phase.com sieht erst einmal wie folgt aus:
 
@@ -98,16 +108,72 @@ Der Zeitplan der o-phase.com sieht erst einmal wie folgt aus:
 Wobei "Gruppen" bedeutet, dass man sich einer O-Phasen-Gruppe anschließen
 sollte. Hier finden Programmpunkte in kleineren Gruppen statt, wie zum Beispiel Flammkuchen essen, Campusführung, abends etwas trinken gehen...
 
-
-
-...
-
-...
-
 ## Ausrüstung beschaffen
+
+### E-Mail-Verteiler
+
+Folgende Verteiler sollten über die o-phase.com-Seite abonniert werden:
+
+ - Jahrgangsliste
+ - Informatik alle
+ - Informatik News
+ - Informatik Master
+ - Jobs-Praktika (nur wenn man jeden Tag circa 1-3 Mails erhalten möchte, generell jedoch gute Angebote auch zu HiWi-Stellen)
+
+ Das Passwort kam per E-Mail.
 
 ###  KITcard
 
+Die KITcard kann im Studierendenwerk abgeholt werden. Dazu muss man in den Wochen nach der Zulassung ein Passfoto von sich hochladen. Die Benachrichtigung, dass man die Karte abholen kann, kommt per E-Mail. Der Ausweis wird gegen Vorlage eines Lichtbildausweises ausgehändigt.
+
+![](/assets/images/studierendenwerk.png)
+
+#### Mensa
+
+In der Mensa hängen Geräte herum, mit denen man die Bezahlfunktion auf der Karte aktivieren kann. Danach kann man entweder per EC-Karte oder Bargeld an Automaten in der Mensa Geld auf die Karte laden, um damit in den Cafeterias und Mensen zu bezahlen.
+
+Man kann das Guthaben auch per Lastschrift automatisch auf die Karte bekommen. Das nennt sich Autoload: [autoload.sw-ka.de](autoload.sw-ka.de)
+
+ In der Mensa gibt es mehrere Linien mit unterschiedlichen Gerichten für 2,80 € bis circa 5 €. Siehe [cs-k.it/mensa](cs-k.it/mensa)
+
+![](/assets/images/mensa.jpg)
+
+#### KVV
+
+KVV steht für Karlsruher Verkehrsverbund. Man kann sich im Portal auf studium.kit.edu eine KVV-Bescheinigung herunterladen. Wenn man diese ausgedruckt im Geldbeutel dabei hat, kann man nachts ohne zu zahlen mit dem KVV reisen.
+
+![](/assets/images/kvv.jpg)
+
+### Rucksack
+
+Wie an den meisten Unis gibt es für die Erstsemester-Studenten einen Rucksack. Der Rucksack kann gegen Vorlage eines per E-Mail erhaltenen PDFs im House of Competences abgeholt werden.
+ Der Inhalt sind sehr viele Flyer und wenige Gegenstände. Abgesehen vom starken Plastikgeruch ist das eine schöne Sache.
+
+Die Ausgabe startet in der ersten echten Uniwoche.
+
+ ![](/assets/images/rucksack.jpg)
+
 ## Vorlesungsplan basteln
 
-...
+Trotz aller Aktivitäten sollte man in der Einführungswoche nicht aus dem Blickfeld verlieren, dass man sich für Unikurse eintragen sollte und seine Vorlesungen wählt.
+
+### Fristen
+
+Besonders problematisch sind folgende Fristen, die gerne untergehen, weil man mit Radfahren und Erkunden beschäftigt ist:
+
+- zak.kit.edu bis zum 1. Oktober
+- spz.kit.edu Anmeldezeitraum 8.-9.10
+- hoc.kit.edu
+- sport.kit.edu: Die Kurse sind alle schnell (innerhalb von Stunden) voll!
+
+### ISS besuchen
+
+Wenn man einen ausgefallenen Vorlesungsplan hat oder sich nicht sicher
+ist, ob man so die Anforderungen für ein Profil erfüllt, dann empfiehlt
+sich ein Besuch beim Informatik-Studiengang-Service, dort kann man sich die "Studierbarkeit" eines Vorlesungsplans unterschreiben lassen.
+
+### campus.studium.kit.edu
+
+Das Vorlesungsverzeichnis. Auch kurz: [cs-k.it/vlv](cs-k.it/vlv)
+
+Hier kann man die Veranstaltungen, die man belegen will, mit einem Stern versehen und dann werden sie zum persönlichen Vorlesungskalender hinzugefügt. Diesen Kalender kann man sich wiederum als iCal in den eigenen Kalender synchronisieren. Lobenswerte Integration.

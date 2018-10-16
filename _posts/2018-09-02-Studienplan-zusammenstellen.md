@@ -21,6 +21,12 @@ Alle Informationen sind folgenden Quellen zu entnehmen:
  - [Modulhandbuch WS 2018/19](https://cs-k.it/modul)
  - [Wiki Informatik](https://cs-k.it/wiki)
 
+**Achtung: Fristen für externe Kurse Anfang Oktober schon (Sprachkurse...)!**
+
+ - zak.kit.edu bis zum 1. Oktober
+ - spz.kit.edu Anmeldezeitraum 8.-9.10
+ - hoc.kit.edu
+
 ## Struktur
 
 Der Master soll vier Semester dauern. Das grobe Gerüst sieht wie folgt aus:
@@ -66,13 +72,21 @@ Das Modulhandbuch sagt:
       "Jede Prüfung kann einmal wiederholt werden".
 
 
-Meiner Interpretation nach ist das nicht abhängig davon, ob man durchgefallen ist
-oder nur einen Verbesserungsversuch schreiben möchte.
+<strike>Meiner Interpretation nach ist das nicht abhängig davon, ob man durchgefallen ist oder nur einen Verbesserungsversuch schreiben möchte. </strike>
 
-Eine "Mülltonnenregelung" wie an der LMU gibt es wohl nicht. Da konnte man die
-schlechtesten Ergebnisse nicht in den Schnitt einberechnen lassen.
+**Eine Notenverbesserung ist nicht möglich.** Wenn man zusätzliche (sonst überflüssige) LPs in fortgeschritteneren Vorlesungen hat, dann kann man diese unter gewissen Umständen nutzen, um die schlechten Noten "herauszukegeln".
+
+Eine "Mülltonnenregelung" wie an der LMU gibt es wohl nicht. Da konnte man die schlechtesten Ergebnisse nicht in den Schnitt einberechnen lassen.
+
+Wenn man die Prüfung jedoch nicht bestanden hat, dann kann man sie noch einmal schreiben.
 
 **Bei zweimaligem Nicht-Bestehen: Exmatrikulation und Prüfungsanspruchsverlust**
+
+Nach dem 1. Fehlversuch kann man eher nicht das Fach wechseln (laut Fachschaftsperson von FBI). Das heißt: Nur zu Prüfungen anmelden, die man auch bestehen wird.
+
+Für zwei Vorlesungen kann man jedoch wechseln, diese kann man dann in die Zusatzleistungen schieben lassen (sogar nach dem 1. Fehlversuch).
+
+Man kann bis zu zwei Urlaubssemester nehmen und trotzdem Klausuren schreiben, wenn es knapp werden sollte mit der Zeit. 
 
 Modulhandbuch:
 
@@ -202,6 +216,8 @@ Die Masterarbeit macht 30 ECTS aus. Soll in 6 Monaten bearbeitet werden.
 Die Präsentation muss innerhalb von vier Wochen nach der Abgabe gehalten werden.
 Man kann einmal sein Thema innerhalb von einem Monat nach Erhalt "zurückgeben".
 
+ Voraussetzung sind 60 LP im Master gesammelt, wovon mindestens 15 LP aus einem Vertiefungsfach stammen müssen. Die Anmeldung darf maximal drei Monate nach der letzten Prüfung stattfinden.
+
 [Allgemeine Informationen zur Masterarbeit im Wiki](https://www.informatik.kit.edu/faq-wiki/doku.php?id=masterarbeit_allg)
 
 ## Studienprofile
@@ -246,3 +262,23 @@ Folgende Auszüge aus dem Modulhandbuch sind interessant im Bezug auf die Profil
       – den innerhalb der Vertiefungsfächer, dem Ergänzungsfach und der
       Überfachlichen Qualifikationen zu belegenden Modulen
       (einschließlich Stammmodulen, Praktika und Seminaren)."
+
+## Klausuren
+
+### Schriftlich
+
+Die Hauptklausur findet meist in der vorlesungsfreien Zeit statt. Die Nachklausur ist bei großen Veranstaltung manchmal die Hauptklausur des folgenden Semesters.
+
+Zu schriftlichen Prüfungen kann man sich am selben Tag noch abmelden. Der Anmeldezeitraum ist flexibel, aber meist kurzfristig möglich.
+
+Wenn man zur Klausur nicht erscheint, dann gilt das als durchgefallen, außer man kann ein Attest vorweisen.
+
+### Mündlich
+
+Man muss einen Termin beim Sekretariat des Professors ausmachen und **sich zusätzlich** in campus.studium.kit.edu anmelden für die Prüfung.
+
+Von mündlichen Prüfungen kann man sich bis zu drei Tage vorher abmelden. Die Fachschaft sagt explizit, dass man diese Freiheit bitte nicht missbrauchen soll.
+
+Die Note bekommt man direkt im Anschluss an die mündliche Prüfung und mit größerer Verzögerung erscheint sie dann auch online.
+
+Info: Die Fachschaft verkauft Gedankenprotokolle von mündlichen Prüfungen.
