@@ -99,7 +99,8 @@ Vorlesungen:
    <tr>
      <td>1 (WS)</td>
      <td>Robotik 1 (6 LP), Telematik (6 LP)</td>
-     <td>Maschinelles Lernen 1 (3 LP), Seminar: Neuronale Netze und künstliche Intelligenz (3 LP)</td>
+     <td>Maschinelles Lernen 1 (3 LP), Seminar: Neuronale Netze und künstliche Intelligenz (3 LP), ... Grundlagen der automatischen Spracherkennung (6 LP), 
+	 Automatische Sichtprüfung und Bildverarbeitung (6 LP)</td>
      <td></td>
      <td></td>
      <td>[M-INFO-102418] Praxis der Forschung 1. Semester - Details unklar (12 LP)</td>
