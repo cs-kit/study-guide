@@ -10,6 +10,8 @@ lang: de
 tags: organize getting-started
 ---
 
+Flyer für Erstis: https://o-phase.com/ws1819/ersti-info.pdf
+
 Eine Woche vor dem offiziellen Start des Semesters findet die [Orientierungsphase der Fachschaft Mathematik und Informatik](http://o-phase.com) statt.
 Während dieser Woche gibt es Dinge, die man erledigen sollte:
 

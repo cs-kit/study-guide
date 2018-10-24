@@ -148,8 +148,6 @@ Vorlesungen:
 
  - Seminar: Neuronale Netze und künstliche Intelligenz (3 LP, WS)
 
- Das Ergänzungsfach muss für das Profil Robotik eines der folgenden sein:
- Mathematik, Elektro- und Informationstechnik oder Maschinenbau.
 
 
 
@@ -158,63 +156,75 @@ Vorlesungen:
  <table style="">
    <tr>
      <th>Semester</th>
-     <th>Stammmodule</th>
+     <th>Wahlbereich [max. 39 LP]</th>
      <th>Vertiefungsfach Anthropomatik und Kognitive Systeme (VF 12)</th>
      <th>Vertiefungsfach Robotik und Automation (VF 11)</th>
      <th>Ergänzungsfach</th>
-     <th>Überfachliche Qualifikation</th>
+     <th>Überfachliche Qualifikation [2-6 LP]</th>
      <th>LP</th>
    </tr>
    <tr>
      <td>1 (WS)</td>
-     <td>Robotik 1 (6 LP), Telematik (6 LP)</td>
-     <td>Maschinelles Lernen 1 (3 LP), Seminar: Neuronale Netze und künstliche Intelligenz (3 LP), ... Grundlagen der automatischen Spracherkennung (6 LP),
-	 Automatische Sichtprüfung und Bildverarbeitung (6 LP)</td>
+     <td>Telematik (6 LP)</td>
+     <td>Grundlagen der automatischen Spracherkennung (6 LP), Maschinelles Lernen 1 (3 LP)</td>
+     <td>Robotik 1 (6 LP), Praxis der Forschung (10 LP)</td>
      <td></td>
-     <td></td>
-     <td>[M-INFO-102418] Praxis der Forschung 1. Semester - Details unklar (12 LP)</td>
-     <td>30</td>
+     <td>[M-INFO-102418] Praxis der Forschung 1. Semester - ÜQ (2 LP)</td>
+     <td>6 + 9 + 16 + 0 + 2 = 33 LP</td>
    </tr>
    <tr>
      <td>2</td>
-     <td>Kognitive Systeme (6 LP), Rechnerstrukturen (6 LP)</td>
-     <td>Mustererkennung (3 LP), Deep Learning und Neuronale Netze (6 LP),
-     Deep Learning für Computer Vision (3 LP, SS),
-     Praktikum Forschungsprojekt: Anthropomatik praktisch erfahren (8 LP, SS)</td>
-     <td>Robotik 2 (3 LP), Einführung in die Bildfolgenauswertung (3 LP, SS)</td>
+     <td>Echtzeitsysteme (6 LP)</td>
+     <td>Kognitive Systeme (6 LP), Mustererkennung (3 LP), Deep Learning und Neuronale Netze (6 LP), Deep Learning für CV (3 LP)</td>
+     <td>Robotik 2 (3 LP), Einführung in die Bildfolgenauswertung (3 LP), PdF (10 LP)</td>
      <td></td>
-     <td>[M-INFO-102423] Praxis der Forschung 2. Semester - Details unklar (12 LP)
-     </td>
-     <td></td>
+     <td>[M-INFO-102423] Praxis der Forschung 2. Semester - ÜQ (2 LP)</td>
+     <td>6 + 18 + 16 + 0 + 2 = 39 LP</td>
    </tr>
    <tr>
      <td>3</td>
      <td></td>
-     <td>Grundlagen der automatischen Spracherkennung (6 LP, WS)</td>
+     <td>Seminar: Neuronale Netze und KI (3 LP)</td>
      <td>Probabilistische Planung (6 LP, WS), Mechano-Informatik in der Robotik (4 LP, WS)</td>
      <td></td>
      <td></td>
+     <td>13 LP</td>
    </tr>
    <tr>
      <td>4</td>
      <td colspan="4">Masterarbeit im Profil</td>
+     <td></td>
      <td>30</td>
    </tr>
  </table>
 
-### Vertiefungsfach KI
-
-
-
 ### Ergänzungsfach
 
- Wenn ich nicht "Praxis der Forschung" belegen sollte, dann würde ich als
- Ergänzungsfach einzelne Kurse aus Maschinenbau belegen wollen.
+Das Ergänzungsfach muss für das Profil Robotik eines der folgenden sein:
+Mathematik, Elektro- und Informationstechnik oder Maschinenbau.
 
-  - Mess- und Regelungstechnik  [M-MACH-102564] (7 LP, WS): Ist die Voraussetzung für
-    die folgenden Kurse
-  - Verhaltensgenerierung für Fahrzeuge [Befindet sich nicht im Modulkatalog, vielleicht möglich] (~3 LP, SS)
-  - Automotive Vision / Fahrzeugsehen [Befindet sich nicht im Modulkatalog, vielleicht möglich] (~5 LP, SS)
+Info aus dem Erstiheft:
+> Im Ergänzungsbereich kannst du Vorlesungen aus einem anderen Fachbereich im
+  Umfang von 9-18 LP einbringen. Momentan sind folgende Fächer möglich: [...]
+> Des Weiteren ist es möglich, sich eigene Vorlesungskombinationen, auch aus
+  anderen Studiengängen, als Ergänzungsfach genehmigen zu lassen.
+  Hierzu ist ein Antrag an den Prüfungsausschuss nötig.
+  Lass dich dazu am besten vorher beraten.
+
+Der Antrag ist formlos an den Prüfungsausschuss zu stellen:
+https://www.informatik.kit.edu/1319.php
+
+
+
+Antrag auf Sonderergänzungsfach für Veranstaltungen aus dem Maschinenbau:
+https://www.informatik.kit.edu/faq-wiki/doku.php?id=ergaenzungsfach
+
+
+Maschinenbau
+Modulkatalog: http://www.mach.kit.edu/download/MSc-Maschinenbau-Modulhandbuch_SPO_2015_gueltig_ab_20181001.pdf
+
+  - Verhaltensgenerierung für Fahrzeuge [Befindet sich nicht im Modulkatalog, vielleicht möglich] (4 LP, SS)
+  - Automotive Vision / Fahrzeugsehen [Befindet sich nicht im Modulkatalog, vielleicht möglich] (6 LP, SS)
 
 
 ### Anforderungen erfüllt?
@@ -227,8 +237,6 @@ Vorlesungen:
  ☐ Es dürfen insgesamt max. 18 LP durch Praktika und Seminare erbracht werden.  
  ☐  Ergänzungsfach:  9 - 18 LP  
  ☐  Überfachliche Qualifikation:  2 - 6 LP  
-
-
 
 
 

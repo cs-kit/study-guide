@@ -24,6 +24,8 @@ Regelstudienzeit: 4 Semester (maximal 7)
 [Modulhandbuch](http://www.informatik.kit.edu/1956.php#block1933) |
 [Umfangreiche Broschüre](https://www.sle.kit.edu/downloads/studiengaenge/KIT_Informatik_BA_MA.pdf)
 
+Notenschnitte der KIT-Absolventen: https://www.sle.kit.edu/downloads/ECTS-Tabellen/ECTS_Tab_SS18_BA_Informatik_DE.pdf
+
 ## Fristen
 
 Wie bei [sle.kit.edu/[..]](https://www.sle.kit.edu/vorstudium/bewerbungsfristen.php) beschrieben, ist Informatik sowohl im Bachelor als auch im Master zulassungsbeschränkt. Im WS und SS 2018/19 sind für den Masterstudiengang  Informatik 253 Studienplätze verfügbar (diese Beschränkung nennt man [NC](https://de.wikipedia.org/wiki/Numerus_clausus)).
