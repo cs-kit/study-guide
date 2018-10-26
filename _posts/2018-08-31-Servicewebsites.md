@@ -21,3 +21,18 @@ Wenn man immatrikuliert ist, dann sind folgende Schritte wichtig/hilfreich:
 - Nachrichtenquelle nutzen:
     - Innoreader (Web- und Smartphone-App) benutzen, um die wichtigsten RSS-Feeds zu abonnieren
     - UpdateScanner (Firefox-Plugin) benutzen, um Websites auf Änderungen zu überwachen
+
+
+## Altklausuren
+
+Man kann bei der Fachschaft Altklausuren, Probeklausuren erwerben.
+Dazu klickt man sich auf der [Odie-Seite](https://www.fsmi.uni-karlsruhe.de/odie/web/)
+seine Klausuren zusammen (Preis abhängig von Seiten zahl, 3 Seiten sind circa
+  10 ct). Dort gibt man dann ein eindeutiges Kürzel an, das man auch später
+  noch braucht, geht dann zur Fachschaft während der Öffnungszeiten und
+  lässt sich das ausdrucken.
+Für die mündliche Klausur eines Faches muss man einmalig 5€ Pfand zahlen, die
+man zurückbekommt, wenn man ein Prüfungsprotokoll zu seiner eigenen Prüfung
+abgibt.
+
+![](/assets/images/Altklausuren.png)

@@ -205,35 +205,326 @@ Auf bei Japanern funktioniert das nicht. Unwahrscheinliche Erklärung ist aufgru
 fehlenden Blickkontaktes. Wahrscheinlicher ist, dass die sichtbaren Feature
 (Lippen, Kinn, Spitze der Zunge) nicht hilfreich sind für das Japanische.
 
+## 3. Vorlesung
+
+Hörsaal Akustik -> abgerundete Kanzel (Schallreflektion zum Publikum wie in
+  evangelischen Kirchen)
+Glatter Linoleumboden, glatte Tafel => reflektieren Schall -> Schall kommt dann
+unterschiedlich schnell beim Ohr des Hörers an und ergibt einen "Verschmierungs"-Effekt.
+
+An den Wänden und der Decke sind Lochblenden zwischen denen sich der Schall
+verfangen kann. Menschen absorbieren Schall sehr gut.
+
+An der Decke des Hörsaals, der auch für Videoaufnahmen genutzt wird, befinden
+sich Grenzflächenmikrofone, um Fragen des Publikums aufnehmen zu können.
+Es handelt sich um ein spezielles Mikrofon auf einer Plexiglasscheibe.
+
+=> Warnung: Aufnahmetechnik ist sehr wichtig für Erfolg bei Spracherkennung
+
+**Lombard-Effekt**
+Bei Blaupunkt wurde eine Freisprecheinrichtung für Autos entwickelt, die das
+Signal des Autoradios aus der Sprachaufnahme herausrechnen kann, wodurch das
+Radio bei Telefonaten im Auto an bleiben kann, jedoch nicht am anderen Ende
+der Leitung gehört wird.
+Es hat sich herausgestellt, dass die Tester des Systems vollkommen anders
+gesprochen haben als normal, weil sie sich der lauten Umgebung angepasst haben.
+
+**Homonyme:** Gleichklänge von Wörtern mit unterschiedlicher Bedeutung
+  - Homographene: Man schreibt sie sogar gleich, z. B. Schloss, Schloss
+  - Homophone: Sie klingen gleich, aber sie werden unterschiedlich geschrieben,
+    z. B. bis und Biss, Verse <-> Ferse
+
+Mehrdeutigkeiten von Sätzen: "Time flies like an arrow" (Time flies like an arrow. Fruit flies like a banana.)
+
+Spracherkennung ist Mustererkennung. Klasse ist der komplette Satz.
+
+Folie 13: Datenübertragung ist bei 30.000 bps, aber durch Redundanz und unnützes Signal werden
+die 50.000 bps aufgefüllt.
+
+Schichtenarchitektur aus Modell funktionieren nicht so top-down wie dargestellt,
+es existieren Beeinflussungen und Feedbackschleifen.
+
+"Flugzeuge schlagen nicht mit den Flügeln und Autos haben keine Beine"
 
 
+Gaumensegel macht den Nasenraum zu. Harter Gaumen und Zähne sind passive
+Artikulatoren. Impulse/Radstöße (aus der Vorlesung Kognitive Systeme) sind gut
+geeignet um Zerhackung des Luftstroms aus der Lunge durch die Stimmbänder zu
+modellieren.
+-> Impulszug wird moduliert
+
+**Bernoulli-Effekt**
+Medium (Gas,Flüssigkeit) strömt durch begrenzten Kanal.
+
+1. Die Strömungsgeschwindigkeit eines Moleküls passt sich seiner Umgebung an
+   -> der Rand des Kanals bewegt sich garnicht, daher ist außen die Flussgeschwindigkeit
+      geringer
+2. Durch die unterschiedlichen Flussgeschwindigkeiten entsteht ein Unterdruck in
+   der Mitte. -> Dieser Unterdruck zieht die Stimmlippen zusammen.
+
+Das Zusammenziehen und Öffnen durch den Druck aus der Lunge wiederholt sich sehr
+oft pro Sekunde. Vergleichbar mit einem Luftballon, den man zum Quitschen bringt.
+
+Pulmonische Sprache (pulmo = Lunge) macht fast alle menschlichen Sprachen aus,
+es gibt aber Ausnahmen (für uns verständliches Beispiel: Amis/Engländer machen Gluk-Gluk
+  um Säufer zu imitieren mit dem Gaumen)
+
+Die Frequez des Öffnen und Schließens der Stimmbänder ergibt die Stimmhöhe.
+Eine hohe Frequenz macht einen höheren Ton. (fälschlicherweise denken manche,
+  dass es mit der Größe des Vokaltraktes zusammenhängt, dieser Zusammenhang
+  besteht aber nur über die Größe der Stimmbänder; Mann Testosteron größere
+  Stimmbänder -> Sichtbarkeit des Kehlkopfes -> niedrigere Frequenz Stimme)
+
+Langoroskop (Kamera in Rachen)  + Stroposkoplicht (Subsamplingder Bildrate)
+-> Aufnahmen von Stimmbändern
+
+Mitlaute v.s. Selbstlaute
+
+Vokale sind immer stimmhaft = Stimmbänder schwingen
+
+Definition: **Phon**
+Kleinster Bestandteil der Spreche, der wahrgenommen wird. Der Mensch glaubt
+zumindest, dass da etwas ist, auch wenn manchmal im Signal nichts spezielles da ist
+(vergleiche mit Pausen)
+
+Phonetiker und Linguisten nutzen die menschliche Wahrnehmung als Forschungsbasis
+
+-> Optische Täuschungen zeigen, dass die Wahrnehmung getäuscht und interpretiert
+   ist
+
+Durch das exakte Scannen des Hirns können sog. Nuklei aufgenommen werden, die
+soetwas wie eine Taktrate haben. Diese Takte sind im Vielfachen (zum Beispiel
+  Nucleus A ist doppelt so schnell wie B) miteinander getaktet
+  -> Wiederum eingeschlossen in größere Nuklei, die mitunter einen Taktschlag
+     pro 15-20 Millisekunden haben -> Das würde bedeuten, dass auf dieser
+     Millisekundenebene gar nichts zuverlässig verarbeitet wird -> Theorie: Phone existieren nicht.
+
+Lippenform: Flach oder rund
+Zungenspitze: Dorsum Linguae
+
+Vokalviereck: Bestimmung eines Vokals durch Position des dorsum linguae und der
+Öffnung der Lippen. Zwei Buchstaben pro Position. Der rechte ist mit runden Lippen.
+
+Diphtonge wandern durch das Viereck im Laufe der Artikulation. Monophtonge nicht.
+Vokale können auch nasal ausgesprochen werden: Franzosen
+
+Einordnung der Konsonanten:
+
+ - Art der Artikulation
+ - Ort der Artikulation
+ - Stimmbändereinsatz (Hand an Stimmbänder halten um zu spüren, z. B. "b" vs "p")
+
+"Pf" ist zum Beispiel ein Phon. Es ist nicht "P" und "f" sondern zusammen wahrgenommen.
+
+Mit wenigen Monaten können Kinder alles hören und über die Zeit lernt man dann,
+dass manches kein sinnvolles Signal ist oder nicht unterschieden werden muss,
+dann fängt man an, diese Unterschiede nicht mehr zu hören.
+Das sorgt für ein schwierigeres Erlernen von Fremdsprachen, wenn man älter ist,
+zum Beispiel russische Muttersprachlerin "Jochen" und "Johann" klingen, wegen des
+fehlenden Verständnis für ein aspiriertes "H", gleich.
+
+## 4. Vorlesung
+
+Offene Konfiguration des Vokaltraktes: Vokal (vowel)
+Geschlossene: Konsonant
+
+IPA = International Phonetic Alphabet
+herausgegeben von der International Phonetic Association
+
+Alle bekannten Sprachlaute der Welt sollen durch ein eindeutiges Alphabet
+beschrieben werden können, damit man alle Sprachen so schreiben kann, wie sie
+klingen, wie Noten in der Musik.
+
+Bei den Vokalen gibt es zwei Symbole, die stehen alleine und zwischen zwei Knoten.
+Die gibt es nur gerundet. Die grauen können theoretisch artikuliert werden,
+existieren aber in keiner Sprache.
+
+Aus dem Audiosignal kann man offensichtlich nicht die Konfiguration des Vokal-
+traktes oder ähnliches ableiten. Daher misst man mit Metallplättchen im Mund,
+die man elektromagnetisch prüfen kann.
+Es gibt auch noch den Laryngograph ([electroglottograph](https://en.wikipedia.org/wiki/Electroglottograph)),
+dieser misst von außen am Kehlkopf.
+Man kann auch den Luftdruck in und außerhalb des Mundes messen, um Unterschiede
+bei plosiven o. Ä. zu quantifizieren.
+
+Die gepulsten Luftströme der pulmonischen Sprache werden dann durch die Formung
+des Mundes moduliert. Die unterschiedlich großen Räume durch die der
+Schall hindurch muss, können als **Helmholtz-Resonator** modelliert werden.
+Der Helmholtz-Resonator ist eine Röhre, in der sich Wellen ausbreiten.
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/PoEyIJx3uM0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+IPA Konsonanten: links stehen jeweils die stimmlosen und rechts die stimmhaften Konsonanten.
+Zum Beispiel p, b. Die lila hinterlegten Zellen sind unmöglich zu artikulieren.
+Leere, weiße Zellen wären möglich, aber sind noch nicht in menschlicher Sprache
+gefunden worden. Der Großteil der gesprochenen Sprachen ist jedoch nicht
+durch Linguisten oder Phonetiker erforscht worden. (Es gibt sehr viele kleine
+  Sprachen)
+
+**Diakritika:** Kleine Zeichen zur Modifikation des IPA, zum Beispiel Hochkomma
+für Aspiration oder Doppelpunkt nach Vokal für Streckung (W**e**k, w**e**g) [vɛːɕ], [vɛk]
+
+Die ersten paar Kapitel des IPA Handbuchs führen nochmal besser in dieses Thema
+ein.
+
+### Phoneme
+
+Ein Phonem ist die kleinste bedeutungsunterscheidende Einheit einer menschlichen
+Sprache.
+
+Das **Phon** ist unabhängig von einer spezielle Sprache; ein Phonem hingegen nicht.
+
+Wie findet man Phoneme? Für Laien: Unterscheidung zweier Wörter durch Tausch
+eines Phons, zum Beispiel "Haus" und "Maus".
+
+Austauschbare Laute, die die Bedeutung erhalten, heißen **Allophone**.
+Beispiel: "Chemie", "Schemie". Das schließt aber nicht auf alle Phone, zum Beispiel
+gibt es trotzdem Unterscheidungen, wie  "Rauch", "Rausch".
+Weiteres Beispiel ist das gerollte und ungerollte "R" im Deutschen.
+
+Jedes Phon ist entweder Phonem oder Allophone und letzere können auch wieder zu
+Phonemen zusammengesetzt werden. "Monophon" <-> Allophon
+
+Weiteres Beispiel: Im Japanischen klingen "R" und "L" gleich, daher wissen
+Japaner oft nicht, was genutzt werden soll, wenn sie eine Sprache sprechen in
+der "r" und "l" keine Allophone sind. Prinzipiell können sie aber schon "R" und "L"
+differenziert sprechen, es ist nur nicht nötig im Japanischen.
+
+Die Phoneme sind nicht eindeutig definierbar. Gegenstand von Diskussionen
+zwischen Linguisten und Phonologen. Für Informatiker ist das nicht so wichtig.
+Eher die Frage, ob das Phonem geeignet ist für die Spracherkennung.
+Zum Beispiel: Wenn ein sehr diskutiertes Phonem (glotaler Stopp bei ...) nur
+drei mal in 10 Stunden sprache annotiert wurde, dann ist es aus einer probabilistischen
+Sicht nicht so wichtig. Praktisch heißt das, dass man sie ignoriert und hofft,
+dass sich minimale Paare aus dem Kontext unterscheiden lassen.
+
+Bei jeder Sprache gibt es neue Phänomene. Zum Beispiel Klicks oder nasale Vokale
+im Französischen. Oder tonale Sprachen.
+
+**Tonale Sprachen:** Beim Englischen, wo man früher sehr viel geforscht hatte, war
+und ist die "Tonhöhe" (-> besser Grundfrequenz nennen) uninteressant.
+Im Mandarin sind sie aber bedeutungsunterscheidend. Dort gibt es fünf Töne:
+steigend, fallend, bergförmig, flacher Ton und unbetonter Ton.
+Beim Kantonesischen sind es sogar 8 Töne + der flache Ton = 9.
+In afrikanischen Zulu-Sprachen wird es noch mehr, denn dort ändert sich die
+Tonhöhe mit der Stelle des Wortes im Satz...
+
+### Physik Wellen
+
+Schall ist eine Longitudinalwelle. Kleine Auffrischung von Schulwissen:
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/eyO1UlrPqIQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+Ruhe Luftdruck auf NN 1013 mbar (Millibar).
+
+Schalldruck: Wechseldruck in Pascall ($ {N \over m^2}  [Pa] $), der zum Ruhedruck
+hinzukommt. Der leisteste hörbare Schall hat einen Schalldruck von 1e^-5 Pa.
+Die Schmerzgrenze für den Menschen liegt bei 63 Pa. -> 10 Milliarden mal größer als das Leiseste
+=> großer dynamischer Umfang
+
+Schall kann als eine Überlagerung von sinoiden Wellen modelliert werden.
+
+T = Dauer für eine Schwingung
+Frequenz f = 1/T [Hz]
+
+James Clerk Maxwell hat die Theorie aufgestellt, die elektromagnetische Wellen
+vorstellt. Deren Existenz wurde durch Hertz nachgewiesen (1/s ist 1 Hz):
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/b2cVLHozb9k" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+Schall breitet sich mit begrenzter Geschwindigkeit (abhängig vom Medium) aus.
+Wellenlänge $ l = {c \over f} $
+
+Dazu ein kleines Video, das den Zusammenhang zwischen elektromagnetischen
+Wellen und deren Frequenz illustriert:
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/7WXW2bBWBEg" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+**Schalldruckpegel**: $ L_{p} = 10 log_{10} ( { \tilde{p}^2 \over p_{0}^2 } ) [dB] $
+  oder $  L_{p} = 20 log_{10} ( { \tilde{p} \over p_0} ) [dB]  $.
+
+Wobei $\tilde{p}$ der vorzeichenbereinigte Schalldruck und $p_0$ der Referenzdruck $2 * 10^{-5} Pa$.
+Ursprünglich wurde letzteres für die Hörschwelle bei 1 kHz gehalten. Jetzt leicht
+anders, aber man passt die Referenz nicht mehr an, daher kann es zu zu negativen
+Werten in niedrigen Bereichen kommen, da: $log(x) < 0$ für x kleiner 1.
+
+Die Wahl des Logarithmus spiegelt auch das menschliche Empfinden beim Schall,
+da er nicht linear als lauter empfunden wird.
+
+dezi Bell gibt es auch bei Elektromagnetismus, daher nutzt man in der Akustik noch
+ein angehängtes "A" für "Akustisch": **dB (A)**
+
+| Referenz                                                             | Ungefährer Schalldruck [dB (A)]        |
+|----------------------------------------------------------------------|----------------------------------------|
+| $P_{}$                                                               | 0                                      |
+| Kühlschrank                                                          | 40                                     |
+| Schreien                                                             | 65                                     |
+| Konzert (ab hier beginnt das Gehör Schaden zu nehmen)                | 120                                    |
+| Gewehrschuss (ab hier beginnt Schmerzgrenze)                         | 140                                    |
+| Raketenstart                                                         | 180                                    |
+
+Man beachte, dass die Schmerzgrenze leider erst nach der Schadensgrenze beginnt.
+
+**Schallenergie:** Zusammensetzung aus kinematischer und potentieller Energie.
+Modellannahme: Luftteilchen, die an fiktivem Punkt mit einer fiktiven Feder
+verbunden sind. "Aufziehen" und "Zurückschwingen" (siehe Erklärung zu Helmholtz
+  Resonator)
+
+Energie wird Schall zugewiesen. Schalldruck und Energie verhalten sich unterschiedlich
+bezüglich der Distanz.
+
+ - $E ~ { 1 \over r^2 }$: die Energie verhält sich umgekehrt, quadratisch
+   proportional zum Radius
+ - $P ~ { 1 /over r}$: der Druck hingegen umgekehrt linear proportional
+
+ Die Schallwelle breitet sich als Kugel aus -> Oberfläche der Kugel -> quadratische Abnahme der Energie
+ ???
+
+### Das Ohr
+
+Ohrmuschel dient als Empfänger.
+
+Druck auf Trommelfell von außen unterschiedlich. Die Longitudinalwelle wird
+am Trommelfell in eine mechanische Bewegung übertragen.
+Über Steigbügel, Hammes und Amboss findet dann eine Verstärkung des Signals
+auf eine kleinere Fläche statt. **Ovales Fenster**
+Dieses Ovale Fenster überträgt die mechanische Bewegung in eine
+[Wanderwelle](https://de.wikipedia.org/wiki/Wanderwelle) auf die
+Flüssigkeit innerhalb der geschlossenen **Schnecke (latein Cochlea)**.
+Es handelt sich um eine stehende Welle.
+
+Die Schnecke wird nach hinten immer schmaler. Dadurch findet sich zu jeder Frequenz
+ein Abschnitt der Cochlea mit einer passenden Resonanzfrequenz. Das heißt, es
+gibt dort besonders starke Wechseldrucke. Salopp: "Es schwappt dort besonder
+viel Wasser hin und her".
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/WeQluId1hnQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+Ungefähr: Diese Resonanz wird übertragen und an der basal membran auf die Haarzellen
+übertragen, welche dann das Signal in elektrische Reize überführen.
+
+Mehr Infos: https://de.wikipedia.org/wiki/H%C3%B6rschnecke
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/HgZURbqJPUo" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+Effekte:
+
+ - Es ist nicht immer nur ein Resonanzbereich aktiv
+ - Schwingungen überlagern sich
+
+ => komplexe Muster
+
+**Aktivierung eines Neurons:** Es gibt ein Mindesniveau zum Aktivieren eines
+Neurons. Davor feuert es nicht, sondern regeneriert sich nur. Aktivierungspotential.
+Die notwendige Zeit zum Aktivieren eines Neurons ist länger als die Dauer, einer
+Schwingung eines Haars an der Cochlea.
+Daraus folgt, dass der Mensch Schallwellen nur beschränkt genau auflösen kann.
+Es gibt also Frequenzunterschiede, die kann der Mensch nicht hören.
+-> pychoaktive Effekte
+Diese "Lücke" wird zum Beispiel bei der Codierung von MP3 verwendet, um die
+Datenrate reduzieren zu können.
 
 
+![](/assets/images/Aktionspotential.png)
 
-
-## Math formulae
-
-Test your LaTeX for mathjax on http://mathurl.com/
-
- $ \zeta(s) = \sum_{n=1}^\infty \frac{1}{n^s} $
-
-test
-
- $$  \frac{
-   \sum_{i=1}^{N}{(x_{i}-{{x}})^{2}}
-}
-{N-1}
- $$
-
-
-## Syntax highlighting
-
-{% highlight python %}
-
-def test_this(name):
-    print("hello", name)
-    return name
-
-a = test_this("Yo")
-
-{% endhighlight %}
+https://de.wikipedia.org/wiki/Aktionspotential
