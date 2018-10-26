@@ -169,73 +169,138 @@ Einen Überblick über die Veranstaltung des zweiten Semesters liefert folgende 
 <table xmlns:xhtml="http://www.w3.org/1999/xhtml" class="ilc_table_StandardTable" style="margin-left: auto; margin-right: auto;" width=""><tbody><tr valign="top"><td style="padding: 2px;border: solid 1px;" width="5%" align="center"><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Strong">Termin</span><!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width="11%" align="center"><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Strong">Zeit</span><!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width="16%" align="center"><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Strong">Gruppe</span><!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width="24%" align="center"><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Strong">Veranstaltung</span><!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width="20%" align="center"><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Strong">Ort</span><!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width="19%" align="center"><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Strong">Dozent*in</span><!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width="5%" align="center"><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Strong">Zusatzinformationen</span><!--Break--></div></td></tr><tr valign="top"><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">VL-Woche 1<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">0,5 Stunden<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Alle<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">KickOff für das 2. Semester<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">t.b.a.<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">t.b.a.<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent"><!--Break--></div></td></tr><tr valign="top"><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">VL-Woche 1<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">1,5 Stunden<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Alle<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Dokumentation wissensch.<br>Fortschritts<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">t.b.a.<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">t.b.a.<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent"><!--Break--></div></td></tr><tr valign="top"><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">VL-Woche 2<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">2,0 Stunden<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Alle<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Paper schreiben (Theorie)<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">t.b.a.<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">t.b.a.<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Important">inkl. schriftl.</span><br><span class="ilc_text_inline_Important">Hausaufgaben</span><!--Break--></div></td></tr><tr valign="top"><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">VL-Woche 4<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">1,5 Stunden<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Alle<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Experimente II -<br>Auswertung<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">t.b.a.<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">t.b.a.<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent"><!--Break--></div></td></tr><tr valign="top"><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">VL-Woche 8 - 9<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">t.b.a.<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Alle<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Emph">Zwischenpräsentation</span><!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">t.b.a.<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Emph">Studierende</span><!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Emph">Einzeln:</span><br><span class="ilc_text_inline_Emph">10 Min Vortrag + 5 Min Fragen</span><!--Break--></div><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Emph">2er-Gruppe:</span><br><span class="ilc_text_inline_Emph">12 Min Vortrag + 8 Min Fragen</span><!--Break--></div><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Emph">3/4er-Gruppe:</span><br><span class="ilc_text_inline_Emph">15 Min Vortrag + 10 Min Fragen</span><!--Break--></div></td></tr><tr valign="top"><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">VL-Woche 12<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">6,5 Stunden<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Alle<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Paper schreiben (Praxis) I<br>- Modelle &amp; Techniken<br>zum wiss. Schreiben<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">t.b.a.<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">t.b.a.<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Important">inkl. schriftl.</span><br><span class="ilc_text_inline_Important">Hausaufgaben</span><!--Break--></div></td></tr><tr valign="top"><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">VL-Woche 14<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">6,5 Stunden<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Alle<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Paper schreiben (Praxis) II<br>- Schreiben von Abstracts<br>und Präzisierungen<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">t.b.a.<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">t.b.a.<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Important">inkl. schriftl.</span><br><span class="ilc_text_inline_Important">Hausaufgaben</span><!--Break--></div></td></tr><tr valign="top"><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Semesterende<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">t.b.a.<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Alle<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Emph">Abschlusspräsentation,</span><br>anschließend (Zeitpunkt<br>nach Betreuervorgabe)<br><span class="ilc_text_inline_Emph"><span class="ilc_text_inline_Strong">Abgabe schriftl.</span></span><br><span class="ilc_text_inline_Emph"><span class="ilc_text_inline_Strong">Ausarbeitung</span></span><!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">t.b.a.<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Emph">Studierende</span><!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Emph">Einzeln:</span><br><span class="ilc_text_inline_Emph">20 Min Vortrag + 10 Min Fragen</span><!--Break--></div><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Emph">2er-Gruppe:</span><br><span class="ilc_text_inline_Emph">25 Min Vortrag + 12 Min Fragen</span><!--Break--></div><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Emph">3/4er-Gruppe:</span><br><span class="ilc_text_inline_Emph">30 Min Vortrag + 15 Min Fragen</span><!--Break--></div></td></tr><tr valign="top"><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Individuell<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Individuell<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Individuell<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Strong">Prüfung</span><!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Individuell<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Emph">Studierende</span><!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Emph">siehe jeweilige SPO</span><!--Break--></div></td></tr></tbody></table>
 
 
-## Inhalt
-
-http://h2t.anthropomatik.kit.edu/pdf/Weiner2018a.pdf
-
-https://www.youtube.com/watch?v=SJ84z53A4rY
-
-https://www.wevolver.com/wevolver.staff/tuat-karlsruhe.humanoid.hand/master/blob/Overview.md
-
-https://www.youtube.com/watch?v=VG7mx1fQYek
-
-https://h2t.anthropomatik.kit.edu/pdf/Fukaya2000.pdf
 
 
-Erstes Treffen noch vor dem Kick-Off mit Betreuerin.
-Zugang zum Lehrstuhl per KITCard und digitaler Schlüssel für Labore.
+## Kick-Off-Veranstaltung
 
-Zugang zu den Laboren kommt dann per E-Mail.
-Redmine (http://demo.redmine.org/) wird eingesetzt.
+Acht Stundent*innen in einem Raum mit einem Dozenten. 15 Minuten ein paar
+Folien über PdF. Nichts spezielles, allgemeines über die Module.
 
-Nochmal zwei Paper bekommen:
+Bis zum 13.12.2018 muss man sich angemeldet haben. Davor kann man noch aussteigen,
+wenn man nach der Literaturrecherche merkt, dass einem das Thema nicht liegt.
+Das ist 1-2 Wochen nach dem State-of-the-Art-Vortrag.
 
-Extracting Postural Synergies for Robotic Grasping
-Javier Romero, Thomas Feix, Member, IEEE, Carl Henrik Ek, Member, IEEE, Hedvig Kjellström,
-and Danica Kragic, Senior Member, IEEE
+Wenn man an den Abschlussvorträgen der vorherigen Semester teilnehmen möchte,
+dann soll man sich vorher anmelden.
 
--> Roboter Arm mit 2 DoF zum Greifen und Mitnehmen, kann eigentlich nicht linear
-   dargestellt werden
--> Vergleich von PCA und GP-LVM (Gaussian Process Latent Variable Model)
-  letzeres ist nicht linear!
+## Literaturrecherche & Zitieren
 
-  latent Representation X
-  observable Y
-  mapping function f
+Direkter Übergang aus dem Kick-Off. Oberflächliche Folien über das Quellenfinden,
+Fragenstellen, Literaturlesen, Zitieren, Literaturrechercheprogramme, etc.
+
+Interessant war, dass Doktorarbeiten generell eher keine gute Quelle sind,
+man sollte ihnen vor allem misstrauen, wenn sie nicht mit einer Veröffentlichung
+eines Papers oder einem Vortrag zusammenhängen.
+
+In Präsentationen sind numerische Fußnoten nicht zu empfehlen, da man nicht mal
+schnell nachschauen kann um welche Quelle es sich denn jetzt handelt.
+
+Recherche als zyklischer Prozess aus:
+
+ - Definieren der Suche
+ - Suche durchführen
+ - Material evaluieren
+ - Review schreiben zu Material
+
+**Die BibTeX Einträge bei Google Scholar bedürfen manueller Überprüfung!**
+
+Programme zur Literaturrecherche sind:
+
+ - Mendeley: Collab closed source
+ - Zotero: Collab open source
+ - JabRef: Java-Programm, das auch mal abstürzt
+
+ ## Inhalt
+
+ http://h2t.anthropomatik.kit.edu/pdf/Weiner2018a.pdf
+
+ https://www.youtube.com/watch?v=SJ84z53A4rY
+
+ https://www.wevolver.com/wevolver.staff/tuat-karlsruhe.humanoid.hand/master/blob/Overview.md
+
+ https://www.youtube.com/watch?v=VG7mx1fQYek
+
+ https://h2t.anthropomatik.kit.edu/pdf/Fukaya2000.pdf
 
 
-  The dataset was generated from five subjects (three male,
-  two female), and it is available from http://grasp.xief.net/.
+ Erstes Treffen noch vor dem Kick-Off mit Betreuerin.
+ Zugang zum Lehrstuhl per KITCard und digitaler Schlüssel für Labore.
 
-https://www.youtube.com/watch?v=sHM17Q61M9A
+ Zugang zu den Laboren kommt dann per E-Mail.
+ Redmine (http://demo.redmine.org/) wird eingesetzt.
 
-When we grasp an object we move simultaneously different muscles in a coordinated way. These preferred patterns of muscles are called postural synergies. In the video some synergies inferred by human behaviours are replicated using a robot hand (UB Hand IV).
+ Nochmal zwei Paper bekommen:
 
-Power grap: Hands fix object against palm
+ Extracting Postural Synergies for Robotic Grasping
+ Javier Romero, Thomas Feix, Member, IEEE, Carl Henrik Ek, Member, IEEE, Hedvig Kjellström,
+ and Danica Kragic, Senior Member, IEEE
+
+ -> Roboter Arm mit 2 DoF zum Greifen und Mitnehmen, kann eigentlich nicht linear
+    dargestellt werden
+ -> Vergleich von PCA und GP-LVM (Gaussian Process Latent Variable Model)
+   letzeres ist nicht linear!
+
+   latent Representation X
+   observable Y
+   mapping function f
 
 
-https://www.youtube.com/watch?v=6qRRbvNzHG8
+   The dataset was generated from five subjects (three male,
+   two female), and it is available from http://grasp.xief.net/.
+
+ https://www.youtube.com/watch?v=sHM17Q61M9A
+
+ When we grasp an object we move simultaneously different muscles in a coordinated way. These preferred patterns of muscles are called postural synergies. In the video some synergies inferred by human behaviours are replicated using a robot hand (UB Hand IV).
+
+ Power grap: Hands fix object against palm
+
+
+ https://www.youtube.com/watch?v=6qRRbvNzHG8
 
 
 
-http://projects.csail.mit.edu/manipulation/rss07/paper__dexterous_grasping_via_eigengrasps_a_low_dimensional_approach_to_a_high_complexity_problem__ciocarlie.pdf
+ http://projects.csail.mit.edu/manipulation/rss07/paper__dexterous_grasping_via_eigengrasps_a_low_dimensional_approach_to_a_high_complexity_problem__ciocarlie.pdf
 
 
-https://en.wikipedia.org/wiki/Isomap
+ https://en.wikipedia.org/wiki/Isomap
 
-http://scikit-learn.org/stable/modules/generated/sklearn.manifold.Isomap.html
+ http://scikit-learn.org/stable/modules/generated/sklearn.manifold.Isomap.html
 
 
-https://www.youtube.com/watch?v=rXNwBurCnTc
+ https://www.youtube.com/watch?v=rXNwBurCnTc
 
-https://www.youtube.com/watch?v=F_brnKz_2tI
+ https://www.youtube.com/watch?v=F_brnKz_2tI
 
-google "grasp autoencoder"
+ google "grasp autoencoder"
 
-tendons
+ tendons
 
-Santello et al.
+ Santello et al.
 
-variational autoencoder
+ variational autoencoder
 
-Für die HoC Kurse wurde man einem Portal der WiWi hinzugefügt: portal.wiwi.kit.edu
+ Für die HoC Kurse wurde man einem Portal der WiWi hinzugefügt: portal.wiwi.kit.edu
+
+
+
+ https://towardsdatascience.com/intuitively-understanding-variational-autoencoders-1bfe67eb5daf
+
+ https://www.countbayesie.com/blog/2017/5/9/kullback-leibler-divergence-explained
+
+ https://github.com/yzwxx/vae-celebA
+
+ https://nips2017creativity.github.io/doc/Hierarchical_Variational_Autoencoders_for_Music.pdf
+
+ https://arxiv.org/abs/1512.09300
+
+
+ 
+ www.semanticscholar.org
+
+### Literaturrecherche
+
+Stukturierung als Graph? (eingehende und ausgehende Kanten)
+
+Zeithistogramm von Suche nach Schlagwörten Google
+
+Suche in anderen Sprachen (Japanisch?)
