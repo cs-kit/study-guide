@@ -22,6 +22,7 @@ tags: lecture
 
 ### Vorlesungen
 - **16.10.2018**: Organisatorisches und Foliensatz 1-1 bis 2-36
+- **23.10.2018**: Foliensatz 2-36 bis 3-8
 
 ### Material
 Das Material der Vorlesung besteht aus:  
@@ -136,9 +137,9 @@ Numerische Werte (Zahlen)
 
 **Metrische Daten**: Daten ohne Dimension, deren Objektabstand sich aber berechnen lässt. Für diese 
 Daten gilt in metrischen Räumen gegeben mit Domäne M, Metrik d für alle Objekte p,q,r aus M:
-- Symmetrie: d(p,q) = d(q,p)
-- Definitheit: d(p,q) = 0 <-> p = q
-- Dreiecksungleichung: d(p,r) <= d(p,q) + d(q,r)
+- Symmetrie: $d(p,q) = d(q,p)$
+- Definitheit: $d(p,q) = 0 ⇔ p = q$
+- Dreiecksungleichung: $d(p,r) ⇐ d(p,q) + d(q,r)$
 
 #### Einfache deskriptive Statistiken
 **Aggregate**: Kombinieren alle Werte eines Attributs zu einem skalaren Wert, z.B. count, sum, min, max, avg, 
@@ -180,10 +181,10 @@ Weil der Median der Wert ist, der in der Mitte steht ist. Das heißt es müsste 
  Wert berechnet werden. Da die einzelnen Schichten aber nur intern sortiert sind kann man
  keinen Schluss darauf ziehen, wie der Median des gesamten Datensatz aussieht.
 
-**(gewichtetes) arithmetisches Mittel**: ugs. "Durchschnitt", **Summe / Anzahl**, Klassifikation *algebraisch*, 
+**(gewichtetes) arithmetisches Mittel**: ugs. "Durchschnitt", $Summe / Anzahl$, Klassifikation *algebraisch*, 
 nur für numerische Daten
 
-**Midrange**: Mitte des tatsächlichen Wertebereichs, **(max - min) / 2**  
+**Midrange**: Mitte des tatsächlichen Wertebereichs, $(max - min) / 2$  
 
 **Median**: Mittlerer Wert, d.h bei sortierten Werten, der Wert der in der Mitte liegt. Bei ungerader Anzahl
 der Durchschnitt der beiden Werte in der Mitte, Klassifikation *holistisch*, auf numerische und ordinale Daten
@@ -219,12 +220,12 @@ negative Summe aus relativer Häufigkeit und statistischer Signifikanz, gibt an 
  
 #### Wahrscheinlichkeitstheorie
 **Wahrscheinlichkeitsmaß**: P erfüllt die folgenden Axiome:
-- *Nichtnegativität:* P(a)>=0
-- *Triviales Ereignis:* P(Ω)=1
-- *Additivität:* Für alle a,b ∈ F und a ∩ b = ∅ (disjunkt): P(a ∪ b) = P(a) + P(b)
+- *Nichtnegativität:* $P(a)≥0$
+- *Triviales Ereignis:* $P(Ω)=1$
+- *Additivität:* Für alle $a,b ∈ F$ und $a ∩ b = ∅$ (disjunkt): $P(a ∪ b) = P(a) + P(b)$
 
 **Multivariate Verteilung**: Wahrscheinlichkeitsverteilun bei mehrdimensionalen 
-Zufallsvariablen; P(X = a, Y = b) = Wahrscheinlichkeit, P(X,Y) = multivariate 
+Zufallsvariablen; $P(X = a, Y = b)$ = Wahrscheinlichkeit, P(X,Y) = multivariate 
 Wahrscheinlichkeitsverteilung, P(X) und P(Y) Randverteilungen
 
 **Unabhängigkeit**: Verteilung einer Zufallsvariable ist nicht anders, wenn Wert einer
@@ -235,6 +236,65 @@ anderen Zufallsvariable bekannt ist
 **Varianz**: mittlere quadratische Abweichung vom Erwartungswert, Streuungsmaß (Definition 2 - 36)
 
 *Ende der 2. Vorlesung vom 16.10.2018*  
+
+**Kovarianz**: Nicht normierter Wert um Zusammenhänge zwischen Variablen festzustellen $Cov(X, Y) := E[(X – E(X))·(Y – E(Y))]$, 
+Kovarianz ist Verallgemeinerung von Varianz
+Veranschaulichung: 
+- *X,Y abhängig:* Punkte auf Gerade, wenn X groß dann Y groß (oder mit negativem Vorzeichen: X groß, Y klein)
+- *X,Y unabhängig:* Punkte auf horiziontaler Geraden, Y fix, unabhängig von X, zweiter Faktor stets 0 
+
+#### Statistische Tests
+**Chi-Quadrat Test**: hier: Unabhängigkeitstest; erwartete Werte oben, tatsächlich eingetretene Werte unten; $ \chi ^{2}$
+groß wenn starke Korrelation, klein wenn keine Korrelation; Vorgehen: Prüfgrößen berechnen und Abweichungen der Einzelereignisse aggregieren; 
+Zurückweisung der Hypothese, dass Verteilung unabhängig wenn $ p(\chi ^{2}) ≤ \alpha $ (Schwellwert $\alpha$ hängt von "risikofreude" ab); 
+Wenn z.B. Wahrscheinlichkeit von $ \chi ^{2} ≤ \alpha$ dann Zurückweisung der Hypothese → $X_1$ und $X_2$ abhängig
+
+
+**Kolmogororv-Smirnov-Text**: Überprüfung ob zwei Wahrscheinlichkeiten übereinstimmen, d.h. gleiche Verteilung bestimmen oder ob Zufallsvariable
+zuvor angenommene Verteilung annimmt (muss keiner Normalverteilung folgen); (vgl. Abb 2-52); Höhe der Stufen 1/8 (da 8 Werte/Messungen) = 0,125, 
+bei Abweichung eintragen, Tabelle sagt welche Abweichung von Normalverteilung noch ok sind (anhand maximaler Distanz zw. kumulativen Häufigkeisverteilungen);
+Beispiel: Frauen verdienen gleich viel, Männer großer Spread, Verteilungen unterschiedlich, Verdienen Männer mehr als Frauen? Qualitativ: Stimmen Mittelwerte
+überein? Vorne nur Frauen, hinten nur Männer → Mediane stimmen nicht überein
+
+**Wilcoxon-Mann-Whitney Test**: Ist Abweichung der Mediane [statistisch signifikant](https://de.wikipedia.org/wiki/Statistische_Signifikanz); 
+*Rangsummenstatistik* (Ränge aufsummieren, Kennzahlen berechnen, mit Tabelle vergleichen), Test liefert Wahrscheinlichkeit dass Hypothese zutreffend
+
+**Bernoulli-Experiment**: N Datenobjekte, Erfolgswahrscheinlichkeit p eines Experiments (z.B. korrekte Klassifizierung), Anzahl erfolgreicher Experimente S,
+Beobactete Erfolgsquote $ f= \frac{S}{N}$ ist Zufallsvariable; $Varianz = \frac{p*(1-p)}{N} $ → je mehr Experimente desto kleiner die Varianz;   
+*log-likelihood Funktion:* logarithmisierte Funktion von Wahrscheinlichkeit für bestimmte Folge von Ausgängen eines Bernouilli-Experiment: 
+$ \prod _{i=1} ^{n} p^y_i·(1-p) ^1-y_i $ einfacher Logarithmen aufzuaddieren, als wiederholt zu multiplizieren: 
+$ \sum _{i=1} ^{n} (1-y_i)·log (1-p) + y_i·log p $
+
+*Vorteile Statistischer Tests:* nur ein Werkzeug für Anwendungsetwickler, Performanz, gute Kombinationsmöglichkeit mit anderen DB-Features
+
+#### Datenreduktion
+> Repräsentation des Datenbestands, weniger Platz benötigt, (fast) gleiche Analyseergebnisse
+
+**Numerosity Reduction**: Reduzierung der Datenobjekte
+- *parametrische Verfahren:* Annahme Datenverteilung folgt best. Modell; schätzen der Modellparameter und lediglich diese speichern, ggf. mit Ausreißern
+- *nichtparametrische Verfahren:* Wichtige Ausprägungen speichern
+    - Sampling: Arbeit mit repräsentativem Ausschnit des Datenbestands, kan Komplexität der Analysealgorithmen reduzieren
+    - Feature Selection: Auswahl einer Teilmenge der Menge der Attribute; Vorhersagekraft der Attribute ermitteln, Schrittweise Auswahl von Attributen, 
+    Schrittweise Eliminierung von Attributen
+    - Hauptachsentransformation: N k-dimensionale Datenobjekte → finde orthogonale Vektoren ("Hauptachsen"), die Datenbestand am besten repräsentieren 
+
+**Dimensionality Reduction**: Reduzierung der Attributanzahl, Weglassen der kleinstedn Diagonalelemente und absteigende Sortierung der Reihenfolge der 
+Achsen
+
+**Diskretisierung**: Reduktion der möglichen Werte pro Attribut, Vergöberung; Wo liegen Intervallgrenzen?
+- *entropiebasierte Diskretisierung:* (erst nächste VL)
+
+**Prüfungsfrage: Kategorisierung von Daten?**
+**Prüfungsfrage: Gegeben Aggregatsfunktion X, ist sie distributiv/algebraisch/holistisch/self-maintainable?**
+**Prüfungsfrage: Allgmeiner Zusammenhang zwischen distributiv/algebraisch/holistisch und self-maintainable?**
+**Prüfungsfrage: Wie groß ist Entropie, wenn alle Klassen gleich häufig?**
+
+### Informatik-Grundlagen: Räumliche Indexstrukturen
+**Index**: Seitenweise Anordnung der Daten, müssen im Hauptspeicher vorliegen um damit Rechnen zu können, Seiten = Einheiten des
+Zugriffs, *Problem der Zugriffslücke*: Zugriff/Laden der Seite viel Zeitaufwendiger als anschließendes Rechnen → Zugriffszeit linear mit 
+größe der Daten; Index für mehrere Attribute möglich, Reihenfolge wichtig, erstes Element bestimmt Sortierung, dann zweites;
+
+*Ende der Vorlesung vom 23.10.2018*
 
 ## Übung
 
