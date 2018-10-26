@@ -41,7 +41,7 @@ Ein möglicher Studenplan könnte daher wie folgt aussehen:
   <tr>
     <th>1 (WS 18/19)</th>
     <td>
-        <a href="/master/lecture/Maschinelles-Lernen-1.html">Maschinelles Lernen 1 - Grundverfahren [3 LP] (W)]</a>
+        <a href="/master/Maschinelles_Lernen_1.html">Maschinelles Lernen 1 - Grundverfahren [3 LP] (W)]</a>
     </td>
     <td>
         <a href="/master/Telematik.html">Telematik [6 LP] (SM)</a>, 
