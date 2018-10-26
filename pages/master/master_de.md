@@ -31,7 +31,7 @@ Ein möglicher Studenplan könnte daher wie folgt aussehen:
 <table style="width:100%">
   <tr>
     <th>Semester</th>
-    <th>Algorithmentechnik (VF 2) [min. 15 LP]</th>
+    <th>Anthropomatik und Kognitive Systeme (VF 12) [min. 15 LP]</th>
     <th>Telematik (VF 8)  [min. 15 LP]</th>
     <th>Wahlbereich  [max. 39 LP]</th>
     <th>Ergänzungsfach BWL für DIC  [9-18 LP]</th>
@@ -41,36 +41,38 @@ Ein möglicher Studenplan könnte daher wie folgt aussehen:
   <tr>
     <th>1 (WS 18/19)</th>
     <td>
-        Algorithmen II [6 LP] (SM), Randomisierte Algorithmen [5 LP] (AP)
+        <a href="/master/lecture/Maschinelles-Lernen-1.html">Maschinelles Lernen 1 - Grundverfahren [3 LP] (W)]</a>
     </td>
     <td>
-        Telematik [6 LP] (SM), Verteiltes Rechnen [4 LP] (D)
+        <a href="/master/Telematik.html">Telematik [6 LP] (SM)</a>, 
+        <a href="/master/Verteiltes_Rechnen.html">Verteiltes Rechnen [4 LP] (D)</a>, 
+        <a href="/master/Data-and-Storage-Management.html">Data and Storage Management [4 LP] (D)</a>
     </td>
-    <td>Maschinelles Lernen 1 - Grundverfahren [3 LP] (W), Analysetechniken für große Datenbestände [5 LP] (D) (unsicher)</td>
+    <td><a href="/master/Algorithmen_II.html">Algorithmen II [6 LP] (AP)</a>, 
+    <a href="/master/Analysetechniken_fuer_grosse_Datenbestaende.html">Analysetechniken für große Datenbestände [5 LP] (D)</a></td>
     <td></td>
-    <td>Französisch lesen, schreiben, sprechen [3 LP]</td>
-    <td>32</td>
+    <td></td>
+    <td>28</td>
   </tr>
   <tr>
     <th>2 (SS 19)</th>
-    <td></td>
-    <td>Access Control Systems: Foundations & Practice [4 LP] (unsicher), Kontextsensitive Systeme [5 LP] (W)</td>
+    <td>Kontextsensitive Systeme [5 LP] (W), Deep Learning & Neuronale Netze [6 LP] (W), 
+    Kognitive Systeme [6 LP] (SM), Mustererkennung [3 LP] (W)</td>
+    <td>Access Control Systems: Foundations & Practice [4 LP]</td>
     <td>
-         Kognitive Systeme [6 LP] (SM, W),
          Rechnerstrukturen [6 LP] (SM),
-         Deep Learning & Neuronale Netze [6 LP] (W),
-         Mustererkennung [3 LP] (W)
+         Praktikum: Analyse großer Datenbestände [4 LP] (D)
     </td>
     <td></td>
     <td></td>
-    <td>30</td>
+    <td>34</td>
   </tr>
   <tr>
    <th>3 (WS 19/20)</th>
-    <td>Datenbankeinsatz [5 LP] (D) (unsicher), Text-Indexierung [5 LP] (AP)</td>
+    <td>Text-Indexierung [5 LP] (AP), Seminar: Neuronale Netze und künstliche Intelligenz [3 LP]</td>
     <td>Praktikum Datenmanagement und Datenanalyse [4 LP] (D)</td>
-    <td> Seminar: Neuronale Netze und künstliche Intelligenz [3 LP] (unsicher)</td>
-    <td>Business Intelligence Systems [5 LP] (E) (unsicher), Marktforschung [5 LP] (E) (unsicher)</td>
+    <td>Datenbankeinsatz [5 LP] (D)</td>
+    <td>Business Intelligence Systems [5 LP] (E) (unsicher), Marktforschung [5 LP] (E)</td>
     <td></td>
     <td>27</td>
   </tr>
@@ -83,32 +85,32 @@ Ein möglicher Studenplan könnte daher wie folgt aussehen:
   </tr>
   <tr>
     <th>LP (ohne MA)</th>
-    <td>21</td>
-    <td>23</td>
-    <td>32</td>
+    <td>31</td>
+    <td>22</td>
+    <td>26</td>
     <td>10</td>
-    <td>3</td>
+    <td>0</td>
     <td>89\119</td>
     </tr>
 </table>
 
 ### Bedingungen für Datenintensives Rechnen
- ☑ Stammmodul (SM): 2 aus *Rechnerstrukturen*, *Algorithmen II*, Kognitive Systeme oder Sicherheit **12 LP**   
- ☑ Daten (D): min. 10 LP aus Veranstaltungsliste "Daten" (siehe PDF) **18 LP**  
- ☑ Algorithmen & Parallelverarbeitung (AP): min. 10 LP aus Veranstaltungsliste "Algorithmen & Parallelverarbeitung" (siehe PDF) **10 LP**  
- ☑ Wahlblock (W): Veranstaltungen aus dem Wahlblock (siehe PDF) **23 LP**  
+ ☑ Stammmodul (SM): 2 aus *Rechnerstrukturen*, Algorithmen II, **Kognitive Systeme** oder Sicherheit **12 LP**   
+ ☑ Daten (D): min. 10 LP aus Veranstaltungsliste "Daten" (siehe PDF) **26 LP**  
+ ☑ Algorithmen & Parallelverarbeitung (AP): min. 10 LP aus Veranstaltungsliste "Algorithmen & Parallelverarbeitung" (siehe PDF) **11 LP**  
+ ☑ Wahlblock (W): Veranstaltungen aus dem Wahlblock (siehe PDF) **17 LP**  
  ☑ Ergänzungsfach (E): min. 9 LP aus dem Erfänzungsfach "Betriebswirtschaftslehre für datenintensives Rechnen" (siehe PDF) **10 LP**  
- ☑ insgesamt mindestens 54 LP aus den obigen Punkten  **73 LP**
+ ☑ insgesamt mindestens 54 LP aus den obigen Punkten  **76 LP**
 
 ### Anforderungen erfüllt?
  ☑ 4 Stammmodule belegen  
  ☑ 2 Vertiefungsfächer (á 15 - 52 LP)  
- ☑ 10 LP aus Vorlesungen pro Vertiefungsfach  
+ ☑ 10 LP aus *Vorlesungen* pro Vertiefungsfach  
  ☑ Mindestens  3 LP durch Seminare    
- ☐ Mindestens 6 LP durch Praktika in den Vertiefungsfächern und dem Wahlbereich erbracht werden.  **derzeit 4 LP**  
- ☑ Es dürfen insgesamt max. 18 LP durch Praktika und Seminare erbracht werden.   
- ☑ Ergänzungsfach:  9 - 18 LP  
- ☑ Überfachliche Qualifikation:  2 - 6 LP  
+ ☑ Mindestens 6 LP durch Praktika in den Vertiefungsfächern und dem Wahlbereich erbracht werden. **8 LP**
+ ☑ Es dürfen insgesamt max. 18 LP durch Praktika und Seminare erbracht werden. **11 LP**  
+ ☑ Ergänzungsfach:  9 - 18 LP **10 LP** 
+ ☐ Überfachliche Qualifikation:  2 - 6 LP **vermutlich Sprachkurs** 
 
 
 Insgesamt fehlen mir also noch 3 LP Semiinar und 2 LP Praktikum. Ich habe insgesamt noch 4 LP übrig. Darüber wird abgeschnitten.
