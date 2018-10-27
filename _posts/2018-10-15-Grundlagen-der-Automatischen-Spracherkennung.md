@@ -132,7 +132,7 @@ Man unterscheidet bei natürlicher Sprache drei Schwierigkeitsstufen:
   kodifizierter die Kommunikation ist, was bei engen Beziehungen der Sprecher
   der Fall ist, zum Beispiel in einer Familie)
 
-### Taxonomie für Sprache und Spracherkennung
+### Taxonomie für Sprache und -erkennung
 
 - Sprecherabhängig: Dialekte, Akzente werden darüber bedacht, dass das System
   auf einen Sprecher eintrainiert wird. Alte Diktiergeräte musste man 15-Minuten
