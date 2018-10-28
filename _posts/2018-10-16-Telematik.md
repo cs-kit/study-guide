@@ -13,7 +13,6 @@ tags: lecture
     <strong>Dozent:</strong> Prof. Dr. Zitterbart <br>
    <strong>ILIAS:</strong> <a href="https://ilias.studium.kit.edu/goto_produktiv_crs_880989.html">https://ilias.studium.kit.edu/goto_produktiv_crs_880989.html</a> <br>   
    <strong>Vorlesungswebsite:</strong> <a href="http://telematics.tm.kit.edu/tm.php">http://telematics.tm.kit.edu/tm.php</a> <br>   
-   <strong>Videos:</strong> <a href="">TODO</a> <br>   
    <strong>Klausur:</strong> 21.2.2019 11:00 - 12:30 Uhr <br>
    <strong>Einordnung:</strong> Vertiefungsfach "Telematik", Profil "Datenintensives Rechnen" <br>
 </div>
@@ -69,14 +68,14 @@ Actuators affecting environment (Hands and Feet);
 Informationen welcher Value im Paket, welchem Link entspricht;
 
 **Router**: main task: lookup in forwading table, forwart data from input to output ports; goals: forwarding in line speed (Geschw. des Links soll eingehalten werden), short queues
-(da sonst hohe Latenz -> schlecht bei z.B. VoIP kommt es sonst zu Verzögerungen), small tables (da sonst Speicher teuer)
+(da sonst hohe Latenz → schlecht bei z.B. VoIP kommt es sonst zu Verzögerungen), small tables (da sonst Speicher teuer)
 
 **Forwarding**: part of data path; Forwarding table part of control path;  
-Incoming data ->  *IP-Processing*: check Headers of IP Packet (version number, valid header length, checksum); check TTL (decrement TTL); recalculate checksum) 
--> *Lookup* (determine output port for packet, Fragmentation (?), Handle IP options (?)) -> *Classification* (Priorization, differentiated treatment of packets) -> (Queue) -> Outgoing Data
+Incoming data →  *IP-Processing*: check Headers of IP Packet (version number, valid header length, checksum); check TTL (decrement TTL); recalculate checksum) 
+→ *Lookup* (determine output port for packet, Fragmentation (?), Handle IP options (?)) → *Classification* (Priorization, differentiated treatment of packets) → (Queue) → Outgoing Data
 
 #### Challenge: Line Speed
-bandwidth demand increases (32% 2015-2016); 250 Tbit/s in 2016 -> Link capacity has to increase  
+bandwidth demand increases (32% 2015-2016); 250 Tbit/s in 2016 → Link capacity has to increase  
 memory is **not** keeping up with Moore's law; network bandwidth doubles every 17-18 months; DRAM/CPU bandwidth doubles every 26-27 months;
 Router needs to keep up with line-speed for **all packet sizes**
 
@@ -86,7 +85,7 @@ Router needs to keep up with line-speed for **all packet sizes**
 Regarding TCP two types of segments:
 - TCP segments that transport data e.b. 1500 bytes (Ethernet)
 - TCP that are purely acknowledgements (min. 40 byte)
--> e.g only 3,2ns for 40 byte in a 100 Gbit/s environment  
+→ e.g only 3,2ns for 40 byte in a 100 Gbit/s environment  
 Problem: Small packets are quite common, 50% of IPv4 packets smaller than 100 bytes
 
 **Router Types**:
@@ -98,12 +97,12 @@ of ports, ease of maintenance
 
 #### Forwarding Table Lookup
 **Prefix**: Identifies block of addresses; continous blocks of addresses per output port good 
--> does not require a separate entry for each IP address (Scalability)
+→ does not require a separate entry for each IP address (Scalability)
 
 *Ende Vorlesung vom 17.10.2018*
 
 **Longest Prefix Matching**: Multiple prefixes matching in the forwarding table to given destination? Select most specific prefix 
-(highest number of matching bits) -> *longest prefix matching*; Challenge: Lookup in Line-Speed (can be long because TTL is decreased -> checksum recalculated),
+(highest number of matching bits) → *longest prefix matching*; Challenge: Lookup in Line-Speed (can be long because TTL is decreased → checksum recalculated),
  Different approaches in software:
 
 **Efficient Data Structures for Longest Prefix Matching**  
@@ -114,32 +113,32 @@ Variables: N = number of prefixes; W = length of prefix (W=32 for IPv4); k = len
 - *Lookup speed* $ O(W) $, maximum of one node per bit in prefix 
 - *Memory requirement* $ O(N*W), prefixes stored as linked list starting from root, every prefix can have upt do W nodes
 - *Updates* $ O(W) $  
-Lookup speed with memory access time $ 10ns $ for 100 byte packets $ 2,5 Gbit/s $ -> Optimization: Path Compression, Multibit Tries,...
+Lookup speed with memory access time $ 10ns $ for 100 byte packets $ 2,5 Gbit/s $ → Optimization: Path Compression, Multibit Tries,...
 
-**Path Compression**: one-child node waste memory -> nothing stored, not required for branch decision -> eliminate sequences -> path compression; additional information 
+**Path Compression**: one-child node waste memory → nothing stored, not required for branch decision → eliminate sequences → path compression; additional information 
 of next examined index; (vgl. Abb. 02-31)
 - *Lookup speed* $ O(W) $, with no one-child nodes, number of nodes to search = length of prefix
-- *Memory requirement* $ O(N) $, N entries for leaf nodes, N-1 for internal nodes -> max 2N-1 entries
+- *Memory requirement* $ O(N) $, N entries for leaf nodes, N-1 for internal nodes → max 2N-1 entries
 - *Updates* $ O(W) $  
 
 **Multibit Trie**: match multiple bits at same time; reduce number of memory accesses; fixed strides multibit tries (strides = number of bits) 
-have same strides on each level, different level can have different strides; Problem: prefixes do not always match with strides -> expand prefix to next available stride
+have same strides on each level, different level can have different strides; Problem: prefixes do not always match with strides → expand prefix to next available stride
 (0* expands to 01* and 00*); choose prefix that is most specific; (vgl. Abb. 02-36)
 - *Lookup speed* $ O(W/k) $
 - *Memory requirement* $ O(2^k NW/k) $, max path length W/k, path composed of one level subtrees with $ 2^k $
 - *Updates* $ O(W/k + 2^k ) $, search time O(W/k), modification $ 2^k-1 $ entries
 
-**Hash Tables**: goal: improve lookup speed -> $ O(1) $, BUT: longest prefix match only with hash table does **not** work; use additional hash table instead (stores result of trie lookup);
-check for each IP packet if entry in hash table exists if not -> lookup; goof if addresses show "locality" characteristics
+**Hash Tables**: goal: improve lookup speed → $ O(1) $, BUT: longest prefix match only with hash table does **not** work; use additional hash table instead (stores result of trie lookup);
+check for each IP packet if entry in hash table exists if not → lookup; goof if addresses show "locality" characteristics
 
 **Longest Prefix Matching in Hardware**  
 Idea: Read information with single memory access, use destination IP as RAM address; waste of memory; required memor size grows expoentially with size of addresses;  
 
-**Content-Addressable Memory (CAM)**: *RAM:* address -> data; *CAM:* data -> address (search all stored entries in single clock cycle, 
+**Content-Addressable Memory (CAM)**: *RAM:* address → data; *CAM:* data → address (search all stored entries in single clock cycle, 
 very fast address lookups with address as search input); compare search input data with stored entries, priority encoder searches "first" match
 - *Binary CAM:* static lookups
 - *Ternary CAM:* with *Don't Care* State; allows longest prefix matching, prefixes stored sorted by length; very fast lookups; BUT: hight energy demands
-(parallelization, every core required for every lookup), high cost/ low density, requires strict ordering -> severe scalability limitations
+(parallelization, every core required for every lookup), high cost/ low density, requires strict ordering → severe scalability limitations
 
 #### Router Architecture
 **Generic Router Architecture**
@@ -154,7 +153,7 @@ Conflicting Design goals: high efficiency (line speed, low delay) vs. low cost; 
 **Blocking**: Packets are blocking each other, prevent blocking:
 - *Overprovisioning:* circuits in switch fabric faster than input ports
 - *Buffering:* queue packets until resources available (network interface or switch fabric), possible buffer places (N input, output ports, storage M, speedup S, cycle time Z):   
- input buffer: FIFO at input; requirements S=1, Z= 1/2; Head-of-Line blocking (packet waiting but packet behind could be served); throughput N=2 -> 75%, N -> ∞ -> 58,58%
+ input buffer: FIFO at input; requirements S=1, Z= 1/2; Head-of-Line blocking (packet waiting but packet behind could be served); throughput N=2 → 75%, N → ∞ → 58,58%
  output buffer: FIFO at output; requirements: S=N, Z=1/(N+1); output buffer accepting packets N*S, input buffer at least one packet; throughput max 100%, usually 80-85%  
  distributed buffer: conflict resolution inside switch fabric, FIFO buffer per crosspoint; requirements: matrix structure, S=1, Z=1/2; no head-of-line blocking, higher memory than input/output   
  central: shared buffer for conflict resolution; Requirements: Z=1/2N, address memory for information of packets, control memory for parallelization
