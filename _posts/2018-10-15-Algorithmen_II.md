@@ -25,6 +25,7 @@ tags: lecture
 - **16.10.2018**: Dozent krank, VL wird von Übungsleiter gehalten (Foliensatz 2, hat Nummerierung 3): 3-1 bis 3-23
 - **22.10.2018**: 1-20 bis 1-32; Wdh. Foliensatz 2; (Foliensatz 3 hat Nummerierung 2) 2-1 bis 2-65
 - **23.10.2018**: 2-10 bis 2-27 und Übung 1
+- **29.10.2018**: 2-28 bis Ende Kapitel 3
 
 ### Material
 Das Material der Vorlesung besteht aus:  
@@ -204,9 +205,37 @@ Beispiel: C=9, binär 1001 → K=4; Vergleich binär min und binär v → suche 
 Unterschied in B[-1]; Unterscheiden sie sich an einer größeren Stelle als K → B[K]; sehr schnell zu berechnen mit Maschinenbefehl XOR → Unterschiede
 werden zur 1, gleiche Zahlen zur 0 → suche nun höchstwertige 1 in Ergebnis (Operation *msd(a,b)* = "most significant difference")
 - *deleteMin:* wenn B[-1] nicht leer, steht min dort; sonst suche erstes nicht leere Bucket, suche in der Liste dieses Buckets B[i] das min und schiebe 
-es nach B[-1] → neu "aufräumen" mit msd-Formel in B[i] (nur B[i], alle anderen nicht betroffen) → return B[-1]   
+es nach B[-1] → neu "aufräumen" mit msd-Formel in B[i] (nur B[i], alle anderen nicht betroffen) → return B[-1]; Analyse: $ O(K+|B[i]|)$    
 
 *Ende der Vorlesung vom 23.10.2018*
+
+*Vergleich Djkstra:*
+- Dijkstra: $ T_{Dijkstra} = O(m · T_{decreaseKey} (n) + n · (T_{deleteMin} (n) + T_{insert} (n))) $
+- mit Radix-Heaps: $ T_{DijkstraRadix} = O(m + n · (K + K)) = O(m + n · log C) $
+
+**All-Pairs Shortest Paths**: kürzeste Pfade für alle Paare bestimmen, negative Kosten erlauben, aber keine negativen Kreise;
+Verschiedene Möglichkeiten:
+- n mal Bellman Ford: $ O(n²m) $  
+- Knotenpotentiale: $ O(nm+n²logn) $ 
+
+**Knotenpotentiale**: Knoten bekommen Potentiale (von "potentieller Energie" in Physik, z.B. mit Elektroauto bergab fahren hat negatives Kantengewicht 
+→ kann über Potential ausgedrückt werden); Potentiale definierten *reduzierte Kosten*, Kosten finden gleiche küzeste Pfade (genaue
+Definion der Potentiale egal): Durch aufsummieren der Potentiale (erst positiv, dann negativ) ergibt sich $ ̄c(e) = pot(u) + c(e) − pot(v) $ (+ und - hebt sich auf
+es bleibt nurnoch erster und letzter Knoten);  
+*Einfügen eines Hilfsknotens s:* von Knoten s aus Kanten zu allen Knoten einführen, die Kosten 0 haben. Anschließend [Bellman-Ford](https://de.wikipedia.org/wiki/Bellman-Ford-Algorithmus)
+ zur kürzesten Pfade Berechnung; definiere $ pot (v) := μ(v) $ für alle v → nun alle Kosten *nicht negativ* und Dijkstra kann verwendet werden, warum sind alle Kanten positiv:
+ - Keine negativen Kreise, pot(v) = wohldefiniert → lässt sich durch Bellman-Ford "herausschneiden"
+ - Für beliebige Kanten gilt: $ μ(u) + c(e) ≥ μ(v) $  → $ c̄(e) = μ(u) + c(e) − μ(v) ≥ 0 $
+*Analyse:* s hinzufügen $O(n)$; Postprocessing (zurück zu ursprünglichen Kosten): $ O(n²) $; n mal Dijkstra dominiert  → $ O(n(m + n log n)) = O()nm + n^2 log n) $  
+*Distanz zu Zielknoten:* 
+- Bidirektionale Suche: abwechselnd s und t, Vorwärtssuche auf G, Rückwärtssuche auf G' (= umgedrehte Kantengewichte), bei jedem Schritt kürzeste
+Distanz speichern: $ d[s,t] = min(d[s,t], d_{forward} [u] + d_{backward} [u]) $; Abbruchkriterium: Suche scannt Knoten, der in anderer Richtung bereits gescannt wurde: $ d[s,t] ⇒ μ(s,t)$
+- A*-Suche: Scanne Knoten möglichst nah an t, Funktion $f(v)$ schätzt $μ (v,t)$: $ pot(v) = f(v)$ und $ c̄(u,v) = c(u,v) + f(v) − f(u) $;  
+ f(v) benötigt folgende Eigenschaften:
+    - Konsistenz (reduzierte Kosten nicht negativ): $c(e) + f(v) ≥ f(u) ∀e = (u, v)$
+    - wird t aus Q entfernt wenn f(t) = 0 und $ f(v) ≤ μ (v,t) ∀v ∈ $
+ 
+ 
   
 ## Übung
 ### Übung 1
