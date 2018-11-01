@@ -22,6 +22,7 @@ tags: lecture
 ### Vorlesungen
 - **17.10.2018**: Organisatorisches und Foliensatz 0-1 bis 0-32
 - **24.10.2018**: Foliensatz 1-1 bis 1-34
+- **31.10.2018**: Foliensatz 2-1 bis 2-33
 
 ### Material
 Die Vorlesungsfolien werden im ILIAS hochgeladen. Sämlichte Literatur befindet sich im Skript. Die Vorlesung
@@ -159,4 +160,51 @@ accessing stateful resources using Web services → XML document to describe sta
 
 *Ende der Vorlesung vom 24.10*
 
+### Grid
+**Grid**: internet infrastructure; harnessing (nutzbar machen) distributed ressources, provide
+scalable, secure, high-performance mechanisms; enables scientific collaborations (virtual
+organizations) to share ressources; Grid ist Analogie zu "Electric powe grid"; Konzept bereits seit 1965 bekannt
 
+**Grid Checklist**: <span style="color: red">Prüfungsfrage in Altklausuren!</span>  
+
+|         |     Grid       | Cloud  |
+| ------------- |-------------| -----|
+| **Control**      | keine zentrale Kontrolle, keine Kontrolle über andere Standorte des Grids | zentrale Kontrolle, Anbieter mit wirtschaflichem Interesse (z.B. Amazon) |
+| **Protocols & Interfaces**      | standardisierte, offene, general-purpose Protokolle (Authentication, Authorization, Resource Discovery, Access      |   keine standardisierten Interfaces, Hinterrund ist "vendor"-Login (Kundenbinding, kein einefacher Umstieg auf die Konkurrenz) |
+| **Quality of Service** | nicht-triviale Dienstgüte (response time, throughput, availability, securtiy, co-allocation); Kombination der Systeme muss Mehrwert liefern      |  triviale Dienstgüte |
+
+**Meta-Computing**: logische Integration unabhängiger, heterogener, paralleler Computer
+mit high-performance WAN Verbindungen zu einem System; verteilen einer Anwendungen über
+mehrere Supercomputer; kann Probleme (schneller) lösen, die mit einem Supercomputer 
+nicht lösbar sind; Fokus aufs Rechnen alleine
+
+**Klassifikation von Grids**: by resource type shared/technology used
+- *Compute Grids*: access to computational resources, classification by hardware:  
+    - Desktop Grids
+    - Server Grids
+    - HPC/Cluster Grids
+- *Data Grids*: transparent, secure, high-performance access to federated data sets (flat-file, relational, streaming data)
+- *Peer-to-peer Grids*: storage capacity of individual computer workstation shared
+- *Collaborative Grids*: resource is human expertise, human interaction across geograophical distances
+
+Klassification organizal/geographic range: Department Grids, Enterprise Grids, Global Grids, Utility Grids, Service Grids
+
+#### Architecture
+**Anatomy of Grids**: middleware architecture, layered protocol stack; follows *hourglass model* 
+(= small set of core abstractions to allow diverse application to be mapped onto diverse set of resources); e.g. APIs, SDKs
+(vgl. Abb. s.18, Kapitel 2.0-2.1); Hourglass Neck = Resource & Connectivity in Protocol Stack  
+Layers: bottom up
+- *Fabric Layer:* sharing of resources, resource-specific operations; Enquiry Mechanisms, Management Mechanisms
+- *Connectivity Layer:* core communication protocols, authentication protocols
+- *Resource Layer:* sharing of single resources, information protocols, management protocols
+- *Collective Layer:* coordinates multiple resources, directory services, co-allocation, scheduling, brokering services, data replication
+
+**Physiology of Grids**: service-oriented architecture based on Web Services technology: *Open Grid Services Architecture (OGSA)* =
+standardized framework; includes set of basic interfaces to access state of resource
+
+**Open Grid Services Architecture Capabilites**:
+- *Resource management services:* management of resources themselves, resources in grid, OGSA infrastructure
+- *Security services:* Authentication, Authorization, Audit, non-repudiation, Privacy and secure conversations
+- *Self-management services:* Monitoring, fault-tolerance, self-healing, analysis and projection
+- *Information services:* Naming, Logging, Monitoring, Message delivery   
+→ Framework for grid structures
