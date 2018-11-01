@@ -21,6 +21,7 @@ tags: lecture
 ### Vorlesungen
 - **17.10.2018**: nicht da gewesen
 - **24.10.2018**: nicht da gewesen
+- **31.10.2018**: Kapitel 2 Folie 25 - Ende; Kapitel 3 Folie 1 - 8 
 
 ### Material
 Das Material der Vorlesung besteht aus:  
@@ -140,10 +141,23 @@ $ Transfer Time = \frac{Block size}{Transfer rate} $
 - *Little's Law:* Relationship between number of requests N in queue an response time R: $ N = a * R $ 
 - *Utilization Law:* I/O controller utilization $ U = a*R_s $; $R_s$ is service time
 
+**Native Command Queueing (NCQ)**: muss eingeschaltet werden; Frage: Wann geben wir commit, dass Schreiboperation erfolgreich war?
+- wenn File im Cache → schlecht für Performance
+- wenn File auf Platte → Leistung von Hersteller, bessere Performance, Head Verhalten in Hardware, paar 1000 Umdrehungen pro Minute
+
 **Short Stroking**: Increasing HDD Performance, Approach to achieve maximum possible performance from HDD by limiting overall head movement and
 average seek time; Implementation: only small portion of overall capacity, tracks on outer edge with higher data density; Disadvantage: large number of 
 HDDS invoveld, onyl small portion os storage capacity used; typical for applications with high access densities with high random I/O rates, 
 low response times but small amount of data
+
+**Transaction Processing**: Buchungsprozesse, online, tausende Nutzer → Daten schlecht vorhersehbar, z.B. durch Sitzplatzbuchung, nur wenige bytes
+die sich ändern; vorsicht beim Buffern z.B. Telefonie; Antwortzeit bei DBs typischerweise 2s → sehr niedrige response time, aber gleichzeitig bei
+wenigen Datan hohe I/O Raten; OLTP = Online Transaction Process;  
+*Latenz wichtig, Durchsatz wichtig!*
+
+**Batch Jobs**: Nachts ausführbar, z.B. Berechnungen für Buchungen können nachts ausgeführt werden (Terminüberweisungen); ABER: Bewegen von vielen Daten, 
+seriell geschrieben → I/O auch noch hoch, aber durch caching/prepatching handlebar → Durchsatz aber begrenzt
+*Buffering möglich, Latenz egal!*
 
 **Application I/O – Workload Performance Characteristics**:
 - *Basic Workload Performance:* I/O rate [IOps] (transactions) or data rate [MBps] (throughput); Random access or sequential access;
@@ -153,3 +167,36 @@ Read:write ration; average I/O request size
 **Enterprise Flash Drives**: highest possible throughput per drive, no spinning magnetic media, no mechanical movement (→ no latency), Solid State enables
 consisten I/O performance; very low latency per I/O, energy efficient storage design; based on Flash Solid State; 30 greater IOPS, less than 1 ms service time, 
 better reliability
+
+### Storage Infrastructures
+
+**Redundant Array of Independent Disks (RAID)**: [Wikipedia](https://de.wikipedia.org/wiki/RAID): "Ein RAID-System dient zur Organisation 
+mehrerer physischer Massenspeicher zu einem logischen Laufwerk, das eine höhere Ausfallsicherheit oder einen größeren Datendurchsatz erlaubt 
+als ein einzelnes physisches Speichermedium."; performance limitation of disk drive, individual drive has certain life expectancy → RAID; Ziel von
+RAID: geringe Ausfallwahrscheinlichkeit für Festplatten mit möglichst geringem Overhead, Erhöhung von Performance; Raid provides: increase capacity, 
+higher availability (Ausfallsicherheit), increased performance  
+*RAID Array Components:*
+- RAID Controller
+- Physical Array
+- Logical Array
+- Hard Disk  
+
+*RAID implementations:*
+- Hardware: usually specialized disk controller card; controls attached drives, arrays appear
+to host as regular disk drive
+- Software: "Firmware", runs on OS, performance CPU workload dependent, not supporting all RAID
+levels  
+*RAID Levels:*
+- 0: Striped array, no fault tolerance
+- 1: Disk mirroring
+- Nested RAID
+- 3: Parallel access array with dedicated parity disk
+- 4: Striped array, independent disks, dedicated parity disk
+- 5: Striped array, independent disks, distributed parity
+- 6: Striped array, independent disks, dual distributed parity  
+
+*RAID definitions:*
+- Strip size (Chunk, Stripe): e.g. 256 KiB
+- Stripe (Stride) size: Capacity of full stripe
+- Spare drive: Standby drive, in case of disk failure in an array
+- Rebuild Time: duration of exposure until spare has migrated into failing array
