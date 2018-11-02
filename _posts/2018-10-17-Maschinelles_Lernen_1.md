@@ -23,6 +23,7 @@ tags: lecture
 ### Vorlesungen
 - **17.10.2018**: Organisatorisches und Foliensatz 1-1 bis 1-59
 - **24.10.2018**: Wiederholung von Kapitel 1, Foliensatz 2
+- **30.10.2018**: Wiederholung von Kapitel 2, Foliensatz 3
 
 ### Material
 VL wird aufgezeichnet. Das Material wird auf ILIAS zur Verfügung gestellt. Die Suche der Verantstaltung
@@ -170,4 +171,76 @@ Beispiel: Ockham's razor
 → Lösung: Anpassen des Hypothesenraumbias (gute Klassifikation aber Overfitting), Anpassen des Präferenzbias (wähle h, dass möglichst viel
 richtig klassifiziert, mögliche Missklassifikation)
 
-## Übung
+### Lerntheorie
+**Lernmaschine**: lernende Maschine mit *Hypothesenraum* ${h_\alpha: \alpha ∈ A}$ und  Lernverfahren (Methode $\alpha_{opt}$ mit Hilfe von
+Lernbeispielen zu finden) → Entscheidungsmodell $M_{opt}$
+
+**Probleme beim Lernen**:
+- *Statistisches Problem:* "zu großer" Hypothesenraum, für Trainingsdaten mehrere gleich gute Hypothesen
+- *Komplexitätsproblem:* nicht garantierte optimale Lösung im Hypothesenraum, Gefahr einer suboptimalen Lösung
+- *Repräsentationsproblem:* Zielfunktion nicht genügend gut approximiert
+
+**Fehler**: reale Fehler nicht berechenbar  → empirischer Fehler schätzbar; mögliche Fehler: Lerndaten → Lernfehler, Verifikationsdaten → Verifikationsfehler, Testdaten → Generalisierungsfehler
+
+**Fehlerminimierung**: definiere $h_a$, finde beste $\alpha_{opt}$ durch iterative Minimierung des empirischen Lernfehlers $E_D(h_{\alpha}), z.B. durch Gradientenabstieg (Gradient
+muss berechenbar oder abschätzbar sein)
+
+**Overfitting**: zu starke Spezialisierung der Maschine auf Lernbeispiele ("auswendig Lernen"); Lernfehler fällt, Testfehler steigt → Generalisierung fällt; Erklärung: Lerndatenmenge und 
+Testdatenmenge unterschiedlich; Lösung: Lernprozess durch Verifikationsfehler steuern, Lernprozess im "richtigen Moment" stoppen, richtige Wahl und Suche der optimale Hypothesen
+
+**Modellgüte bestimmen**: je nach Aufgabenstellung unterschiedliche Methoden:
+- *Klassifikation:* Anzahl richtiger/falscher Klassifizierungen  
+- *Regression:* Entfernung zu Schätzungsziel  
+- *Unüberwachtes Lernen:* wie gut werden Daten abgebildet → schwierig  
+- *Reinforcement learning:* wie gut passt Aktionsfolge  → keine allgemeinen Metriken
+
+**Klassifikation**: Unterscheidung von vier Ergebnisklassen:
+- *True Positive (TP):* korrekte Klassifikation positiver Instanzen
+- *True Negative (TN):* korrekte Klassifikation negativer Instanzen
+- *False Positive (FP):* falsche Klassifikation positiver Instanzen
+- *False Negative (FN):* falsche Klassifikation negativer Instanzen  
+
+*Konfusionsmatrix:* Wunschergebnis hohe Werte auf Diagonale, wenige FP und FN; horizontal = Vorhersage, vertikal = tatsächliche Klasse
+
+|               |     Ja        | Nein  |
+| ------------- |-------------  | ----- |
+| **Ja**        |  TP           | FN    |
+| **Nein**      |  FP           | TN    |
+
+*Metriken:*
+- Klassifikationsfehler: möglichst klein $\frac{errors}{total} = \frac{FP+FN}{TP+FN+FP+TN}$
+- Güte: = 1-Fehler $\frac{correct}{total} = \frac{TP+TN}{TP+FN+FP+TN}$
+- False Positve Rate (FPR) / False Alarm Rate (FA): möglichst klein $FPR = \frac{FP}{FP+TN}$
+- False Negative Rate (FNR) / Miss Rate (MR): möglichst klein $FNR = \frac{FN}{TP+FN} = 1 - TPR$
+- Genauigkeit (Precision): möglichst hoch $P = \frac{TP}{TP+FP}$ 
+- True Positve Rate (TPR) / Recall / Positive Rückmeldung: möglichst hoch $TPR = R =\frac{TP}{TP+FN} = 1 - FNR $
+- F1-Maß: möglichst hoch $F_1  =\frac{2}{\frac{1}{R}+\frac{1}{P}}$
+
+Durch Kombination von Metriken Auswahl der besten Hypothese möglich, z.B. TPR/FPR-Graph, Precision-Recall-Graph
+
+*Cross-Validierung:* Modell statistisch auswerten, mit wenig Lerndaten evaluieren → Modell gut oder schlecht?; Vorgehen: Teile Daten wiederholt in 
+Lern- und Validierungsdaten auf, bestimme gute Hypothese, berechne Metriken → wiederholen
+
+*Bootstrap:* Wie mit einfachen Verfahren mehr erreichen? Zufälliges Ziehen der Beispiele mit Zurücklegen, Modellbestimmung & Parameter, Wiederholen... bestimme Mittelwert, Varianz 
+des Modells; Variante Bagging: verwende mehrere Lernmaschinen → Kombination der Lernmaschinen
+
+**Boosting für Klassifikation**: Kombination "schwacher" Modelle um gutes Modell zu erhalten
+
+**Adaptive Boosting / AdaBoost**: Iteratives Erstellen eines komplexen Klassifikators in k Stufen, Ziehen von Lernbeispielen enstprechend definierter Gewichte; mit neuer Lernmenge 
+wird mit Hilfe eines Lernverfahrens nächster Klassifikatior bestimmt
+
+**Probably Approcimate Correct**: Aus Menge X von Instanzen mit Länge n, Konzept C, Hypothesenraum H und Lerndatenmenge D kann keine korrekte Hypothese gefunden werden, aber eine ε-genaue:
+$E_D(h) ≤ ε, 0 < ε < \frac{1}{2}  $ (Approximate Correct); Wert kann mit Wahrscheinlichkeit δ $1 - δ, 0 < δ < \frac{1}{2}$ gefunden werden; Anzahl benötigter Lerndaten: 
+$ m ≥ \frac{1}{ε}(lm\frac{1}{δ} + ln|H|)$   
+→ je größer gewünschte Sicherheit, je kleiner zulässige Fehler, je größer Hypothesenraum → umso größer Anzahl benötigter Daten
+
+**Vaptnik-Chervonenkis (VC) Dimension**: ist maximale Anzahl von Datenpunkten die von der Hypothese beliebig separiert werden können; eine Hypothese h separiert die Daten D wenn zwei 
+Untermengen definiert werden können: ${x|h(x) = 0 } $ und ${x|h(x) = 1 } $; Beispiel: Hypothesenraum durch Geraden separiert, maximal 3 Werte durch Geraden spariert (nur wenn Aufteilung egal);
+Allgemein: Hyperebenen in $R^n ⇒ n+1 $ separierte Werte
+
+**Abschätzung des Testfehlers**: Lernerfolg abhängig von Kapazität der lernenden Maschine (so gering wie möglich), Optimierungsmethode (so gut wie möglich), Lernbeispiele (so viele wie möglich, 
+repräsentativ)
+
+**Structural Risk Minimization**: finde Maschine $VC(h_a)$, Beispiele $N$ und Minimum des empirischen Fehlers $\alpha$: $ min_{H_n} (E_{emp} (h_a)+ \sqrt (... \frac{VC(h_{\alpha})}{N} ...)) $   
+Strukturiere Hypothesenraum, Iteriere über Teile des Hypothesenraum, Suche Minimum für $E(h_{\alpha}), stoppe wenn Summe minimal; Berechnung VC Dimension schwer, rechenintensiv
+
