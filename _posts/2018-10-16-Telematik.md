@@ -24,6 +24,7 @@ tags: lecture
 - **18.10.2018**: Foliensatz 2-20 bis 2-63
 - **24.10.2018**: Foliensatz 2-64 bis 3-12 und Besprechung Homework 1
 - **25.10.2018**: Foliensatz 3-13 bis 3-53
+- **31.10.2018**: Foliensatz 3-54 bis 3-100
 
 ### Material
 Das Material der Vorlesung besteht aus:  
@@ -249,6 +250,7 @@ fixed charges per port → expensive infrastructure, Different Peering policies:
     - *Enhanced Interior Gateway Routing Protocol (EIGRP):* CISCO, link state algorithm, based on RIP
 - *Exterior Gateway Protocol (EGP):* Routing between autonomous systems; EGPs müssen einheitlich sein; policy-based; im Einsatz: *Border Gateway Protocol*
 
+#### Roting Information Protocol (RIP)
 **Routing Information Protocol (RIP)**: IGP, one of first routing protocols, very simple, little configuration; oberhalb von IP; application process 
 implements RIP, manages forwarding table; RIP sent over UDP → *not reliable*  
 *Routing Messages:* exchange messages over UDP
@@ -258,6 +260,77 @@ implements RIP, manages forwarding table; RIP sent over UDP → *not reliable*
     → in case UDP messages are lost, retry, hop count 16 → route is invalidated;  
     - Triggered Update: because of route change, not complete table; rate limitation to reduce load, randomized between 1 and 5 seconds, changes during period 
     accumulated and sent in one message
+    
+#### OSPF: Open Shortest Path First
+**Open Shortest Path First (OSPF)**: Interor Gateway Protocl, based on Link State, each router
+needs to learn complete topology of network (nodes, links with costs), each router computes 
+shortes path (dijkstra), every router must have identical knowledge → otherwise inconsistent
+paths; OSPF on top of IP → unreliable communication
+
+**Routing metric:** each link associated with link costs, configured value, $Cost = 
+\frac{ReferenceBandwidth}{InterfaceBandwidth}, ReferenceBandwidth = 100Mbit/s (default)
+
+**Link State Advertisement(LSA):** with information about neighbors and links; flood LSA to all 
+interfaces → router must have identival copy of LSA; Lifetime: MaxAge = 1 hour, LSRefreshTime = 30 min; if nothing changes, nothing needs to be reported
+→ keep quiet, LSAs refreshed every 30mins, otherwise communication only needed in case of changes; min time between two consecutive LSAs 5 secs   
+Structure:
+- *Header:*
+    - LS Age, Options, LS Type (Hello, link state advertisement, acknowledgement)
+    - Version: OSPF Version: 2 for IPv$, 3 for IPv6
+    - Type: Hello, link state advertisement, acknowledgement
+    - RouterID: identifier of router that originated packet
+    - AreaID
+    - AUType and Authentication: option authentication, verifies that sending router belongs to same network
+    - LSAs: if tye is LSA
+- *Body:* variable
+    - (Advertising Router Flags)
+    - \#Links
+    - Link ID
+    - Link Data: type dependent
+    - Type, \#ToS, Metric
+    - ToS, 0, ToS Metric
+    
+Flooding: Goal: Link State databases must have identical content → need to be synchronized, following actions needed:
+- ensure each LSA is received by every router → reliable flooding
+- ensure each router consistently store (if LSA is newer → sequence number higher) or discard each LSA → fully deterministic comparison rules
+- ensure that expired LSAs are pruned from link state databases
+
+**Link State Database:** LSAs from all routers in network stored; for topology graph and routing table
+
+**Hello Protocol:** establish, maintain logical adjacencies, ensure bi-direction communication
+→ determines identity and liveliness of neighbors
+
+*Workflow:* Router sends hello messages (own routerID, routerID of neighbors, dest. IP of message) periodically
+
+**Areas**: AS grow rather large, LSA flooding and route computation overhead → do not scale; Concept: Divide AS into *areas*, Link state algorithms only within area, areas exchange
+summary of information, typical size in area: less than 100 router → only router within area have same link state databases; Area 0 = backbone of AS, other areas directly connected to AS 
+via area border router, Inter-Area Forwarding through backbone area
+
+**Area Border Router (ABR)**: connected to both areas, instance of OSPF for each area, generate summary LSAs, Handling summary of LSAs
+
+On OSPF every router is pre-configured with: routerID (e.g. smallest IP address of its interfaces), Per-interface parameters (interface IP address, mask; interface output cost (metric))
+
+**RIP vs. OSPF**
+
+|         |     RIP       | OSPF  |
+| ------------- |-------------| -----|
+| **Algorithm**      | distance vector (limited metric selection and size, max path length of 15 hops | links state|
+| **Messages**      | periodic updates every 30secs, even without changes     | updates only on change |
+| **Resources**      | easier, less resources    | more complicate, more resources |
+| **Usage** | somethimes in small networks   |  standard in large ASes, large networks divided into areas|
+
+**ARPANET Routing Metric**: early routing metric versions based on delay; Problems: queue length can change significantly, metric may lead to routing oscillations, bandwidth not
+considered  
+Measuring Delay: $ t_v = (T_{out} - T_{in}) + t_a + t_s$ ; $T_{in}$: packet receiving time, $T_{}out $: sending first bit of packet, $t_a$: Ausbreitungsverzögerung (Kabelübertragungszeit), 
+$t_s$ = Sendezeit (Zeit um Paket komplett zu senden)  
+Problem: measured delay good indicator *after* rerouting; experienced delay ony godd in case of low load  → route oscillations, low network utilization  
+Routing Oscillation: hin und her zwischen Link A und Link B  
+Improvement: during heacy load better take good paths than optimal paths: $ τ = \frac{k}{C(1-ρ)} ⇒ ρ = 1 - \frac{k}{Cτ} $ and smoothed utilization value: 
+$U(n + 1) = 0,5 ∗ ρ(n + 1) + 0,5 ∗ U(n)$ → damps oscillations
+with: $τ$: average delay, $ρ$: measured utilization, $C$: link speed, $k$: average packet size, $U$: smoothed utilization
+                                                                                                                                
+                                                                                                                                
+                                                                                                                              
 
 ## Übung
 
