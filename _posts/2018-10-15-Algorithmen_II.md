@@ -26,6 +26,7 @@ tags: lecture
 - **22.10.2018**: 1-20 bis 1-32; Wdh. Foliensatz 2; (Foliensatz 3 hat Nummerierung 2) 2-1 bis 2-65
 - **23.10.2018**: 2-10 bis 2-27 und Übung 1
 - **29.10.2018**: 2-28 bis Ende Kapitel 3
+- **30.10.2018**: 4-1 bis 4-22
 
 ### Material
 Das Material der Vorlesung besteht aus:  
@@ -234,6 +235,35 @@ Distanz speichern: $ d[s,t] = min(d[s,t], d_{forward} [u] + d_{backward} [u]) $;
  f(v) benötigt folgende Eigenschaften:
     - Konsistenz (reduzierte Kosten nicht negativ): $c(e) + f(v) ≥ f(u) ∀e = (u, v)$
     - wird t aus Q entfernt wenn f(t) = 0 und $ f(v) ≤ μ (v,t) ∀v ∈ $
+    
+### Anwendungen von DFS
+**Tiefensuche (Depth-First-Seacht, DFS)**: [Wikipedia](https://de.wikipedia.org/wiki/Tiefensuche) "Pfad vollständig in die Tiefe beschritten, bevor abzweigende Pfade beschritten werden"; 
+Algorithmus:
+{% highlight python %}
+unmark all nodes; init      //dfsPos = 1 : 1...n; finishingTime = 1 : 1...n
+
+foreach s ∈ V do
+    if s is not marked then
+        mark s          // make s a root and grow
+        root (s)        // a new DFS-tree rooted at it;  dfsNum [s]:= dfsPos ++
+        DFS (s, s)
+
+Procedure DFS (u, v : NodeId )      // Explore v coming from u.
+    foreach (v, w) ∈ E do
+        if w is marked then traverseNonTreeEdge (v, w)
+        else
+            traverseTreeEdge (v, w)         // dfsNum [w]:= dfsPos ++
+            mark w
+            DFS (v, w)
+            backtrack (u, v)        // return from v along the incoming edge; finishingTime[v]:= dfsPos ++
+
+{% endhighlight %}
+
+**Starke Zusammenhangskomponenten (SCC)**: fundamental Eigenschaft von Graphen, zur Anwendung, Analyse und Vereinfachung von Graphen benötigt. Relation ↔* besagt, u ist zusammenhängend mit
+v, wenn es einen Pfad von u nach v gibt und einen Pfad von v nach u → man kann in beide Richtungen gehen, Relation ist Äquivalenzrelation, definiert Relationsklassen: jede Teilmenge ist wiederum
+ stark zusammenhängend, beliebige Knoten in Teilmenge können sich gegenseitig erreichen; bei *Zusammenschrumpfen* des Graphen (=jede Zusammenhangskomponente durch neuen Knoten ersetzen, 
+ entstehender Graph = *Schrumpfgraph*), dann entsteht ein *gerichteter Azyklischer Graph*
+
  
  
   
@@ -250,3 +280,37 @@ Tokenerzeugung darf es keine Zyklen geben!
 - *Insert:* Erzeuge neuen Baum mit Element zum einfügen, füge ihn den Wurzeln hinzu, ggf. min Pointer anpassen; erstelle Union-Token 
 (je Wurzel ein Union-Token); insert kostet konstante Zeit
 - *deleteMin:* siehe Übungsfolie 1
+
+### Übung 2
+**Spezielle Priority Queues**: monoton, ganzzahlig; Bedingungen: 
+- positive, ganzzahlige Schlüssel
+- neue/geänderte Schlüssel ≥ minmale Schlüssel
+- maximales Schllüsselinkrement C (bezogen auf min. Schlüssel)
+
+**Bucket Queues**: zirkuläre Liste aus Buckets, Variable min, init min = 0; C Schlüsselinkremente → #Buckets |B| = C + 1
+- *insert:* Einfügen in B[key mod(C+1)]; Laufzeit: $O(1)$
+- *deleteMin:* Entfernen aus B[min mod(C+1)] oder aus erstem nicht-leeren Folgebucket; Laufzeit: $O(C)$
+- *decreaseKey:* Verschieben von altem in neues Bucket; Laufzeit $O(1)$   
+→ Abstand min-Element und max-Element maximal C → ansonsten geht einfürgen nicht; vgl. *Spezielle Priority Queues*-Bedingungen; Problem sonst, dass man kleinste Element finden, obwohl noch
+kleineres Element in Queue vorhanden
+
+**Radix Heaps**:  Liste aus Buckets, Variable min; C Schlüsselinkremente →  #Buckets $ |B| = K + 2 = (\lfloor log C \rfloor)  + 1 ) + 2 $ z.B. mit C = 9 → 6 Buckets; maximal können pro Bucket[i]
+$max(1,2^i)$ verschiedene Werte in Bucket stehen
+- *Bucket[i]:* i = min(msd(min, key), K)
+- *Bucket[k]:* Overflow Bucket 
+- *Bucket[-1]:* min  
+Vorgehen:
+- *insert:* Einfügen in Bucket B [min( msd(min, key), K)]; Laufzeit: $O(log C)$ → da wenn min entfernt wird, alle Elemente verschoben werden müssen, erstellen nach Kontomethode bei insert
+bereits genug Token um verschieben zu "bezahlen"
+- *deleteMin:* min = minimaler Schlüssel (aus Bucket i), Elemente aus Bucket i verschieben, Entfernen aus Bucket B [− 1 ]; Laufzeit: $O(log C)$
+- *decreaseKey:* Verschieben von altem in neues Bucket; Laufzeit $O(1)$  
+→ Warum Formel [min( msd(min, key), K)]? → bei min Änderung potentiell alle Buckets zu verändern → schlechte Laufzeit und man muss nicht alle Elemente verschieben, d.h. armotisierte 
+Laufzeit Erklärung funktioniert nicht
+
+**Average Case Analyse für Minimale-Spannbäume (MST)**: Minimaler Spannbaum ist Baum aus Graph, der nur Kanten aus Graph verwendet, alle Knoten miteinander verbindet und Kanten sollen
+minimales Gewicht haben; Jarnik-Prim Algorithmus:
+- Wähle beliebigen Startknoten s
+- Füre Knoten v zu MST mit kleinstem Abstand d[v]  
+Analyse: m Kanten, mit zufällig geordneten Gewichten → wie oft wird decreaseKey im Durchschnitt ausgeführt? → Nachbarn durchnummerieren, in Reihenfolge in der sie zu MST hinzugefügt
+wird, wann muss Kante relaxiert werden → Distanz an v ist größer als Kante die sich nun ergeben hat → DecreaseKey wird dann ausgeführt, wenn d[v] > d[über neu hinzugefügte Kanten]  
+Wie oft passiert das? → $ E( M_k ) = H_k $ → $ O ( n ln \frac{m}{n}) $
