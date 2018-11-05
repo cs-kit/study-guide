@@ -27,6 +27,7 @@ tags: lecture
 - **23.10.2018**: 2-10 bis 2-27 und Übung 1
 - **29.10.2018**: 2-28 bis Ende Kapitel 3
 - **30.10.2018**: 4-1 bis 4-22
+- **05.11.2018**: 4-23 bis Ende Kapitel 4; 5-1 bis 5-25
 
 ### Material
 Das Material der Vorlesung besteht aus:  
@@ -237,7 +238,7 @@ Distanz speichern: $ d[s,t] = min(d[s,t], d_{forward} [u] + d_{backward} [u]) $;
     - wird t aus Q entfernt wenn f(t) = 0 und $ f(v) ≤ μ (v,t) ∀v ∈ $
     
 ### Anwendungen von DFS
-**Tiefensuche (Depth-First-Seacht, DFS)**: [Wikipedia](https://de.wikipedia.org/wiki/Tiefensuche) "Pfad vollständig in die Tiefe beschritten, bevor abzweigende Pfade beschritten werden"; 
+**Tiefensuche (Depth-First-Seacht, DFS)**: [Tiefensuche](https://de.wikipedia.org/wiki/Tiefensuche) "Pfad vollständig in die Tiefe beschritten, bevor abzweigende Pfade beschritten werden"; 
 Algorithmus:
 {% highlight python %}
 unmark all nodes; init      //dfsPos = 1 : 1...n; finishingTime = 1 : 1...n
@@ -264,8 +265,31 @@ v, wenn es einen Pfad von u nach v gibt und einen Pfad von v nach u → man kann
  stark zusammenhängend, beliebige Knoten in Teilmenge können sich gegenseitig erreichen; bei *Zusammenschrumpfen* des Graphen (=jede Zusammenhangskomponente durch neuen Knoten ersetzen, 
  entstehender Graph = *Schrumpfgraph*), dann entsteht ein *gerichteter Azyklischer Graph*
 
+### Maximum Flows und Matchings
+**Network**: [Network](https://de.wikipedia.org/wiki/Fl%C3%BCsse_und_Schnitte_in_Netzwerken#Netzwerk); directed weighted graph, source node $s$ and sink node $t$, s has no incoming edges, 
+t no outgoing edges, weight $c_e$ is nonnegative capacity of edge $e$
+
+**Flows**: [Fluss](https://de.wikipedia.org/wiki/Fl%C3%BCsse_und_Schnitte_in_Netzwerken#Fluss); Funktion f die Netzwerk einen nichtnegativen Flusswert zuweist  
+Bedingungen:
+- *Kapazitätskonformität:* Flusswert auf Kante ist max. so groß wie Kapazität der Kante
+- *Flusserhalt:* in jeden Knoten muss genau so viel "hineinfließen" wie "herausfließen"
+
+**Cuts**: [Schnitt](https://de.wikipedia.org/wiki/Fl%C3%BCsse_und_Schnitte_in_Netzwerken#Schnitt); echte Teilmengen S und T der Knoten in Netzwerk mit $s \in S$ und $t \in T$; 
+Kapazität des Schnittes ist Summe der Kapazitäten der Kanten von S nach T
+
+> Wert von Max-Flow = min. Kapazität eines s-t-Cuts
+
+**Max-Flow Berechnung**: 
+- *Linear:* Flussvariablen $x_e$ für jede Kannte, Fluss pro Kante hat max. Kapazität, eingehende Fluss = ausgehender Fluss, maximiere ausgehende Kanten vom Startknoten s aus
+- *Augmenting Paths:* finde Pfad von s nach t, sodass Kante noch Kapazität übrig hat, sättige Kante mit kleinster übriger Kapauität, passe Kapazitäten an (erstelle *Residualgraph*) und wiederhole
  
- 
+**Residual Graph**: [Residualnetzwerk](https://de.wikipedia.org/wiki/Fl%C3%BCsse_und_Schnitte_in_Netzwerken#Residualnetzwerk); Das Residualnetzwerk mit Residualgraphen $G_f$, Fluss $f$ und 
+Residualkapazitäten $u_f$ zeigt restliche Kapazitäten des Netwerks an; Residualgraph besitzt gleiche Knotenmengen wie G und besteht aus den von $f$ nicht ausgelasteten Kanten und ergänzt
+Rückkanten (für $f(e) > 0$), und Kanten (wenn $f(e) < c(e)$)
+
+**Augmenting Paths**: Pfad p von s nach t finden, sodass jede Kante $e$ nonzero residual capacity hat
+
+**Ford Fulkerson Algorithmus**: [Algorithmus](https://de.wikipedia.org/wiki/Algorithmus_von_Ford_und_Fulkerson) zu Bestimmung des Maximalen Flusses; am Besten Beispiel auf Wikipedia anschauen
   
 ## Übung
 ### Übung 1
