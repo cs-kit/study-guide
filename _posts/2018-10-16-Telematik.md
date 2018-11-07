@@ -25,6 +25,7 @@ tags: lecture
 - **24.10.2018**: Foliensatz 2-64 bis 3-12 und Besprechung Homework 1
 - **25.10.2018**: Foliensatz 3-13 bis 3-53
 - **31.10.2018**: Foliensatz 3-54 bis 3-100
+- **07.11.2018**: Foliensatz 3-101 bis 3-135
 
 ### Material
 Das Material der Vorlesung besteht aus:  
@@ -112,7 +113,7 @@ Variables: N = number of prefixes; W = length of prefix (W=32 for IPv4); k = len
 
 **Binary Trie**: Trie = tree-based data structure to store and search prefix information; Idea: bits in prefix to tell algorithm what branch to take; (vgl. Abb. 02-27)
 - *Lookup speed* $ O(W) $, maximum of one node per bit in prefix 
-- *Memory requirement* $ O(N*W), prefixes stored as linked list starting from root, every prefix can have upt do W nodes
+- *Memory requirement* $ O(N*W) $, prefixes stored as linked list starting from root, every prefix can have upt do W nodes
 - *Updates* $ O(W) $  
 Lookup speed with memory access time $ 10ns $ for 100 byte packets $ 2,5 Gbit/s $ → Optimization: Path Compression, Multibit Tries,...
 
@@ -127,7 +128,7 @@ have same strides on each level, different level can have different strides; Pro
 (0* expands to 01* and 00*); choose prefix that is most specific; (vgl. Abb. 02-36)
 - *Lookup speed* $ O(W/k) $
 - *Memory requirement* $ O(2^k NW/k) $, max path length W/k, path composed of one level subtrees with $ 2^k $
-- *Updates* $ O(W/k + 2^k ) $, search time O(W/k), modification $ 2^k-1 $ entries
+- *Updates* $ O(W/k + 2^k ) $, search time $ O(W/k) $, modification $ 2^{k-1} $ entries
 
 **Hash Tables**: goal: improve lookup speed → $ O(1) $, BUT: longest prefix match only with hash table does **not** work; use additional hash table instead (stores result of trie lookup);
 check for each IP packet if entry in hash table exists if not → lookup; goof if addresses show "locality" characteristics
@@ -329,11 +330,51 @@ Improvement: during heacy load better take good paths than optimal paths: $ τ =
 $U(n + 1) = 0,5 ∗ ρ(n + 1) + 0,5 ∗ U(n)$ → damps oscillations
 with: $τ$: average delay, $ρ$: measured utilization, $C$: link speed, $k$: average packet size, $U$: smoothed utilization
                                                                                                                                 
-                                                                                                                                
-                                                                                                                              
+**Equal Cost Multipath (ECMP)**: multiple paths with lowest cost may exist; ECMP splits traffic *equally* between paths with lowest cost; allows load balancing; OSPF supports ECMP
 
-## Übung
+**Traffic Engineering**: Goal: Performance optimization for networks; determine proper link weights
 
+**Exterior Gateway Protocol (EGP):** large networks in AS usually only have information about themselves, number of entries in routing table ans amound of exchanged routing information does not
+scale, per AS at least one intermediate system with interface to another AS  
+ Advantages: 
+ - *Scalability:* size of routing table depends on AS size, changes in routing tables only propagated within AS
+ - *Autonomy:* routing can be controlled within own network, not the same routing protocols within AS necessary
 
+**Border Gateway Protocol (BGP)**: most important EGP, basis of today's internet routing, worldwide usage; 
+Path Vector Protocol: Extension of distance vector approach, routing metric = paths (guarantee no loop exist), routing/paths are based on policies (e.g. cheapest path, not over AS xyz), 
+routing not pre-determined; through smart address assignment, address ranges are summarized by single prefix → improves scalability  
+*Structure:*
+- *External BGP (EBGP):* between routers of *neighboring* ASs; announcement, forwarding of path information; no internal AS details exchanged
+- *Internal BGP (IBGP):* between BGP routers within AS; synchronization of BGP routers; Transit AS establish transit routes  
+
+BGP calculates routes to prefixes from **other** ASs, IGP of local AS broadcasts routes to destinations **within** AS  
+Possible approaches for routing with BGP and IGP:
+- IGP distributes default routes: unknown address/prefix packets to BGP router by shortest path
+- Publication of external routes via IGP: BGP router responsible for specific external prefixes
+- IGP router also speaks BGP (IBGP)  
+Sessions: Point-to-Point (via TCP between directly connected routers = neighbors, peers); hen-eg-problem, how to establish TCP connection? 
+→ IBGP: IGP of AS can be used   
+→ EBGP: usually direct physical connection (no routing required), manual config  
+
+*IBGP Connections:* 
+- Simple case: BGP routers fully meshed/directly connected, but then sessions must be kept alive, bad scalability
+- Alternative 1: concentragte IBGP traffic in a single router = route reflector, has to maintain sessions, forwards messages, in practice more than one reflector → reliabilty
+- Alternative 2: form hierarchies from sub ASes (AS confederations), implement more complex policies, confederation appears as a single AS
+
+*BGP Messages:* 
+- OPEN: establish BGP connection to peer, TCP connection must alread exists!, authentication
+- UPDATE: announcement of new / withdrawhl of outdated path; only sent if new/better paths available
+- KEEPALIVE: keeps connection alive in absence of update messages, acknowledgement for OPEN request
+- NOTIFICATION: error message / tear down of BGP connection 
+
+*BGP Routing:* no predefined routing metric → policies → Routing Information Base (RIB): DB for received, dispatched routing information
+- Incoming updates: Adj-RIB-In (Adjacency RIB Incoming), exists per peer, stores information received from peer
+- Input Policy Engine: Filtering of information according to rules
+- Decision-making Process: Selection of best route
+- Loc-RIB: Local RIB, Routing Informaiton Base, actual routing table, only preferred routes, routes form *Forwarding Information Base (FIB)*
+- Output Policy Engine: Filtering of information according to defined rules
+- Outgoing updates: Adj-RIB-OUT (Adjacency RIB Outgoing), exists per peer, contains routes published to peer
+
+*BGP Challenges:* maintaining scalability ( growth of routing tables, increasing dynamics), increased demands on internet, security problems
 
 
