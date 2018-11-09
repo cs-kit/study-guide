@@ -244,3 +244,103 @@ repräsentativ)
 **Structural Risk Minimization**: finde Maschine $VC(h_a)$, Beispiele $N$ und Minimum des empirischen Fehlers $\alpha$: $ min_{H_n} (E_{emp} (h_a)+ \sqrt (... \frac{VC(h_{\alpha})}{N} ...)) $   
 Strukturiere Hypothesenraum, Iteriere über Teile des Hypothesenraum, Suche Minimum für $E(h_{\alpha}), stoppe wenn Summe minimal; Berechnung VC Dimension schwer, rechenintensiv
 
+### Neuronale Netze
+**Künstliche Neuronale Netze (KNN)**: externe Eingabe → Gewichtsbelegung → Propagierungsfunktion → Aktivierungsfunktion → Ausgabe  
+Einsatzfelder:
+- *Klassifikation und Mustererkennung:* Diagnose, Spracherkennung, Schrifterkennung, Bilderkennung
+- *Funktionsapprocimierung/Regression:* Kontinuierliche Abbildung, Steuerung, Vorhersage
+- *Musterervervollständigung:* Bilderzeugung, generative Modelle, Kodierung, Komprimierung
+
+**Perzeptron**: Anlehnung an natürliche Wahrnehmung, Perceptron realisiert Trennhyperebene (in $R²$ eine Gerade), Gewichte definieren (stellen Normale dar), 
+Gegeben Positive und Negative“ Daten $(P,N)$ erfolgt eine Entscheidung durch gewichtete Summe → Skalarprodukt mit dem Nomalenvektor, *Lernen = Anpassen der Gewichte → 
+Gesucht wird die beste Trennhyperebene*
+
+<a title="By Mayranna [CC BY-SA 3.0 (https://creativecommons.org/licenses/by-sa/3.0)], from Wikimedia Commons" 
+href="https://commons.wikimedia.org/wiki/File:Perceptron_moj.png"><img width="512" alt="Perceptron moj" 
+src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Perceptron_moj.png/512px-Perceptron_moj.png"></a>
+
+*Lernalgorithmus:*  
+{% highlight python %}
+Gegeben Lerndatenmenge P ∪ N    
+Erzeuge der Gewichtsvektor w zufällig  
+While Zähler < Schwellenwert:  
+    Wähle ein Trainingsbeispiel x in P ∈ N zufällig  
+    If x ∈ P:  
+        If w * x > 0 (korrekt klassifiziert):  
+            dann tue nichts  
+        Else w * x ≤ 0:  
+            Setze w ← w + x  
+    Else x ∈ N:  
+        If w * x < 0 (korrekt klassifiziert):  
+            dann tue nichts  
+        Else x ∈ N und w * x ≥ 0:  
+            Setze w ← w – x  
+    If alle x richtig klassifiziert:  
+        Break,  
+    Update Zähler  
+{% endhighlight %}
+
+*Grenzen des Perzeptron Lernalgorithmus:* $\|w\| >> \|x\|$: sehr langsame Anpassung, Normierung nötig, Worst Case antiparallele Vektoren → Gradientenabstieg → differenzierbare Aktivierungsfunktion
+
+Ein Perzeptron hat niedrige Kapazität → Zusammenschalten von Neuronen ("Perzeptronen") kann man Kapazität erhöhen
+
+**Kernel Methode**: lineare Trennung durch Kernel Methode realisierbar, Lineare Trennung im transformierten Raum führt zu komplexer Trennung im Ursprungsraum
+
+**Multi Layer Neural Network**: mehrere versteckte (innere) Schichten, Lernverfahren mit Backpropagation-Algorithmus, nichtlineare Aktivierungsfunktionen in Neuronen
+
+**Nichtlineare Aktivierungsfunktionen**: 
+- *Sigmoid:* $f(x) = \frac{1}{1+e^{-x}}, \frac{\partial f}{\partial x} = f(x)(1-f(x))$
+- *Tangens Hyperbolicus:* $f(x) = tanh(x), \frac{\partial f}{\partial x} = (1+f(x))(1-f(x))$
+- *ReLU:* $f(x) = max(0,x), \frac{\partial f}{\partial x} = \begin{cases} 1 & x > 0 \\ 0 & \text{sonst} \end{cases}$
+- *LeakyReLU:* $f(x) = \begin{cases} x & x > 0 \\ \alpha x & x \leq 0 \end{cases}, \frac{\partial f}{\partial x} = \begin{cases} 1 & x > 0 \\ \alpha & \text{sonst} \end{cases}$
+
+**Backpropagation Algorithmus**: Aus Menge T von Trainingsbeispielen als Eingangs/Ausgabevektor, Lernrate $\mu$, Netztopologie finde Gewichtsbelegung W die T korrekt wiedergibt, Vorgehen
+mittels Gradientenabstieg
+
+**Anpassen der Gewichte**: 
+- Lernen aus Einzeldaten (Pattern learning): Anpassung nach jedem Lernbeispiel, schnelles Lernen (kein "echter" Gradientenabstieg, aber gute Approximation)
+- Lernen aus Teilmengen (mini batch learning): kleine Lernmenge mit Zurücklegen, gutes Lernen (kein "echter" Gradientenabstieg, aber gute Approximation)
+- Epochenlernen(epoch learning): Mittelung der Gewichtsänderung über alle Beispiele, Anpassung nachdem Beispiele propagiert wurden, echter Gradientenabstieg, nicht Ausreißeranfällig
+
+**Optimierungen des Gradientenabstiegs**:
+- *Resilient Propagation (RPROP):* Implementiert normierte Schrittweite und Lernratenanpassung, Beschleunigung auf flachem Plateau, langsames Anpassen im Minimum → schnelle Konvergenz
+- *Adaptive Moment Estimation (Adam):* Angepasste Lernraten für jeden Parameter, pro Parameter werden gleitende Schätzer für Mittelwert und Varianz mitgeführt, Implizites Momentum und 
+Anpassung an die Varianz der Gradienten
+- *Xavier – Initialisierung:* Verringerung des Vanishing- und Exploding-Gradients durch optimierte Initialisierung
+
+**Topologieauswahl**: Anzahl Neuronen pro Schicht zur Anzahl von Lerndaten wichtig, Schichten stark abhängig von Zielfunktion, ABER: zu viele Neuronen, zu wenig Lerndaten → Overfitting;
+Gleichzeitiges Trainieren des NN und finden der optimalen Topologie:
+ - großes Netzwerk verkleinern und am auswendig lernen hindern → Weight Decay, Weight Elimination = Bestrafen von großen w durch Verwendung erweiterter Fehlerfunktion
+ - kleines Netzwerk vergrößern und erweitern bis es Daten lernt → Meiosis Netzwerke, Cascade Correlation
+ 
+**Cascade Correlation**: Initialisiere 2 schichtiges Netz, Festlegen der Abbruchkriterien, Trainieren, solange E(w) kleiner als Fehlerschranke: Neuron einfügen, 
+Neuron trainieren, Netz trainieren   
+*Vorteile:* nur eine Ebene zum selben Zeitpunkt trainiert, schnell, inkrementelles Training, iterative Anpassung des Netzes
+*Nachteile:* spezielle Architektur → schwer Güte zu bestimmen, nicht anwendbar bei komplexen Architekturen
+
+**Dropout**: Umsetzung von Bagging (bootstrap aggregation): k Modelle trainiern auf Daten (mit Zurücklegen), Mittelung der Ergebnisse der Modelle, Ziel: Erwartungswert des Fehlers reduzieren;
+bei sehr großen Netzen → viele Netze lernen → overhead; Daher: approximative, implizite Umsetzung → Maskierung/Inaktivierung von Neuronen beim Lernen → auf allen Subnetzen gleichzeitg lernen,
+Lernen mit jeweils aktiven Neuronen
+
+**Exploding/Vanishing-Gradient Problem**: je weiter Schicht von Ausgabeschicht entfern, desto kleiner werden Gradienten, falls Gewichtsmatrizen klein sind, ergeben sich viele kleine Werte, 
+die miteinander multipliziert werden, Update im Gradientenabstiegsverfahren lässt Gewichte der unteren Schichten praktisch unverändert und Training konvergiert nicht zu guter Lösung; falls
+Gewichtsmatrizen groß sind, ergeben sich viele große Werte, die miteinander multipliziert werden, explodierende Gradienten können Lernen instabil machen, NN kann nciht aus Trainingsdaten 
+lernen
+
+**Gradient Clipping**: Gradienten während Backpropagation einschränken, dass sie Schwellwert nicht überschreiten
+
+**Residual Learning**: Optimierung durch zusätzliche Verbindungen über Schichten hinweg, stärkere Rückpropagierung des Fehlers in untere Schichten
+
+**Early Stopping**: Bei Gefahr des Overfittings Training abbrechen; in Intervallen von n Trainingszyklenn wird geprüft ob der Testfehler p mal aufeinanderfolgend größer wird
+
+**Auswahl repräsentativer Trainingsbeispiele**: 
+- *Lerndaten* → Anpassung der Gewichte
+- *Testdaten* → Testen des Fehlers und Overfitting
+- *Verifikationsdaten* → Feststellen der Generalisierung  
+→ Gute Verteilung nötig, aber unbekannt
+
+**Einsatz von MLNN**:
+1. *Entwurf:* subsymbolische Repräsentation der Ein-/Ausgabe, Trainingsdatenauswahl, Verfahrensauswahl, Topologieauswahl, Parametereinstellung
+2. *Auswahl des Lernverfahrens:* Optimierungsmethode, Initliasisierung, Lernansatz
+3. *Lernfortschritt (Gewichtsanpassung):* Overfitting testen
+4. *Training & Verifikation (Test)*
