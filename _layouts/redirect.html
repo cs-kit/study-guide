@@ -2,7 +2,15 @@
 <html>
 
 {% include head.html %}
-<meta http-equiv="Refresh" content="{{ page.redirect_sleep_seconds }}; url={{ page.redirect_to }}">
+ {{ <meta http-equiv="Refresh" content="{{ page.redirect_sleep_seconds }}; url={{ page.redirect_to }}"> }}
+
+ <script lang="javascript">
+
+ setTimeout(function() {
+    document.location.href = '{{ page.redirect_to }}' + document.location.search;
+ }, {{ page.redirect_sleep_seconds }} * 1000);
+
+ </script>
 
 <body>
 

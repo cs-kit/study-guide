@@ -210,18 +210,53 @@ Programme zur Literaturrecherche sind:
  - Zotero: Collab open source
  - JabRef: Java-Programm, das auch mal abstürzt
 
- ## Inhalt
+## Literaturrecherche
 
- http://h2t.anthropomatik.kit.edu/pdf/Weiner2018a.pdf
+Auf Anfrage bekam ich noch vor Beginn und Anmeldung von meiner Betreuerin zwei
+Paper aus dem Gebiet:
+
+1. (Santello 1998): Griffe für unterschiedliche Objekte aufgenommen und
+   herausgefunden, dass die "postural synergies" nicht mit der Grifftaxonomie
+   decken. Über 80% der Varianz in den 15 gemessenen Gelenkwinkeln konnte durch
+   PCA auf zwei Synergien reduziert werden.
+2. (Kent, 2014): Hat aufgenommen, wie ein zylindrisches Objekt gegriffen und
+   gefangen werden kann. Alle DoF werden reduziert auf den Zeitfaktor $t \in [0,1]$,
+   der angibt, an welchem Zustand der Bewegung man sich gerade befindet.
+   Dieses normalisierte Skalar t wurde dann durch ein EMG (electromyogram) von
+   Menschen gesteuert, um die Bewegung in der richtigen Geschwindigkeit abzuspielen.
+
+=> Aha: Man nutzt die latente Repräsentation, um Griffe vorherzusagen und zu
+   generieren
+=> Frage: Was sind die Grifftaxonomien?
+
+Nach unserem ersten Treffen hat sie mir dann drei weitere Paper gegeben über
+Themen, über die wir uns unterhalten hatte, oder die sie noch gefunden hatte.
+
+1. (Romero 2013): Ersetzt PCA durch GP-LVM und erzielt bessere Ergebnisse und
+   betrachtet auch dynamische Synergien als Folge statischer Griffe.
+2. (Weiner, Starke 2018): Underactuated prosthetic hand am KIT
+3. (Starke, 2018) "Synergy-Based, Data-Driven Generation of Object-Specific Grasps for Anthropomorphic Hands":
+   Statische Synergie mit Autoencoder. 3D-Latent-Space aus zwei Synergien und
+   der Größe des Objektes.
+
+=> Auf wie viele Variablen will man denn hinunter?
+   Wie sollte man eine Greifbewegung unterteilen?
+   Was sind Griffe, die nicht rekonstruiert werden können?
+   Wie sieht es mit dem sequentiellen Ausführen von Bewegungen für das Greifen aus? (Zum Beispiel Stift)
+   Wie sehen solche Daten aus, die man mit einem Cyberglove aufnimmt?
+
+
+
+
+
 
  https://www.youtube.com/watch?v=SJ84z53A4rY
-
- https://www.wevolver.com/wevolver.staff/tuat-karlsruhe.humanoid.hand/master/blob/Overview.md
 
  https://www.youtube.com/watch?v=VG7mx1fQYek
 
  https://h2t.anthropomatik.kit.edu/pdf/Fukaya2000.pdf
 
+## Treffen mit Betreuerin
 
  Erstes Treffen noch vor dem Kick-Off mit Betreuerin.
  Zugang zum Lehrstuhl per KITCard und digitaler Schlüssel für Labore.
@@ -252,20 +287,10 @@ Programme zur Literaturrecherche sind:
 
  When we grasp an object we move simultaneously different muscles in a coordinated way. These preferred patterns of muscles are called postural synergies. In the video some synergies inferred by human behaviours are replicated using a robot hand (UB Hand IV).
 
- Power grap: Hands fix object against palm
+ Power grip: Hands fix object against palm
 
 
  https://www.youtube.com/watch?v=6qRRbvNzHG8
-
-
-
- http://projects.csail.mit.edu/manipulation/rss07/paper__dexterous_grasping_via_eigengrasps_a_low_dimensional_approach_to_a_high_complexity_problem__ciocarlie.pdf
-
-
- https://en.wikipedia.org/wiki/Isomap
-
- http://scikit-learn.org/stable/modules/generated/sklearn.manifold.Isomap.html
-
 
  https://www.youtube.com/watch?v=rXNwBurCnTc
 
@@ -282,9 +307,6 @@ Programme zur Literaturrecherche sind:
  Für die HoC Kurse wurde man einem Portal der WiWi hinzugefügt: portal.wiwi.kit.edu
 
 
-
- https://towardsdatascience.com/intuitively-understanding-variational-autoencoders-1bfe67eb5daf
-
  https://www.countbayesie.com/blog/2017/5/9/kullback-leibler-divergence-explained
 
  https://github.com/yzwxx/vae-celebA
@@ -294,7 +316,7 @@ Programme zur Literaturrecherche sind:
  https://arxiv.org/abs/1512.09300
 
 
- 
+
  www.semanticscholar.org
 
 ### Literaturrecherche
