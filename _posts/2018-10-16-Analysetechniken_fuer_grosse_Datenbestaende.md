@@ -24,6 +24,7 @@ tags: lecture
 - **16.10.2018**: Organisatorisches und Foliensatz 1-1 bis 2-36
 - **23.10.2018**: Foliensatz 2-36 bis 3-8
 - **30.10.2018**: Foliensatz 3-9 bis 3-40, 4-1 bis 4-35, 5-1 bis 5-31
+- **06.11.2018**: Foliensatz 5-31 bis 5-
 
 ### Material
 Das Material der Vorlesung besteht aus:  
@@ -368,7 +369,7 @@ der Entropie minimiert (möglichst wenig Überraschung)
 - Varianz des Lernverhaltens: Fehler verursacht durch Begrenztheit des Trainingsdatenbestand, hohe Varianz → hoher zufälliger Fehler
 
 
-**Konfusionsmatrix:** Wunschergebnis hohe Werte auf Diagonale, wenige FP und FN; horizontal = Vorhersage, vertikal = tatsächliche Klasse
+**Konfusionsmatrix:** Wunschergebnis hohe Werte auf Diagonale, Diagonale sind richtig vorhergesagte Instanzen, wenige FP und FN; horizontal = Vorhersage, vertikal = tatsächliche Klasse
 $Gesamt-Erfolgsquote := \frac{TP+TN}{TP+FN+FP+TN}$
 
 |               |     Ja        | Nein  |
@@ -376,7 +377,53 @@ $Gesamt-Erfolgsquote := \frac{TP+TN}{TP+FN+FP+TN}$
 | **Ja**        |  TP           | FN    |
 | **Nein**      |  FP           | TN    |
 
-**Kappa-Koeffizient**: 
+**Kappa-Koeffizient**: [Cappa Kohens](https://de.wikipedia.org/wiki/Cohens_Kappa) Wie gut ist Vorhersage? Maß zur Einschätzung zwischen zwei Classifier
+
+**Loss-Function**: Verlust durch falsche Vorhersagen
+- *Quadratic Loss Function:* k mögliche Vorhersagen, Vorhersageverfahren mit Vektor $(p_1, ... p_k)$ mit Summe 1, tatsächliche Klassenzugehörigkeit mit Vektor $(a_1, ... a_k)$ ein $ a_i $ hat Wert 1
+Rest 0; $ Quadratic loss function = \sum_j(p_j-a_j)² $  
+Beispiel 1:  $ a = (1, 0, 0,.., 0), p = (0, 1, 0,..., 0)$ → Quadratic loss = $(1-0)²+(0-1)²+(0-0)²+...+(0-0)² = 1+1 = 2 $  
+Beispiel 2:  $ a = (1, 0, 0,.., 0), p = (0, 0,5, 0,5, ..., 0)$ → Quadratic loss = $(1-0)²+(0-0,5)²+(0-0,5)²+...+(0-0)² = 1 + 0,25 + 0,25 = 1,5 $  
+ → Quadratic Loss ist nie größer als 2
+ 
+- *Informational Loss Function:* $ -log_2 p_i $ mit tatsächlicher Klassenzugehörigkeit i
+
+**Lift**: Faktor, um den sich Rücklaufquote erhöht, nach oben gewölbte Kurve (im vgl. zu Geraden x), am höchsten auf x, am niedrigsten auf y ist Ziel; andere Möglichkeit ist
+*Cost/Benefit Kurve* x-Wert ist Gewinn, y-Wert ist Rücklaufquote
+
+**Receiver-Operating-Characteristic-Kurve (ROC)**: Sortieren der Datenbestände nach absteigender Wahrscheinlichkeiten, Bewegen auf x-Achse für TP, bewegen auf y-Achse für FP,
+je besser desto weiter links oben
+- *FP-Rate:* $ 100 * \frac{FP}{FP+TN}$
+- *TP-Rate (Recall):* $ 100 * \frac{TP}{TP+FN}$
+- *Precision:* $ 100 * \frac{TP}{TP+FP}$
+Kennzahlen für Kurve:  
+- *Area under Cureve (AUC):* Fläche unter Kurve
+- *f-Measure:*  $ \frac{2*TP}{2*TP+FP+FN}$
+- *Erfolgsquote:*  $ \frac{TP + TN}{TP+FP+TN+FN}$
+
+**Qualitätsmaße für numerische Vorhersagen**: $p_i $ Vorhersage für i-tes Objekt, $a_i$ tatsächlicher Wert, $ā$ Mittelwert des Trainingsdatenbestandes, $ā_{test}$ Mittelwert des Testdatenbestandes
+- *Mean-squared error:* $\frac{(p_1 - a_1)²+...+(p_n - a_n)²}{n}$
+- *Root mean-squared error:* $\sqrt{\frac{(p_1 - a_1)²+...+(p_n - a_n)²}{n}}$
+- *Mean-absolute error:* $\frac{\|p_1 - a_1\|+...+\|p_n - a_n\|}{n}$
+- *Relative-squared error:* $\frac{(p_1 - a_1)²+...+(p_n - a_n)²}{(a_1 - ā)²+...+(a_n - ā)²}$ Obwohl gleich weit von Mittelwert weg, kann Fehler "krass" sein
+- *Root relative-squared error:* $\sqrt{\frac{(p_1 - a_1)²+...+(p_n - a_n)²}{(a_1 - ā)²+...+(a_n - ā)²}}$
+- *Relative-absolute error:* $\frac{\|p_1 - a_1\|+...+\|p_n - a_n\|}{\|a_1 - ā\|+...+\|a_n - ā\|}$
+- *Correlation coefficient:* $\frac{\sum_i{(p_i-p̃)(a_i-ā_{test})}}{n-1}$ Qualitätsmaß, groß wenn a und p ähnlich
+
+**Minimum Description Length (MDL)**: Erfolg beim Finden von Regelmäßigkeiten = Kürze des Modells/Kürze der Beschreibung, z.B. Suche eines Codes in String-Kette, kürzester Code intuitiv 
+Bester  $ \forall_x: L_C_P (x) = \lceil -log P(x) \rceil$, Beispiel: Code "abacabacabac": P(a) = 1⁄2, P(b) = P(c) = 1⁄4 → $a: \lceil -log \frac{1}{2} \rceil = 1$,
+ $b,c: \lceil -log \frac{1}{4} \rceil = 2$; kleine Wahrscheinlichkeiten entsprechen großen Code-Längen
+ - *nicht-uniformer Code:* unterschiedliche Codelängen
+ - *uniformer Code:* gleiche Codelängen durch gleiche Wahrscheinlichkeiten, Repräsentation als Binärbaum möglich
+
+**Theorem zum Codierungsaufwand**: $ -log P(\frac{x}{M})$
+
+**Prüfungsfrage: Was ist die „10-fold cross validation“?**   
+**Prüfungsfrage: Wie haben wir die Erfolgsquote definiert?**   
+**Prüfungsfrage: Was ist ein Lift Chart? Wie unterscheidet es sich von der ROC Kurve?**   
+**Prüfungsfrage: Was für Fehlerarten gibt es bei Vorhersagen von Klassenzugehörigkeiten? Was für Kennzahlen kennen Sie, die diese Fehlerarten sämtlich berücksichtigen?**   
+**Prüfungsfrage: Was ist Unterschied zwischen Kovarianz und Correlation Coefficient?**   
+**Prüfungsfrage: Warum kommt bei der informational loss Funktion die Logarithmusfunktion zur Anwendung?**
 
 ## Übung
 
