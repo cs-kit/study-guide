@@ -23,6 +23,7 @@ tags: lecture
 ### Vorlesungen
 - **16.10.2018**: Organisatorisches und Foliensatz 1-1 bis 2-36
 - **23.10.2018**: Foliensatz 2-36 bis 3-8
+- **30.10.2018**: Foliensatz 3-9 bis 3-40, 4-1 bis 4-35, 5-1 bis 5-31
 
 ### Material
 Das Material der Vorlesung besteht aus:  
@@ -246,7 +247,8 @@ Veranschaulichung:
 #### Statistische Tests
 **Chi-Quadrat Test**: hier: Unabhängigkeitstest; erwartete Werte oben, tatsächlich eingetretene Werte unten; $ \chi ^{2}$
 groß wenn starke Korrelation, klein wenn keine Korrelation; Vorgehen: Prüfgrößen berechnen und Abweichungen der Einzelereignisse aggregieren; 
-Zurückweisung der Hypothese, dass Verteilung unabhängig wenn $ p(\chi ^{2}) ≤ \alpha $ (Schwellwert $\alpha$ hängt von "risikofreude" ab); 
+Zurückweisung der Hypothese, dass Verteilung unabhängig wenn $ p(\chi ^{2}) ≤ \alpha $ (Schwellwert $\alpha$ hängt von "risikofreude" ab); bei kleinem
+Chi-Quadrat nich sicher, dass Hypothese zurückgewiesen werden kann → nur, dass einige Fälle existieren, in denen keine Aussage getroffen werden kann;
 Wenn z.B. Wahrscheinlichkeit von $ \chi ^{2} ≤ \alpha$ dann Zurückweisung der Hypothese → $X_1$ und $X_2$ abhängig
 
 
@@ -257,7 +259,8 @@ Beispiel: Frauen verdienen gleich viel, Männer großer Spread, Verteilungen unt
 überein? Vorne nur Frauen, hinten nur Männer → Mediane stimmen nicht überein
 
 **Wilcoxon-Mann-Whitney Test**: Ist Abweichung der Mediane [statistisch signifikant](https://de.wikipedia.org/wiki/Statistische_Signifikanz); 
-*Rangsummenstatistik* (Ränge aufsummieren, Kennzahlen berechnen, mit Tabelle vergleichen), Test liefert Wahrscheinlichkeit dass Hypothese zutreffend
+*Rangsummenstatistik* (Ränge aufsummieren, Kennzahlen berechnen, mit Tabelle vergleichen), Test liefert Wahrscheinlichkeit dass Hypothese zutreffend; bei 
+Zurückweisung keine Aussage möglich → z.B. bei kleiner Stichprobe nicht möglich zu sagen, dass Gegenteil der Hypothese eintrifft
 
 **Bernoulli-Experiment**: N Datenobjekte, Erfolgswahrscheinlichkeit p eines Experiments (z.B. korrekte Klassifizierung), Anzahl erfolgreicher Experimente S,
 Beobactete Erfolgsquote $ f= \frac{S}{N}$ ist Zufallsvariable; $Varianz = \frac{p*(1-p)}{N} $ → je mehr Experimente desto kleiner die Varianz;   
@@ -289,12 +292,91 @@ Achsen
 **Prüfungsfrage: Allgmeiner Zusammenhang zwischen distributiv/algebraisch/holistisch und self-maintainable?**
 **Prüfungsfrage: Wie groß ist Entropie, wenn alle Klassen gleich häufig?**
 
-### Informatik-Grundlagen: Räumliche Indexstrukturen
+### Räumliche Indexstrukturen
 **Index**: Seitenweise Anordnung der Daten, müssen im Hauptspeicher vorliegen um damit Rechnen zu können, Seiten = Einheiten des
 Zugriffs, *Problem der Zugriffslücke*: Zugriff/Laden der Seite viel Zeitaufwendiger als anschließendes Rechnen → Zugriffszeit linear mit 
 größe der Daten; Index für mehrere Attribute möglich, Reihenfolge wichtig, erstes Element bestimmt Sortierung, dann zweites;
 
 *Ende der Vorlesung vom 23.10.2018*
+
+**Normalisierung der Attribute**: bei unterschiedlichen Einheiten pro Dimension → Normalisierung: $ a_i = \frac{v_i - min v_j}{max v_j - min v_j}$, min = 0, max = 1
+
+**Manhattan Distance**: euklidischer Abstand (direkte Verbindung von Punkten) nicht immer gut → Manhattan Distance: Gerade pro Dimension (vgl. Skizze Vl-Mitschrift), sozusagen 
+"Straßen gehen" wie Manhattan; nicht normalisiert → je mehr Dimensionen, desto größer der Wert
+
+**kd-Baum**: [Wikipedia](https://de.wikipedia.org/wiki/K-d-Baum): " unbalancierter Suchbaum zur Speicherung von Punkten aus dem  $ \mathbb {R} ^{k}$. 
+Er bietet ähnlich dem Bereichsbaum die Möglichkeit, orthogonale Bereichsanfragen durchzuführen."
+
+**Nearest Neighbor**: Kreis um Anfragepunkt; Einsparung, da nur Rechtecke inspiziert werden müssen, die in Kreis liege
+
+**Bereichsanfrage für Objekte mit räumlicher Ausdehnung**: Rechtecke (vierdimensionaler Punkt: links, rechts, unten, oben), Anfragepunkt (x,y):
+- Fall 1: $x < x_1 $ nur links absteigen
+- Fall 2: $x ≥ x_1 $ in beide Teilbäume absteigen
+
+**Prüfungsfrage: Welche Rechtecke überlappen (Anfrage-)Rechteck?**   
+**Prüfungsfrage: Welche Rechtecke sind in (Anfrage-)Rechteck enthalten?**   
+**Prüfungsfrage: Welche Rechtecke enthalten (Anfrage-)Rechteck?**   
+
+**kdB-Baum**: [Wikipedia](https://en.wikipedia.org/wiki/K-D-B-tree) Kombination von kd-Baum und B*-Baum, Änderungen:ohysischer Knoten enthält mehrere logische Regionen, physische Knoten nicht mehr pro Split-Dimension;
+Vorteile: Daten-Wurzel-Abstand immer gleich, genau eine Speicherseit pro physischem Knoten, effizienter Zugriff; Nachteil: komplexe Reorganisation
+
+**R-Baum**: [Wikipedia](https://de.wikipedia.org/wiki/R-Baum); Blätter sammeln Datenobjekte in Rechtecken, Väter sammeln Rechtecke der Kinder wiederum in Reckecken
+- *Einfügen:* 
+    - Datenpunkt in Zone eines Kind-Knotens → kein Problem
+    - Datenpunkt fällt in Überlappung von Zonen → Knoten, dessen Fläche am wenigsten vergrößert werden muss
+    - Datenpunkt fällt in keine Zone eines Kinde-Knotens
+
+**Instanzbasiertes Lernen**: zur Laufzeit Suchde des nächsten Nachbarn im Trainingsdatenbestand → Nachbarn bestimmen Klassifikation des gesuchten Datenpunktes; Unterstützung durch Suchbaum;
+bei nominalen Attributen: Distanz ist 0 wenn Attributwerte gleich, ansonsten 1; Noise verschlechtert Ergebnisse
+
+**Prüfungsfrage: Warum kann man für räumliche Anfragen nicht ohne weiteres auswerten, wenn man für jede Dimension separat einen B-Baum angelegt hat?**   
+**Prüfungsfrage: Wie ist der R-Baum aufgebaut?**   
+**Prüfungsfrage: Wie funktioniert die Suche nach dem nächsten Nachbarn mit dem R-Baum?**   
+**Prüfungsfrage: Was ändert sich, wenn die Objekte eine räumliche Ausdehnung haben?**   
+**Prüfungsfrage: Stören uns Überlappungen von Knoten des R-Baums? Wenn ja, warum?**   
+**Prüfungsfrage: Wie unterscheiden sich R-Baum, kD-Baum und kDB-Baum?**   
+**Prüfungsfrage: Wie funktioniert Einfügen in den R-Baum, inklusive Split?**   
+**Prüfungsfrage: Was für Anfragen unterstützen die diversen räumlichen Indexstrukturen?**   
+**Prüfungsfrage: Warum werden bei der NN-Suche nur genau die Knoten inspiziert, deren Zonen die NN-Sphere überlappen?**  
+**Prüfungsfrage: Welche Classifier kennen Sie?**  
+
+### Klassifikation
+Ziel neue Tupel richtig klassifizieren → Annahme: Zukünftige Daten ähneln vergangenen
+
+**Feature**: Funktion, die Attributwert auf einen (möglicherweise hilfreichen) Wert abbildet; Vorgehen: man überlegt sich alle Features, die nützlich sein könnten, Classifier "sucht aus"
+
+**Binäre Entscheidungsbäume**: Anzahl möglicher Entscheidungsbäume riesig → wie vorgehen? → Split-Attribute so wählen, dass Datenpunkte in Knoten dasselbe Risiko tragen → Split finden,
+der Entropie minimiert (möglichst wenig Überraschung)
+
+**Pruning**: Overfitting → wenn Entscheidungsbaum zu sehr auf Trainingsdatenbestand zugeschnitten
+- *Prepruning:* beim Aufbauen des Baumes überprüfen, ob Split etwas bringt → Knoten als Blatt belassen, wenn nicht
+- *Postpruning:* Entscheidungsbaum erst aufbauen und dann zurückschneiden → besser → Baum nur einmal aufbauen
+
+**Holdout-Daten**: verfügbare Daten, die nicht explizit fürs Training verwendet werden, Standardvorgehensweise, aber kleinerer Trainingsdatenbestand
+
+**Prüfungsfrage: Wie baut man einen Entscheidungsbaum auf?**   
+**Prüfungsfrage: Wie kann man Overfitting beim Aufbau eines Entscheidungsbaums berücksichtigen?**   
+**Prüfungsfrage: Wie kann Aufbau des Entscheidungsbaums berücksichtigen, dass unterschiedliche Fehlerarten unterschiedlich schlimm sind?**   
+
+### Evaluation
+**Crossvalidierung**: repeated holout Methode, wiederholte Aufteilung in Trainings- und Testdaten → Klassifizierung → Wiederholung; 10-fold cross validation ist Standard
+
+**Stratification**: Sicherstellung, dass bestimmte Eigenschaften in Partitionen gleich verteilt sind
+
+**Bias und Varianz**: Gesamtfehler eines Lernverfahrens aus beiden Summanden (vgl. 5-13)
+- Bias hoch: Fehler beim lernen konsistent (auch unendlicher großer Trainingsdatenbestand würde Fehler nicht eliminieren)
+- Varianz des Lernverhaltens: Fehler verursacht durch Begrenztheit des Trainingsdatenbestand, hohe Varianz → hoher zufälliger Fehler
+
+
+**Konfusionsmatrix:** Wunschergebnis hohe Werte auf Diagonale, wenige FP und FN; horizontal = Vorhersage, vertikal = tatsächliche Klasse
+$Gesamt-Erfolgsquote := \frac{TP+TN}{TP+FN+FP+TN}$
+
+|               |     Ja        | Nein  |
+| ------------- |-------------  | ----- |
+| **Ja**        |  TP           | FN    |
+| **Nein**      |  FP           | TN    |
+
+**Kappa-Koeffizient**: 
 
 ## Übung
 
