@@ -528,3 +528,204 @@ Datenrate reduzieren zu können.
 ![](/assets/images/Aktionspotential.png)
 
 https://de.wikipedia.org/wiki/Aktionspotential
+
+## 5. Vorlesung
+
+Das Frequenzspektrum (oft auch nur Spektrum) eines Signals, gibt dessen Zusammensetzung
+aus verschiedenen Frequenzen an. Ein Frequenzband bezeichnet einen Bereich in einem
+Frequenzspektrum. Den Abstand zwischen der unteren und oberen Grenzfrequenz heißt
+Bandbreite.
+
+Die **kritische** Bandbreite ist der Mindestabstand (minimale Breite),
+damit zwei Töne vom Menschen als unterschiedlich wahrgenommen werden können.
+
+Dadurch kann es zu spannenden Phänomenen kommen.
+
+Wenn man sich anschaut, was eine an das Ohr angelegte Frequenz bewirkt, dann
+kann man sich die **Frequenzantwort** der Basilarmembran anschauen. Hier
+entstehen Überlagerungen und Kurven:
+
+ - niedrige Töne: eher breit und näher an einer Glockenform
+ - hohe Töne: weniger glockenförmig, Kurve mit Plateus
+
+Dieses Wissen kann man nutzen, um Kompressoren zu designen.
+
+### Menschl. Empfinden
+
+Menschen haben ein subjektives Lautstärkeempfinden, das nicht direkt mit
+Schalldruck und -energie zusammenhängt.
+
+Um zu messen, wie laut ein Mensch was empfindet, gibt es die Einheit **Phon**:
+
+Der Wert in Phon gibt an, welchen Schalldruckpegel (dB) ein Sinuston mit
+einer Frequenz von 1000 Hz besitzt, der gleich laut empfunden wird, wie
+das eigentliche Schallereignis, das eine eigene Frequenz besitzt.
+Daduch ist es möglich, Hörempfinden mit einem Pegelwert zu beschreiben, der
+unabhängig vom Spektrum des Signals ist.
+
+"Ein Lautstärkeunterschied von etwa 1 phon liegt als Unterschiedsschwelle gerade so an der Grenze der Erkennbarkeit. Deshalb ist es weder nötig noch sinnvoll, Bruchteile eines Phon anzugeben."
+Null Phon ist die Hörschwelle.
+
+![Bild gemeinfrei](/assets/images/phon_skala.jpg)
+
+Die Linien bedeuten, dass der Sinuston den gleichen Schalldruckpegel hatte.
+Man spricht von der Phon-Skala.
+
+**Absolutes Gehör:** Die Frequenz eines Tones kann unabhängig von der Lautstärke
+erkannt werden. Stüker meint, dass es sich um eine genetische Disposition handelt
+in Verbindung mit Training.
+Normale Gehöre lassen sich durch Lautstärke täuschen, wodurch zum Beispiel ein
+Ton mit geringerem Schalldruck für tiefer gehalten werden kann.
+
+**Rauschen:** Es handeld sich um ein Schallsignal, das aus vielen unterschiedlichen
+Frequenzen und Energieanteilen zusammengesetzt ist.
+
+Wenn man Menschen einem Rauschen aussetzt, dabei aber ein gewisses Frequenzband
+auslässt, dann sind die Neuronen an der Basilarmembran für "leergepumpt" bis auf
+die, die das Frequenzband ablesen können. Dadurch entsteht nach Abschalten des
+Rauschens ein Effekt, dass die Probanden überempfindlich in diesem Frequenzband
+sind.
+
+Weiteres Experiment: Wenn man zwei nah beeinander liegende Frequenzen (Abstand
+  zum Beispiel 2 Hz) in ein Signal mischt und es Menschen vorspielt, dann werden
+  sie nicht als zwei Töne wahrgenommen, sondern ein hin und her schwingen.
+  Das nennt man auch **Schwebung**.
+
+Wenn der Frequenzunterschied etwas größer ist, dann wird das Signal als "rauer Ton"
+wahrgenommen (40 Hz Unterschied).
+Und wenn sie dann ausreichend weit entfernt sind, dann kann der Mensch sie als
+zwei Frequenzen wahrnehmen.
+
+### Schriften
+
+Um nun Niederschreiben zu können, was in einem Signal erkannt wurde, benötigt
+man Schriften. Zu Beginn der automatischen Spracherkennung hat man nur im
+Englischen gearbeitet und daher war das lateinische Alphabet ausreichend.
+
+Für ASR ist ein "Aussprachewörterbuch" sehr wichtig: Wie klingt ein Wort, wenn
+es aus diesen Phonemen zusammengesetzt ist.
+
+Es gibt auf der Welt einige Schriftsysteme. Prof. Stüker findet, dass David
+Christobal eher ein "McDonalds-Linguist" ist, das heißt, es wird von vielen
+Nicht-Linguisten gelesen und es ist streitbar, was er schreibt.
+
+**Einteilung der Schriftsysteme in sechs Klassen**:
+
+1. Logosyllabisch: Ein Zeichen entspricht einem Wort oder einer Silbe.
+   Zum Beispiel die chinesische Schrift. Laut Wikipedia:
+   "Die chinesische Schrift (chinesisch 中文字, Pinyin zhōngwénzì, Zhuyin ㄓㄨㄥ ㄨㄣˊ ㄗˋ) oder Han-Schrift (漢字 / 汉字, hànzì, Zhuyin ㄏㄢˋ ㄗˋ) fixiert die chinesischen Sprachen, vor allem das Hochchinesische, mit chinesischen Schriftzeichen. Sie ist damit ein zentraler Träger der chinesischen Kultur und diente auch als Grundlage der japanischen Schriften (Kanji, Hiragana, Katakana), einer vietnamesischen Schrift (Chữ nôm) und einer der koreanischen Schriften (Hanja). Insgesamt gibt es über 100.000 Schriftzeichen[1], von denen der überwiegende Teil jedoch heute nur selten verwendet wird bzw. ungebräuchlich ist, in der Vergangenheit nur zeitweilig verwendet wurde oder Varianten darstellt. Für den alltäglichen Bedarf ist die Kenntnis von 3.000 bis 5.000 Zeichen ausreichend. "
+
+   Auch die Hyroglyphen sind ein Schriftsystem, da sie auch Zusammensetzungen können. Es handelt sich nicht
+   nur um Bilder.
+   **Argumentation nach Daniel** (Linguist): Es handelt sich nur um eine Schrift,
+   wenn abstrakte Ideen dargestellt werden können. Das ist bei Piktogrammen nicht
+   der Fall. Man benötigt ein Konzept von Silben oder Buchstaben.
+
+2. Syllabisch: Zeichen entsprechen einer Silbe.  Zum Beispiel Cherokee.
+3. Abjad: Zeichen enstprechen Konsonatent. Abjad heißt ABC auf Arabisch, Namen der ersten drei Zeichen.
+   Arabisch und Hebräisch.
+   Problem: Gleiche Schriftliche Darstellung eines Signals, aber unterschiedliche Aussprache,
+   weil Vokale nicht enthalten.
+4. Alphabet: Zeichen entsprechen Vokalen und Konsonanten. Alph, bet sind die ersten
+   beiden Buchtaben des Herbäischen. Interessant also, dass Alphabet nach einem
+   Abjad benannt ist und nicht Griechisch.
+   Hier gibt es auch mehrere Laute für Buchstaben in gewissen Kombinationenn,
+   zum Beispiel Diphtonge oder |sch|. Das Phonem wird nicht so ausgesprochen,
+   wie seine Einzelteile. -> Das kommt daher, dass sich die Sprache entwickelt hat,
+   aber die Schrift nicht angepasst wurde.
+   Witz von Alex Waibel: Ein Deutscher, ein Franzose und ein Engländer gehen in
+   eine Bar. Alle nennen den Namen ihres Hundes und sagen, das schreibt man
+   wie man es spricht. Beim Engländer ist es aber überhaupt nicht klar.
+   Generell englische Städtenamen, kann man ihre Aussprache nicht gut von der Schrift
+   ableiten. Beim Englischen ist der Unterschied groß, weil die Schrift sehr alt
+   und wenig verändert wurde.
+5. Abugida: Jedes Zeichen steht für einen Konsonanten und einen ihn beigleitenden
+   Vokal. Das Zeichen kann durch Diakritika modifiziert werden, um andere
+   Vokale darzustellen. Abugida leitet sich aus den ersten vier Konsontanten+Vokalen des Äthiopischen ab.
+6. Featural: "Die Form der Zeichen steht in Beziehung zu Merkmalen des Sprachsegments, für das sie stehen."
+   Also alles andere.
+   Problem: Verschriftlichung des Signals klappt nicht gut.
+
+Die wenigsten Sprachen sind geschrieben. An vielen Orten dieser Welt gibt es
+gesprochene Sprachen, aber die Schrift kam bei vielen erst im Nachhinein.
+Junge Sprachen bekommen oft ein Alphabet. Kolonien haben es oft aufgedrückt
+bekommen, zum Beispiel Vietnam.
+
+Vietnam hatte auch Hanse, dann kamen Missionare und haben dem Vietnamesischen
+eine Alphabetschrift mit Diakritika aufgezogen.
+
+In den Phillipinen: Tagallok hat erst sehr spät überhaupt eine Schrift bekommen.
+
+### Mikrofone
+
+Alle Mikrofone haben eine Membran. Sie unterscheiden sich in Bauform und Wandlerprinzip.
+Beim Wandlerprinzip ist zu beachten, ob man Schallenergie oder Schalldruck messen möchte.
+Ersteres ist empfindlicher gegenüber Distanz.
+
+ - **Dynamisches Mikrofon:** An die Membran ist ein Magnet befestigt, der sich bei
+   Schwingung durch eine Spule bewegt. Dadurch wird abhängig von Stärke des
+   Magnet und Fläche des durchdringenden Feldes elektrischer Strom induziert.
+   Die Geschwindigkeit der Membranschwingung kontrolliert die Stromstärke
+   in der Spule. Das Signal ist proportional zur Membrangeschwindigkeit.
+   Alle dynamischen Mikrofone sind Geschwindigkeitsempfänger.
+ - **Kondensatormikrofon:** Eine starre und eine bewegliche Kondensatorplatte.
+   Die bewegliche ist mit der Membran verbunden, wodurch sich bei Annäherung
+   der beweglichen Platte die angelegte Spannung erhöht.
+   Die absolute Auslenkung ist abhängig vom Druck. Es wird also der Schalldruckpegel
+   gemessen und dieser ist nicht so empfindlich ggü. Distanz. $P ~ {1 \over r}$
+   Alle Kondensatormikrofone sind Elongationsempfänger (es wird also die Auslenkung der membran gemessen)
+ - **Elektretmikrofon**: Die Kondensatorplatte an der Membran ist blöd und benötigt eine Gleichspannungsquelle.
+   Daher wird die Membran mit einer **Elektretfolie** überzogen, welche dauerhaft positiv
+   geladen ist, indem ihr Elektronen entnommen wurden.
+   ~90% aller Mikrofone heutzutage sind Elektretmikrofone, weil sie billig hergestellt werden können.
+   Aber eigentlich wäre es wünschenswert, dass zum Beispiel beim Telefonieren
+   keine Kondensatormikrofone verbaut wären, damit man keine Hintergrundgeräusche hört.
+ - Kohlemikrofon: Stromfluss durch Kohlepulver ist besser, wenn Kohle unter Druck
+   gesetzt wird (durch Sprache). Sehr lange in Telefonhörer, deswegen musste man
+   sie auch auf den Tisch hauen von Zeit zu Zeit, um den Kohlegries durchzuschütteln.
+ - Piezomikrofon: Piezo-Kristall wird durch Membran berührt und das induziert einen
+   Stromfluss. -> Das hatte aber einen zu hohen **Klirrfaktor**. Anteil
+   hochfrequenter Schwingungen. Erinnert an klirrendes Glas.
+
+Bühnenmikrofone sind in der Regel dynamische Mikrofone, weil sie empfindlich
+ggü. Distanz sind. Die Membran wird mit Gitterkäfig und Schaumstoff geschützt.
+
+Als **Linearität von Mikrofonen** bezeichnet man die Qualität der Übertragung
+des Schallsignals in ein elektrisches Signal. (1 kHz -> 1 kHz ?)
+
+Minitiatisierungseffekte werden bei Studiomikrofone für gewöhnlich mit Größe
+kompensiert.
+
+![gemeinfrei aus Wikipedia](/assets/images/mikro_wandlersystematik.png)
+
+#### Richteigenschaft
+
+Die zweite Eigenschaft von Mikrofonen ist die Richtcharakteristik.
+
+1. Druckgradientenmikrofon: Gerichtet, achterförmig. Von vorne oder hinten
+   wird der Druckunterschied an der Membran gemessen.
+   An den Seiten ist das nicht möglich.
+2. Druckmikrofon: Ungerichtet, kugelförmig. Eine Seite der Membran geht in eine
+   Box, in die der Druck von außen nicht so leicht hineinkommt. Dadurch kann das
+   Signal von allen Richtungen aus gleich stark gemessen werden.
+   In der Box ist der Druck konstant. Es gibt nur ein kleines Loch, welches
+   einen Druckausgleich wie beim menschlichen Ohr erlaubt.
+
+Der Druckausgleich beim menschlichen Ohr passiert durch eine Verbindung zwischen
+Innenohr und Rachen.
+
+Zusätzlich gibt es dann noch das Grenzflächenmikrofon: Man stellt es auf eine
+glatte Fläche, damit es den Schall von überall her einsammeln kann, der auf der
+glatten Fläche reflektiert.
+
+Das Richtmikrofon (Richtrohrmikrofon) ist eine Röhre, die nur den Schall aus
+einer speziellen Richtung begünstigt. Es ist kein Verstärker, man kann nur
+das aufgenommene Signal elektrisch verstärken, da wenig Umgebungsgeräusche dabei
+sind.
+
+Es gibt auch noch das Parabolmikrofon, welches wie bei einer Satelitenschüssel
+wirkt und tatsächlich das Signal verstärkt.
+
+Der Pop-Schutz: Schaumstoff soll niederfrequente Anteile (Atmen, Wind) herausfiltern.
+Feine Pohren filtern. Das große Mikrofon, das an der Nordsee verwendet wird,
+nennen die Tontechniker "tote Katze".
