@@ -26,6 +26,7 @@ tags: lecture
 - **25.10.2018**: Foliensatz 3-13 bis 3-53
 - **31.10.2018**: Foliensatz 3-54 bis 3-100
 - **07.11.2018**: Foliensatz 3-101 bis 3-135
+- **08.11.2018**: Foliensatz 3-135 bis 3-154, 4-1 bis 4-
 
 ### Material
 Das Material der Vorlesung besteht aus:  
@@ -377,4 +378,26 @@ Sessions: Point-to-Point (via TCP between directly connected routers = neighbors
 
 *BGP Challenges:* maintaining scalability ( growth of routing tables, increasing dynamics), increased demands on internet, security problems
 
+**Route Flap Damping**: Routes in routing table change more frequently → temporarily suppressing changes of unstable routes; penalty per update, penalty drops exponentially over time, can lead
+to connectivity loss!
+
+**Security Extensions for BGP**: to secure route information, authentication and authorization of senders, integrity protection and encryption, secured routing through IPSec and TCP mit MD5
+- *soBGP (secure origin BGP):* from Cisco
+- *S-BGP (secure BGP):* from BBN-Technologies
+
+**Cleaning Center**: Redirect traffic to separate DDoS attack traffic and legitimate traffic, legitimate traffic routed back to AS → BUT: good position for "man in the middle" attacker
+
+### Label Switching
+#### Motivation
+Issures related to IP based routing: Lookup complex, Shortest path routing, packet based
+
+#### Flows
+**Flows**: A flow is a sequence of packets traversing a network that share a set of header field values; Ip routing is special case flow based forwarding, concept also applicable to Ethernet 
+switching
+- *Micro-flows:* single "connection", fine grained control, high number of flows possible
+- *Macro-flows:* higher level of aggregation, several "connections", lower number of flows
+
+**Flow based forwarding**: fundamental concept, indepentent of layers (can also span multiple layers), incorporates classic routing/forwarding concepts
+
+#### Label Switching
 
