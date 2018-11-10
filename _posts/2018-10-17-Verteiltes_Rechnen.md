@@ -208,3 +208,59 @@ standardized framework; includes set of basic interfaces to access state of reso
 - *Self-management services:* Monitoring, fault-tolerance, self-healing, analysis and projection
 - *Information services:* Naming, Logging, Monitoring, Message delivery   
 → Framework for grid structures
+
+#### Security
+**Security Requirements in Grids**: 
+- *Identification of individuals:* private key per user, needs to be protected
+- *Single sign-on* 
+- *Uniform credentials/certification infrastructure:* standards such as X.509
+- *Interoperability with local security solutions:* ressources with different authentication, authorization mechanisms
+- *Support for multiple implementations:* based on public od symmetric key cryptography
+
+**Digital Certificate**: signed by *certification authority (CA), Certificates contain public key, user shows authentication: presents certificate, proves
+that he knows private key, most commonly used X.509
+
+**Public Key Infrastructure (PKI)**: only a single CA → do not scale → chain of trust needed → PKI; Registration 
+Authority (RA) issues certificates in name of CA
+
+**Certification Authority (CA)**:issues certificates for servers, individuals on request, defines policy for whom certificates 
+are issued, under which conditions, maintains *Certificate Revocation List (CRL)*, answers question in certification
+issues
+
+**Registration Authority (RA)**: field office of CA, accepts request for certificates, checks identities, issues no own 
+certificates
+
+**Short-Lived Credential Service (SLCS)**: easiest way to hide certificates from user → Idea: use existing credential to issue 
+short-lived certificates automatically; commonly used *Shibboleth*
+
+**Shibboleth**: Online-CA issuing short-lived X.509 certificates based on authentication at Shibboleth Identity Provider, ~ 11 days, 
+easy generation from command line, can be reissued many times
+
+#### Job Submission
+**Job**: work to be executed, requires CPU and memory, possibly accesses additional resources (storage, devices, services,..)
+
+**Resource**: Compute (characterized by memory, CPU/core, nodes threads/tasks), Data (Characterized by size, transfer, rate), 
+Network (Characerized by bandwidth, latency)
+
+**Differentiation of Computer Systems**:
+- *Number of User:* single-user, multi-user
+- *Usage:* personal computers, servers, supercomputers
+- *Number of CPUs:* single processors, multi processor (e.g. clusters)
+
+**Cluster Systems**: every node acts as independent system with own OS; former times: interprocess-communication through network; today:
+particular with multi-core porcessors, cluster system are hybrid systems  
+*Usage:* user/job resource demands greater than available resources → competition of users and jobs, typically resource requirements differ
+from user to user (large/small, long/short) → * resource management & job scheduling required
+
+**Job Sumission Description Language (JSDL)**: describing (job and resource) requirements of computational jobs fo submissions to Grids and
+other systems, also used between middleware systems for submitting to grid middleware (→ interoperability); does not definde submission
+interface, what result of submission looks like, how resources are selected 
+→ JSDL can not be directly submitted to Grid resources
+
+**Steps to run grid job**: 
+1. *Resource discovery:* determine set of suitable resources, static information on resource availabilty status, usage policies, authorization
+filtering, minimum requirement filtering; Problem: discovery may not revealed all resource details
+2. *Resource selection and allocation:* dynamic information gathering (detailed information of possible resources), Assigning resources to job, 
+verifying that match still valid, allocation of resources
+3. *Executing and job management:* initiating/submitting, monitoring, managing jobs, handling and staging of all job data, 
+coordinating scheduling of multi-step jobs
