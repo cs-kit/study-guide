@@ -186,17 +186,28 @@ higher availability (Ausfallsicherheit), increased performance
 to host as regular disk drive
 - Software: "Firmware", runs on OS, performance CPU workload dependent, not supporting all RAID
 levels  
+
 *RAID Levels:*
-- 0: Striped array, no fault tolerance
-- 1: Disk mirroring
-- Nested RAID
-- 3: Parallel access array with dedicated parity disk
-- 4: Striped array, independent disks, dedicated parity disk
-- 5: Striped array, independent disks, distributed parity
-- 6: Striped array, independent disks, dual distributed parity  
+- 0: Redundanz fehlt, nur Striped array, no fault tolerance, Beschleunigung ohne Redundanz, gesteigerte Transferraten, Platten in zusammenhängende Blöcke 
+gleicher Größe aufgeteilt, Blöcke "reißverschlussartig" zu einer großen Platte angeordnet, Zugriffe auf Platten parallel möglich (→ Striping), chunk size 
+meist 64kB
+- 1: Disk mirroring, alle Daten auf zwei Festplatten gespiegelt, Kapaziät max so groß wie kleinste Platte, sehr einfach, 
+- Nested RAID 0+1: Striping und Mirroring
+- Nested RAID 1+0: Mirroring und Striping, Ein RAID-10-Verbund ist ein RAID 0 über mehrere RAID 1, Eigenschaften der beiden RAIDs kombiniert: 
+Sicherheit und gesteigerte Schreib-/Lesegeschwindigkeit, mindestens vier Festplatten 
+- 3: Parallel access array with dedicated parity disk, parity disk enthält Summeninformation zum Errechnen der verorenen Bits auf Datenplatte
+- 4: Striped array, independent disks, dedicated parity disk; größere Datenblöcke der Paritätsinformationen, Datenübertragungsgeschwindigkeit durch
+Datenübertragungsgeschwindigkeit der Paritätsplatte begrenzt, fest definierte Paritätsplatte
+- 5: Striped array, independent disks, distributed parity, Nutzdaten auf alle Platten verteilt, Paritätsdaten gleichmäßig verteilt, Parallelisierung nicht
+möglich
+- 6: Striped array, independent disks, dual distributed parity, survives 2 erasures, parity block in different place each stripe  
 
 *RAID definitions:*
 - Strip size (Chunk, Stripe): e.g. 256 KiB
 - Stripe (Stride) size: Capacity of full stripe
 - Spare drive: Standby drive, in case of disk failure in an array
 - Rebuild Time: duration of exposure until spare has migrated into failing array
+
+*RAID 5 vs. RAID 10:* RAID 5, RAID 10 comparable peroformance regarding read operations, RAID5 better for large-block seuential writes, RAID 10 better
+for small-block random writes; RAID 5 good choice for high availability, fewer writes than reads, RAID 10 fault-tolerant, performance critical, write sensitive
+but high random write percentage
