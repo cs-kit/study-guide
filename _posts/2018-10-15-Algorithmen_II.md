@@ -289,7 +289,10 @@ Rückkanten (für $f(e) > 0$), und Kanten (wenn $f(e) < c(e)$)
 
 **Augmenting Paths**: Pfad p von s nach t finden, sodass jede Kante $e$ nonzero residual capacity hat
 
-**Ford Fulkerson Algorithmus**: [Algorithmus](https://de.wikipedia.org/wiki/Algorithmus_von_Ford_und_Fulkerson) zu Bestimmung des Maximalen Flusses; am Besten Beispiel auf Wikipedia anschauen
+**Ford Fulkerson Algorithmus**: [Algorithmus](https://de.wikipedia.org/wiki/Algorithmus_von_Ford_und_Fulkerson) zu Bestimmung des Maximalen Flusses; am 
+Besten Beispiel auf Wikipedia anschauen
+
+**Blocking Flows:** 
   
 ## Übung
 ### Übung 1
@@ -338,3 +341,42 @@ minimales Gewicht haben; Jarnik-Prim Algorithmus:
 Analyse: m Kanten, mit zufällig geordneten Gewichten → wie oft wird decreaseKey im Durchschnitt ausgeführt? → Nachbarn durchnummerieren, in Reihenfolge in der sie zu MST hinzugefügt
 wird, wann muss Kante relaxiert werden → Distanz an v ist größer als Kante die sich nun ergeben hat → DecreaseKey wird dann ausgeführt, wenn d[v] > d[über neu hinzugefügte Kanten]  
 Wie oft passiert das? → $ E( M_k ) = H_k $ → $ O ( n ln \frac{m}{n}) $
+
+### Übung 3
+**Dijkstras Algorithmus**: nicht-negative Kantengewichte, vorläufige Distanzen in Priority Queue d, unterscheidet zwischen
+erreichten Knoten und gescannten Knoten
+
+**Bidirektionale Suche**: Beschleunigung, zweimal Dijkstra ausführen (Vorwärtssuche s → t auf G, Rückwärtssuche von t → s auf $G^r$ mit umgekehrten
+ Kanten); Vorgehen: einen Schritt Vorwärtssuche, einen Schritt Rückwärtssuche, Abbruch wenn ein Knoten von beiden Suchen gescannt (nicht nur erreicht); 
+
+**A\*-Suche**: Dijkstra in Richtung t gesteuert, Potentialfunktion pot ordnet jedem Knoten reele Zahl zu; Vorgehen entwerder reduzieren der
+Kantengewichte $$ \bar{c}(u, v) := c(u, v) + pot(v) − pot(u)$ **oder** modifizieren der Schlüssel $\bar{d}[v] : = d[v] + pot(v)$; gültige Potentialfunktion:
+- untere Schranke für Distanz zum Ziel t: $ pot(u) ≤ \mu(u,t) $
+- nicht-negative reduzierte Kantengewichte: $ \bar{c}(u, v) := c(u, v) + pot(v) − pot(u) ≥ 0 $
+- t hat potential 0
+Woher Potentialfunktionen? Sollen Schätzung für tatsächliche Distanz sein, z.B. Manhattan-Distanz, Euklidischer Abstand
+A*-Suchen Möglichkeiten:
+- Suche mit reduzierten Kantengewichten
+- Suche mit geänderten Schlüsseln in Priority Queue
+- Suche mit Landmarks: Kompormiss, berechne Potentiale für einige Knoten, bei konkreter Anfrage wähle Landmark hinter dem Ziel, Landmarks immer
+korrekt dank Dreicksungleichung (oben definierte Potentialfunktionseigenschaften müssen gegeben sein), Algorithmus kann langsam sein (z.B. Suche
+in  falscher Richtung)
+
+**Starke Zusammenhangskomponenten**: 
+Nomenklatur:
+- *oNodes:* Stack, offene Knoten
+- *oReps:* Stack, Repräsentaten der offenen Komponenten
+- *aktive Knoten:* Knoten die während dfs markiert, aber noch nicht finished, kein Backtracking
+- *offene SCCs:* enthält nur aktive Knoten und keine abgeschlossenen Knoten
+- *abgeschlossene SCCs:* alle Knoten finished (markiert), backtracking gemacht
+- *Repräsentanten der SCC:* Knoten mit kleinster dfsNumber (Reihenfolge der Knotenabarbeitung bei Tiefensuche)  in SCC   
+
+Invarianten:
+- *Invariante 1:* Keine Kanten von geschlossenen in offene Komponenten.
+- *Invariante 2:* Offene Komponenten liegen auf Pfad.
+- *Invariante 3:* Repräsentanten partitionieren offene Komponenten bzgl. dfsNum.
+
+**Floyd-Warshall Algorithmus**: kubischer Algorithmus, berechnet transitive Hülle
+
+**Floyd-Warshall Algorithmus und SCCs**: Transitive Hülle einer SCC ist ein vollständiger Graph, betrachte Schrumpfgraph, 
+deutlich schneller: #SCC³ < n, Eintrag pro SCC
