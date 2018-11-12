@@ -292,8 +292,44 @@ Rückkanten (für $f(e) > 0$), und Kanten (wenn $f(e) < c(e)$)
 **Ford Fulkerson Algorithmus**: [Algorithmus](https://de.wikipedia.org/wiki/Algorithmus_von_Ford_und_Fulkerson) zu Bestimmung des Maximalen Flusses; am 
 Besten Beispiel auf Wikipedia anschauen
 
-**Blocking Flows:** 
-  
+**Max-Flow-Min-Cut Theorem**: *max-flow = min-cut*; offensichtlich: *any-flow ≤ max-flow ≤ min-cut ≤ any-cut*; Theorem gilt
+für beliebige Flussnetzwerke, wenn alle ≤ zu = werden, Beweis: (S, T) flow = (S, T) cut capacity ⇒ (S, T) flow = max-flow = min-cut
+
+**Blocking Flows:** $f_b$ ist ein Blockierender Fluss, wenn alle Kanten $e$ von $f_b$ gleich der Kosten von $e$ sind: 
+$∀ paths p = \langle s,...,t\rangle: ∃e ∈ p : f_b(e) = c(e)$
+
+**Dinitz-Algorithmus**: [Algorithmus](https://de.wikipedia.org/wiki/Algorithmus_von_Dinic)
+*DinitzMaxFlow:* berechnet MaxFlow, Rückwärtsbreitensuche von t nach s, solange
+ein Pfad von s nach t existiert, füge Kante von u nach v in den Layer Graph L ein, mit der Distanz $d(v) = d(u)-1 $; ausgehend von t haben also alle Knoten
+die direkt von t erreichbar sind die d = 1, t selbst 0, usw. dadruch entsteht ein layer graph (Schichtengraph), in dem alle Knoten mit dem selben 
+Abstand zu t einer Schicht angehören; finde einen Blocking Flow $f_b$ in L, vergößere den Fluss f um den eben gefundenen blocking flow $f_b$  
+*blockingFlow:* langer Algorithmus, besteht aus 3 Teilen: breakthrough, extend, retreat, loop solange bis return Blocking flow $f_b$ wenn v=s 
+- breakthrough: δ = minimale Residualkapazität von Kanten im Graph
+- extend: pushe Knoten w auf p
+- retreat: delete last edge  
+
+Analyse: $O(m+nm) = O(nm)$, d(s) erhöht sich pro Runde min. um 1, streng polynomiell: O(mn²), O(mn log n) min dynamic tree, at most 
+$ 2 \sqrt{m} $BF computations $O((m+n)\sqrt{m}$
+
+*Unit Capacity:* min{indegree(v), outdegree(v)} = 1
+
+*Matching:* ungerichteter Graph G=(V,E) mit M ⊆ E, gdw. (V,M) max grad ≤ 1; M ist maximal wenn $\nexists e ∈ E \ M : M ∪ {e} $ ist matching;
+M hat maximale Kardinalität $\nexists matching M': \|M'\| > \|M\|$
+
+**Preflow**: Fluss für den Eingangskanten größer sein dürfen als Ausgangskanten: $ excess(v) := inflow - outflow ≥ 0 $; Knoten (nicht s,t) ist
+*aktiv* wenn excess > 0
+
+**Preflow-Push Algorithms**: Familie von Algorithmen; maintain approximation d(v) of BFS distance from v to t in $G_f$
+- Invariante 1: $d(t) = 0$
+- Invariante 2: $d(s) = n$
+- Invariante 3: no steep edges $ ∀(v, w) ∈ E_f: d(v) ≤ d(w) + 1 $  
+
+*Edge Directions:*
+- steep: d(w) < d(v) − 1
+- downwards: d(w) < d(v)
+- horizontal: d(w) = d(v)
+- upwards: d(w) > d(v)
+
 ## Übung
 ### Übung 1
 **Amortisierte Analyse:** [Amortisierte Laufzeitanalyse](https://de.wikipedia.org/wiki/Amortisierte_Laufzeitanalyse) wurde in Algorithmen I behandelt. Im
