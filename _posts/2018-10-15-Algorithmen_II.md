@@ -201,7 +201,7 @@ Knoten mit Distanz d[v] wird in B[d[v] mod(C+1)] gespeichert
 Queue leer) → hier Monotonizität wichtig: wenn Schlüsselwerte sinken können, müsste man "rückwärts schauen" können → extra Kosten; Analyse: im Worst-Case
 muss man einmal durch die Queue also $ O(nC) $ oder $ O(n+maxPathLength) $
 
-**Radix-Heaps**: Array von -1 bis k Buckets ($ K = 1 + ⌊log C⌋ $); min ist zuletzt aus Q entfernte Distanz; für jeden Knoten v gilt 
+**Radix-Heaps**: Array von -1 bis k Buckets ($ K = 1 + ⌊log_2 C⌋ $); min ist zuletzt aus Q entfernte Distanz; für jeden Knoten v gilt 
 $ d[v] ∈ [min, . . . , min +C] $; nun hat man C mögliche Schlüssel, aber nur log C mögliche Buckets → wie abbilden? → "Bitfummelei" :D 
 Beispiel: C=9, binär 1001 → K=4; Vergleich binär min und binär v → suche erste Stelle an der sie sich unterscheiden. Spezialfall: bei keinem 
 Unterschied in B[-1]; Unterscheiden sie sich an einer größeren Stelle als K → B[K]; sehr schnell zu berechnen mit Maschinenbefehl XOR → Unterschiede

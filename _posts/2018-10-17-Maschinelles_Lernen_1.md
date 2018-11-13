@@ -24,6 +24,8 @@ tags: lecture
 - **17.10.2018**: Organisatorisches und Foliensatz 1-1 bis 1-59
 - **24.10.2018**: Wiederholung von Kapitel 1, Foliensatz 2
 - **30.10.2018**: Wiederholung von Kapitel 2, Foliensatz 3
+- **06.11.2018**: Foliensatz 4
+- **13.11.2018**: Foliensatz 5
 
 ### Material
 VL wird aufgezeichnet. Das Material wird auf ILIAS zur Verfügung gestellt. Die Suche der Verantstaltung
@@ -291,8 +293,8 @@ Ein Perzeptron hat niedrige Kapazität → Zusammenschalten von Neuronen ("Perze
 **Nichtlineare Aktivierungsfunktionen**: 
 - *Sigmoid:* $f(x) = \frac{1}{1+e^{-x}}, \frac{\partial f}{\partial x} = f(x)(1-f(x))$
 - *Tangens Hyperbolicus:* $f(x) = tanh(x), \frac{\partial f}{\partial x} = (1+f(x))(1-f(x))$
-- *ReLU:* $f(x) = max(0,x), \frac{\partial f}{\partial x} = \begin{cases} 1 & x > 0 \\ 0 & \text{sonst} \end{cases}$
-- *LeakyReLU:* $f(x) = \begin{cases} x & x > 0 \\ \alpha x & x \leq 0 \end{cases}, \frac{\partial f}{\partial x} = \begin{cases} 1 & x > 0 \\ \alpha & \text{sonst} \end{cases}$
+- *ReLU:* $f(x) = max(0,x), \frac{\partial f}{\partial x} = \begin{cases} 1 & x > 0 \\\\ 0 & \text{sonst} \end{cases}$
+- *LeakyReLU:* $f(x) = \begin{cases} x & x > 0 \\\\ \alpha x & x \leq 0 \end{cases}, \frac{\partial f}{\partial x} = \begin{cases} 1 & x > 0 \\\\ \alpha & \text{sonst} \end{cases}$
 
 **Backpropagation Algorithmus**: Aus Menge T von Trainingsbeispielen als Eingangs/Ausgabevektor, Lernrate $\mu$, Netztopologie finde Gewichtsbelegung W die T korrekt wiedergibt, Vorgehen
 mittels Gradientenabstieg
@@ -344,3 +346,68 @@ lernen
 2. *Auswahl des Lernverfahrens:* Optimierungsmethode, Initliasisierung, Lernansatz
 3. *Lernfortschritt (Gewichtsanpassung):* Overfitting testen
 4. *Training & Verifikation (Test)*
+
+### Convolutional Neuronale Netze
+**Erste künstliche Ansätze**: Architektur von Verarbeitungsschritten, pro Schritt zwei Komponenten, erste reagiert auf Bereich zuvor (Lernen), 
+zweite komprimiert den Bereich (Informationskomprimierung)
+
+**Faltung**: = Convolution, hier diskrete Faltung, bekannt aus Bildverarbeitung: Kantenfilter, Bildglättung, Bildschärfung;
+Beispiel in Vorlesung: $m×m$ Eingabebild + $n×n$ Filter → $m_{neu}×m_{neu}$ mit $m_{neu} = m - n + 1$
+
+**Warum CNNs**: Bild mit m*m Pixel: pro Neuron m*m Gewichte → ungünstiges Verhältnis Parameter : Lernaufgabe → nicht sinnvoll lern/berechenbar; 
+Beispiel Gesichtserkennung: ähnliche Features werden mehrfach gelernt, da jedes Feature für jedes receptive fiesld unabhängig gelernt wird
+
+**Unterschied NN / CNN**: Im NN sind die Gewichte von einem Layer zum anderen, im CNN nur eine Kante zwischen Layer
+
+**Feature Maps**: Form, in der Daten von Layer zu Layer übertragen werden; jedes Layer enthält als Eingabe r Feature Maps (m×m),
+im Input Layer ist Feature Map ≡ Eingabebild; Featgures Maps zwischen zwei Layern = *Tensor*
+
+**Pooling Layer**: Zusammenfassung kleiner Bildbereiche, Größe nach Zweck und Größe des Eingabebildes gewählt, verschiedene
+Strategien:
+- Max Pooling: Maximum wird gewählt
+- Mean Pooling: Mean wird gewählt
+- Stochastic Pooling: stochastische Auswahl abhängig von Aktivierung  
+
+→ lokale Translationsinvarianz, Invarianz gegen leichte Veränderung, Verzerrung, Datenreduktion
+
+**Convolution Layer**: Anwendung von Faltungsoperationen auf Eingabe, Eingabe: Feature Maps von vorherigen Layer ($m×m$),
+ Ausgabe: Feature Maps des Layers (entstanden durch Faltung der Eingabe $m×m$ mit k Filtern $n×n×q$)
+→ Eingabe: $m×m$ → k Filter $n×n×q$ → Ausgabe $m_{neu}×m_{neu}×k$ mit $m_{neu} = \frac{(m-n)}{s}+1$ mit s = Stride/Schrittgröße
+Stride muss zur Größe der Eingabe passen, bei Pooling Layern meist 1; ConvLayer mit Stride erreicht Reduktion durch ASulassen, 
+Max Pooling betrachtet alle Werte bei Reduktion, bei ConvLayer größer 1×1 → Randbetrachtung notwendig: Informationsverlust bei Faltung, 
+Beheben:
+- *don't care:* Berechnung des inneren Bereichs, Reduktion der Ergebnisgröße
+- *Padding:* stabilisiert Größenverlauf der Layer, auffüllen der verlorenen Zeilen/Spalten, Varianten: Zero Padding (
+Auffüllen mit 0), Nearest Padding (Duplizieren der Randpixel), Reflect Padding (Matrix nach außen spiegeln); ohne Padding
+gehen Informationen am Bildrand sukzessive verloren, in jedem ConvLayer ohne Padding, große Filter beschleunigen Problem, 
+Pooling mit großen p auch; mit Padding Gefahr, dass Strukturinformationene entstehen die im Eingabebild nicht waren
+
+**Activation Layer**: nichtlineare Aktivierung, in CNNs: ReLU, normalerweise nach ConvLayer
+Aktivierungsfunktionen:
+- *ReLU*: $f(x) = max(0,x), \frac{\partial f}{\partial x} = \begin{cases} 1 & x > 0 \\\\ 0 & \text{sonst} \end{cases}$
+- *Leaky ReLU (LReLU)*: $f(x) = \begin{cases} x & x > 0 \\\\ 0.01 x & x \leq 0 \end{cases}, \frac{\partial f}{\partial x} = \begin{cases} 1 & x > 0 \\\\ \alpha & \text{sonst} \end{cases}$
+- *PReLU (Generalisierung von LReLU)*: $f(x) = \begin{cases} x & x > 0 \\\\ \alpha x & x \leq 0 \end{cases}, \frac{\partial f}{\partial x} = \begin{cases} 1 & x > 0 \\\\ \alpha & \text{sonst} \end{cases}$
+- *ELU (Exponential Linear Unit)*: $f(x) = \begin{cases} x & x > 0 \\\\ \alpha(e^x-1) x & x \leq 0 \end{cases}, \frac{\partial f}{\partial x} = \begin{cases} 1 & x > 0 \\\\ \alpha & \text{sonst} \end{cases}$
+
+**Features**: CNN lernt Features für bestimmte Domäne, Feature Detektoren in Filtern der Convolutional Layer, Gewichte werden durch Gradienten
+abstieg gelernt, Features eines Layers basieren auf Ausgaben der Features des vorherigen Layers, 
+
+**Gewichte**: Gewichte in CNNs werden nur in Filtern gelernt, 
+Methoden zur Initialisierung:
+- *Random Initialization:* zufällig 
+- *Fixed Feature Extractor:* Übernahme der Gewichte aus trainiertem Netz, fixieren in Feature Extraction Schicht
+- *Fine-Tuning:* Übernahme der Gewichte aus trainiertem Netz, geringe Lernrate für ausgewählte Schihten
+- *Pretrained Initialization:* Übernahme der Gewichte aus trainiertem Netz nut zur Initialisierung, normale Lernrate für ausgewählte Schichten
+
+> CNNs werden besser, da Rechenkapazität ständig wächst, immer größere Datensätze verfügbar, bessere CNN Architekturen
+
+**Fully Connected Layer**: v.a. bei Klassifikation, Anzahl der Neuronen im letzten Layer korrespondiert zu der Anzahl an 
+Klassen, die Netz unterscheiden soll
+
+**Fully Convolutional Networks (FCN)**: größere Eingabebilder möglich als bei Fully Connected CNNs, FUlly Connected Schichten
+in Convolutional Schichten konvertiert
+
+**Ausgaben der FCN**:
+- Fully Connected CNN (Klassifikationsnetz): Wahrhscheinlichkeitswert pro Klasse
+- Fully Convolutional Network: Wahrhscheinlichkeitskart pro Klasse (gibt p an und Bereich in dem Bild zur Klasse gehört)
+
