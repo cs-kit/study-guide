@@ -330,6 +330,9 @@ M hat maximale Kardinalität $\nexists matching M': \|M'\| > \|M\|$
 - horizontal: d(w) = d(v)
 - upwards: d(w) > d(v)
 
+*Analyse:* $O(n²m)$
+
+
 ## Übung
 ### Übung 1
 **Amortisierte Analyse:** [Amortisierte Laufzeitanalyse](https://de.wikipedia.org/wiki/Amortisierte_Laufzeitanalyse) wurde in Algorithmen I behandelt. Im
@@ -416,3 +419,18 @@ Invarianten:
 
 **Floyd-Warshall Algorithmus und SCCs**: Transitive Hülle einer SCC ist ein vollständiger Graph, betrachte Schrumpfgraph, 
 deutlich schneller: #SCC³ < n, Eintrag pro SCC
+
+### Übung 4
+**Residualgraph**: Verwalten von Restkapazitäten, Modellierung und Erkennung von Gegenflüssen, keine 0 Gewicht Kanten, Flüsse
+über Kanten und Gegenkanten erlaubt
+- *Restkapazität:* $c^f(e) = c(e) − f(e)$
+- *Fluss:*  $c^f(e^{rev}) = f(e)$
+
+**Dinitz Distanz Label**: geben Distanz im Residualgraphen zur Senke t an, Rückwärtsgerichtete Breitensuche → Layered Graph
+
+**Dinitz Blocking FLow**: “Auf jedem Weg durch den Graphen mindestens  eine Kante bis zur maximalen Kapazität ausgelastet ist”,
+Berechnung auf Schichtgraph, kein Rückfluss möglich; Berechnung basiert auf Tiefensuche von s aus:
+- extend: gehe einen Knoten näher ans Ziel (Schichtgraph)
+- retreat: Sackgasse gefunden, gehe zurück, lösche Kante
+- breakthrough: Tiefensuche hat Senke erreicht, lösche saturierte Kanten
+*Analyse*: $O(nm)$
