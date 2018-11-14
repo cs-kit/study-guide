@@ -400,4 +400,119 @@ switching
 **Flow based forwarding**: fundamental concept, indepentent of layers (can also span multiple layers), incorporates classic routing/forwarding concepts
 
 #### Label Switching
+**Types of Communication Networks:**
+- *Packet Switching:* packets forwarded independent of each other, meta data required, expensive forwarding decision (e.g. IP)
+- *Circuit Switching:* connection with fixed resource reservations, no meta data within data stream required (e.g. ISDN)
+- *Virtual Switching:* connections without fixed resource reservation, packet efficiently forwarded on same path, inexpensive label-based
+forwarding decision (e.g. MPLS)
 
+> Label Switching: communication network, switched, packet-switched, connection-oriented (e.g. ATM, MPLS) → Label Switching
+is combination of packet switching (packets forwarded individually, packets include metadata) and circiut switching (paths
+for flows through network, simple forwarding)
+
+**Implementation of Label Switching**: Switching at Layer 2 (instead of routing at layer 3), Labels (local Identification),
+Virtual circiuts (Sequence of labels)
+
+**Label**: Short unstructured identification of fixed length (no Layer 3 information, unique, only locally at correcsponding 
+switch, label swapping (mapping input - output label)), Virtual circuit (identified through sequence of labels at path)  
+*Tranport:* Label must be transported within packet  
+*Structure:* Layer 2 (Ethernet Head) \| Label \| Layer 3 (IP-Datagram) \| Data
+
+**Label Switching Domain**: 
+- *Edge Devices:* at border of domain; add/remove labels, map flow to forwarding class, access control
+- *Switching Device:* within domain; forwar packets based on label information, label swapping
+
+**Multiprotocol Label Switching (MPLS)**: based on label switching, data plane optimization
+- Fast Forwarding due to reduced amount of packet processing
+- QoS support (guarantees on latency, capacity)
+- Traffic engineering (load balancing)
+- Virtual private networks (isolated traffic)
+- mulitple networks support   
+→ good Acceptance: on top of IP, separation between forwarding (label switching) and control (manipulation of label binding),
+not limited on IP, support metrics, scales  
+*Components:* 
+- Label-switching router (LSR): MPLS-capable IP router, can forward packets based on IP prefixes and MPLS labels
+- Labeld edge router (LER): Router at edge of MPLS domain (LSR with non-MPLS capable neighbor is LER), classifies packets that enter MPLS
+domain
+- MPLS-Node: MPLS-capable intermediate system  
+*Label:* Encapsulation between headers of Layer 2 and 3, Structure:
+- Label 20 bit
+- Exp: Bit for experimental usage, 3 bit
+- S: Stack bit, 1 bit
+- TTL: Time-to-live, 8 bit
+
+**Forwarding Equivalence Class (FEC)**: class of packets, that should be trated equally (same path, same QoS), basis for
+label assignment, MPLS-specific, synonym to *flow*; FEC mapping 5 Tupels: ToS, IP Source Address, IP Destination Address,
+ Source port, Destination port → LSP/label
+*Granularity*:
+- coarse-grained: important for quick forwarding and scalability
+- fine-grained: important for differentiated treatment of packets/flows
+
+**Label Switched Path (LSP)**: Virtual connection, no resources reserved  
+*Communication*: define FEC, distribute labels, establish LSP
+
+**Label Switched Router (LSR)**:
+- *Downstream LSR:* in direction of data flow
+- *Upstream LSR:* against direction of data flow
+
+**Types of Label Distribution:**
+- *Unsolicited downstram:* generates label bindings as soon as it is ready to forward MPLS packets of the respective FEC
+- *Downstram on demand:* Downstream router generates label binding on demand
+- *Originally:* Label distribution protocol defined along with MPLS
+- *De-facto:* RSVP-TE is used mostly
+
+**Resource ReserVation Protocol (RSVP)**: bandwith reservation for end-to-end data streams, soft state principle (establish
+session an signal that it is still alive), Scalablity issues!
+- Path message: sender → receiver, find path, each hop recorded
+- Resv message: receiver → sender, bandwidth reservation
+
+**Resource ReserVation Protocol - Traffic Engineering (RSVP-TE)**: extension to RSVP, additional functionalities e.g. fast
+reroute
+
+**Virtual Private Networks (VPN)**: MPLS enables VPNs; here: renting guaranteed transmission capacities from a network provider  
+*VPNs with Label Switching:* outer label identifies path to LER, inner label identifies VPN instance
+
+**Traffic Engineering:** extension of Link State routing protocols (additional information needed, all nodes have global view 
+on network)
+
+### Software Defined Networks (SDN)
+> **Traditional IP Networks:** every router control and data plane functions, control is decentralized → Limitations! → SDNs 
+increase flexibilty and decrease dependencies on hardware
+
+**Characteristics of Software-Defined Networks**: Separation of control and data plane; control functionalities → SDN controller, 
+Data plane → simple packet processors (SDN switches), control plane has global network view (knows all switches, network topology), 
+network ist software-programmable (network applications), processing based on flows
+
+**Basic Operation in SDNs**: 
+- Control functionality, SDN controller (e.g. Routing including routing table), SDN controller programs entried in flow table (protocol required!)
+- Forwarding table on SDN switch (name here: *flow table*), for every incoming packet in SDN switch → suited entry in flow table needs to be 
+determined
+
+**Flows**: Identified through match fields (e-g- IP address, port number)
+
+**Flow table**: contains match fields, actions, ...; matches appropriate flow table entry, actions are applied to all packets that match
+
+**Flow rule**: Decision of controller, described in form of match fields, actions, switches
+
+**Flow Programming:** 
+- *Proactive flow programming:* rules programmed before first packet of flow arrives, no additional delay, loss og controller
+connectivity does not disrupt traffic
+- *Reactive flow programming:* rules programmed in reaction to receipt of first packet, setup time per flow, high overhead for 
+short lived flows, new flows cannot be installed if controller connectivity is lost
+
+**Important Interactions**: 
+- Flow rule send to switch → new flow table entry (reactive and proactive)
+- Packet forwarded to controller (primarily reactive)
+- Packet re-injected to switch (primarily reactive) 
+
+**SDN Architecture**:
+Planes:
+- *Application Plane:* Network apps perform network control and management tasks, interacts via *northbound API* with control plane
+- *Control Plane:* control tasks outsourced from data plane to logically centralized control plane, more complex tasks delegated to application plane
+- *Data Plane:* packet forwarding/processing, SDN switches are simple, interacts via *southbound API* with control plane
+Interfaces:
+- *Northbound API:* controller ↔ network apps (exposes control plane functions to apps, abstract from details, apps can operate on consistent network view)
+- *Southbound API:* controller ↔ switches (exposes data plane functions to controller, abstracts from hardware details)
+- *Westbound API:* controller ↔ controller (synchronization of network state information)
+- *Eastbound API:* interface → legacy infrastructures  
+→ No widely accepted standarf for north/westbound interfaces
