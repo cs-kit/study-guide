@@ -26,7 +26,9 @@ tags: lecture
 - **25.10.2018**: Foliensatz 3-13 bis 3-53
 - **31.10.2018**: Foliensatz 3-54 bis 3-100
 - **07.11.2018**: Foliensatz 3-101 bis 3-135
-- **08.11.2018**: Foliensatz 3-135 bis 3-154, 4-1 bis 4-
+- **08.11.2018**: Foliensatz 3-135 bis 3-154, 4-1 bis 4-16
+- **14.11.2018**: Foliensatz 4-17 bis 4-77, 5-1 bis 5-28
+- **15.11.2018**: Foliensatz 5-29 bis 5-103
 
 ### Material
 Das Material der Vorlesung besteht aus:  
@@ -484,7 +486,7 @@ Data plane → simple packet processors (SDN switches), control plane has global
 network ist software-programmable (network applications), processing based on flows
 
 **Basic Operation in SDNs**: 
-- Control functionality, SDN controller (e.g. Routing including routing table), SDN controller programs entried in flow table (protocol required!)
+- Control functionality, SDN controller (e.g. Routing including routing table), SDN controller programs entries in flow table (protocol required!)
 - Forwarding table on SDN switch (name here: *flow table*), for every incoming packet in SDN switch → suited entry in flow table needs to be 
 determined
 
@@ -515,4 +517,56 @@ Interfaces:
 - *Southbound API:* controller ↔ switches (exposes data plane functions to controller, abstracts from hardware details)
 - *Westbound API:* controller ↔ controller (synchronization of network state information)
 - *Eastbound API:* interface → legacy infrastructures  
-→ No widely accepted standarf for north/westbound interfaces
+→ No widely accepted standard for north/westbound interfaces
+
+**SDN programming primitives:** to assist with creating app, important areas:
+ 1. *to create, install flow rules:* app that implements flow rule decisions, programs flow table entries into switch
+ ```javascript
+    import ...
+    
+    // entry point to implement custom logic
+    // called when control connection established
+    // reference to switch as parameter 
+    onConnect(switch) { 
+        if (switch == S1) {
+            r = Rule(); //data structure holding single flow rule, can be modified with function calls
+            r.MATCH('IP_DST', '1.2.3.4'); //select packet based on certain criteria → here: IP address
+            r.ACTION('OUTPUT'‚ 4); //specify what happens to matched packets in switch, e.g. m.ACTION(OUTPUT, 7),  m.ACTION(DROP)
+            send_rule(r, switch); //install flow rule in switch, creates new flow table entry or overwrites existing one
+        }
+    }
+```
+→ creates a new flow rule, sends flow rule to S1
+*Priorities:* if flow rules are overlapped
+- no overlap: all packets can only be matched by one rule
+- overlap: at least one packet could be matched by more than one rule  
+→ need to define priorities: default priority=1, higher priorities overwrite rules with lower priority
+ 
+ 2. *react to data plane events:* controller API provide callbacks:
+ - to react to control events (e.g onConnect(switch)) 
+ - to deal with packets sent to controller (e.g. onPacketIn(packet, switch, inport)): called if packet was forwarded via *r.ACTION(CONTROLLER)*
+
+ 3. *inject individual packets:* handle individual packets (forward a packets, perform topology detection, active monitoring, answer ARP requests)
+ - injects single packet (only!) into switch (e.g. send_packet(packet, switch, [rule])), if rule parameter present it
+ does not create a new flow table entry
+ - handle injection:
+    1. inject and process packet in flow table (no usage of optional rule parameter), rule must be installed before injection, otherwise cycle
+    2. inject and process packet with custom rule (usage of optional rule parameter), actions attached to packet, rule only used for this packet, flow
+    table remains unchanged; → Advantages: more efficient (not creating flow table entries every time), Inconsistencies (if packets matching a rule, while
+    network is in inconsistent state = renewing a rule)
+ 
+**Multiple Flow Tables**: SDN support more than one flow table, expensive in hardware, specify table with *r.table(x)*  
+*Benefits:* used to isolate flow rules from apps, logical separation between tasks 
+
+**Self-Learning Switches**: Goal: hinter welchem Port liegt welche IP-Adresse → kein Fluten notwendig
+1. Switch receives packet and does not know destination address: floods packets, learn location
+2. Switch reveices packet and know destination address: forwards packet  
+→ possible with SDNs: Leaning Switch App
+
+**Learning Switch Example**: 
+- *Naive Approach:* send all packets to controller, controller creates rules based on INPORT and MAC ADDRESS, 
+unknown des. address → flooding; Problem: Controller has no chance to learn ports
+- *Version 2 (with delayed rule installation):* delay rule installation until dest. address was learned, Problem: still not learning enough
+- *Version 3 (with more specific matching):* only matching dest. address not enought, use more specific matches, ensures all end systems can be learned
+Problem: functional perspective good, but: not scalable/usable → amount of flow table entries can be large
+- *Version 4 (with multiple flow tables):* separate flow tables for learning and forwarding, 2*N rules for N end systems
