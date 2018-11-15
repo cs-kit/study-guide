@@ -264,3 +264,48 @@ filtering, minimum requirement filtering; Problem: discovery may not revealed al
 verifying that match still valid, allocation of resources
 3. *Executing and job management:* initiating/submitting, monitoring, managing jobs, handling and staging of all job data, 
 coordinating scheduling of multi-step jobs
+
+#### Infrastructures
+> Grid Technology is storing and analyzing data from the LHC, can also be used by other data intensive projects
+
+**WLCG Hierarchy**:
+- *Tier-0:* accelarator center at CERN, recording raw data, long-term data curation
+- *Tier-1:* regional centers (GridKA), managing permanent, online data storage (raw, simulated and processed data), data intensive analysis, 
+reprocessing of raw data
+- *Tier-2:* national centers, end-user analysis
+
+### Big Data
+**Four pillars of Science**:
+- Experiment
+- Data
+- Simulation
+- Theory
+
+**Scientific Data Pyramide**:
+- Publications with data
+- Processed Data and data representations
+- Data collections and structured databases
+- Raw data and data sets
+
+**Big Data**: Doug Laney’s 3 V’s:
+- *Volume:* Umfang, Datenvolumen
+- *Velocity:* Geschwindigkeit, mit der die Datenmengen generiert und transferiert werden (Data Taking, Ingest, Analysis, Transfer, Visualization)
+- *Variety:* Bandbreite der Datentypen und -quellen (Data Sources, Data Formats, Workflows, Analysis Methods)
+
+Often extended by:
+- *Veracity:* Vertrauen (Systemic and statistical uncertainites, biased sample)
+- *Value:* Mehrwert der Daten (non-reproducable data, (high) costs of reproduction)
+
+Additional:
+- *Variability:* Changing Data, Changing Models, Linkage
+
+**Data Analysis at LHC**: Reconstruction (reconstructing physical reactions from energy depositions in detector, 
+time consuming, rentrally organized → Tier-1), "Monte Carlo" (simulated events, for specific physical processes → Tier-2),
+ User Analysis (specifiv processes and parameters, low efficiency on raw data → coupled in analysis trains → Tier-2 (Tier-3))
+ 
+**Data Management at LHC**: sites with data run storage elements, file access via grid commands, potential problem "dark data"
+
+**Dark Data:** [Wikipedia](https://de.wikipedia.org/wiki/Dark_Data): "Als Dark Data bezeichnet man Daten, die zwar von 
+Informationssystemen erfasst und gespeichert werden aber nicht verwendet werden. Bei großen Datenmengen (Big Data) können 
+viele Daten entstehen, die nicht alle analysiert 
+oder betrachtet benutzt werden und so kommt es dazu das man sich über die Existenz der Daten nicht mehr bewusst ist."
