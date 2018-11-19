@@ -425,6 +425,89 @@ Bester  $ \forall_x: L_C_P (x) = \lceil -log P(x) \rceil$, Beispiel: Code "abaca
 **Prüfungsfrage: Was ist Unterschied zwischen Kovarianz und Correlation Coefficient?**   
 **Prüfungsfrage: Warum kommt bei der informational loss Funktion die Logarithmusfunktion zur Anwendung?**
 
+### Association Rules
+**Association Rules**: wichtige Art von Mustern an der man bei Datenanalyse interessiert ist,
+Muster mit einfacher Struktur
+
+**Wichtige Begriffe**:
+- *Item:* einzelnes Element
+- *Itemset:* Menge von Items
+- *Transaktion:* Menge von Items, die im Datenbestand tatsächlich vorkommen
+
+**Support**: Häufigkeit der Regel in Menge der Transaktionen, hoher Wert → Regel
+beschreibt Großteil des Datenbestands, $p(A u B)$,
+ $\sigma$ Schwellenwert für minimalen Support
+
+**Frquent Itemset**: Itemset mit Support $≥ \sigma$; FIS identifizieren Mengen von Items, die
+positiv miteinander korreliert sind, wenn der Support-Schwellenwert groß ist.
+- *maximal:* Frequent Itemset ist maximal, wegnn es nicht Teilmenge eines anderen Frequent
+Itemsets ist → es reicht maximale FIS explizit zu erzeugen, um die FIS zu kennen
+
+**Closedness von Itemsets**: Itemset ist Closed, wenn es keine echte Obermenge, 
+mit genau dem gleichen Support gibt
+
+**Confidence**: Anteil der Transaktionen in A, die auch in B enthalten sind, Schätzung
+der bedingten Wahrscheinlichkeit
+von A B $\frac{Support(A u B)}{Support(A)}$; minimum COnfidence = $\gamma$
+
+> Bevorzugte Regeln sollten $s \geq \sigma$ und $c \geq \gamma$
+
+|         |     Minimum Support       | Minimum Confidence  |
+| ------------- |-------------| -----|
+| **Hoch**      | wenige FIS, wenige Regeln kommen oft vor  | wenige Regeln, aber alle "logisch fast wahr" |
+| **Niedrig**      | viele gültige Regeln, kommen selten vor  |  viele Regeln, aber sehr viele "unsicher"  |
+| **Typische Werte** | $\sigma = 2 / 10%$     | $\gamma = 70 / 90%$   |
+
+**Apriori**: ALgorithmus zum Finden von FIS und Association Rules 
+[Beispiel Wikipedia](https://de.wikipedia.org/wiki/Apriori-Algorithmus#Beispiel)
+
+**Multi-Level Association Rules:** Menge von Regeln auf unterschiedlichen Hierarchieebenen
+
+**Level-Crossing Association Rules:** zur Erzeugung von Kandidatenmengen können Itemsets 
+unterschiedlicher Ebenen verknüpft werden
+
+**Prüfungsfrage: Was sind Association Rules?**   
+**Prüfungsfrage: Wie findet man sie?**   
+**Prüfungsfrage: Wie überprüft man rasch für viele Transaktionen, welche Kandidaten sie enthalten?**   
+**Prüfungsfrage: Geben Sie ein Beispiel für eine Association Rule mit hohem/niedrigem Support und hoher/niedriger Confidence.**   
+**Prüfungsfrage: Was sind multidimensionale Association Rules?**   
+**Prüfungsfrage: Was sind Multi-Level Association Rules, und wie findet man sie?**
+
+#### Schnelles Bestimmen von Frequent Itemsets
+**Hash-Filter**: üblicherweise viele Kandidaten für kleine k, verglichen mit der Zahl der 
+k-Itesets → $C_2$ sehr groß: $\|C_2\| = \binom{\|L_1\|}{2}$ 
+ Beim Zählen des Supports der Elemente von $C_k$ werden (k+1)-elementige Teilmengen jeder
+ Transaktion betrachtet, Support Counting für alle Itemsets mit gleichem Hash-Wert, 
+ Übersteigen des minsups → Itemsets frequent
+ 
+ **Sampling**: Ziel: weniger Schritte über die Datenbank; Apriori erfordert hohe I/O-Kosten, 
+ da für jede Itemset-Größe ein Scan über die Datenbank passieren muss; Ziel möglichst 
+ viele Berechnungen auf einer Stichprobe durchzuführen, die in Hauptspeicher passt;
+ Berechnung der Negative Border mit Sample, Support kannsowohl etwas größer als auch 
+ etwas kleiner gewählt werden, Negative Border mit einem Scan über DB überprüft
+ 
+ **Apriori-B**: (weitestgehend) nur Betrachtgung von FIS, die nicht maximal sind, Idee:
+ FIS in größeren Schritten durchlaufen, v.a. bei großen Itemsets sinnvoll, Verfahren:
+ 1. Sortieren der FIS innerhalb einer Transaktion nach Gesamthäufigkeit (1,5 Scans)
+ 2. Überführung der sortierten Transactions-DB in kompakte, baumartige Darstellung
+  (FP-Tree, 0,5 Scans)
+ 3. Exrahieren der FIS aus FP-Tree  
+→ wenn DB zu groß, passt FP-Tree nicht in Hauptspeicher → Partitionierung der 
+Transaktionsmenge
+
+**Projected Database**: p-projected Database enthält nur Transaktionen die p enthalten, d.h.
+ist sie kleiner als Ausgangsdatenbestand; mittlere Zahl von Transaktionen → mittlere Zahl 
+von Kombinationsmöglichkeiten; ist projected Database immernoch zu groß, muss Partitionierung
+verfeinert werden
+
+**Prüfungsfrage: In welchen Situationen ist Apriori teuer, und warum?**
+**Prüfungsfrage: Was kann man gegen diese Schwächen tun?**
+**Prüfungsfrage: Was sind FP-Trees, und wie lassen sie sich für die Suche nach Frequent Itemsets verwenden?**
+**Prüfungsfrage: Was kann man tun, wenn FP-Trees für den Hauptspeicher zu groß sind?**
+
+
+
+
 ## Übung
 
 
