@@ -26,8 +26,13 @@ tags: lecture
 - **22.10.2018**: 1-20 bis 1-32; Wdh. Foliensatz 2; (Foliensatz 3 hat Nummerierung 2) 2-1 bis 2-65
 - **23.10.2018**: 2-10 bis 2-27 und Übung 1
 - **29.10.2018**: 2-28 bis Ende Kapitel 3
-- **30.10.2018**: 4-1 bis 4-22
+- **30.10.2018**: 4-1 bis 4-22, Übung 2
 - **05.11.2018**: 4-23 bis Ende Kapitel 4; 5-1 bis 5-25
+- **06.11.2018**: 5-12 bis 5-19, Übung 3
+- **12.11.2018**: 5-20 bis 5-61
+- **13.11.2018**: 5-61 bis 5-68, Übung 4
+- **19.11.2018**: 5-68 bis Ende Kapitel 5, 6-1 bis 6-2
+- **20.11.2018**:
 
 ### Material
 Das Material der Vorlesung besteht aus:  
@@ -331,6 +336,36 @@ M hat maximale Kardinalität $\nexists matching M': \|M'\| > \|M\|$
 - upwards: d(w) > d(v)
 
 *Analyse:* $O(n²m)$
+
+*Ende Vorlesung vom 13.11.2018**
+
+**FIFO Preflow push**: Wie kann Anzahl nicht-saturierender Pushes verringert werden? → FIFO besser als Stack  → $O(n³)$
+
+> Grundsätzlich gilt : $n ≤ m$ mit Knoten n und Kanten m, da ansonsten Knoten isoliert wären und für den Fluss nicht betrachtet werden müssten.
+
+**Highest Level Preflow Push**: verbessert Dinitz weiter: Knoten, die möglichst weit weg sind werden bearbeitet, "Fluss sammelt sich unten an, bevor man ihn
+wegschiebt", select active nodes, that maximize $d(v)$, with bucket priority queue, not monotone, relabels pay for scan operations → highest level preflow
+push finds a max flow in $O(n²\sqrt{n})$  
+still better: with aggressive local relabeling and global relabelling and special treatment of nodes with $d(v) ≥ n$ → no node can connect to t across an empty
+level
+
+### Randomisierte Algorithmen
+
+> **Randomisierte Algorithmen** verwenden Zufall(sbits) zur Beschleunigung/Vereinfachung von Algorithmen
+
+**Las Vegas Algorithmen**: Ergebnis immer korrekt, Laufzeit ist Zufallsvariable (z.B. quicksort, hashing)
+
+**Monte Carlo Algorithmen**: Ergebnis mit bestimmer Wahrscheinlichkeit p inkorrekt, k-fache Wiederholungen machen Fehlerwahrscheinlichkeit
+exponentiell klein $p^k$
+
+**Permutationseigenschaft**: Sortiertheit
+
+**Sortieren - Ergebnisüberprüfung (Checking)**: Überprüfung ob Vektor1 eine Permutation von Vektor' ist, durch Polynom berechnen  (Differenz der Werte 0) wenn
+Vektoren permutiert; Polynom q kann höchstens n Nullstellen haben, Auswertung an zufälliger Stelle $x in F$, $p(q!= 0 und q(x) = 0) ≤ \frac{n}{\|F\|}$
+→ Körper F muss möglichst groß gewählt werden; Monte-Carlo → Verkleinern von p durch mehrfache Durchführung
+
+*Ende Vorlesung vom 19.11.2018**
+
 
 
 ## Übung
