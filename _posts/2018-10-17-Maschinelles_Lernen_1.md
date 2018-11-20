@@ -404,10 +404,84 @@ Methoden zur Initialisierung:
 **Fully Connected Layer**: v.a. bei Klassifikation, Anzahl der Neuronen im letzten Layer korrespondiert zu der Anzahl an 
 Klassen, die Netz unterscheiden soll
 
-**Fully Convolutional Networks (FCN)**: größere Eingabebilder möglich als bei Fully Connected CNNs, FUlly Connected Schichten
+**Fully Convolutional Networks (FCN)**: größere Eingabebilder möglich als bei Fully Connected CNNs, Fully Connected Schichten
 in Convolutional Schichten konvertiert
 
 **Ausgaben der FCN**:
 - Fully Connected CNN (Klassifikationsnetz): Wahrhscheinlichkeitswert pro Klasse
 - Fully Convolutional Network: Wahrhscheinlichkeitskart pro Klasse (gibt p an und Bereich in dem Bild zur Klasse gehört)
 
+### Support Vector Machine (SVM)
+**Support Vektor Methode**: Hypertrennebene finden, sodass Mengen A und B geteilt werden (Klassifikation). Ziel ist es die beste
+Trenngerade zu finden, sodass der Rand (Abstand Gerade zu den Elementen der Ebene) maximal wird (Generalisierung)
+
+**Trennhyperebene**: Normalenvektor $\vec{w}$ beschreibt Gerade durch Ursprung, senkrecht zu $\vec{w}$ verlaufen Trennhyperebenen, welche die
+Gerade $\vec{w}$ an einer Stelle schneiden, der Abstand der Schnittstelle zu Urpsung ist $b$: $\vec{w}\vec{x} + b = 0$  
+*Rand*: ist Abstand zwischen den nächsten Datenpunkten jeder Klasse $\frac{\vec{w}(x_⁻x_2)}{\|\vec{w}\|}$  
+*Normierung:* $\vec{w}\vec{x}+b = +1 $ bzw $\vec{w}\vec{x}+b = -1 $ → maximaler Rand (Abstand zwischen zwei Klassen): $\frac{2}{\|\vec{w}\|}$  
+*Optimale Hyperebene:* Abstand $\frac{1}{\|\vec{w}\|}$ zum nächsten Punkt und Abstand $\frac{2}{\|\vec{w}\|}$ zwischen zwei Klassen  
+*Optimierungsproblem:* = Minimierungsproblem von $\|\vec{w}\|²$ um $\frac{2}{\|\vec{w}\|}$ zu maximieren unter der Randbedingung, dass die 
+Daten auch korrekt klassifiziert werden; Vapnik: Lernmaschine mit kleinsten möglichen VC-Dimension (= gültiger Hypothesenraum), falls
+Klassen linear trennbar  
+*Primäres Optimierungsproblem:* Lagrange Methode, Finde den (eindeutigen) Sattelpunkt $L_p$ der Funktion mit den positiven Lagrange-Multiplikatoren
+$\vec{\alpha}=(\alpha_1, ..., \alpha_n)$ mit $\alpha_1, ..., \alpha_n \geq 0$, Minimum von L bezüglich $\vec{w}b$, Maximum von L bezüglich 
+$\alpha_1, ..., \alpha_n$  
+*Duales Optimierungsproblem:* Duale Lagrange Gleichung $W(\alpha)$, duales Optimierungsproblem unter der Randbedingung dass Summe der 
+$y_i\alpha_i = 0 $ und $\alpha_i \geq 0$ → Vorteile nurnoch von $\alpha_i$ abhängig und damit einfacher zu lösen
+
+**Support Vektoren**: Vektoren, die am nächsten zur Trennhyperebene liegen (wichtige Vektoren für Lernmaschine); die meisten (Sattelpunkt)
+Bedingungen sind erfüllt → $\alpha_i = 0$; $\vec{w}$ ist Linearkombination weniger Support Vektoren
+
+**Soft Margin**: "Aufweichen der Ebene" um einen "weichen Rand", erlaube geringer Zahl von Missklassifikationen, höhere Generalisierung,
+indem Randbedingung um den Wert der Schlupfvariable $\xi \geq 0$ erweitert wird → d.h. Datenpunkt kann auch leicht neben Gerade auf 
+"falscher Seite" liegen   
+*Regulierungsparameter $C$ (Größe des Randes)*: 
+- *$C$ groß:* wenig Missklassifikationen 
+- *$C$ klein:* maximaler Rand  
+Folge für Support Vektoren $\vec{x_i}$ mit $\alpha_i > 0$:
+- $\alpha_i < C$: Support Vektor liegt am Rand, Abstand zur Trennhyperebene ist $\frac{1}{\|\vec{w}\|}$
+- $\alpha_i = C$: 
+    - Fehlklassifikation wenn $\xi_i > 1$
+    - richtig, wenig Abstand (margin error): $0 < \xi_i \leq 1$
+    - Rand Vektor (margin vetctor): $\xi_i = 0$
+    
+**Nichtlineare Kernel-Methoden**: Transformiere Daten in anderen Raum und löse dort linear (Klassifikation: lineare Trennung); meist 
+Transformation in höher dimensionalen Raum, Problem: Transformation oft rechenintensiv:  
+*Kernel-Trick:* wenn Daten als Skalarprodukt, Transformation nicht nötig, implizites Rechnen im höher dimensionalen Raum → Lösung
+im Ursprungsraum; Kernel-Funktion: $K(\vec{x}, \vec{y}) = \phi(\vec{x})\phi(\vec{y})$  
+*Kernel-Funktionen:* Skalarprodukt, Polinomial, Radiale Basis-Funktionen (RBF), Sigmoid
+
+**Version Space für SVM**: Randbedingung für korrekte Klassifikation/gültige Trenngeraden; jeder Datenpunkt definiert Hyperebene 
+im Hypothesenraum, gültige $\vec{w}$ jeweils in reduziertem Hypothesenraum → Suche nach $\vec{w}$ mit maximalen Abstand zu allen
+Hyperebenen der Datenpunkte → Mittelpunkt der Hyperkugel; bei Suche über Trennhyperebene wird implizit Structural Risk Minimization 
+durchgeführt → korrektes Lernen ist Mittelpunkt der verbleibenden Hyperkugel
+
+**SVM Architektur**: Ähnlichkeit zu NNs? → lernen Gewichte, Kernel, hidden-Layer; ABER: sonst nichts: Optimierung, mathematischer
+Hintergrund
+
+**SVM Erweiterungen**:
+- Einer-gegen-Alle: $k$ SVMs (pro Anzahl k an Klassen), Abstimmungsverfahren
+- Einer-gegen-Einen: $\frac{k(k-1)}{2}$ SVMs, Abstimmungsverfahren
+- Mehrfachzugehörigkeit: $k$ SVMs (pro Anzahl k an Klassen), Abstimmungsverfahren
+- k-class SVM (Watkins): gemeinsames Optimierungsverfahren, kein Abstimmungsverfahren (→ schlecht, schlechte Performance)
+
+**Probabilistische Sicht auf SVMs**: Interpretation des Abstandes der Trennhyperebene als Klassifikationswahrscheinlichkeit, Alternative:
+Maximierung der Klassifikationswahrscheinlichkeit des Randes
+
+**Dichte-Träger-Schätzung**: Funktion f, die für "kleine Region" (enthält die meisten Lernbeispiele), Wert > 0, sonst Wert $\leq$ 0 
+(Ähnlichj zum Clustering im unüberwachten Lernen), Abstand $\vec{w}$ zum Ursprung soll maximal sein, Trennung der Lernbeispiele vom
+Ursprung im transformierten Merkmalsraum
+
+**Kernel Perceptron**: einfacher Algorithmus, als Kernel Methode realisierbar, lineare Trennung im transformierten Raum für zu
+komplexer Trennung im Ursprungsraum
+
+**Pro SVM**:
+- Optimale Hyperebene → gute Lernergebnisse
+- optimale VC-Dimension → korrektes Lernen
+- hochdimensionale Daten → schnelle Auswertung
+- Entscheidung anhand Randregion getroffen
+
+**Kontra SVM**:
+- Vorverarbeitung extern nötig (kein "tiefes" Lernen)
+- speicher- und rechenaufwändig
+- Anzahl Support Vektoren abhängig von Problem und Parameter
