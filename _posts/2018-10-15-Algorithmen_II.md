@@ -32,7 +32,7 @@ tags: lecture
 - **12.11.2018**: 5-20 bis 5-61
 - **13.11.2018**: 5-61 bis 5-68, Übung 4
 - **19.11.2018**: 5-68 bis Ende Kapitel 5, 6-1 bis 6-2
-- **20.11.2018**:
+- **20.11.2018**: 6-3 bis Ende Kapitel 6; Übung 5
 
 ### Material
 Das Material der Vorlesung besteht aus:  
@@ -364,9 +364,23 @@ exponentiell klein $p^k$
 Vektoren permutiert; Polynom q kann höchstens n Nullstellen haben, Auswertung an zufälliger Stelle $x in F$, $p(q!= 0 und q(x) = 0) ≤ \frac{n}{\|F\|}$
 → Körper F muss möglichst groß gewählt werden; Monte-Carlo → Verkleinern von p durch mehrfache Durchführung
 
-*Ende Vorlesung vom 19.11.2018**
+*Ende Vorlesung vom 19.11.2018*
 
+**Alternatives Checking mit Hash Funktion**: Ist Folge $E$ Permutation von $E'$? → h ist zufällige Hash-Funktion mit
+ Wertebereich $0..U-1$; Checker return $h(E) = h(E')$; Zwei Möglichkeiten:
+ - $E = E'$ → Checker gibt definitiv gleichen Wert zurück, das Hash Funktion auf gleiche Werte angewandt wurde
+ - $E \neq E'$ → Wahrscheinlichkeit, dass $h(E) = h(E') \leq \frac{1}{U}$
 
+**Perfektes Hashing**: keine Kollisionen, Abbildung in Array Länge n bei n Elementen (injektiv)
+ $\omega(n)$ bits nur für codierung der Hashfunktion
+ 
+**Cuckoo Hashing**: Hashtabelle mit Länge $(2+\epsilon)n$; jedes Element ist entweder durch erste Hashfunktion $h_1$ oder 
+durch zweite Hasfunktion $h_2$ in bucket eingeordnet; "Rausschmeißen" bzw. "Verdrängung" der Elemente und Neuordnung durch alternative 
+Hashfunktion; schnell in Lookup und delete, konstant beim Einfügen
+- *Insert*: ist erfolgreicht, gdw der Graph nicht mehr Kanten als Knoten enthält
+- *Rebuild*: notwendige rebuilds nicht mehr als $O(\frac{1}{n})$
+
+*Ende Vorlesung vom 20.11.2018*
 
 ## Übung
 ### Übung 1
@@ -463,9 +477,46 @@ deutlich schneller: #SCC³ < n, Eintrag pro SCC
 
 **Dinitz Distanz Label**: geben Distanz im Residualgraphen zur Senke t an, Rückwärtsgerichtete Breitensuche → Layered Graph
 
-**Dinitz Blocking FLow**: “Auf jedem Weg durch den Graphen mindestens  eine Kante bis zur maximalen Kapazität ausgelastet ist”,
+**Dinitz Blocking Flow**: “Auf jedem Weg durch den Graphen mindestens  eine Kante bis zur maximalen Kapazität ausgelastet ist”,
 Berechnung auf Schichtgraph, kein Rückfluss möglich; Berechnung basiert auf Tiefensuche von s aus:
 - extend: gehe einen Knoten näher ans Ziel (Schichtgraph)
 - retreat: Sackgasse gefunden, gehe zurück, lösche Kante
 - breakthrough: Tiefensuche hat Senke erreicht, lösche saturierte Kanten
 *Analyse*: $O(nm)$
+
+### Übung 5
+**Potentialmethode**: Stack mit Operationen:
+- push(v): Element v oben auf Stack legen $O(1)$
+- pop: oberstes Element aus Stapel entfernen $O(1)$
+- multipop(k): oberste k Elemente aus Stapel entfernen $O(n)$
+Beweis: Warum $O(n)$ und nicht $O(n²)$ wie vermutet für n Operationen im worst-case
+Anzahl Elemente $\phi$ auf Stack $\phi = \|Elemente auf Stack\| \geq 0$; Push erhöht $\phi$, pop bzw. multipop verringert $\phi$;
+bei n Operationen $\|push\| \leq n$ maximal n Erhöhungen, Verringerungen max n → alle Änderungen $\leq 2n$ → maximal O(n) 
+
+**Preflow Push Algorithmus**: Bezeichnungen:
+- *Aktiver Knoten:* Knoten $v$ aktiv, wenn $excess(v) = inflow(v) - outflow(v) > 0$
+- *gültige Kante:* Kante $(v,w) \in G^{f}$ gültig, wenn Level $d(v) = d(w) + 1 $  
++
+Ablauf: 
+1. wähle *aktiven Knoten* $v$
+2. falls *gültige Kante* $(v,w)$ existiert push (schiebe Fluss entlang $(v,w)$, vorausgesetzt: d(u) = d(v) + 1)
+3. ansonsten *relabel* (erhöht Level eines Knoten, erhält $d(u) \leq d(v) + 1 in G^{f}$, nur wenn push vom Knoten nicht möglich)  
+
+Oft nicht klar, welche Knoten, Kanten etc, daher Heuristiken:  
+Auswahl des aktiven Knotens:  
+- *generic preflow push:* $O(n²m³)$
+- *FIFO preflow push:* $O(n³)$ Typisch für Ausführung per Hand → Klausur
+- *highest-level preflow-push:* $O(n²\sqrt{m})$  
+
+Unterschiedliches relabel:
+- *aggressive local relabeling:* erhöhe in einem Schritt so, dass gültige Kante existiert 
+- *global relabeling:* setze Levels nach: (Berechnung der Distanzen über Breitensuche) 
+    - $\mu(v,t)$: falls t von v erreichbar
+    - $n+\mu(v,s)$: sonst, falls s von v erreichbar
+    - $2n-1$: sonst
+- *gap heuristic:* wird Level durch relabel(v) leer, setze Level von v und aller von v erreichbaren Knoten auf $d(w) = max{d(w), n}$
+
+Knotenauswahl:
+- *two-phase approach:*
+    - Phase 1: wähle nur Knoten Level $d(v) < n$ aus → erzeuge maximum preflow → korrekter Fluss in t
+    - Phase 2: nur noch Knoten mit Level $d(v) \geq n$ aus → Fluss nur nach s möglich
