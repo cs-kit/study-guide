@@ -211,3 +211,55 @@ möglich
 *RAID 5 vs. RAID 10:* RAID 5, RAID 10 comparable peroformance regarding read operations, RAID5 better for large-block seuential writes, RAID 10 better
 for small-block random writes; RAID 5 good choice for high availability, fewer writes than reads, RAID 10 fault-tolerant, performance critical, write sensitive
 but high random write percentage
+
+*Ende Vorlesung vom 7.11.2018*
+
+**Components of Intelligent Storage Systems**: wenig "intelligent", unterstützt dabei große Anzahl an physical disks in unterschiedliche
+RAID Systeme abzubilden; Vorteile: increased capacity, improved performance, easier data management, improved data availability/protection
+- *Front End:* Configuration Richtung Netzwerk/Host
+- *Cache:* write operations:
+    - Write-through Cache: direktes Schreiben in den HS ("am Cache vorbei"), langsamer, in billigeren Systemen
+    - Write-back Cache: Daten nicht direkt in den Speicher geschrieben, sondern in den Cache, Daten in HS und Cache sind inkonsistent, commit wird
+     gegeben, wenn Daten im Cache sind, aufwändigere Technik (teurere Systeme) aber bessere Performance
+- *Back End:* Configuration zu physical disks
+- *Physical Disks:*
+
+**Caching Algorithmen**: Least Recently Used (LRU)/ Least Recently Written (LRW), bessere Performance durch write-cache management
+
+**Cache Data Protection**: protecting cache data against failure:
+- *Cache mirroring:* writes to cache are held in two different memory locations on two different memory cards
+- *Cache vaulting:* cache exposed to risk of uncommitted data → power failure: uncommitted data is dumped to dedicated set of drives (= vault
+drives)
+
+**Logical Units**: physical disks combined to logical units and deliver to host as unit; LUN = logical unit number; man 
+"sieht" nach außen nur LU und nicht physikalische Disks, einfach um im laufenden system RAID systeme auszutauschen; 
+LUN Masking Zugriffsrechtschutz; Zugriffe auf LUNs immer in Blöcken unabhängig von Repräsentation nach außen, "hinten" auf Disks immer Standard
+
+**High-end Storage Systems**: for enterprises, large storage capacity, huge cache to service host I/Os, fault tolerance architecture, high scalability
+Active-Active Configuration: Storage Array with two connections to host; Storage Array alles gedoppelt: Controller, Platten, Stromanschlüsse 
+→ sehr hohe Ausfallsicherheit
+
+**Mid-end Storage Systems**: less scalable, eine Verbindung active (darüber geht Host I/O) und eine passiv, welche dafür da ist, wenn aktive Verbindung
+failed 
+
+> high-end SS und mid-end SS Preisunterschied kommt hauptsächlich von teurer Software (Firmware)
+
+### Storage Connectivity and Networking
+**Direct Attached Storage (DAS)**: [Wikipedia](https://de.wikipedia.org/wiki/Direct_Attached_Storage): "an einen einzelnen 
+Rechner angeschlossene Festplatten, die sich in einem separaten Gehäuse befinden"  
+*Vorteile:* lokale Datenhaltung, schnelles Entwickeln fürkleine Umgebungen, einfacher Deploy, Zuverlässigkeit, 
+niedrige Kosten und niedrige Komplexität  
+*Probleme:* begrenzte Skalierbarkeit, Downtime bei Wartung, limitiertes Ressourcensharing
+
+**Small Computer System Interface (SCSI)**: [Wikipedia](https://de.wikipedia.org/wiki/Small_Computer_System_Interface): "Familie von 
+standardisierten Protokollen und Schnittstellen für die Verbindung und Datenübertragung zwischen Peripheriegeräten und Computern"  
+*Adressierung:* SCSI initiator port and SCSI target port has SCSI port indetifier, logical unit is assigned a LUN within SCSI 
+target device, LU has also LUN, SCSI target device with SAS target ports has device name  
+→ *Address = Bus : Target ID : LUN*  
+*Commands:* 
+- Non-data commands (N): no data transferred
+- write commands (W): data transferred from initiator to target, write data = Data-Out
+- read commands (R): data transferred from target to initiator, read data = Data-In
+- bidirectional commands (B): data transferred in both directions, Data-In and Data-Out
+
+*Ende der Vorleseung vom 21.11.2018*
