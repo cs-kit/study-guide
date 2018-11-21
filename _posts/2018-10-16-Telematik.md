@@ -481,6 +481,7 @@ on network)
 > **Traditional IP Networks:** every router control and data plane functions, control is decentralized → Limitations! → SDNs 
 increase flexibilty and decrease dependencies on hardware
 
+#### Basics and Architecture
 **Characteristics of Software-Defined Networks**: Separation of control and data plane; control functionalities → SDN controller, 
 Data plane → simple packet processors (SDN switches), control plane has global network view (knows all switches, network topology), 
 network ist software-programmable (network applications), processing based on flows
@@ -519,6 +520,7 @@ Interfaces:
 - *Eastbound API:* interface → legacy infrastructures  
 → No widely accepted standard for north/westbound interfaces
 
+#### SDN Workflow in Practice
 **SDN programming primitives:** to assist with creating app, important areas:
  1. *to create, install flow rules:* app that implements flow rule decisions, programs flow table entries into switch
  ```javascript
@@ -570,3 +572,69 @@ unknown des. address → flooding; Problem: Controller has no chance to learn po
 - *Version 3 (with more specific matching):* only matching dest. address not enought, use more specific matches, ensures all end systems can be learned
 Problem: functional perspective good, but: not scalable/usable → amount of flow table entries can be large
 - *Version 4 (with multiple flow tables):* separate flow tables for learning and forwarding, 2*N rules for N end systems
+
+#### Open Flow
+**OpenFlow**: southbound interface (interaction between controller and switches, logical architecture for SDN switches)
+- *Ports:* represent logical forwarding targets, can be selected by output action, physical ports → hardware interfaces  
+Reserved Ports:
+    - ALL: flooding
+    - IN_PORT: send packet back
+    - CONTROLLER: send packet to controller
+    - NORMAL: forwarding to vendor-specific switch implementation  
+Logical Ports:
+    - link aggregation: multiple interfaces combined to single logical port
+    - transparent tunneling: traffic forwarded via intermediate switches
+- *Flow Table:* 
+    - Match fields → mandatory
+    - Priority → mandatory
+    - Actions → mandatory
+    - Counters: number of processed packets
+    - Timeouts: max lifetime of flow, automatic flow removal
+    - Cookies: marker value set by SDN controller
+    - Flags: indicate how flow is managed, notifies controller if flow is automatically removed
+- *Group Table:* definiert Rules für jede Gruppe von Flows, nicht für jeden Flow einzeln, group entries invoked from other tables via group
+actions, referenced by unique group identifier, flow table entries can perform group actions during ingress processing, 
+effect of group processing depends on group type and action buckets
+    - Action Buckets: per group zero or more action buckets, contains set of actions to execute
+    - Group Types: 
+        - all: alle buckets in Gruppe wählen
+        - indirect: einziges bucket in gruppe
+        - select: ein bucket aus vielen der Gruppe wählen
+        - fast failover: erstes bucket, das mit aktivem port verknüpft ist
+- *Pipeline Processing:* multiple flow table chained to flow table pipeline, flow tables numbered in order, traversed by packets, processing 
+starts at flow table 0, only forward traversal, actions accumulated in action set,
+    - ingress processing: packet processing starts with ingress processing, start at flow table 0, initial action set empty
+    - egress processing
+    
+#### Power of Abstraction
+> Abstraction is major reason for success in OS → similar goals for networking domain
+
+Controller can provide different abstractions to network apps, Apps should not deal with low level/unnecessary details, abstract view 
+on network, OpenFlow is no suitable for SDN Abstraction
+
+**FlowVisor**: Network slicing (simple form of virtualization), individual users get "own" network slice
+
+#### SDN Challenges
+**Controller Connectivity**: SDN required connectivity between controller ans switches, otherwise no exchange of control messages, 
+no updates in flow tables, no control of the network; Connectivity Modes:
+- *Out-of-band:* extra Kabel; dedicated (physical) control channel for messages between controller and switch
+- *In-band:* kein extra Kabel; control message use same channel as "normal" traffic, multiple apps can configure switch → both apps
+can disable ports → no controller connectivity anymore
+
+**Scalability**: requires powerful controllers, size/load of networks can easily overload control plane, important parameters:
+number of remotely controlled switches, hosts/flows, messages
+
+**Distributed Controllers**: reasons for distributed controllers: Scalability, Responsibilities, Reliability, Incremental 
+deployment; BUT: controller must have consistent knowledge → westbound interface to communicate
+
+**CAP Theorem**: multiple controller cause same problems as in distributed system → CAP Theorem
+- **C**onsistency: system responds identically to request no matter which node receives request (or not at all)
+- **A**vailability: system always responds to request
+- **P**artition tolerance: system continues to function even when messages are lost  
+→ inherentes Problem, nicht möglich alle drei Punkte gleichzeitig zu erfüllen, nur zwei gleichzeitig möglich
+
+**Flow Table Capacity**: SDN needs a lot more than 20.000 rules, fast processing requires TCAM (current hardware max. 20.000 entries) →
+workarounds like caching, flow aggregation, optimized distribution
+
+**Flow Setup Latency**: setting a new flow requires that a rule is generated at SDN controller and installed at switch → directly affects
+control latency of network → clever placement of controller
