@@ -29,6 +29,8 @@ tags: lecture
 - **08.11.2018**: Foliensatz 3-135 bis 3-154, 4-1 bis 4-16
 - **14.11.2018**: Foliensatz 4-17 bis 4-77, 5-1 bis 5-28
 - **15.11.2018**: Foliensatz 5-29 bis 5-103
+- **21.11.2018**: Foliensatz 5-104 bis 5-165
+- **22.11.2018**: Foliensatz 5-166 bis 5-213; 6-1 bis 6-34
 
 ### Material
 Das Material der Vorlesung besteht aus:  
@@ -638,3 +640,72 @@ workarounds like caching, flow aggregation, optimized distribution
 
 **Flow Setup Latency**: setting a new flow requires that a rule is generated at SDN controller and installed at switch → directly affects
 control latency of network → clever placement of controller
+
+*Ende der Vorlesung vom 21.11.2018*
+
+#### Tools
+**OpenDaylight**: SDN Controller, Java-based, focus on network programmability, OpenDaylight Architecture: zwischen UI, Network apps und
+Controller
+
+**Virtual Switches**: core component in data centers #VMs >> #physical servers, #Virtual Ports >> #physical ports → one
+virtual switch per physical server → "virtual" Top-of-Rack switches, e.b. Open vSwitch
+
+### Network Function Virtualization
+#### Network Functions
+**Middlebox**: device on data path, between source and destination end system, performs functions other than normal, standard functions
+of IP router
+
+**Network Function**: functionality of middlebox, executed on data path
+
+**Network Address Translation (NAT)**: connects a realm with pricate addresses to external realm with globally unique addresses, 
+Problem: private address not usable for routing in internet → exchange globally unique and private address when packets traverse network boundaries
+
+**Firewall**: monitors and controls incoming and outgoing traffic  
+*Packet inspection*:
+- Shallow packet inspection: decisions based on header fields only (bis Layer 4)
+- Deep packet inspection: inspect content of higher layer protocols (e.g malware detection)
+
+*Processing:*
+- Stateless: every packet inspected independently of other packets
+- Stateful: keeps state between packets
+
+**Web Cache**: provides additional storage on data path, temporarily caches content provided by remote server →reduces time for content
+delivery → CDNs capitalize on well-placed caches → multiple middleboxes at different locations in network → Problems with middleboxes:
+fast, but inflexible, closed source, static wiring, ...
+
+**Network Function Virtualization (NFV)**: ideas of cloud computing (implement network functions in software, use virtualization technology);
+Traditional middlebox with caching functionality → (Softwarization) → Caching functionality implemented in software → (Virtualization) →
+Executed on hardware  
+*Benefits*:
+- Resource sharing
+- Agility and flexibility
+- Rapid deployment
+- Reduced costs
+
+*Main Building Blocks:*
+- Virtualized Network Functions (VNFs): network functions provided in sofware
+- NFV Management and Orchestration (MANO): Lifecycle management of VNFs and network services
+- NFV Infrastructure (NFVI): Provides hardware, software and network resources for VNFs, can contain multiple Points of Presence, SDN used
+to transparently reroute flows to PoPs
+
+**Network Service**: Network services combine multiple network functions
+
+**Point of Presence (PoP)**: small data centers, located at different points in infrastructure
+
+#### Virtualization
+**Virtualization**: provides software abstraction layer between hardware and OS and apps running on VM → offers standardized platform for
+applications  
+*Hypervisor:* abstraction layer ist referred to as *hypervisor* (resource broker between hardware and VM, tranlates I/Os from VMs to physical
+server devides, allows multiple OSs to coexist on a single physical host, allows live migration on VMs and other hosts)
+- *Type 1 Hypervisor*: runs directly on hardware (high performance, strong isolation between VMs), synchronized access of VMs to hardware
+- *Type 2 Hypervisor*: runs on top of host OS (executed as app in user space), VMs provide virtual hardware to guest OS  
+
+*Container-based:* single kernel provides multiple instances (containers) of same host OS (no hypervisor involved, isolation enforced
+by host OS kernel, apps in containers executed by host OS), kernel synchronizes access of containers to hardware
+
+#### Service Function Chaining
+**Service Function Chain (SFC)**: ordered set of network functions (specifies ordering contrains that must be applied to flows), enables creation
+of composite network services
+
+**MPLS-based SFC**: Services classifiers select appropriate service function chains, service function forwarders deliver packet to network
+functions
