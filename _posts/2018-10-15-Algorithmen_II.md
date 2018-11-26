@@ -33,6 +33,8 @@ tags: lecture
 - **13.11.2018**: 5-61 bis 5-68, Übung 4
 - **19.11.2018**: 5-68 bis Ende Kapitel 5, 6-1 bis 6-2
 - **20.11.2018**: 6-3 bis Ende Kapitel 6; Übung 5
+- **26.11.2018**: Kapitel 7
+
 
 ### Material
 Das Material der Vorlesung besteht aus:  
@@ -379,6 +381,31 @@ durch zweite Hasfunktion $h_2$ in bucket eingeordnet; "Rausschmeißen" bzw. "Ver
 Hashfunktion; schnell in Lookup und delete, konstant beim Einfügen
 - *Insert*: ist erfolgreicht, gdw der Graph nicht mehr Kanten als Knoten enthält
 - *Rebuild*: notwendige rebuilds nicht mehr als $O(\frac{1}{n})$
+
+*Ende Vorlesung vom 20.11.2018*
+
+### Externe Algorithmen
+
+> Im Extremfall: Rechenoperationen der CPU zählen nichtmehr, nurnoch I/O Operationen
+
+**Sekundärspeichermodell**: M = schneller Speicher der Größe M (Hauptspeicher), B = Blockgröße (Wörter die auf einmal aus Hintergrund
+speicher gelesen/geschrieben werden können) → Analyse: Blockzugriffe zählen
+
+**Externe Stapel**: Datei mit Blöcken, 2 interne Puffer, pro Puffer je ein *Top-of-Stack*-Pointer (TOS); Warum zwei Puffer? → bei nur 
+einem Puffer, im Falle dass abwechselnd push & pop aufgerufen werden würde → Kreislauf → alle 2 Operationen ein I/O Zugriff → viel zu teuer
+- *push*: falls Platz in Puffer, sonst Puffer 1 in Datei (push auf Blockebene) → Puffer 1 und Puffer 2 tauschen Plätze
+- *pop*: falls vorhanden, pop aus Puffer → sonst lese Puffer 1 aus Datei (pop auf Blockebene)  
+→ $ O(\frac{1}{B}) $ I/Os pro Operation
+
+**Externes Sortieren**: Eingabegröße $n$, Größe $M$ des schnellen Speichers, Blockgröße $B$; Vorgehen beim *externalMerge(a,b,c: File of Element)*
+Elemente x = read(a) und y = read(b), von j=1 bis a+b: if x ≤ x → write(c), x = read(a) else write(c), y = read(b)  
+*Analyse:* $\leq 3 + 3 \frac{\|a\|+\|b\|}{B}$ → Bedingung: 3 Pufferblöcke: $M > 3B$
+
+**Run Formation**: sortiere Eingabeportionen der Größe M; I/Os ca. $2\frac{n}{B}$
+
+**Externe Prioritätslisten**: Problem bei Binary Heaps: $\theta(log \frac{n}{M})$ I/Os pro deleteMin 
+
+**Minimale Spannbäume**: Semiexterner Kruskal: Annahme: $M = \Omega(n)$ konstat viele Maschinenworte pro Knoten
 
 *Ende Vorlesung vom 20.11.2018*
 
