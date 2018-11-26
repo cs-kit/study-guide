@@ -729,3 +729,205 @@ wirkt und tatsächlich das Signal verstärkt.
 Der Pop-Schutz: Schaumstoff soll niederfrequente Anteile (Atmen, Wind) herausfiltern.
 Feine Pohren filtern. Das große Mikrofon, das an der Nordsee verwendet wird,
 nennen die Tontechniker "tote Katze".
+
+## 6. Vorlesung
+
+### Geschichte ASR
+
+Wie alt ist ASR? Nach der Kenntnis von Prof. Stüker 1913 mit dem "Voice Operated Typewriter".
+Funktioniert analog mit elektromagnetischen Filtern. Kurzzusammenfassung des
+
+Artikels: "Vokale klappen, Konsonanten nicht, weil sie zu kurz sind"
+
+Noch vor der ASR gab es Sprachsynthese.
+
+1846: Euphonia - Sprachsynthesemaschine in England von Joseph Faber.
+      Konstruiert wie ein Instrument, das den Vokaltrakt und eine Lunge nachstellt (ähnlich Orgel).
+      Konnt sogar "flüstern" und "singen", dass können die aktuellen Systeme
+      nicht so gut. Die Frau Faber hatte sogar Konzerte damit gegeben.
+1922: Radio Rex - Ein Spielzeughund, der auf 500-Hz-Filterbank anspringt und dann
+      aus seinem Haus gefedert wird. Das liegt so beim Buchstaben "e" wodurch
+      der Hund scheinbar auf das Wort "Rex" herauskommt.
+1939: Voice coder (Vocoder) - entwickelt von Dudley für Militär. Aufteilung
+      des Signals in Fenster (Abtastung), Glättung,
+      Übertragung (kann jetzt verschlüsselt sein) und zum Schluss wieder Synthese
+      Dadurch konnte man Telefonie verschlüsseln für das Kampffeld.
+1946: Visible Speech von Bell. Dieser kam sowieso aus dem Bereich der
+      Arbeit für Hörgeschädigte.
+1965: Fast Fourier Transform (FFT). Sehr wichtiger Algorithmus, weil dadurch
+      viele Aufgaben der Signalverarbeitung digital gelöst werden konnten.
+      Oft sogar in Hardware gegossen.          
+1968: Dynamic Time Warping für Spracherkennung von Vintsyuk. Dieser hatte es zu
+      diesem Jahr erfunden. Die Amis dachten bis zum Fall des Eisernen Vorhangs,
+      das es bei ihnen zuerst erfunden wurde.
+1971: DARPA SUR Projekt (bis 1976). Zwischen 69 und 71 hat ein sehr großer
+      Fortschritt stattgefunden. DARPA ist aus der Mondlandung entstanden und
+      bekannt für viele Projekte: frühes Internet, Robotik, Autonome Autos
+1975: Von Forschern aus DARPA SUR wurde HARPY gebaut. Diese nutzten
+      Hidden Markow Models (HMM), was bis heute immernoch der Standard ist.
+      Sie erzielten bereits auch schon eine gute Perplexität, was ein
+      Fehlermaß in Relation zu den bestehenden Auswahlmöglichkeiten ist.
+1985: Kontextabhängige HMMs. Danach wurden es immer mehr Daten und mehr
+      Rechenleistung, die zur Verfeinerung der bestehenden Modelle genutzt wurden.
+2000: Sprache-zu-Sprache (VERBMOBIL) https://www.youtube.com/watch?v=noZBab-Lmss
+2006: GP-LVM und danach Emmissionswahrscheinlichkeit durch neuronale Netze ersetzen
+2018: Trend geht in die Richtung, dass man HMM durch NN ersetzen will, aber
+      State-of-the-Art ist weiterhin HMM.
+
+### WER
+
+Word Error Rate, Wortfehlerrate auf Deutsch. Es handelt sich um ein Gütemaß
+für die Funktionsfähigkeit von ASR.
+Dazu nimmt man eine transkripierte Audioaufnahme und vergleicht das Transkript
+dann mit dem Ergebnis des ASR. Dazu nutzt man die Levenshtein-Distanz, welche
+auch Minimale Editierdistanz (Minimum Edit Distance) genannt wird.
+Diese bezeichnet die minimale Anzahl an Einfügungen (INSERT), Löschungen (DELETION)
+und Ersetzungen (SUBSTITUTION), welche man benötigt, um von der Hyptothese (Ergebnis des ASR)
+zur Referenz aus dem Transkript zu kommen.
+
+$$WER = { #INS + #DEL + #SUBS \over N}$$
+
+Wobei "#" für die Anzahl an Operationen und N für die Anzahl an Wörtern in
+der Referenz steht.
+
+Die Wortakkuratheit ist $accuracy = 1-WER$.
+
+**Wie findet man die minimale Editierdistanz?** Dazu gibt es ein Verfahren mit
+dynamischen Programmieren in quadratischer Zeit.
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/We3YDTzNXEk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+|   |   | H | A | L | L | O |
+-----------------------------
+|   | 0 | 1 | 2 | 3 | 4 | 5 |
+-----------------------------
+| H | 1 | 0 | 1 | 2 | 3 | 4 |
+-----------------------------
+| A | 2 | 1 | 0 | 1 | 2 | 3 |
+-----------------------------
+| U | 3 | 2 | 1 | 1 | 2 | 3 |
+-----------------------------
+| S | 4 | 3 | 2 | 2 | 2 | 3 |
+
+
+Die Zeile ist die Hypthese und die Spalte die Referenz. Wir wollen Hypthese
+in Referenz umwandeln. Die Frage für Zelle X,Y ist quasi immer:
+Wie viele Operationen benötige ich, um von meinem Wort aus der ersten Zeile bis
+zum Buchstabe X eine Umwandlung in das Wort der ersten Spalte bis Y durchzuführen.
+
+Man muss aber gar nicht mitdenken, wenn man die Regel kennt. Wenn die beiden
+Buchstaben nicht gleich sind, dann nimmt man das Minimum von (links, oben oder links-oben)
+und addiert eins dazu. Dadurch kann man die Tabelle stupide ausfüllen.
+
+Der Wert der dann am Ende bei der vollen Länge in der Tabelle steht (unten rechts)
+ist die Anzahl der nötigen Operationen.
+
+**Bemerkungen**
+
+1. Die WER kann größer sein als 100%. Zum Beispiel kann das WER einfach sehr
+   viel mehr Wörter erkennen als im Satz enthalten sind.
+2. Die WER kann nicht negativ werden, da weder Nenner noch Zähler negativ werden können
+3. Es gibt mehrere Operationsfolgen, um die minimale Editierdistanz zu finden.
+
+Die WER als Fehlermetrik ist ganz nett, aber hat einige Haken. Bei maschineller
+Übersetzung zum Beispiel gibt es mehrere valide Übersetzungen.
+Oder wenn eine Segmentierung in Wörter nicht so leicht ist (Chinesisch Han-Schrift).
+Oder wenn Fehler unterschiedlich zu bewerten sind. Zum Beispiel in einem medizinischen
+Spracherkennungssystem verändert das Wort "nicht" einfach alles, obwohl es
+nur ein Wortfehler von eins ist.
+
+NIST Benchmark Mai 2009 von ASR Systemen (Stüker sagt, dass NIST gut messen kann.
+  "Sie betreiben die Atomuhr und prüfen Böller.")
+
+Früher hatte man Sprachverstehen und Spracherkennung noch miteinander behandelt.
+Im Englischen: Speech Understanding and Recognition (SUR)
+
+Am Anfang der 1990er war man dann bei einem 1000-Wort-Datensatz bereits auf
+menschlicher WER (2 - 4%), also hat man neue, größere, schwierigere Datensätze
+genutzt. Nicht nur Vorgelesenes, dann auch Meeting und freie Sprache.
+Je größer das Vokabular desto größer auch der Fehler.
+
+Die Testsets wurde nach Mikrofonaufbau unterschwieden, weil es einen erheblichen
+Unterschied gemacht hat:
+
+ - Kreis: Nahbesprechungsmikrofon
+ - Viereck: Single distant microphone
+ - Triangle: Multiple distant microphones (komplexe Zusammenführung der Aufnahmen)
+
+Die Distanz macht große Probleme. Dieses Thema ist dann wieder mit Alex und HomePod
+spannend geworden. Diese nutzen sog. Mikrofonarrays mit zum Beispiel acht
+Mikrofonen. Die Mikrofon-Arrays (Triangle) aus dem Benchmark hatten auf eine
+Distanz von circa 6-7 Metern 64 Mikrofone.
+
+Ab 2000 hat man dann auch mal neue Sprachen hinzugefügt und hatte dann bei
+gleicher Wörterzahl höhere WER. Das lag daran, dass Mandarin zum Beispiel
+tonalisch ist und das Schriftsystem anders, wodurch erst ein paar Jahre daran
+gearbeitet werden musste.
+
+WER können abhängig von der Aufgabe überall zwischen 4 - 90% sein.
+Marketing ist hier oft irreführend.
+
+### Signalverarbeitung
+
+In Elektrotechnikbüchern nach "Systemtheorie" suchen, um Hintergrundwissen
+zu bekommen.
+
+Kurz und knapp: Warum Signalverarbeitung in der ASR? Unwichtiges Rausschmeißen
+und wichtiges Hervorheben.
+Wenn das System nämlich mit Rauschen oder redundanten Signalen antrainiert wird,
+dann lernt es diese im schlimmsten Fall und hat dann weniger Parameter übrig,
+um andere Merkmale zu lernen.
+
+Beispiele für zu entfernende Signale:
+
+- Sprecheridentität
+- Akustischer Raum (Hall, absolute Lautstärke)
+- Mikrofon
+
+Häufig geht das nicht. Manche Dinge bekommt man aber ganz gut raus, z. B.:
+
+ - Lautstärkeschwankung
+ - Bestimmte Sprecheridentitäten
+
+Es geht jetzt in diesem Teil der Vorlesung darum, sich einen
+**Baukasten der Signalverarbeitung** zuzulegen.
+
+#### System
+
+Ein System T wandelt ein eingehendes Signal in ein anderes um. Bei uns handelt
+es sich um eine diskrete Folge von Werten (digital): $ y[t] = T \{  X[n] \} $
+
+Einfaches Beispiel: Zeitliche Verzögerung $y[n] = x[n - n_d]$ wobei $n_d$ den
+Delay (Verzögerung) definiert.
+
+Weiteres Beispiel: Moving Average 
+
+$$
+y[n] = {1 \over M_1 + M_2 + 1} \sum_{k = -M1}^{k = M2}{x[n-k]}
+$$
+
+Das waren Beispiele für lineare Systeme (LS). Wenn ein LS **zeitinvariant** ist,
+dann nennt es sich **Linear Time-Invariant** system.
+
+Mit diesen kann sehr gut gerechnet werden.
+
+#### Dirac Stoß
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/jzvkqV1Rf5E" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+#### Faltung
+
+Convolution
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/_UFyMWDoISk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+#### Fourier
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/spUNpyF58BY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+#### DFT
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/h6QJLx22zrE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/mkGsMWi_j4Q" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+#### FFT

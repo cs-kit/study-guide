@@ -8,3 +8,5 @@ layout: redirect
 ---
 
 Wo ist welches Gebäude?
+
+Mit dem GET-Parameter "?id=" kann eine Raumnummer gesucht werden!
