@@ -24,7 +24,8 @@ tags: lecture
 - **17.10.2018**: Organisatorisches und Foliensatz 1-1 bis 1-59
 - **24.10.2018**: Wiederholung von Kapitel 1, Foliensatz 2
 - **30.10.2018**: Wiederholung von Kapitel 2, Foliensatz 3
-- **06.11.2018**: [Neuronale Netze](#vl4)
+- **06.11.2018**: Foliensatz 4 [Neuronale Netze](#vl4)
+- **13.11.2018**: Foliensatz 5
 
 ### Material
 VL wird aufgezeichnet. Das Material wird auf ILIAS zur Verfügung gestellt. Die Suche der Verantstaltung
@@ -373,8 +374,8 @@ Ein Perzeptron hat niedrige Kapazität → Zusammenschalten von Neuronen ("Perze
 **Nichtlineare Aktivierungsfunktionen**:
 - *Sigmoid:* $f(x) = \frac{1}{1+e^{-x}}, \frac{\partial f}{\partial x} = f(x)(1-f(x))$
 - *Tangens Hyperbolicus:* $f(x) = tanh(x), \frac{\partial f}{\partial x} = (1+f(x))(1-f(x))$
-- *ReLU:* $f(x) = max(0,x), \frac{\partial f}{\partial x} = \begin{cases} 1 & x > 0 \\ 0 & \text{sonst} \end{cases}$
-- *LeakyReLU:* $f(x) = \begin{cases} x & x > 0 \\ \alpha x & x \leq 0 \end{cases}, \frac{\partial f}{\partial x} = \begin{cases} 1 & x > 0 \\ \alpha & \text{sonst} \end{cases}$
+- *ReLU:* $f(x) = max(0,x), \frac{\partial f}{\partial x} = \begin{cases} 1 & x > 0 \\\\ 0 & \text{sonst} \end{cases}$
+- *LeakyReLU:* $f(x) = \begin{cases} x & x > 0 \\\\ \alpha x & x \leq 0 \end{cases}, \frac{\partial f}{\partial x} = \begin{cases} 1 & x > 0 \\\\ \alpha & \text{sonst} \end{cases}$
 
 **Backpropagation Algorithmus**: Aus Menge T von Trainingsbeispielen als Eingangs/Ausgabevektor, Lernrate $\mu$, Netztopologie finde Gewichtsbelegung W die T korrekt wiedergibt, Vorgehen
 mittels Gradientenabstieg
@@ -416,7 +417,7 @@ wenn alle Neuronen aktiv sin ein doppelt so großes Ergebnis liefern im Vergleic
 **Bemerkung:** Das funktioniert, weil jedes Model im Ensemble seine eigene
 Fehleroberfläche hat und das Mittel könnte besser sein als nur eine einzelne.
 
-**Exploding/Vanishing-Gradient Problem**: je weiter Schicht von Ausgabeschicht entfernt, 
+**Exploding/Vanishing-Gradient Problem**: je weiter Schicht von Ausgabeschicht entfernt,
 desto kleiner werden Gradienten, falls Gewichtsmatrizen klein sind, ergeben sich viele kleine Werte,
 die miteinander multipliziert werden, Update im Gradientenabstiegsverfahren lässt Gewichte der unteren Schichten praktisch unverändert und Training konvergiert nicht zu guter Lösung; falls
 Gewichtsmatrizen groß sind, ergeben sich viele große Werte, die miteinander
@@ -443,3 +444,142 @@ richtig sind.
 2. *Auswahl des Lernverfahrens:* Optimierungsmethode, Initliasisierung, Lernansatz
 3. *Lernfortschritt (Gewichtsanpassung):* Overfitting testen
 4. *Training & Verifikation (Test)*
+
+### Convolutional Neuronale Netze
+**Erste künstliche Ansätze**: Architektur von Verarbeitungsschritten, pro Schritt zwei Komponenten, erste reagiert auf Bereich zuvor (Lernen),
+zweite komprimiert den Bereich (Informationskomprimierung)
+
+**Faltung**: = Convolution, hier diskrete Faltung, bekannt aus Bildverarbeitung: Kantenfilter, Bildglättung, Bildschärfung;
+Beispiel in Vorlesung: $m×m$ Eingabebild + $n×n$ Filter → $m_{neu}×m_{neu}$ mit $m_{neu} = m - n + 1$
+
+**Warum CNNs**: Bild mit m*m Pixel: pro Neuron m*m Gewichte → ungünstiges Verhältnis Parameter : Lernaufgabe → nicht sinnvoll lern/berechenbar;
+Beispiel Gesichtserkennung: ähnliche Features werden mehrfach gelernt, da jedes Feature für jedes receptive fiesld unabhängig gelernt wird
+
+**Unterschied NN / CNN**: Im NN sind die Gewichte von einem Layer zum anderen, im CNN nur eine Kante zwischen Layer
+
+**Feature Maps**: Form, in der Daten von Layer zu Layer übertragen werden; jedes Layer enthält als Eingabe r Feature Maps (m×m),
+im Input Layer ist Feature Map ≡ Eingabebild; Featgures Maps zwischen zwei Layern = *Tensor*
+
+**Pooling Layer**: Zusammenfassung kleiner Bildbereiche, Größe nach Zweck und Größe des Eingabebildes gewählt, verschiedene
+Strategien:
+- Max Pooling: Maximum wird gewählt
+- Mean Pooling: Mean wird gewählt
+- Stochastic Pooling: stochastische Auswahl abhängig von Aktivierung  
+
+→ lokale Translationsinvarianz, Invarianz gegen leichte Veränderung, Verzerrung, Datenreduktion
+
+**Convolution Layer**: Anwendung von Faltungsoperationen auf Eingabe, Eingabe: Feature Maps von vorherigen Layer ($m×m$),
+ Ausgabe: Feature Maps des Layers (entstanden durch Faltung der Eingabe $m×m$ mit k Filtern $n×n×q$)
+→ Eingabe: $m×m$ → k Filter $n×n×q$ → Ausgabe $m_{neu}×m_{neu}×k$ mit $m_{neu} = \frac{(m-n)}{s}+1$ mit s = Stride/Schrittgröße
+Stride muss zur Größe der Eingabe passen, bei Pooling Layern meist 1; ConvLayer mit Stride erreicht Reduktion durch ASulassen,
+Max Pooling betrachtet alle Werte bei Reduktion, bei ConvLayer größer 1×1 → Randbetrachtung notwendig: Informationsverlust bei Faltung,
+Beheben:
+- *don't care:* Berechnung des inneren Bereichs, Reduktion der Ergebnisgröße
+- *Padding:* stabilisiert Größenverlauf der Layer, auffüllen der verlorenen Zeilen/Spalten, Varianten: Zero Padding (
+Auffüllen mit 0), Nearest Padding (Duplizieren der Randpixel), Reflect Padding (Matrix nach außen spiegeln); ohne Padding
+gehen Informationen am Bildrand sukzessive verloren, in jedem ConvLayer ohne Padding, große Filter beschleunigen Problem,
+Pooling mit großen p auch; mit Padding Gefahr, dass Strukturinformationene entstehen die im Eingabebild nicht waren
+
+**Activation Layer**: nichtlineare Aktivierung, in CNNs: ReLU, normalerweise nach ConvLayer
+Aktivierungsfunktionen:
+- *ReLU*: $f(x) = max(0,x), \frac{\partial f}{\partial x} = \begin{cases} 1 & x > 0 \\\\ 0 & \text{sonst} \end{cases}$
+- *Leaky ReLU (LReLU)*: $f(x) = \begin{cases} x & x > 0 \\\\ 0.01 x & x \leq 0 \end{cases}, \frac{\partial f}{\partial x} = \begin{cases} 1 & x > 0 \\\\ \alpha & \text{sonst} \end{cases}$
+- *PReLU (Generalisierung von LReLU)*: $f(x) = \begin{cases} x & x > 0 \\\\ \alpha x & x \leq 0 \end{cases}, \frac{\partial f}{\partial x} = \begin{cases} 1 & x > 0 \\\\ \alpha & \text{sonst} \end{cases}$
+- *ELU (Exponential Linear Unit)*: $f(x) = \begin{cases} x & x > 0 \\\\ \alpha(e^x-1) x & x \leq 0 \end{cases}, \frac{\partial f}{\partial x} = \begin{cases} 1 & x > 0 \\\\ \alpha & \text{sonst} \end{cases}$
+
+**Features**: CNN lernt Features für bestimmte Domäne, Feature Detektoren in Filtern der Convolutional Layer, Gewichte werden durch Gradienten
+abstieg gelernt, Features eines Layers basieren auf Ausgaben der Features des vorherigen Layers,
+
+**Gewichte**: Gewichte in CNNs werden nur in Filtern gelernt,
+Methoden zur Initialisierung:
+- *Random Initialization:* zufällig
+- *Fixed Feature Extractor:* Übernahme der Gewichte aus trainiertem Netz, fixieren in Feature Extraction Schicht
+- *Fine-Tuning:* Übernahme der Gewichte aus trainiertem Netz, geringe Lernrate für ausgewählte Schihten
+- *Pretrained Initialization:* Übernahme der Gewichte aus trainiertem Netz nut zur Initialisierung, normale Lernrate für ausgewählte Schichten
+
+> CNNs werden besser, da Rechenkapazität ständig wächst, immer größere Datensätze verfügbar, bessere CNN Architekturen
+
+**Fully Connected Layer**: v.a. bei Klassifikation, Anzahl der Neuronen im letzten Layer korrespondiert zu der Anzahl an
+Klassen, die Netz unterscheiden soll
+
+**Fully Convolutional Networks (FCN)**: größere Eingabebilder möglich als bei Fully Connected CNNs, Fully Connected Schichten
+in Convolutional Schichten konvertiert
+
+**Ausgaben der FCN**:
+- Fully Connected CNN (Klassifikationsnetz): Wahrhscheinlichkeitswert pro Klasse
+- Fully Convolutional Network: Wahrhscheinlichkeitskart pro Klasse (gibt p an und Bereich in dem Bild zur Klasse gehört)
+
+### Support Vector Machine (SVM)
+**Support Vektor Methode**: Hypertrennebene finden, sodass Mengen A und B geteilt werden (Klassifikation). Ziel ist es die beste
+Trenngerade zu finden, sodass der Rand (Abstand Gerade zu den Elementen der Ebene) maximal wird (Generalisierung)
+
+**Trennhyperebene**: Normalenvektor $\vec{w}$ beschreibt Gerade durch Ursprung, senkrecht zu $\vec{w}$ verlaufen Trennhyperebenen, welche die
+Gerade $\vec{w}$ an einer Stelle schneiden, der Abstand der Schnittstelle zu Urpsung ist $b$: $\vec{w}\vec{x} + b = 0$  
+*Rand*: ist Abstand zwischen den nächsten Datenpunkten jeder Klasse $\frac{\vec{w}(x_⁻x_2)}{\|\vec{w}\|}$  
+*Normierung:* $\vec{w}\vec{x}+b = +1 $ bzw $\vec{w}\vec{x}+b = -1 $ → maximaler Rand (Abstand zwischen zwei Klassen): $\frac{2}{\|\vec{w}\|}$  
+*Optimale Hyperebene:* Abstand $\frac{1}{\|\vec{w}\|}$ zum nächsten Punkt und Abstand $\frac{2}{\|\vec{w}\|}$ zwischen zwei Klassen  
+*Optimierungsproblem:* = Minimierungsproblem von $\|\vec{w}\|²$ um $\frac{2}{\|\vec{w}\|}$ zu maximieren unter der Randbedingung, dass die
+Daten auch korrekt klassifiziert werden; Vapnik: Lernmaschine mit kleinsten möglichen VC-Dimension (= gültiger Hypothesenraum), falls
+Klassen linear trennbar  
+*Primäres Optimierungsproblem:* Lagrange Methode, Finde den (eindeutigen) Sattelpunkt $L_p$ der Funktion mit den positiven Lagrange-Multiplikatoren
+$\vec{\alpha}=(\alpha_1, ..., \alpha_n)$ mit $\alpha_1, ..., \alpha_n \geq 0$, Minimum von L bezüglich $\vec{w}b$, Maximum von L bezüglich
+$\alpha_1, ..., \alpha_n$  
+*Duales Optimierungsproblem:* Duale Lagrange Gleichung $W(\alpha)$, duales Optimierungsproblem unter der Randbedingung dass Summe der
+$y_i\alpha_i = 0 $ und $\alpha_i \geq 0$ → Vorteile nurnoch von $\alpha_i$ abhängig und damit einfacher zu lösen
+
+**Support Vektoren**: Vektoren, die am nächsten zur Trennhyperebene liegen (wichtige Vektoren für Lernmaschine); die meisten (Sattelpunkt)
+Bedingungen sind erfüllt → $\alpha_i = 0$; $\vec{w}$ ist Linearkombination weniger Support Vektoren
+
+**Soft Margin**: "Aufweichen der Ebene" um einen "weichen Rand", erlaube geringer Zahl von Missklassifikationen, höhere Generalisierung,
+indem Randbedingung um den Wert der Schlupfvariable $\xi \geq 0$ erweitert wird → d.h. Datenpunkt kann auch leicht neben Gerade auf
+"falscher Seite" liegen   
+*Regulierungsparameter $C$ (Größe des Randes)*:
+- *$C$ groß:* wenig Missklassifikationen
+- *$C$ klein:* maximaler Rand  
+Folge für Support Vektoren $\vec{x_i}$ mit $\alpha_i > 0$:
+- $\alpha_i < C$: Support Vektor liegt am Rand, Abstand zur Trennhyperebene ist $\frac{1}{\|\vec{w}\|}$
+- $\alpha_i = C$:
+    - Fehlklassifikation wenn $\xi_i > 1$
+    - richtig, wenig Abstand (margin error): $0 < \xi_i \leq 1$
+    - Rand Vektor (margin vetctor): $\xi_i = 0$
+
+**Nichtlineare Kernel-Methoden**: Transformiere Daten in anderen Raum und löse dort linear (Klassifikation: lineare Trennung); meist
+Transformation in höher dimensionalen Raum, Problem: Transformation oft rechenintensiv:  
+*Kernel-Trick:* wenn Daten als Skalarprodukt, Transformation nicht nötig, implizites Rechnen im höher dimensionalen Raum → Lösung
+im Ursprungsraum; Kernel-Funktion: $K(\vec{x}, \vec{y}) = \phi(\vec{x})\phi(\vec{y})$  
+*Kernel-Funktionen:* Skalarprodukt, Polinomial, Radiale Basis-Funktionen (RBF), Sigmoid
+
+**Version Space für SVM**: Randbedingung für korrekte Klassifikation/gültige Trenngeraden; jeder Datenpunkt definiert Hyperebene
+im Hypothesenraum, gültige $\vec{w}$ jeweils in reduziertem Hypothesenraum → Suche nach $\vec{w}$ mit maximalen Abstand zu allen
+Hyperebenen der Datenpunkte → Mittelpunkt der Hyperkugel; bei Suche über Trennhyperebene wird implizit Structural Risk Minimization
+durchgeführt → korrektes Lernen ist Mittelpunkt der verbleibenden Hyperkugel
+
+**SVM Architektur**: Ähnlichkeit zu NNs? → lernen Gewichte, Kernel, hidden-Layer; ABER: sonst nichts: Optimierung, mathematischer
+Hintergrund
+
+**SVM Erweiterungen**:
+- Einer-gegen-Alle: $k$ SVMs (pro Anzahl k an Klassen), Abstimmungsverfahren
+- Einer-gegen-Einen: $\frac{k(k-1)}{2}$ SVMs, Abstimmungsverfahren
+- Mehrfachzugehörigkeit: $k$ SVMs (pro Anzahl k an Klassen), Abstimmungsverfahren
+- k-class SVM (Watkins): gemeinsames Optimierungsverfahren, kein Abstimmungsverfahren (→ schlecht, schlechte Performance)
+
+**Probabilistische Sicht auf SVMs**: Interpretation des Abstandes der Trennhyperebene als Klassifikationswahrscheinlichkeit, Alternative:
+Maximierung der Klassifikationswahrscheinlichkeit des Randes
+
+**Dichte-Träger-Schätzung**: Funktion f, die für "kleine Region" (enthält die meisten Lernbeispiele), Wert > 0, sonst Wert $\leq$ 0
+(Ähnlichj zum Clustering im unüberwachten Lernen), Abstand $\vec{w}$ zum Ursprung soll maximal sein, Trennung der Lernbeispiele vom
+Ursprung im transformierten Merkmalsraum
+
+**Kernel Perceptron**: einfacher Algorithmus, als Kernel Methode realisierbar, lineare Trennung im transformierten Raum für zu
+komplexer Trennung im Ursprungsraum
+
+**Pro SVM**:
+- Optimale Hyperebene → gute Lernergebnisse
+- optimale VC-Dimension → korrektes Lernen
+- hochdimensionale Daten → schnelle Auswertung
+- Entscheidung anhand Randregion getroffen
+
+**Kontra SVM**:
+- Vorverarbeitung extern nötig (kein "tiefes" Lernen)
+- speicher- und rechenaufwändig
+- Anzahl Support Vektoren abhängig von Problem und Parameter

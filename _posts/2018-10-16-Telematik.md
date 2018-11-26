@@ -26,7 +26,11 @@ tags: lecture
 - **25.10.2018**: Foliensatz 3-13 bis 3-53
 - **31.10.2018**: Foliensatz 3-54 bis 3-100
 - **07.11.2018**: Foliensatz 3-101 bis 3-135
-- **08.11.2018**: Foliensatz 3-135 bis 3-154, 4-1 bis 4-
+- **08.11.2018**: Foliensatz 3-135 bis 3-154, 4-1 bis 4-16
+- **14.11.2018**: Foliensatz 4-17 bis 4-77, 5-1 bis 5-28
+- **15.11.2018**: Foliensatz 5-29 bis 5-103
+- **21.11.2018**: Foliensatz 5-104 bis 5-165
+- **22.11.2018**: Foliensatz 5-166 bis 5-213; 6-1 bis 6-34
 
 ### Material
 Das Material der Vorlesung besteht aus:  
@@ -421,3 +425,308 @@ switching
 **Flow based forwarding**: fundamental concept, indepentent of layers (can also span multiple layers), incorporates classic routing/forwarding concepts
 
 #### Label Switching
+**Types of Communication Networks:**
+- *Packet Switching:* packets forwarded independent of each other, meta data required, expensive forwarding decision (e.g. IP)
+- *Circuit Switching:* connection with fixed resource reservations, no meta data within data stream required (e.g. ISDN)
+- *Virtual Switching:* connections without fixed resource reservation, packet efficiently forwarded on same path, inexpensive label-based
+forwarding decision (e.g. MPLS)
+
+> Label Switching: communication network, switched, packet-switched, connection-oriented (e.g. ATM, MPLS) → Label Switching
+is combination of packet switching (packets forwarded individually, packets include metadata) and circiut switching (paths
+for flows through network, simple forwarding)
+
+**Implementation of Label Switching**: Switching at Layer 2 (instead of routing at layer 3), Labels (local Identification),
+Virtual circiuts (Sequence of labels)
+
+**Label**: Short unstructured identification of fixed length (no Layer 3 information, unique, only locally at correcsponding
+switch, label swapping (mapping input - output label)), Virtual circuit (identified through sequence of labels at path)  
+*Tranport:* Label must be transported within packet  
+*Structure:* Layer 2 (Ethernet Head) \| Label \| Layer 3 (IP-Datagram) \| Data
+
+**Label Switching Domain**:
+- *Edge Devices:* at border of domain; add/remove labels, map flow to forwarding class, access control
+- *Switching Device:* within domain; forwar packets based on label information, label swapping
+
+**Multiprotocol Label Switching (MPLS)**: based on label switching, data plane optimization
+- Fast Forwarding due to reduced amount of packet processing
+- QoS support (guarantees on latency, capacity)
+- Traffic engineering (load balancing)
+- Virtual private networks (isolated traffic)
+- mulitple networks support   
+→ good Acceptance: on top of IP, separation between forwarding (label switching) and control (manipulation of label binding),
+not limited on IP, support metrics, scales  
+*Components:*
+- Label-switching router (LSR): MPLS-capable IP router, can forward packets based on IP prefixes and MPLS labels
+- Labeld edge router (LER): Router at edge of MPLS domain (LSR with non-MPLS capable neighbor is LER), classifies packets that enter MPLS
+domain
+- MPLS-Node: MPLS-capable intermediate system  
+*Label:* Encapsulation between headers of Layer 2 and 3, Structure:
+- Label 20 bit
+- Exp: Bit for experimental usage, 3 bit
+- S: Stack bit, 1 bit
+- TTL: Time-to-live, 8 bit
+
+**Forwarding Equivalence Class (FEC)**: class of packets, that should be trated equally (same path, same QoS), basis for
+label assignment, MPLS-specific, synonym to *flow*; FEC mapping 5 Tupels: ToS, IP Source Address, IP Destination Address,
+ Source port, Destination port → LSP/label
+*Granularity*:
+- coarse-grained: important for quick forwarding and scalability
+- fine-grained: important for differentiated treatment of packets/flows
+
+**Label Switched Path (LSP)**: Virtual connection, no resources reserved  
+*Communication*: define FEC, distribute labels, establish LSP
+
+**Label Switched Router (LSR)**:
+- *Downstream LSR:* in direction of data flow
+- *Upstream LSR:* against direction of data flow
+
+**Types of Label Distribution:**
+- *Unsolicited downstram:* generates label bindings as soon as it is ready to forward MPLS packets of the respective FEC
+- *Downstram on demand:* Downstream router generates label binding on demand
+- *Originally:* Label distribution protocol defined along with MPLS
+- *De-facto:* RSVP-TE is used mostly
+
+**Resource ReserVation Protocol (RSVP)**: bandwith reservation for end-to-end data streams, soft state principle (establish
+session an signal that it is still alive), Scalablity issues!
+- Path message: sender → receiver, find path, each hop recorded
+- Resv message: receiver → sender, bandwidth reservation
+
+**Resource ReserVation Protocol - Traffic Engineering (RSVP-TE)**: extension to RSVP, additional functionalities e.g. fast
+reroute
+
+**Virtual Private Networks (VPN)**: MPLS enables VPNs; here: renting guaranteed transmission capacities from a network provider  
+*VPNs with Label Switching:* outer label identifies path to LER, inner label identifies VPN instance
+
+**Traffic Engineering:** extension of Link State routing protocols (additional information needed, all nodes have global view
+on network)
+
+### Software Defined Networks (SDN)
+> **Traditional IP Networks:** every router control and data plane functions, control is decentralized → Limitations! → SDNs
+increase flexibilty and decrease dependencies on hardware
+
+#### Basics and Architecture
+**Characteristics of Software-Defined Networks**: Separation of control and data plane; control functionalities → SDN controller,
+Data plane → simple packet processors (SDN switches), control plane has global network view (knows all switches, network topology),
+network ist software-programmable (network applications), processing based on flows
+
+**Basic Operation in SDNs**:
+- Control functionality, SDN controller (e.g. Routing including routing table), SDN controller programs entries in flow table (protocol required!)
+- Forwarding table on SDN switch (name here: *flow table*), for every incoming packet in SDN switch → suited entry in flow table needs to be
+determined
+
+**Flows**: Identified through match fields (e-g- IP address, port number)
+
+**Flow table**: contains match fields, actions, ...; matches appropriate flow table entry, actions are applied to all packets that match
+
+**Flow rule**: Decision of controller, described in form of match fields, actions, switches
+
+**Flow Programming:**
+- *Proactive flow programming:* rules programmed before first packet of flow arrives, no additional delay, loss og controller
+connectivity does not disrupt traffic
+- *Reactive flow programming:* rules programmed in reaction to receipt of first packet, setup time per flow, high overhead for
+short lived flows, new flows cannot be installed if controller connectivity is lost
+
+**Important Interactions**:
+- Flow rule send to switch → new flow table entry (reactive and proactive)
+- Packet forwarded to controller (primarily reactive)
+- Packet re-injected to switch (primarily reactive)
+
+**SDN Architecture**:
+Planes:
+- *Application Plane:* Network apps perform network control and management tasks, interacts via *northbound API* with control plane
+- *Control Plane:* control tasks outsourced from data plane to logically centralized control plane, more complex tasks delegated to application plane
+- *Data Plane:* packet forwarding/processing, SDN switches are simple, interacts via *southbound API* with control plane
+Interfaces:
+- *Northbound API:* controller ↔ network apps (exposes control plane functions to apps, abstract from details, apps can operate on consistent network view)
+- *Southbound API:* controller ↔ switches (exposes data plane functions to controller, abstracts from hardware details)
+- *Westbound API:* controller ↔ controller (synchronization of network state information)
+- *Eastbound API:* interface → legacy infrastructures  
+→ No widely accepted standard for north/westbound interfaces
+
+#### SDN Workflow in Practice
+**SDN programming primitives:** to assist with creating app, important areas:
+ 1. *to create, install flow rules:* app that implements flow rule decisions, programs flow table entries into switch
+ ```javascript
+    import ...
+
+    // entry point to implement custom logic
+    // called when control connection established
+    // reference to switch as parameter
+    onConnect(switch) {
+        if (switch == S1) {
+            r = Rule(); //data structure holding single flow rule, can be modified with function calls
+            r.MATCH('IP_DST', '1.2.3.4'); //select packet based on certain criteria → here: IP address
+            r.ACTION('OUTPUT'‚ 4); //specify what happens to matched packets in switch, e.g. m.ACTION(OUTPUT, 7),  m.ACTION(DROP)
+            send_rule(r, switch); //install flow rule in switch, creates new flow table entry or overwrites existing one
+        }
+    }
+```
+→ creates a new flow rule, sends flow rule to S1
+*Priorities:* if flow rules are overlapped
+- no overlap: all packets can only be matched by one rule
+- overlap: at least one packet could be matched by more than one rule  
+→ need to define priorities: default priority=1, higher priorities overwrite rules with lower priority
+
+ 2. *react to data plane events:* controller API provide callbacks:
+ - to react to control events (e.g onConnect(switch))
+ - to deal with packets sent to controller (e.g. onPacketIn(packet, switch, inport)): called if packet was forwarded via *r.ACTION(CONTROLLER)*
+
+ 3. *inject individual packets:* handle individual packets (forward a packets, perform topology detection, active monitoring, answer ARP requests)
+ - injects single packet (only!) into switch (e.g. send_packet(packet, switch, [rule])), if rule parameter present it
+ does not create a new flow table entry
+ - handle injection:
+    1. inject and process packet in flow table (no usage of optional rule parameter), rule must be installed before injection, otherwise cycle
+    2. inject and process packet with custom rule (usage of optional rule parameter), actions attached to packet, rule only used for this packet, flow
+    table remains unchanged; → Advantages: more efficient (not creating flow table entries every time), Inconsistencies (if packets matching a rule, while
+    network is in inconsistent state = renewing a rule)
+
+**Multiple Flow Tables**: SDN support more than one flow table, expensive in hardware, specify table with *r.table(x)*  
+*Benefits:* used to isolate flow rules from apps, logical separation between tasks
+
+**Self-Learning Switches**: Goal: hinter welchem Port liegt welche IP-Adresse → kein Fluten notwendig
+1. Switch receives packet and does not know destination address: floods packets, learn location
+2. Switch reveices packet and know destination address: forwards packet  
+→ possible with SDNs: Leaning Switch App
+
+**Learning Switch Example**:
+- *Naive Approach:* send all packets to controller, controller creates rules based on INPORT and MAC ADDRESS,
+unknown des. address → flooding; Problem: Controller has no chance to learn ports
+- *Version 2 (with delayed rule installation):* delay rule installation until dest. address was learned, Problem: still not learning enough
+- *Version 3 (with more specific matching):* only matching dest. address not enought, use more specific matches, ensures all end systems can be learned
+Problem: functional perspective good, but: not scalable/usable → amount of flow table entries can be large
+- *Version 4 (with multiple flow tables):* separate flow tables for learning and forwarding, 2*N rules for N end systems
+
+#### Open Flow
+**OpenFlow**: southbound interface (interaction between controller and switches, logical architecture for SDN switches)
+- *Ports:* represent logical forwarding targets, can be selected by output action, physical ports → hardware interfaces  
+Reserved Ports:
+    - ALL: flooding
+    - IN_PORT: send packet back
+    - CONTROLLER: send packet to controller
+    - NORMAL: forwarding to vendor-specific switch implementation  
+Logical Ports:
+    - link aggregation: multiple interfaces combined to single logical port
+    - transparent tunneling: traffic forwarded via intermediate switches
+- *Flow Table:*
+    - Match fields → mandatory
+    - Priority → mandatory
+    - Actions → mandatory
+    - Counters: number of processed packets
+    - Timeouts: max lifetime of flow, automatic flow removal
+    - Cookies: marker value set by SDN controller
+    - Flags: indicate how flow is managed, notifies controller if flow is automatically removed
+- *Group Table:* definiert Rules für jede Gruppe von Flows, nicht für jeden Flow einzeln, group entries invoked from other tables via group
+actions, referenced by unique group identifier, flow table entries can perform group actions during ingress processing,
+effect of group processing depends on group type and action buckets
+    - Action Buckets: per group zero or more action buckets, contains set of actions to execute
+    - Group Types:
+        - all: alle buckets in Gruppe wählen
+        - indirect: einziges bucket in gruppe
+        - select: ein bucket aus vielen der Gruppe wählen
+        - fast failover: erstes bucket, das mit aktivem port verknüpft ist
+- *Pipeline Processing:* multiple flow table chained to flow table pipeline, flow tables numbered in order, traversed by packets, processing
+starts at flow table 0, only forward traversal, actions accumulated in action set,
+    - ingress processing: packet processing starts with ingress processing, start at flow table 0, initial action set empty
+    - egress processing
+
+#### Power of Abstraction
+> Abstraction is major reason for success in OS → similar goals for networking domain
+
+Controller can provide different abstractions to network apps, Apps should not deal with low level/unnecessary details, abstract view
+on network, OpenFlow is no suitable for SDN Abstraction
+
+**FlowVisor**: Network slicing (simple form of virtualization), individual users get "own" network slice
+
+#### SDN Challenges
+**Controller Connectivity**: SDN required connectivity between controller ans switches, otherwise no exchange of control messages,
+no updates in flow tables, no control of the network; Connectivity Modes:
+- *Out-of-band:* extra Kabel; dedicated (physical) control channel for messages between controller and switch
+- *In-band:* kein extra Kabel; control message use same channel as "normal" traffic, multiple apps can configure switch → both apps
+can disable ports → no controller connectivity anymore
+
+**Scalability**: requires powerful controllers, size/load of networks can easily overload control plane, important parameters:
+number of remotely controlled switches, hosts/flows, messages
+
+**Distributed Controllers**: reasons for distributed controllers: Scalability, Responsibilities, Reliability, Incremental
+deployment; BUT: controller must have consistent knowledge → westbound interface to communicate
+
+**CAP Theorem**: multiple controller cause same problems as in distributed system → CAP Theorem
+- **C**onsistency: system responds identically to request no matter which node receives request (or not at all)
+- **A**vailability: system always responds to request
+- **P**artition tolerance: system continues to function even when messages are lost  
+→ inherentes Problem, nicht möglich alle drei Punkte gleichzeitig zu erfüllen, nur zwei gleichzeitig möglich
+
+**Flow Table Capacity**: SDN needs a lot more than 20.000 rules, fast processing requires TCAM (current hardware max. 20.000 entries) →
+workarounds like caching, flow aggregation, optimized distribution
+
+**Flow Setup Latency**: setting a new flow requires that a rule is generated at SDN controller and installed at switch → directly affects
+control latency of network → clever placement of controller
+
+*Ende der Vorlesung vom 21.11.2018*
+
+#### Tools
+**OpenDaylight**: SDN Controller, Java-based, focus on network programmability, OpenDaylight Architecture: zwischen UI, Network apps und
+Controller
+
+**Virtual Switches**: core component in data centers #VMs >> #physical servers, #Virtual Ports >> #physical ports → one
+virtual switch per physical server → "virtual" Top-of-Rack switches, e.b. Open vSwitch
+
+### Network Function Virtualization
+#### Network Functions
+**Middlebox**: device on data path, between source and destination end system, performs functions other than normal, standard functions
+of IP router
+
+**Network Function**: functionality of middlebox, executed on data path
+
+**Network Address Translation (NAT)**: connects a realm with pricate addresses to external realm with globally unique addresses,
+Problem: private address not usable for routing in internet → exchange globally unique and private address when packets traverse network boundaries
+
+**Firewall**: monitors and controls incoming and outgoing traffic  
+*Packet inspection*:
+- Shallow packet inspection: decisions based on header fields only (bis Layer 4)
+- Deep packet inspection: inspect content of higher layer protocols (e.g malware detection)
+
+*Processing:*
+- Stateless: every packet inspected independently of other packets
+- Stateful: keeps state between packets
+
+**Web Cache**: provides additional storage on data path, temporarily caches content provided by remote server →reduces time for content
+delivery → CDNs capitalize on well-placed caches → multiple middleboxes at different locations in network → Problems with middleboxes:
+fast, but inflexible, closed source, static wiring, ...
+
+**Network Function Virtualization (NFV)**: ideas of cloud computing (implement network functions in software, use virtualization technology);
+Traditional middlebox with caching functionality → (Softwarization) → Caching functionality implemented in software → (Virtualization) →
+Executed on hardware  
+*Benefits*:
+- Resource sharing
+- Agility and flexibility
+- Rapid deployment
+- Reduced costs
+
+*Main Building Blocks:*
+- Virtualized Network Functions (VNFs): network functions provided in sofware
+- NFV Management and Orchestration (MANO): Lifecycle management of VNFs and network services
+- NFV Infrastructure (NFVI): Provides hardware, software and network resources for VNFs, can contain multiple Points of Presence, SDN used
+to transparently reroute flows to PoPs
+
+**Network Service**: Network services combine multiple network functions
+
+**Point of Presence (PoP)**: small data centers, located at different points in infrastructure
+
+#### Virtualization
+**Virtualization**: provides software abstraction layer between hardware and OS and apps running on VM → offers standardized platform for
+applications  
+*Hypervisor:* abstraction layer ist referred to as *hypervisor* (resource broker between hardware and VM, tranlates I/Os from VMs to physical
+server devides, allows multiple OSs to coexist on a single physical host, allows live migration on VMs and other hosts)
+- *Type 1 Hypervisor*: runs directly on hardware (high performance, strong isolation between VMs), synchronized access of VMs to hardware
+- *Type 2 Hypervisor*: runs on top of host OS (executed as app in user space), VMs provide virtual hardware to guest OS  
+
+*Container-based:* single kernel provides multiple instances (containers) of same host OS (no hypervisor involved, isolation enforced
+by host OS kernel, apps in containers executed by host OS), kernel synchronizes access of containers to hardware
+
+#### Service Function Chaining
+**Service Function Chain (SFC)**: ordered set of network functions (specifies ordering contrains that must be applied to flows), enables creation
+of composite network services
+
+**MPLS-based SFC**: Services classifiers select appropriate service function chains, service function forwarders deliver packet to network
+functions

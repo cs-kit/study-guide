@@ -26,8 +26,13 @@ tags: lecture
 - **22.10.2018**: 1-20 bis 1-32; Wdh. Foliensatz 2; (Foliensatz 3 hat Nummerierung 2) 2-1 bis 2-65
 - **23.10.2018**: 2-10 bis 2-27 und Übung 1
 - **29.10.2018**: 2-28 bis Ende Kapitel 3
-- **30.10.2018**: 4-1 bis 4-22
+- **30.10.2018**: 4-1 bis 4-22, Übung 2
 - **05.11.2018**: 4-23 bis Ende Kapitel 4; 5-1 bis 5-25
+- **06.11.2018**: 5-12 bis 5-19, Übung 3
+- **12.11.2018**: 5-20 bis 5-61
+- **13.11.2018**: 5-61 bis 5-68, Übung 4
+- **19.11.2018**: 5-68 bis Ende Kapitel 5, 6-1 bis 6-2
+- **20.11.2018**: 6-3 bis Ende Kapitel 6; Übung 5
 
 ### Material
 Das Material der Vorlesung besteht aus:  
@@ -201,7 +206,7 @@ Knoten mit Distanz d[v] wird in B[d[v] mod(C+1)] gespeichert
 Queue leer) → hier Monotonizität wichtig: wenn Schlüsselwerte sinken können, müsste man "rückwärts schauen" können → extra Kosten; Analyse: im Worst-Case
 muss man einmal durch die Queue also $ O(nC) $ oder $ O(n+maxPathLength) $
 
-**Radix-Heaps**: Array von -1 bis k Buckets ($ K = 1 + ⌊log C⌋ $); min ist zuletzt aus Q entfernte Distanz; für jeden Knoten v gilt 
+**Radix-Heaps**: Array von -1 bis k Buckets ($ K = 1 + ⌊log_2 C⌋ $); min ist zuletzt aus Q entfernte Distanz; für jeden Knoten v gilt 
 $ d[v] ∈ [min, . . . , min +C] $; nun hat man C mögliche Schlüssel, aber nur log C mögliche Buckets → wie abbilden? → "Bitfummelei" :D 
 Beispiel: C=9, binär 1001 → K=4; Vergleich binär min und binär v → suche erste Stelle an der sie sich unterscheiden. Spezialfall: bei keinem 
 Unterschied in B[-1]; Unterscheiden sie sich an einer größeren Stelle als K → B[K]; sehr schnell zu berechnen mit Maschinenbefehl XOR → Unterschiede
@@ -289,8 +294,94 @@ Rückkanten (für $f(e) > 0$), und Kanten (wenn $f(e) < c(e)$)
 
 **Augmenting Paths**: Pfad p von s nach t finden, sodass jede Kante $e$ nonzero residual capacity hat
 
-**Ford Fulkerson Algorithmus**: [Algorithmus](https://de.wikipedia.org/wiki/Algorithmus_von_Ford_und_Fulkerson) zu Bestimmung des Maximalen Flusses; am Besten Beispiel auf Wikipedia anschauen
-  
+**Ford Fulkerson Algorithmus**: [Algorithmus](https://de.wikipedia.org/wiki/Algorithmus_von_Ford_und_Fulkerson) zu Bestimmung des Maximalen Flusses; am 
+Besten Beispiel auf Wikipedia anschauen
+
+**Max-Flow-Min-Cut Theorem**: *max-flow = min-cut*; offensichtlich: *any-flow ≤ max-flow ≤ min-cut ≤ any-cut*; Theorem gilt
+für beliebige Flussnetzwerke, wenn alle ≤ zu = werden, Beweis: (S, T) flow = (S, T) cut capacity ⇒ (S, T) flow = max-flow = min-cut
+
+**Blocking Flows:** $f_b$ ist ein Blockierender Fluss, wenn alle Kanten $e$ von $f_b$ gleich der Kosten von $e$ sind: 
+$∀ paths p = \langle s,...,t\rangle: ∃e ∈ p : f_b(e) = c(e)$
+
+**Dinitz-Algorithmus**: [Algorithmus](https://de.wikipedia.org/wiki/Algorithmus_von_Dinic)
+*DinitzMaxFlow:* berechnet MaxFlow, Rückwärtsbreitensuche von t nach s, solange
+ein Pfad von s nach t existiert, füge Kante von u nach v in den Layer Graph L ein, mit der Distanz $d(v) = d(u)-1 $; ausgehend von t haben also alle Knoten
+die direkt von t erreichbar sind die d = 1, t selbst 0, usw. dadruch entsteht ein layer graph (Schichtengraph), in dem alle Knoten mit dem selben 
+Abstand zu t einer Schicht angehören; finde einen Blocking Flow $f_b$ in L, vergößere den Fluss f um den eben gefundenen blocking flow $f_b$  
+*blockingFlow:* langer Algorithmus, besteht aus 3 Teilen: breakthrough, extend, retreat, loop solange bis return Blocking flow $f_b$ wenn v=s 
+- breakthrough: δ = minimale Residualkapazität von Kanten im Graph
+- extend: pushe Knoten w auf p
+- retreat: delete last edge  
+
+Analyse: $O(m+nm) = O(nm)$, d(s) erhöht sich pro Runde min. um 1, streng polynomiell: O(mn²), O(mn log n) min dynamic tree, at most 
+$ 2 \sqrt{m} $BF computations $O((m+n)\sqrt{m}$
+
+*Unit Capacity:* min{indegree(v), outdegree(v)} = 1
+
+*Matching:* ungerichteter Graph G=(V,E) mit M ⊆ E, gdw. (V,M) max grad ≤ 1; M ist maximal wenn $\nexists e ∈ E \ M : M ∪ {e} $ ist matching;
+M hat maximale Kardinalität $\nexists matching M': \|M'\| > \|M\|$
+
+**Preflow**: Fluss für den Eingangskanten größer sein dürfen als Ausgangskanten: $ excess(v) := inflow - outflow ≥ 0 $; Knoten (nicht s,t) ist
+*aktiv* wenn excess > 0
+
+**Preflow-Push Algorithms**: Familie von Algorithmen; maintain approximation d(v) of BFS distance from v to t in $G_f$
+- Invariante 1: $d(t) = 0$
+- Invariante 2: $d(s) = n$
+- Invariante 3: no steep edges $ ∀(v, w) ∈ E_f: d(v) ≤ d(w) + 1 $  
+
+*Edge Directions:*
+- steep: d(w) < d(v) − 1
+- downwards: d(w) < d(v)
+- horizontal: d(w) = d(v)
+- upwards: d(w) > d(v)
+
+*Analyse:* $O(n²m)$
+
+*Ende Vorlesung vom 13.11.2018**
+
+**FIFO Preflow push**: Wie kann Anzahl nicht-saturierender Pushes verringert werden? → FIFO besser als Stack  → $O(n³)$
+
+> Grundsätzlich gilt : $n ≤ m$ mit Knoten n und Kanten m, da ansonsten Knoten isoliert wären und für den Fluss nicht betrachtet werden müssten.
+
+**Highest Level Preflow Push**: verbessert Dinitz weiter: Knoten, die möglichst weit weg sind werden bearbeitet, "Fluss sammelt sich unten an, bevor man ihn
+wegschiebt", select active nodes, that maximize $d(v)$, with bucket priority queue, not monotone, relabels pay for scan operations → highest level preflow
+push finds a max flow in $O(n²\sqrt{n})$  
+still better: with aggressive local relabeling and global relabelling and special treatment of nodes with $d(v) ≥ n$ → no node can connect to t across an empty
+level
+
+### Randomisierte Algorithmen
+
+> **Randomisierte Algorithmen** verwenden Zufall(sbits) zur Beschleunigung/Vereinfachung von Algorithmen
+
+**Las Vegas Algorithmen**: Ergebnis immer korrekt, Laufzeit ist Zufallsvariable (z.B. quicksort, hashing)
+
+**Monte Carlo Algorithmen**: Ergebnis mit bestimmer Wahrscheinlichkeit p inkorrekt, k-fache Wiederholungen machen Fehlerwahrscheinlichkeit
+exponentiell klein $p^k$
+
+**Permutationseigenschaft**: Sortiertheit
+
+**Sortieren - Ergebnisüberprüfung (Checking)**: Überprüfung ob Vektor1 eine Permutation von Vektor' ist, durch Polynom berechnen  (Differenz der Werte 0) wenn
+Vektoren permutiert; Polynom q kann höchstens n Nullstellen haben, Auswertung an zufälliger Stelle $x in F$, $p(q!= 0 und q(x) = 0) ≤ \frac{n}{\|F\|}$
+→ Körper F muss möglichst groß gewählt werden; Monte-Carlo → Verkleinern von p durch mehrfache Durchführung
+
+*Ende Vorlesung vom 19.11.2018*
+
+**Alternatives Checking mit Hash Funktion**: Ist Folge $E$ Permutation von $E'$? → h ist zufällige Hash-Funktion mit
+ Wertebereich $0..U-1$; Checker return $h(E) = h(E')$; Zwei Möglichkeiten:
+ - $E = E'$ → Checker gibt definitiv gleichen Wert zurück, das Hash Funktion auf gleiche Werte angewandt wurde
+ - $E \neq E'$ → Wahrscheinlichkeit, dass $h(E) = h(E') \leq \frac{1}{U}$
+
+**Perfektes Hashing**: keine Kollisionen, Abbildung in Array Länge n bei n Elementen (injektiv)
+ $\omega(n)$ bits nur für codierung der Hashfunktion
+ 
+**Cuckoo Hashing**: Hashtabelle mit Länge $(2+\epsilon)n$; jedes Element ist entweder durch erste Hashfunktion $h_1$ oder 
+durch zweite Hasfunktion $h_2$ in bucket eingeordnet; "Rausschmeißen" bzw. "Verdrängung" der Elemente und Neuordnung durch alternative 
+Hashfunktion; schnell in Lookup und delete, konstant beim Einfügen
+- *Insert*: ist erfolgreicht, gdw der Graph nicht mehr Kanten als Knoten enthält
+- *Rebuild*: notwendige rebuilds nicht mehr als $O(\frac{1}{n})$
+
+*Ende Vorlesung vom 20.11.2018*
+
 ## Übung
 ### Übung 1
 **Amortisierte Analyse:** [Amortisierte Laufzeitanalyse](https://de.wikipedia.org/wiki/Amortisierte_Laufzeitanalyse) wurde in Algorithmen I behandelt. Im
@@ -338,3 +429,94 @@ minimales Gewicht haben; Jarnik-Prim Algorithmus:
 Analyse: m Kanten, mit zufällig geordneten Gewichten → wie oft wird decreaseKey im Durchschnitt ausgeführt? → Nachbarn durchnummerieren, in Reihenfolge in der sie zu MST hinzugefügt
 wird, wann muss Kante relaxiert werden → Distanz an v ist größer als Kante die sich nun ergeben hat → DecreaseKey wird dann ausgeführt, wenn d[v] > d[über neu hinzugefügte Kanten]  
 Wie oft passiert das? → $ E( M_k ) = H_k $ → $ O ( n ln \frac{m}{n}) $
+
+### Übung 3
+**Dijkstras Algorithmus**: nicht-negative Kantengewichte, vorläufige Distanzen in Priority Queue d, unterscheidet zwischen
+erreichten Knoten und gescannten Knoten
+
+**Bidirektionale Suche**: Beschleunigung, zweimal Dijkstra ausführen (Vorwärtssuche s → t auf G, Rückwärtssuche von t → s auf $G^r$ mit umgekehrten
+ Kanten); Vorgehen: einen Schritt Vorwärtssuche, einen Schritt Rückwärtssuche, Abbruch wenn ein Knoten von beiden Suchen gescannt (nicht nur erreicht); 
+
+**A\*-Suche**: Dijkstra in Richtung t gesteuert, Potentialfunktion pot ordnet jedem Knoten reele Zahl zu; Vorgehen entwerder reduzieren der
+Kantengewichte $$ \bar{c}(u, v) := c(u, v) + pot(v) − pot(u)$ **oder** modifizieren der Schlüssel $\bar{d}[v] : = d[v] + pot(v)$; gültige Potentialfunktion:
+- untere Schranke für Distanz zum Ziel t: $ pot(u) ≤ \mu(u,t) $
+- nicht-negative reduzierte Kantengewichte: $ \bar{c}(u, v) := c(u, v) + pot(v) − pot(u) ≥ 0 $
+- t hat potential 0
+Woher Potentialfunktionen? Sollen Schätzung für tatsächliche Distanz sein, z.B. Manhattan-Distanz, Euklidischer Abstand
+A*-Suchen Möglichkeiten:
+- Suche mit reduzierten Kantengewichten
+- Suche mit geänderten Schlüsseln in Priority Queue
+- Suche mit Landmarks: Kompormiss, berechne Potentiale für einige Knoten, bei konkreter Anfrage wähle Landmark hinter dem Ziel, Landmarks immer
+korrekt dank Dreicksungleichung (oben definierte Potentialfunktionseigenschaften müssen gegeben sein), Algorithmus kann langsam sein (z.B. Suche
+in  falscher Richtung)
+
+**Starke Zusammenhangskomponenten**: 
+Nomenklatur:
+- *oNodes:* Stack, offene Knoten
+- *oReps:* Stack, Repräsentaten der offenen Komponenten
+- *aktive Knoten:* Knoten die während dfs markiert, aber noch nicht finished, kein Backtracking
+- *offene SCCs:* enthält nur aktive Knoten und keine abgeschlossenen Knoten
+- *abgeschlossene SCCs:* alle Knoten finished (markiert), backtracking gemacht
+- *Repräsentanten der SCC:* Knoten mit kleinster dfsNumber (Reihenfolge der Knotenabarbeitung bei Tiefensuche)  in SCC   
+
+Invarianten:
+- *Invariante 1:* Keine Kanten von geschlossenen in offene Komponenten.
+- *Invariante 2:* Offene Komponenten liegen auf Pfad.
+- *Invariante 3:* Repräsentanten partitionieren offene Komponenten bzgl. dfsNum.
+
+**Floyd-Warshall Algorithmus**: kubischer Algorithmus, berechnet transitive Hülle
+
+**Floyd-Warshall Algorithmus und SCCs**: Transitive Hülle einer SCC ist ein vollständiger Graph, betrachte Schrumpfgraph, 
+deutlich schneller: #SCC³ < n, Eintrag pro SCC
+
+### Übung 4
+**Residualgraph**: Verwalten von Restkapazitäten, Modellierung und Erkennung von Gegenflüssen, keine 0 Gewicht Kanten, Flüsse
+über Kanten und Gegenkanten erlaubt
+- *Restkapazität:* $c^f(e) = c(e) − f(e)$
+- *Fluss:*  $c^f(e^{rev}) = f(e)$
+
+**Dinitz Distanz Label**: geben Distanz im Residualgraphen zur Senke t an, Rückwärtsgerichtete Breitensuche → Layered Graph
+
+**Dinitz Blocking Flow**: “Auf jedem Weg durch den Graphen mindestens  eine Kante bis zur maximalen Kapazität ausgelastet ist”,
+Berechnung auf Schichtgraph, kein Rückfluss möglich; Berechnung basiert auf Tiefensuche von s aus:
+- extend: gehe einen Knoten näher ans Ziel (Schichtgraph)
+- retreat: Sackgasse gefunden, gehe zurück, lösche Kante
+- breakthrough: Tiefensuche hat Senke erreicht, lösche saturierte Kanten
+*Analyse*: $O(nm)$
+
+### Übung 5
+**Potentialmethode**: Stack mit Operationen:
+- push(v): Element v oben auf Stack legen $O(1)$
+- pop: oberstes Element aus Stapel entfernen $O(1)$
+- multipop(k): oberste k Elemente aus Stapel entfernen $O(n)$
+Beweis: Warum $O(n)$ und nicht $O(n²)$ wie vermutet für n Operationen im worst-case
+Anzahl Elemente $\phi$ auf Stack $\phi = \|Elemente auf Stack\| \geq 0$; Push erhöht $\phi$, pop bzw. multipop verringert $\phi$;
+bei n Operationen $\|push\| \leq n$ maximal n Erhöhungen, Verringerungen max n → alle Änderungen $\leq 2n$ → maximal O(n) 
+
+**Preflow Push Algorithmus**: Bezeichnungen:
+- *Aktiver Knoten:* Knoten $v$ aktiv, wenn $excess(v) = inflow(v) - outflow(v) > 0$
+- *gültige Kante:* Kante $(v,w) \in G^{f}$ gültig, wenn Level $d(v) = d(w) + 1 $  
++
+Ablauf: 
+1. wähle *aktiven Knoten* $v$
+2. falls *gültige Kante* $(v,w)$ existiert push (schiebe Fluss entlang $(v,w)$, vorausgesetzt: d(u) = d(v) + 1)
+3. ansonsten *relabel* (erhöht Level eines Knoten, erhält $d(u) \leq d(v) + 1 in G^{f}$, nur wenn push vom Knoten nicht möglich)  
+
+Oft nicht klar, welche Knoten, Kanten etc, daher Heuristiken:  
+Auswahl des aktiven Knotens:  
+- *generic preflow push:* $O(n²m³)$
+- *FIFO preflow push:* $O(n³)$ Typisch für Ausführung per Hand → Klausur
+- *highest-level preflow-push:* $O(n²\sqrt{m})$  
+
+Unterschiedliches relabel:
+- *aggressive local relabeling:* erhöhe in einem Schritt so, dass gültige Kante existiert 
+- *global relabeling:* setze Levels nach: (Berechnung der Distanzen über Breitensuche) 
+    - $\mu(v,t)$: falls t von v erreichbar
+    - $n+\mu(v,s)$: sonst, falls s von v erreichbar
+    - $2n-1$: sonst
+- *gap heuristic:* wird Level durch relabel(v) leer, setze Level von v und aller von v erreichbaren Knoten auf $d(w) = max{d(w), n}$
+
+Knotenauswahl:
+- *two-phase approach:*
+    - Phase 1: wähle nur Knoten Level $d(v) < n$ aus → erzeuge maximum preflow → korrekter Fluss in t
+    - Phase 2: nur noch Knoten mit Level $d(v) \geq n$ aus → Fluss nur nach s möglich
