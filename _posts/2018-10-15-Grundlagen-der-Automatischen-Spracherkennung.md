@@ -470,6 +470,7 @@ Modellannahme: Luftteilchen, die an fiktivem Punkt mit einer fiktiven Feder
 verbunden sind. "Aufziehen" und "Zurückschwingen" (siehe Erklärung zu Helmholtz
   Resonator)
 
+
 Energie wird Schall zugewiesen. Schalldruck und Energie verhalten sich unterschiedlich
 bezüglich der Distanz.
 
@@ -798,15 +799,11 @@ dynamischen Programmieren in quadratischer Zeit.
 <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/We3YDTzNXEk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 |   |   | H | A | L | L | O |
------------------------------
+| ------------------------- |
 |   | 0 | 1 | 2 | 3 | 4 | 5 |
------------------------------
 | H | 1 | 0 | 1 | 2 | 3 | 4 |
------------------------------
 | A | 2 | 1 | 0 | 1 | 2 | 3 |
------------------------------
 | U | 3 | 2 | 1 | 1 | 2 | 3 |
------------------------------
 | S | 4 | 3 | 2 | 2 | 2 | 3 |
 
 
@@ -895,19 +892,26 @@ Es geht jetzt in diesem Teil der Vorlesung darum, sich einen
 #### System
 
 Ein System T wandelt ein eingehendes Signal in ein anderes um. Bei uns handelt
-es sich um eine diskrete Folge von Werten (digital): $ y[t] = T \{  X[n] \} $
+es sich um eine diskrete Folge von Werten (digital): $$ y[t] = T \{ X[n] \} $$
 
 Einfaches Beispiel: Zeitliche Verzögerung $y[n] = x[n - n_d]$ wobei $n_d$ den
 Delay (Verzögerung) definiert.
 
-Weiteres Beispiel: Moving Average 
+Weiteres Beispiel: Moving Average
 
 $$
 y[n] = {1 \over M_1 + M_2 + 1} \sum_{k = -M1}^{k = M2}{x[n-k]}
 $$
 
+Ein lineares System kann "innen oder außen" skaliert werden:
+$$ T \{ a_1 x_1[n] + a_2 x_2 [n] \} = a_1 T \{ x_1[n] \} + a_2 T \{ x_2[n] \} $$
+
 Das waren Beispiele für lineare Systeme (LS). Wenn ein LS **zeitinvariant** ist,
-dann nennt es sich **Linear Time-Invariant** system.
+dann nennt es sich **Linear Time-Invariant** system. Wenn die Eingabezeit
+verzögert wurde, dann soll das Ergebnis der Transformation trotzdem das gleiche sein.
+
+Ein System heißt zeitinvariant, wenn gilt:
+$ y_1[n] = y[n - n_d] $
 
 Mit diesen kann sehr gut gerechnet werden.
 
@@ -915,19 +919,540 @@ Mit diesen kann sehr gut gerechnet werden.
 
 <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/jzvkqV1Rf5E" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
+Es handelt sich bei der Dirac-Distribution nicht um eine Funktion, sondern eine
+Distribution.
+
+$$ \delta ( f ) = \int_{-\infty}^{+\infty}{\delta (x) f(x) \, dx} = f(0) $$
+
+d(x) ist der Diracstoß am Zeitpunkt x. Welcher bei x unendlich groß ist und sonst null.
+Zusätzlich gilt die Einschränkung, dass die Fläche unter d(x) 1 sein soll,
+was in dieser Kombination keine Funktion auf den reellen Zahlen bieten kann.
+
+Ist eigentlich nicht integrierbar, weil d(x) nicht integrierbar.
+Kann aber über die Diracfolge ausgedrückt
+werden:
+
+$$ \delta ( f ) = \lim_{\epsilon \to 0} \int_{-\infty}^{+\infty}{\delta_\epsilon (x) f(x) \, dx} = f(0) $$
+
+Man kann den Dirac-Stoß aber als Verteilung darstellen und zwar zum Beispiel
+durch eine Gaußglocke, die bekanntermaßen die Fläche 1 hat. Wenn man die
+Varianz nun gegen 1/unendlich gehen lässt, dann erhält man folgende Annäherung:
+
+![](/assets/images/Dirac_function_approximation.gif)
+
+Entsprechend wird für das Rechnen angenommen:
+
+$$ \int_{-\infty}^{+\infty} a \cdot \delta (x) = a $$
+
+Das Integral eines Diracstoßes multipliziert mit einer Funktion g(x) = g(0).
+Wenn man Zeit nun verschiebt, dann kommt man auf die Siebeigenschaft:
+
+$$ \int_{- \infty}^{+ \infty} \delta(x-\tau) \cdot g(x) dx = g(\tau) $$
+
+Im diskreten Fall schreibt man:
+
+$\delta[n] := 1 $ wenn $n = 0$, sonst $0$
+
+Siehe [Dirac-Kamm](https://de.wikipedia.org/wiki/Dirac-Kamm).
+
 #### Faltung
 
-Convolution
+Mit der Faltung kann man die Wirkung eines Kanals auf ein Signal modellieren.
+Sie ist salopp gesagt die Wirkung, die ein Signal auf ein anderes hat.
+
+Sie ist:
+
+ - Kommutativ: f * g = g * f
+ - Assoziativ: f * (g * h) = (f * g) * h
+ - Distributiv: f * (g + h) = f * g + f * h
+ - Assoziativ mit Skalar: a (f * g) = (a f) * g = f * (a g)
+
+Eine Faltung entspricht einer Multiplikation im Frequenzbereich.
 
 <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/_UFyMWDoISk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-#### Fourier
+#### Impulsantwort
+
+Die Impulsantwort, auch Gewichtsfunktion oder Stoßantwort genannt, ist das Ausgangssignal eines Systems, bei dem am Eingang ein Dirac-Impuls zugeführt wird. Definiert als:
+
+$$ h_k [n] = T{ \delta [ n-k ] } $$
+
+Wenn y[n] = T {x[n]}, dann gilt durch die Siebeigenschaft:
+
+$$y[n] = T {\sum_{k=-\infty}^{+ \infty}x[k]\delta[n-k]}$$
+
+Wenn T linear, dann:
+
+$$ y[n] = \sum_{k=-\infty}^{\infty} x[k]T\{  \delta[n-k] \}
+= \sum_{k=- \infty}^{\infty} x[k] h_k [n]
+$$
+
+Wenn T auch noch zeitinvariant (-> LTI):
+
+$$ y[n] = \sum_{k= - \infty}^{\infty} x[k] h[n-k] = x[n] * h[n] $$
+
+Das heißt, dass die Ausgabe eines LTI Systems als eine Faltung des angelegten
+Signals mit der Impulsantwort berechnet werden kann.
+
+
+Beispiel:
+Ein Raum mit Mikrofon sei ein LTI. Ich erzeuge eine Annäherung an den Dirac-Stoß,
+wie zum Beispiel ein "Chirp", welches in einer Sekunde alle Frequenzbereiche
+einmal durchgeht.
+Beim aufgenommenen Signal tut man jetzt so, als sei das die Impulsantwort.
+
+#### Quelle-Filter-Modell
+
+Die Quelle erzeugt ein Schallsignal mit einem bestimmten Spektrum (stimmhafte Laute oder weißes Rauschen durch Atmen),
+das bis zur Abstrahlung an den Lippen einen Resonator (den Vokaltrakt) durchläuft,
+welcher das Signal mit einer bestimmten Übertragungsfunktion verformt.
+Da es sich auch hier um ein lineares System handelt, kann man das Spektrum des
+abgestrahlten Sprachsignals dadurch erhalten, daß man das Spektrum der Quelle
+mit der Übertragungsfunktion des Filters multipliziert.
+Ein anderer - aber mathematisch äquivalenter - Weg ist die Faltung des
+Quellesignals mit der Impulsantwort des Filters im Zeitbereich.
+
+Dabei ist zu beachten, daß es sich bei der Quelle nicht nur um die stimmhaft
+angeregte Glottis handeln muß. Ebenso kann der Resonator, der Hohlraum im Vokaltrakt,
+je nach Lage der Quelle sehr komplexe Formen annehmen (z.B. bei Ankopplung des Nasenraums).
+
+Also:
+Schallsignal $u_n$ wird erzeugt und durch Vokaltrakt v und Lippen r moduliert.
+Das kann man als eine Faltung des Signals sehen.
+Was wir dann messen am Mikrofon ist: $f_n = u_n * v_n * r_n$
+
+Um an das Originalsignal zu kommen müsste man die Faltung invertieren, was
+schwer ist.
+
+## 7. Vorlesung
+
+schreiben
+
+12.11.2018
+
+### Fourier
+
+schreiben
 
 <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/spUNpyF58BY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-#### DFT
+### DFT
+
+schreiben
+
 <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/h6QJLx22zrE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/mkGsMWi_j4Q" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-#### FFT
+### FFT
+
+schreiben
+
+Ein Teile-und-Hersche-Algorithmus zur Berechnung der DFT.
+Wird oft in Hardware gegossen.
+
+ToDo: Wie funktioniert es?
+
+## 8. Vorlesung
+
+schreiben
+
+14.11.2018
+
+Aufzeichnungen fehlen mir...
+
+## 9. Vorlesung
+
+schreiben
+
+19.11.2018
+
+### Formanten
+
+Die Resonanzfrequenz f des Helmholtz-Resonator hängt von der Größe der Öffnung S
+und dem Gasvolumen V ab.
+
+$ f = ~ sqrt{S}$
+$ f = ~ { 1 \over sqrt{V} }$
+
+Die verstärkten Resonanzfrequenzen nennt man **Formanten**. Sie sind als
+starkes Auftreten der Oberschwingung sichtbar im Spektrogramm.
+Sie entstehen durch eine Selbstverstärkung durch Inferenzen im Helmholtz-Resonator.
+
+Die niedrigste Frequenz **F1** nennt sich erster Formant.
+Trägt man F1 und F2 für die amerikanischen Vokale auf, dann bekommt man das
+**Vokaldreieck**. Es heißt so, da sich alle Vokale in einem Dreieck befinden.
+Das sollte man nicht verwechseln mit dem Vokalviereck. Die Bestimmung von F1 und
+F2 ist manuell geschehen.
+Die Frage war dann damals, ob man Vokale anhand F1 und F2 erkennen kann.
+Sie sind zwar geclustert, aber nicht 100% scharf abgetrennt und zudem ist die automatische
+Identifikation von F1 und F2 schwer, da man bei einer falschen F1-Erkennung
+einen hohen Fehler erhält.
+
+### LPC
+
+Linear Predictive Coding also lineare Vorhersage.
+
+Nach dem Quelle-Filter-Modell kann man Sprache als LTI sehen:
+
+$$ s[n] = - \sum_{k=1}^{p}{a_k s[n-k] + e[n]} $$
+
+Das heißt, dass sich das zukünftige Signal als Kombination der alten Werte und
+einem Fehler zusammensetzt.
+
+Die Z-Transformierte der Impulsantwort des LTI:
+
+$$ H(z) = {1 \over 1 - \sum_{k=1}^{p}{a_k z^{-k}}} $$
+
+Es handelt sich um einen Quotienten aus Polynomen, wobei der Zähler nur eine
+eins ist. Deswegen gibt es keine Nullstelle.
+Der Nenner kann Polstellen hervorbringen. Da das Modell nur Pole und keine Nullstellen
+hat, nennt es sich **All-Pole-Modell**.
+
+Wie findet man die $a_k$?
+Dafür muss man den Fehler minimieren: $e[n] = s[n] - \widetilde{s}[n]$
+
+Wir setzen $a_o = 1$. So kann man die LPC-Koeffizienten $a_k$ finden.
+Diese werden gerne in der Spracherkennung als Merkmale verwendet.
+
+Die Werte der Z-Transformierten auf dem komplexen Einheitskreis approximieren
+das Spektrum. Das Problem: Nasale haben Interferenzen zwischen Abstrahlern, die
+sich eliminieren können, dadurch entstehen sich auslöschende Schwingungen.
+
+Das ist ungünstig, da wir im All-Pole-Modell keine Nullstellen darstellen können.
+
+Vergleicht man die LPC-Koeffizienten mit DFT-Koeffizienten, dann sind man, dass
+LPC eine Glättung des Spektrums bewirkt.
+
+Es gibt zwei Probleme damit:
+
+- Es gibt keine Nullstelle
+- Wie wählt man die Auflösung richtig (Anzahl Koeffizienten)
+
+### Cepstrum
+
+Wortspiel mit Spektrum.
+
+$$ Cep(f) = FT^{-1}(log FT(f)) $$
+
+Durch die einmalige Anwendung der Fouriertransformation gelangt man in den
+Frequenzbereich. Durch die Anwendung der Inversen FT jedoch nicht wieder
+zurück in den Zeitbereich, sondern in den Cepstral-Bereich.
+
+Durch Anwendung des Kontinuierlichen und monotonen Logarithmus wird aus der
+Multiplikation eine Addition.
+
+Unter der Annahme, dass das Zeitsignal eine Faltung unterschiedlicher Signale
+ist, kann man das Cepstrum "entfaltend" nennen, wodurch man auf das ursprüngliche
+Signal kommt.
+
+$$
+f = e * h
+FT(f) = FT(e) \cdot FT(h)
+log(FT(f)) = log(FT(e)) + log(FT(h))
+FT^{-1}(log(FT(f))) = FT^{-1}(log(FT(e))) + FT^{-1}(log(FT(h)))
+$$
+
+Wenn e also schätzbar, dann kann man es abziehen. Dafür muss man die Impulsantwort
+von e errechnen. e ist aber eher unbekannt.
+
+Das Cepstrum ist eigentlich eine komplexe Funktion. Das darstellbare Cepstrum
+("real") kann man als FT des Leistungsspektrums sehen. Die Einheit der
+x-Achse nennt man Quefrenz.
+
+Vielfaches der Grundfrequenz wiederholt sich immer wieder. Das ist sichtbar
+im Quefrenz-Bereich.
+
+**Wichtig:** Die Signalenergie fließt nur in die Berechnung des 0-ten Koeff. ein.
+Daher wird er häufig durch die Signalenergie ersetzt. Das heißt, dass das
+Signal bis auf den 0-ten Koeff. **lautstärkenagnostisch** ist.
+
+#### Liftering
+
+Die unteren Koeffizienten des Cepstrums beschreiben die Makrostruktur des Signals.
+Die oberen die Mikrostruktur. Die oberen Koeffizienten setzt man auf Null und
+nennt das in Anlehnung an "filtering" **liftering**.
+
+Meistens wählt man 13 Koeffizienten zur Weiterverarbeitung.
+
+**Häufiger Verarbeitungsablauf:**
+
+Mel-skalierte Cepstral-Koeffizienten:
+
+- Signal
+- -> FT
+- Spektrum
+- -> Spektrum-Mel-Skalierung
+- Mel-Spektrum
+- -> $FT^{-1} (log(\cdot))$
+- Mel-Cepstrum
+
+Man spricht auch von Mel-Frequez-Cepstrum und den Mel-Frequnz-Cepstrum Coeffients (MFCC)
+
+### DCT
+
+In der Praxis wird statt der $FT^{-1}$ eine **Diskrete Cosinus-Transformation (DCT)**
+verwendet.
+
+DCT-II ist definiert als:
+
+$$ C[k] = \sum_{n=0}^{N-1}{x[n]cos(\pi k (n + 1/2)/N)} \text{ mit } 0 \leq k \le N $$
+
+Die Inverse der DCT-II ist die DCT-III:
+
+$$ x[n] = {1 \over n} \{  { C[0] + 2 \sum_{k=1}^{N-1}{C[k]cos(\pi k (n + 1/2)/N)}} \} $$
+
+Bei JPEG findet dieses Verfahren ebenfalls Anwendung. Man entfernt ebenfalls
+die hohen Frequenzanteile und kann dann mit einer dünnbesetzten Matrix
+ein Huffman-Coding.
+
+### Mel-Filterbank
+
+Durch Anwendung einer Mel-Filterbank auf ein Spektrogramm, die die höheren Frequenzen ungenauer
+erfasst als die niedrigen, reduziert man die Anzahl der Koeffizienten von
+zum Beispiel 8000 auf 40.
+
+Durch das Cepstrum mit Liftering entsteht eine Art Glättung im
+rekonstruierten Leistungsspektrum.
+
+### Typ. Vorverarbeitung
+
+ - Digitales Signal (16 kHz Abtastrate, 16 Bit Auflösung)
+ - Fensterung (Hamming-Fenster mit 16ms Breite, 10ms Verschiebung) -> pro Fenster (Frame) 256 Abtastwerte/Samples
+ - DFT: 256 komplexe Werte
+ - Betragsspektrum: 256 reelle, symmetrische Werte -> nur die Hälfte nötig: 128 reelle Werte
+ - Mel-Skalierung auf 24-40 Werte
+ - Logarithmus: 24 - 40 Werte
+ - DCT: 24-40 Werte
+ - Liftering: 13 Werte
+
+### Dynamische Merkmale
+
+Spektrum und Cepstrum bilden nur statische Eigenschaften ab, aber der Verlauf
+der Formanten verläuft einer Dynamik. Wohin bewegt sich ein Formant?
+
+Dafür approximiert man zum Beispiel die 1. und 2. Ableitung im Diskreten durch
+Differenz zu vorherigem Frame. Es werden also aus 13 Mel-Cepstral-Koeffizienten
+39 Werte.
+
+#### Autokorrelation
+
+$$A(t) = \sum_{i}^{}{s[t] - s[i-t] }  $$
+
+t beschreibt die Verschiebung des Signals. Mit diesem verschobenen Signal vergleicht man das Signal selbst.
+Bei t=0 liegt die obere Grenze, weil das Signal mit sich selbst maximal ähnlich ist.
+Dieser Wert ist proportional zur Leistung des
+Signals. Es treten Spitzen auf, wo Wiederholungen sind
+
+Die Grundfrequenz macht sich im Signal durch Oberschwingungen mit der Frequenz
+bemerkbar. Die erste Spitze ist die Grundfrequenz, aber nicht so gut erkennbar.
+Wenn man hier bei der Entfernung einen Fehler macht, dann einen großen.
+Dagegen hilft Glättung, weil menschliche Stimme nicht enorm springt.
+Warum will man die Grundfrequenz haben? Zum Beispiel wichtig für **tonale Sprachen**
+und **Prosodieanalysen**.
+
+#### Nulldurchgangsrate
+
+Wie oft wechselt das Signal das Vorzeichen?
+Weil bei Stille eine geringere Nulldurchgangsrate als bei Sprache vorliegt,
+kann man so die beiden voneinander trennen.
+
+#### PCA
+
+Hauptkomponentenanalyse: Projiziere Merkmale in einen niederdimensionalen Raum
+und erhalte dabei so viel Varianz wie möglich.
+Zum Beispiel durch Berechnung der Eigenvektoren der Kovarianzmatrix.
+Diese Eigenvektoren nutzt man dann als neue Hauptachsen.
+
+Die Kovarianzmatrix wird diagonalisiert bei der PCA, was den Effekt hat, dass die
+Merkmalsvektoren dekorreliert werden.
+
+Ein Paradebeispiel für einen Datensatz, der durch die PCA nicht nicht besser
+trennbar wird, ist das **Adidas-Problem**.
+
+#### LDA
+
+Dieses Problem kann durch die **Lineare Diskriminanz Analyse** gelöst werden.
+Bei dieser Methode sind die Klassenzugehörigkeiten der Datenpunkte bekannt und
+es wird angestrebt die einzelnen Klassen maximal voneinander und in sich
+kompakt zu halten.
+
+Die Klassenseparabilität einer Klasse
+$$S = { \sigma_{between}^2 \over \sigma_{within}^2 }$$
+soll maximiert werden.
+Danach **Kullback–Leibler-Divergenz** maximieren. Es handelt sich um ein Maß für
+die Unterschiedlichkeit zweier Wahrscheinlichkeitsverteilungen.
+
+Wird in der Praxis verwendet.
+
+#### NN
+
+Vorverarbeitung durch Neuronale Netze. Interpretation der Ausgabe als posteriori
+Wahrscheinlichkeit von Phonemen, Polyphonen oder Sub-Phoneme.
+
+Man nutzt dabei ein größeres Fenster (200-500 ms) einer herkömmlichen Vorverarbeitung,
+zum Beispiel Cepstrum.
+
+Also auch wieder als eine Vorverarbeitung. Und dann wieder alle Daten zusammenführen
+in einem großen Vektor. Darauf kann man dann wieder LDA anwenden.
+
+#### Bottleneck Features
+
+Man kann das Neuronale Netz auch benutzen, um eine niederdimensionale Repräsentation
+erhalten. Dafür führt man einen Flaschenhals in die Topologie ein und trainiert
+weiterhin auf Klassifizierung in Phoneme etc.
+Dann nutzt man die Aktivierungen im Flaschenhals als Feature.
+
+### Klassifikation
+
+Einteilung von **Pattern-Recognition** verfahren:
+
+ - Statistical
+   Antworten haben eine Wahrscheinlichkeit. Nimm z.B. das Maximum als Antwort.
+    - unsupervised (z. B. Gaussian-Mixture)
+    - supervised (z. B. k-means)
+       - parametric (Wahrscheinlichkeit einer Dichtefunktion)
+       - nonparametric (z. B. Parlson-Fenster)
+          - linear
+          - nonlinear
+ - Knowledge/Connectionism (z.B. Automat)
+   Sammle Wissen über die Lösung eines Problems und repräsentiere es (z. B. Entscheidungsbaum, Regeln)
+    und triff dann eine "harte" Entscheidung   
+
+## 10. Vorlesung
+
+### Klassifikation
+
+#### Bayes
+
+Das Standardbeispiel für ein überwachtes, parametrisches Lernverfahren ist der
+Bayes-Klassifikator. Damit ist Dr. Stüker aber unzufrieden, weil Bayes erstmal
+keine Parameter benötigt. Für gewöhnlich verwendet man dieses Klassifikator mit
+einer Gauß-Verteilung, daher kommen die Parameter.
+
+Man kann sagen, dass ein heutiges Spracherkennungssystem ein Bayes-Klassifikator
+mit komplizierter Wahrscheinlichkeitsdichtefunktion (bzw -verteilung), Faltung
+und Rekurrenz ist.
+
+Er nutzt die a-priori W'keit und klassenbedingte W'keit um posteriori
+W'keit zu berechnen.
+
+Die klassenbedingte Wahrscheinlichkeit bezeichnet man auch als **Likelihood.**
+
+$$ P(\omega_i \| x) = { P(x \| \omega_i) P(\omega_i) \over P(x)}$$
+
+**Minimum Fehler Regel**
+Der naive Bayes-Klassifikator will Wahrscheinlichkeit für Fehler minimieren.
+Das heißt, man will den Zähler maximieren, um posteriori zu maximieren.
+
+$$ P(x) = \sum_i P(x\| \omega_i) P(\omega_i) $$
+
+Man sucht mit diesem Verfahren eine optimale Trennlinie zwischen Verteilungen.
+Diese heißt auf Englisch **Optimal Decision Boundary**.
+
+#### Parzen-Fenster
+
+Dies ist ein Beispiel für ein nicht parametrische Schätzung einer Wahrscheinlichkeitsfunktion.
+Zu jedem Punkt im Raum zähle die Samples in einem gewählten Volumen, teile sie
+durch die Gesamtanzahl der Punkte und durch das Volumen.
+
+### ASR Pattern
+
+Spracherkennung mit Musterklassifikation. Der Gedanke dabei ist, dass man zum
+Beispiel für jedes Wort ein Referenzmuster hat und dann eine Mustererkennung
+auf den Eingabedaten durchführt.
+
+Die Reihenfolge der Merkmalsvektoren ist wichtig, weil Sprache linear in der
+Zeit läuft. Wähle das Referenzmuster mit der geringsten Fehlerdistanz.
+
+Naiver Ansatz: Normalisiere die Zeit auf die kürzeste Äußerung. Jetzt ist lineare
+Zuordnung möglich. Sobald die Sprechgeschwindigkeit nicht konstant war funktioniert
+das wieder nicht.
+
+Sprache ist aber nicht von gleicher Länge. Es variiert die Sprechgeschwindigkeit.
+Sprache ist bestenfalls "stückweise" linear.
+
+Das heißt, die Abbildung, die wir suchen ist nicht bijektiv, nicht injektiv und
+auch nicht surjektiv. Vergleiche Alignment aus Maschinellem Übersetzen. Das ist
+auch nur eine Relation.
+
+### Time Warp
+
+Gegeben: Sequenzen $x_1 ... x_n$ und $y_1 ... y_m$
+Gesucht: Relation R mit (i, j) in R wenn $x_i \to y_j$ abbildet.
+
+Das heißt, die Zeitachsen von Referenz und Muster werden auf eine gemeinsame
+Zeitachse gebracht.
+
+![](/assets/images/dtw.gif)
+Figur 11.1 aus [Comp449](http://web.science.mq.edu.au/~cassidy/comp449/html/ch11s02.html#dtw.figure)
+
+Für einen gegebenen Pfad R(i,j) ist die Summe aller lokalen Distanzen seine
+Distanz zwischen x und y. Wie findet man aber den Pfad?
+
+Ähnlich der minimalen Editierdistanz zusammen mit Dynamischer Programmierung.
+Dafür benötigt man eine DP-Matrix, die die minimalen Editierschritte von $x_1 ... x_n$
+zu $y_1 ... y_n$ enthält. Für jeden Zustand merkt man sich, welcher der beste
+vorherige Zustand war (**Backpointer**) und dann nutzt man backtracking, um die
+Sequenz der Editierschritte zu erhalten.
+
+### DTW
+
+Dynamic Time Warp kann ähnlich gelöst werden. Der Zielpfad soll aber einige
+Einschränkungen haben, die wir aus der Sprache ableiten:
+
+ - Der Pfad darf keine signifikanten Teile am Anfang und Ende auslassen
+ - Da Sprache zeitlinear ist, muss der Pfad monoton steigen
+ - Lokale Kontinuität: Sprache springt nicht zu stark
+ - Nähe zur Diagonalen
+ - Pfad sollte glatt verlaufen, da die Sprechgeschwindigkeit nicht beliebig ist
+
+Welche Schritte sind denkbar?
+
+ - symmetrische DTW-Schritte (wie bei Editierdistanz)
+ - Bakis: vertikal +2 und horizontal +1 -> Sprung
+ - Itakura: Verbot zweier horizontaler Schritte
+
+Es ist ziemlich viel denkbar...
+
+**Diagonalfenster**
+Gemäß der Regeln, dass man Anfang und Ende nicht auslassen soll und dass Nähe
+zur Diagonalen gewünscht ist, kann man den **Suchraum** zum Beispiel auf ein
+Parallelogramm eingrenzen, das die Diagonale beinhaltet.
+Und dann gestattet man einfach keine Schritte, die von außen nach innen gehen würden.
+Problem damit: Wenn Stille in der Mitte des Wortes, dann macht man einen Knick nach
+oben und gelangt vielleicht hinaus. Und bei Start könnte der Suchraum zu klein sein.
+Vorteil: O(n) statt O(n²)
+
+Um die Probleme zu beheben: **Strahlsuche**
+Idee: Ziehe nur diebesten Zustände in Betracht sortiert nach kumulativem Gewicht..
+Dabei kann man die Grenze unterschiedlich ziehen:
+
+- konstanter Strahl: nimm die besten k-Pfade
+- relativer Strahl: nimm alle, die nur x% schlechter sind als bester Pfad
+- absoluter Strahl: nimm alle, die um weniger als x schlechter sind als bester Pfad
+- Kombination aus beiden: Maximale Grenze nach oben und abhängig vom aktuell besten
+
+Eine große Frage ist, wie beschreiben wir die Distanz zweier Vektoren?
+
+
+$d(x,y)$ mit
+ - L2 $\sqrt(\sum_{i=1}^{n}{(x_i-y_i)^2})$
+ - L1 $\sum_{i=1}^{n}{\| x_i - y_i \|}$
+ - Mahalanobis-Distanz: x und y werden als mehrdimensionale Vektoren auf einer
+   Zufallsvariablen mit Varianz S interpretiert. Wenn S Einheitsmatrix -> normale L2-Distanz,
+   ansonsten: $\sqrt{(x-y)^{T} S^{-1}(x-y)}$
+
+Eine wichtige Frage ist also, ob das Distanzmaß Varianz innerhalb einer Dimension und
+zwischen den Dimensionen betrachtet.
+
+**DTW überwacht?** Ja.
+
+**DTW parametrisch?** Hängt vom Distanzmaß ab.
+
+Wenn man mehrere Trainingsbeispiele als Referenz hat, dann kann man entweder
+die Trainingsbeispiele vermischen oder alle benutzen und beim Mustervergleich mitteln.
+
+DTW wurde für die Spracherkennung bei alten Handys oder im Embedded Bereich verwendet.
+Die Wahl der Parameter muss gesucht werden. Auch das kann als Lernverfahren
+betrachtet werden (Grid Search).
