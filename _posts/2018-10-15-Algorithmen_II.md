@@ -34,6 +34,7 @@ tags: lecture
 - **19.11.2018**: 5-68 bis Ende Kapitel 5, 6-1 bis 6-2
 - **20.11.2018**: 6-3 bis Ende Kapitel 6; Übung 5
 - **26.11.2018**: Kapitel 7
+- **27.11.2018**: Kapitel 8-1 bis 8-6; Übung 6
 
 
 ### Material
@@ -407,7 +408,29 @@ Elemente x = read(a) und y = read(b), von j=1 bis a+b: if x ≤ x → write(c), 
 
 **Minimale Spannbäume**: Semiexterner Kruskal: Annahme: $M = \Omega(n)$ konstat viele Maschinenworte pro Knoten
 
-*Ende Vorlesung vom 20.11.2018*
+*Ende Vorlesung vom 26.11.2018*
+
+### Approximationsalgorithmen
+
+> Umgang mit NP-harten Probleme, fast alle interessanten Optimierungsprobleme sind NP-hart → trotzdem optimale Lösungen suchen und riskieren, dass 
+Algorithmus nicht fertig wird, wie gut ist Lösung? → **Approximationsalgorithmen**: polynomielle Ausführungszeit, aber Lösung "nah" am Optimum
+
+**Scheduling** unabhängiger gewichteter Jobs auf parallelen Maschinen: identische Maschinen, unabhängige Jobs, bekannte Ausführungszeiten, 
+offline:
+- $x(j)$: Maschine auf der Job $j$ ausgeführt wird
+- $L_i$: $ \sum_{x(j)=i} t_j $ Last von Maschine i
+- Zielfunktion: Minimiere Makespan $L_{max} = max_i L_i$   
+
+*$L_{max} bei vielen kleinen Jobs:* 
+- *obere Schranke:* Falls $l$ der zuletzt beendete Job ist: $L_{max} ≤ \sum_j \frac{t_j}{m} + \frac{m-1}{m} t_l$
+- *untere Schranken:* $L_{max} ≥ \sum_j \frac{t_j}{m}$ und $L_{max} ≥ max_j t_j$
+
+**Approximationsfaktor**: Ein Minimierungsalgorithmus erzielt einen Approximationsfator $\rho$ bezüglich Zielfunktion $f$, 
+falls er für alle Eingaben $I$, eine Lösung $x(I)$ findet, so dass: $ \frac{f(x(I)}{f(x*(I))} ≤ \rho $ wobei $x*(I)$ die optimale
+Lösung für die Eingabe $I$ bezeichnet.  
+→ List Scheduling erzielt einen Approximationsfaktor von $2-\frac{1}{m}$
+
+*Ende Vorlesung vom 27.11.2018*
 
 ## Übung
 ### Übung 1
@@ -547,3 +570,44 @@ Knotenauswahl:
 - *two-phase approach:*
     - Phase 1: wähle nur Knoten Level $d(v) < n$ aus → erzeuge maximum preflow → korrekter Fluss in t
     - Phase 2: nur noch Knoten mit Level $d(v) \geq n$ aus → Fluss nur nach s möglich
+    
+### Übung 6
+**Randomisierte Algorithmen**
+**Las Vegas Algorithmus**: immer korrekte/optimale Lösung, Laufzeit ist Zufallsvariable (erwartete Laufzeit $E[T]$))
+
+**Monte Carlo Algorithmus**: falsche/suboptimale Lösung mit Wahrscheinlichkeit p, deterministische Laufzeit
+
+**Monte Carlo Simulation**: **! ≠ Monte Carlo Algorithmus !**, Zufallsexperimente sehr oft ausführen, je länger/öfter
+ausgeführt, desto besser Ergebnis 
+
+**Las Vegas → Monte Carlo**: gegeben Las Vegas Algorithmus mit erwarteter Laufzeit $E[T] = f(n)$, gesucht Monte Carlo
+Algorithmus mit Laufzeit $O(f(n))$ und Fehlerrate p   
+*Idee:* Abbruch nach Zeit $\alpha f(n)$, Ausgabe Falsch wenn Algorithmus abgebrochen
+wurde, Markov Ungleichung: $P[T > \alpha f(n)] ≤ \frac{1}{\alpha}
+
+**Monte Carlo → Las Vegas**: Monte Carlo Algorithmus mit Laufzeit $O(f(n))$ und Fehlerrate p Korrektheit in $O(g(n))$ überprüfbar,
+ gesucht Las Vegas Algorithmus mit erwarteter Laufzeit $E[T] = f(n)$   
+ *Idee:* Wiederhole Monte Carlo bis korrektes Ergebnis gefunden, Laufzeit $T ≤ i * O(f(n) + g(n))$, $E[T] = \frac{1}{1⁻p}$   
+ 
+**Probability Booting**: Matrix Multiplikation, nur false postives möglich, bei p ≤ 0.5 schnelle Konvergenz, Laufzeit $O(kn²)$, 
+Wiederhole Test k mal mit unterschiedlicher Wahl von r:
+- liefert Test FALSCH: AB ≠ C
+- liefern ALLE Tests Korrekt: mit $p ≤ 0.5^k$ false positive
+
+**Coupon Collector**: Ziel n versch. Sammelkarten in Müslipackungen: Erwartungswert $n H_n ≤ n ln n + n$
+
+**Speichermodell**
+**Parallel Disk Model (PDM)**: Speicherzugriff in Blöcken, Blockzugriffe minimieren (Datenlokalität), Muster
+wiederholt sich in Speicherhierarchie immer wieder
+
+**I/O-effizientes Design**: nicht nur relevatn bei Disk I/O, z.B. Dijkstra → Strukturierter Zugriff wichtiges Designprinzip    
+*Blockgrößen*: 
+- $T_{seek}$: Positionierungszeit
+- $W_{max}$: maximale Bandbreite  
+→ Lesedauer: $T = T_{seek} + \frac{B}{W_{max}}$    
+*Grundlegende Techniken*:
+- Zugriffsmuster:
+    - Random Access: $O(n)$ I/Os
+    - Linearer Scan: $O(\frac{n}{B})$ I/Os
+- Sortieren: $ sort(n) = O(\frac{2n}{B}(1+\lceil log_{M/B} \frac{n}{M}))$ I/Os
+- Prioritätswarteschlangen: sort(n)I/Os
