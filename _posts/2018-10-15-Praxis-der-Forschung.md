@@ -210,6 +210,10 @@ Programme zur Literaturrecherche sind:
  - Zotero: Collab open source
  - JabRef: Java-Programm, das auch mal abstürzt
 
+## Projektmanagement
+
+## Präsentationsworkshop
+
 ## Literaturrecherche
 
 Auf Anfrage bekam ich noch vor Beginn und Anmeldung von meiner Betreuerin zwei

@@ -21,6 +21,8 @@ Während dieser Woche gibt es Dinge, die man erledigen sollte:
 
 ## Einführungsveranstaltungen
 
+Um Gebäude zu finden, nutze: cs-k.it/plan/?id=30.49 , wobei 30.49 die Nummer des Gebäudes ist.
+
 ### Einführung am Montag
 
 Eine erste "Vorlesung" für alle neuen Informatik- und Mathematik-Studenten im Audimax. Man sollte schon hingehen, sonst verpasst man
