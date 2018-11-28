@@ -31,6 +31,7 @@ tags: lecture
 - **15.11.2018**: Foliensatz 5-29 bis 5-103
 - **21.11.2018**: Foliensatz 5-104 bis 5-165
 - **22.11.2018**: Foliensatz 5-166 bis 5-213; 6-1 bis 6-34
+- **22.11.2018**: Foliensatz 7-1 bis 7-45
 
 ### Material
 Das Material der Vorlesung besteht aus:  
@@ -730,3 +731,101 @@ of composite network services
 
 **MPLS-based SFC**: Services classifiers select appropriate service function chains, service function forwarders deliver packet to network
 functions
+
+### Internet Congestion Control
+#### Basics
+**Shared (Network) Resources**: general problem: multiple users use same resource, high
+level objective with respect to networks (provide good utilization of network resources and
+acceptable performance for users) → Buffer or Drop?
+
+**Congested Router**: Assumption: no cumulative acks, all packets same length; Input interface
+receives 4 times more traffic than can be forwarded on output interface → 75% of packets
+discarded
+
+**Buffer**: Router need buffers to cope with temporary traffic bursts, packets caan not be 
+transmitted immediately → buffer, buffer full → packets dropped; buffers add latency, FIFO 
+queues, end-to-end latency of packets:
+- Propagation delay
+- transmission delay
+- queueing delay (überwiegt in vielen Fällen)
+
+**"ursprüngliches" TCP**: Connection establishment:3-way handshake (full duplex connection),
+ connection termination: 4 way handshake (separately for each direction of transmission), data
+ transfer: byte-oriented sequence numbers, go-back-N (positive cumulative acks, timeout), flow 
+ control
+ 
+**Congested Internet**: drastic performance reduction of TCP (1986) → series of congestion
+collapses, goodput reduced about several orders of magnitude, routers dropped 10% of packets
+
+**Throughput:** amount of network layer data delivered in a time interval (pre-tax), 
+aggregation of data flows *through* router/link
+
+**Goodput:** "application-level" throughput (after-tax), amount of application data delivered 
+in a time interval, retransmission doesn't count, packets dropped not counted, what 
+application receives, traffic at network level might be higher
+
+**Knee**: Load reaches network capacity, goodput stops increasing, buffers build up, end-to-end 
+latency increases → Network is *congested*
+
+**Cliff**: traffic load increases beyond cliff, packets start to be dropped, goodput
+decreased → *Congestion collapses*
+
+→ Initial TCP standard: entit simply doesn't kow state of network, adjustment of sending
+rate if TCP stream to capacity of network not possible
+
+**Improved TCP Versions**: Goal: estimate available network capacity to avoid overload 
+situations, limit traffic instroduced to network accordingly; Traffic Sources: 
+Receive feedback from network, apply congestion control → system control and optimization 
+problem
+
+**Congestion avoidance**: keep traffic load around knee
+
+**Congestion control**: prevent system from going over cliff
+
+→ Location of knee changes (difficult to predict): total network load and traffic pattern
+matters → typical distributed optimization problem
+
+**Optimization Criteria**: Network N with data sources, data rate of data source i: $r_i(t)$
+- *Efficiency:* bottleneck link of source (link with lowest data rate), capacity C of bottleneck, 
+set of sources that use the bottleneck link $A_i$: $\sum_{j in A_i} r_i(j)$ (But: how are
+data rates distributed among sources?)
+- *Fairness:* fair allocation (all sources get equal allocation): $F(r_i,...,r_N) = 
+\frac]{(\sum r_i)²}{N(\sum r_i²)}$, F = [0,1], totally fair = 1, totally unfair $= \frac{1}{N}$
+- *Convergence:* Responsiveness (Speed with wich $r_i$ gets to equilibrium at knee after starting
+from zero), Smoothness (Oscillation arond equilirbium at steady state)
+- *Distributedness:* congestion control should operate in distributed manner (no central control, 
+with complete knowledge, no need to know number of currently active sources)
+
+#### Types of Congestion Control
+**Window-based Congestion Control**: Congestion Control Window CWnd: max number of 
+unacknowledged packets allowed per data stream, assumes each packet is acknowledged by
+receiver, basic window mechanisms compares to sliding window, adjust sending rate of source
+to bottleneck capacity → self-clocking
+
+**Rate-based Congestion Control**: controls sending rate, implemented by timers (define
+inter packet intervals), Problem: no cut off mechanism; e.g. UDP for audio/video streaming
+
+#### TCP-Tahoe
+**Mechanisms**: used for congestion control:
+- Slow Start
+- Timeout
+- Congestion avoidance
+- fast retransmit 
+
+**Congestion Signal**: Retransmission timeout, Reception of duplicate acks → begin of slow 
+start
+
+> Must be valid: *LastByteSent - LastByteAcked ≤ min{cWnd, RcvWnd}
+
+**TCP Tahoe Algorithm**: AIMD (additive increade, multiplicative decrease), Additive
+increase of CWnd after receipt of acknoledgement, multiplicative decrease of CWnd if
+packet loss is assumed; SSTresh (Slow Start Threshold)
+- CWnd < SSThresh and ACKS received: slow start, CWnd += 1
+- CWnd ≥ SSThresh and ACKS received: congestion avoidance, Cwnd += 1/CWnd
+- Timeout or 3 duplicate ACKS: slow start, CWnd = 1 MSS, SSTresh = max(FlighSize/2 * MSS)
+
+**Fast Retransmit**: not every segment received out-of-order means congestion, wait until
+retransmisson timer expires, then retransmit, BUT to be faster: retransmission after
+receipt of specific number of duplicate ACKS e.g. 3
+
+
