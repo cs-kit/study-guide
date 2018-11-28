@@ -23,6 +23,10 @@ tags: lecture
 - **17.10.2018**: Organisatorisches und Foliensatz 0-1 bis 0-32
 - **24.10.2018**: Foliensatz 1-1 bis 1-34
 - **31.10.2018**: Foliensatz 2-1 bis 2-33
+- **07.11.2018**: Foliensatz 2-2 bis 2-4
+- **14.11.2018**: Foliensatz 3-0 bis 3-2
+- **28.11.2018**: Foliensatz 3-3 bis 3-4
+
 
 ### Material
 Die Vorlesungsfolien werden im ILIAS hochgeladen. Sämlichte Literatur befindet sich im Skript. Die Vorlesung
@@ -275,6 +279,7 @@ reprocessing of raw data
 - *Tier-2:* national centers, end-user analysis
 
 ### Big Data
+#### Introduction
 **Four pillars of Science**:
 - Experiment
 - Data
@@ -299,6 +304,7 @@ Often extended by:
 Additional:
 - *Variability:* Changing Data, Changing Models, Linkage
 
+#### Management at LHC
 **Data Analysis at LHC**: Reconstruction (reconstructing physical reactions from energy depositions in detector, 
 time consuming, rentrally organized → Tier-1), "Monte Carlo" (simulated events, for specific physical processes → Tier-2),
  User Analysis (specifiv processes and parameters, low efficiency on raw data → coupled in analysis trains → Tier-2 (Tier-3))
@@ -309,3 +315,51 @@ time consuming, rentrally organized → Tier-1), "Monte Carlo" (simulated events
 Informationssystemen erfasst und gespeichert werden aber nicht verwendet werden. Bei großen Datenmengen (Big Data) können 
 viele Daten entstehen, die nicht alle analysiert 
 oder betrachtet benutzt werden und so kommt es dazu das man sich über die Existenz der Daten nicht mehr bewusst ist."
+
+#### Data Stewardship, Curation and Preservation
+**Data Stewardship**: Responsible use and protection of digital assets through management, infrastructure support and sustainable
+practices, Tasks:
+- creating/maintaining consistent metadata
+- handling data ownership
+- ensuring data preservation
+- facilitating data curation
+
+**Data Preservation**: Actions undertaken to ensure *long-term* viability and availability of digital assets, long-term:
+might be forever (at least 5-10 years), includes changing technologies, new data formats, new user communities   
+*Preservation ensures:*
+- authenticity
+- reliabilty
+- usability
+- integrity
+
+**Bit-stream preservation**: physical preservation of data objects on "bit level"  
+*maximizing data-reliabiliy:* 
+- Redundant storage
+- Hetrogenoeous, standardized storage technologies
+- replication to remote site
+- refreshment
+- periodically exchanging technologies
+- security and disaster planning
+
+*Entities:*
+- File: Corrupted media, disk failure (1 year)
+- Tape: Simulatenous failure of 2 copies (5 years)
+- System: Systemic errors in vendor, malicious user, operator error (15 years)
+- Archive: natural disaster, obsolescence of standards (50-100 years)
+
+**Data Curation**: Maintaining and adding value to trusted body of digital information for current and future use; data
+curation is typicall user initiated and maintains metadata rather than database itself; Aspects of use: Accessibilty and digital
+rights management, Aspects of value: annotations, linking to related data, improving and updating documentation
+
+#### Open Access
+**Classical Scientific Publishing
+1) Authors submit article
+2) peer-review
+3) Publication of corrected article
+4) allow others to access atrticles
+
+**Open Access**:
+- *Green Open Access:* publish work, self-archive manuscript, responsibility with author
+- *Gold Open Access:* publish work so its immediately available from publisher, charge, freely available online via publishers website
+- *Hybrid Open Access:* business model of publisher is partilly based on fees, provides gold open access only for those their authors paid a fee,
+Double dipping = double payment to publishers, Subscription fees + article processing charge
