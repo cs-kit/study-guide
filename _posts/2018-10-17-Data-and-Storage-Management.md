@@ -21,7 +21,10 @@ tags: lecture
 ### Vorlesungen
 - **17.10.2018**: nicht da gewesen
 - **24.10.2018**: nicht da gewesen
-- **31.10.2018**: Kapitel 2 Folie 25 - Ende; Kapitel 3 Folie 1 - 8 
+- **31.10.2018**: Kapitel 2-25 bis Ende; Kapitel 3-1 bis 8 
+- **7.11.2018**: Kapitel 3-9 bis 3-27 
+- **21.11.2018**: Kapitel 3-28 bis Ende; Kapitel 4-1 bis 4-13 
+- **28.11.2018**: Kapitel 4-14 bis 37 
 
 ### Material
 Das Material der Vorlesung besteht aus:  
@@ -263,3 +266,70 @@ target device, LU has also LUN, SCSI target device with SAS target ports has dev
 - bidirectional commands (B): data transferred in both directions, Data-In and Data-Out
 
 *Ende der Vorleseung vom 21.11.2018*
+
+**Serial ATA (SATA)**: [Wikipedia](https://de.wikipedia.org/wiki/Serial_ATA): "Computer-Schnittstelle für den 
+Datenaustausch mit Festplatten und anderen Speichergeräten", Serial connectivity: 
+Superior RAID volume creation and rebuild performance, future investment protection for increased
+network bandwith; Serial ATA is replacement for ATA (+ additional superset capabilities "hot plug")   
+*Topology:*
+- four-wire replacement for physical layer of ATA
+- "Star" topology (point-to-point, no hubs): each device full bandwidth, no bus arbitration/collision overhead, simpler RAID implementation
+
+*Schnittstellenvervielfachung:* connect to more than one device, concept of a simple hub, no hard drive changes needed
+*Verfügbarkeitsmechanismen:* 2 host controller can connect to one SATA hard drive, eliminates SATA host controller as single point of
+failure, also used for static load balancing
+
+**Serial Attached SCSI (SAS)**: [Wikipedia](https://de.wikipedia.org/wiki/Serial_Attached_SCSI), device and near cabinet interface (not a 
+network interface)
+- four-wire replacement for physical layer of parallel SCSI
+- "Star" topology (point-to-point, no hubs)
+
+**Storage Area Network (SAN)**: dedicated high spee network of servers and shared storage devices, provide block level data access,
+resource consolidation (centralized storage and management), scalability (theoretical ~15mio devices, performance), secure access    
+*Components*: any-to-any connectivity for resources in fabric, any server can potentially talk to any storage device
+
+**Fiber Channel**: Netztechnologie speziell für SANs; Glasfaserkabel (Front End), Kuperkabel (Back End); Zugriff auf Speicherblöcke;
+effiziente Nutzung der Bandbreite (mit geringem Protokoll Overhead)    
+*Protokolle*: 
+- FC 1: Codierung/Decodierung
+- FC 2: Seqgemtierung, Reassembling, Framing, Flusssteuering, Credit-Mechanismus
+- FC 3: Broadcasting, Multicasting
+- FC 4: Abbildung auf Upper Layer Protocol
+
+*Topologien*:
+- Point-to-Point
+- Arbitrated Loop
+- Switched Farbic 
+    - vermascht
+    - mehrstufig
+    
+*Port Typen*: 
+- N-Ports: Endgeräte ("Nodes")
+- L-Ports: an Arbitrated Loops
+- F-Ports: Ports ans Switches mit N-Ports verbunden ("Farbic")
+- E-Ports: Verbindung zwischen Switches, ("Edges")
+
+*Addressierungskonzept*: Port eindeutig über MAC ID identifiziert, 64 bit WWPN (World Wide Port Name) und WWNN (World Wide Node Name), 
+Zuweisung einer N-Port-ID (24 bit) beim Einschalten (fabric login), Networking 24 bit Address Space: Domain ID (8 Bit), Area ID (8 Bit), 
+Device/Node ID (8 Bit) (WWN - World Wide Name), Routing auf Basis von N-Port-IDs
+
+*Service Classes*: 
+- Class 2: connectionless communication, end-to-end acks
+- Class 3: connectionless communication, no end-to-end acks
+- Class 1: reservation of dedicated path (origin-dest), dedicated links, similar to circiut switching, rarely used
+- Class 4: like class 1, links may be shared
+- Class 6: multicast
+
+*Flow Control*: ensures that congeston does not result in packet loss in delivery of frame placed on fabric; used to end-to-end and link-level
+flow control
+
+*Security*: Zones define which egress F-Ports are reachable from any ingress F-Port, authentication and access control at end devices, 
+soft zoning (resticted notification and partitioning of WWN service), most SANs closed → no issues as in IP networks
+
+**Inter Switch Links (ISL)**: connects two or more FC switches using E-Ports, to transfer host-to-storage data and fabric management
+traffic, scaling mechanism in SAN connectivity 
+
+**IP Storage**: Fiber Channel or LAN (iSAN); Motivation: Availability/low costs, no additional network topology, single integrated 
+network, remote data access, data replication; But: security considerations, performance, functionality
+
+*Ende der Vorleseung vom 28.11.2018*
