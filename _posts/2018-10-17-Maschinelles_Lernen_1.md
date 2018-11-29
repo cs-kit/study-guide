@@ -326,7 +326,7 @@ Für die Klausur sollte man wissen:
  - Vapnik-Chervonenkis grobe Entwicklung
  - PAC grundsätzliche Aussage
 
-### <a name="vl4"></a> Neuronale Netze
+### Neuronale Netze
 **Künstliche Neuronale Netze (KNN)**: externe Eingabe → Gewichtsbelegung → Propagierungsfunktion → Aktivierungsfunktion → Ausgabe  
 Einsatzfelder:
 - *Klassifikation und Mustererkennung:* Diagnose, Spracherkennung, Schrifterkennung, Bilderkennung
@@ -583,3 +583,65 @@ komplexer Trennung im Ursprungsraum
 - Vorverarbeitung extern nötig (kein "tiefes" Lernen)
 - speicher- und rechenaufwändig
 - Anzahl Support Vektoren abhängig von Problem und Parameter
+
+### Reinforcement Learning
+**Gesetz der Auswirkung**: verschiedene Reaktionen, stärker mit Situation verknüpft → befriedigter Zustand oder
+unangenehmer Zustand → gegebene Situation geschwächt
+
+**Reinforcement Learning (RL)**: Lernziel: finde Aktionssequenz $a_1,...,a_n$ sodass maximale Bewertung erreicht wird
+
+**Markov decision process (MDP)**: [Wikipedia](https://de.wikipedia.org/wiki/Markow-Entscheidungsproblem): "Nutzen eines Agenten
+von einer Folge von Entscheidungen abhängig, bei Zustandsübergängen gilt: Wahrscheinlichkeit einen Zustand s' von Zustand
+ s aus zu erreichen, ist nur von s abhängig und nicht von Vorgängern von s.", Markov Bedingung: Keine Abhängigkeit von Vergangenheit
+ - *Autonomer Agent & Umwelt:* zustandsgetriebener Prozess, Sensorik $s_t \in S$ (Erfassung von Zuständen), Atorik $a_t \in A$
+ (Einwirkung auf Umwelt durch Aktionen), Zustandsänderung: $\delta: (SxA) → S, \delta (s_t, a_t) = s_{t+1}$
+ - *Bewertung von Aktionen*: direkt oder indirekt bekannt/messbar: $r:(SxA) → R, r(s_t, a_t) = r_t
+ 
+**Strategielernen (Policy learning)**: finde (optimale) Zielfunktion, so dass akkumulierte Bewertung (zum Ziel) maximiert wird
+- *Zielfunktion:* $\pi: S → A , \pi(s_t) = a$
+- *State Value Funktion (akkumulierte Bewertung):* $V^{\pi} (s_t) = \sum_{i=0}^{\infty} \gamma^i r_{t+1} $   
+  
+Gewichtung der Bewertungen (Diskontierungsfaktor): $ 0 ≤ \gamma ≤ 1$
+- 0: aktuelle Aktionsbewertung ist wichtig (1-step)
+->0: zukünftige (letzte) Bewertungen werden berücksichtigt (n-step)
+- <1: notwendig um konvergente V-Funktion zu erhalten
+
+**Simple Temporal Difference Learning**: [Wikipedia](https://de.wikipedia.org/wiki/Temporal_Difference_Learning): 
+"Anpassung nicht erst bei Erhalt der Belohnung, sondern nach jeder Aktion auf Basis einer geschätzten erwarteten Belohnung.",   
+*Algorithmus*: Initialisiere geschätzte erwartete Belohnung zufällig, wiederhole (do forever): wähle Zustand $s_t$ ermittle beste Aktion und 
+Folgezustand und ersetze erwartete Belohnung; Problem: langsames Lernen (do forever)   
+*verbesserter Algorithmus:* Wiederhole bis Endzustand erreicht ist  
+*Problem:* Bewertungen und Zustandsänderung müssen bekannt sein → nicht realistisch für echte Anwendungen
+
+**Problemdimensionen bei RL**:
+- *Zielfunktion:* Vorhersage ⇔ Aktionswahl
+- *Bewertung:* direkt ⇔ verzögert
+- *Zustandsübergänge:* deterministisch ⇔ stochastisch
+- *Modell des Systems:* vorhanden ⇔ nicht vorhanden
+- *Zustands- und Aktionsraum:* eindimensional ⇔ hochdimensional, diskret, ⇔ kontinuierlich
+
+**Q-Funktion**: deterministischer MDP, $Q(s,a)$ maximale Bewertung, die erreicht werden kann für Zustand $s$ und Aktion $a$:   
+$Q(s,a) = r(s,a) + \gamma V\*(\delta(s,a))$ (*Bellmann*), $V*(s) = max_{a'} Q(s,a') $; wähle beste Aktion anhand einer Strategie 
+→ in Anwendung wenig Wissen über Zustandsübergänge nötig   
+*Algorithmus:* Ziel finde Schätzung $\hat{Q}(s,a)$ der absoluten Funktion $Q(s,a)$; alle $\hat{Q}(s,a) = 0$, wähle Zustand s
+und führe AKtion a aus → Bewerte r, neuer Zustand s', update $\hat{Q}$ mit s = s'; nach n Iterationen:$ 0 ≤ $\hat{Q}_n(s,a)$ ≤ $Q(s,a)$
+
+**Suchstrategien**: Welche Aktion soll gewählt werden? → maximales $\hat{Q}(s,a)$? → "lokales" Lernen nur bestimmter Aktionen, 
+Aktionen, die nicht gewählt werden, könnten besser sein → Probabilistische Auswahl nach Faktor k:
+- *k klein*: Exploration, globales Lernen, neue Aktionen untersuchen
+- *k groß*: Exploitation, lokales Lernen, bekannte Aktionen untersuchen   
+
+→ beste Lösung: Änderung von global zu lokal während des Lernprozesses
+
+*Optimierungen*: in jeder Lernepisode $\hat{Q}$ vom Zustand s zum Ziel anpassen, Speichern von Bewertungen r für jedes $(s,a)$
+→ schnelle Konvergenz, Speicheraufwand steigt; Anwendung wenn Aktionen hohen zeitaufwand haben (z.B. Robotik)
+
+**Lernen von Aktionssequenzen**: Bewertung erst nach Sequenz von Aktionen bekannt bzw. machmal auch erst am Ziel
+- *Temporal Difference Learning:* Differenz folgender Schätzungen als Lernsignal
+- *Vorwärts – Sicht (theoretisch):* gewichtete Anpassung an direkt nachfolgender Schätzunh (1-step) oder an n Schritte nachfolgender
+Schätzung (n-step)
+- *Rückwärtige Sicht des TD-Lernen (praktisch):* Fehlersignale (temporal differences) in den Schätzungen nach hinten weitergegeben
+- *Eligibility Traces (Verantwortlichkeitsspur):* Zustände fpr Zustandsbewertung → V-Lernen, Zustand/Aktion für Q-Wert Bewertung → 
+Q-Lernen
+
+
