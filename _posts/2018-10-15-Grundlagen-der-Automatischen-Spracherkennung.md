@@ -1257,6 +1257,10 @@ Wie oft wechselt das Signal das Vorzeichen?
 Weil bei Stille eine geringere Nulldurchgangsrate als bei Sprache vorliegt,
 kann man so die beiden voneinander trennen.
 
+### Dim Red
+
+Dimensionanalität reduzieren
+
 #### PCA
 
 Hauptkomponentenanalyse: Projiziere Merkmale in einen niederdimensionalen Raum
