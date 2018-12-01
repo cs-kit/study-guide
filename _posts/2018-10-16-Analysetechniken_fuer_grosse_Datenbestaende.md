@@ -24,7 +24,8 @@ tags: lecture
 - **16.10.2018**: Organisatorisches und Foliensatz 1-1 bis 2-36
 - **23.10.2018**: Foliensatz 2-36 bis 3-8
 - **30.10.2018**: Foliensatz 3-9 bis 3-40, 4-1 bis 4-35, 5-1 bis 5-31
-- **06.11.2018**: Foliensatz 5-31 bis 5-
+- **06.11.2018**: Foliensatz 5-31 bis Ende, Kapitel 6, 7-1 bis 7-37
+- **27.11.2018**: Kapitel 8, 9-1 bis 9-20
 
 ### Material
 Das Material der Vorlesung besteht aus:  
@@ -505,11 +506,134 @@ verfeinert werden
 **Prüfungsfrage: Was sind FP-Trees, und wie lassen sie sich für die Suche nach Frequent Itemsets verwenden?**
 **Prüfungsfrage: Was kann man tun, wenn FP-Trees für den Hauptspeicher zu groß sind?**
 
+### Pattern Mining
+> Finden häufiger Teilfolgen (mehr Informationen als in Mengen: Reihenfolge)
 
+**Pruning bei AR mit Contraints**: 
+- *Support-basiertes Pruning:* Kandidat wird eliminiert, wenn er (oder eine seiner Teilmengen) nicht frequent ist
+- *Contraint-basiertes Pruning:* Kandidat wird eliminiert, wenn er aus vorgegebenen Contraint abgeleitetes Contraint nicht
+erfüllt
 
+**Constraints**: Einschränkungen
+- *Data Contraints:*  konkrete Werte (Intervalle), Attribute des Raums
+- *Rule Contraints:* spezifikation der Struktur oder von Eigenschaften der zu ermittelnden Regeln (z.B. nur FIS der Größe 3)
 
-## Übung
+**Meta-Rule Guided Mining**: zugrundeliegende relationale DB mit Schema:
+ > student(name, sno, status, major, gpa, birth_date,birth_place, address)   
+   course(cno, title, dept)   
+   grading(sno, cno, instructor, semester, grade)       
+   
+*Data Mining Query/Constraint:* alleRegeln der Form:
+ > major (s: student, x) ${\land}$ Q(s, y) ⇒ R(s, z)   
+   from student   
+   where birth_place = "Canada"   
+   in relevance to major, gpa, status, address   
+ 
+Variable für Prädikate = Großbuchstabe, Variable für Attributwerte = Kleinbuchstabe, Constraint erlaubt viele  
+Strukturen und Ergebnisse; zweite Zeile "meta-rule", Q,R Variable für Prädikate mit Attributen instanziierbar;
+enthält Data Constraints und Rule Constraints
 
+**1-var/2-var Contraints**: zugrundeliegende Struktur: Menge von Items mit Attributen; i.d.R Aggregation von Werten/Belegungen 
+mehrerer/aller Items, z.B. sum(LHS) < 100 (davon die Linke Seite)
+- *1-var:* Constraint, das nur eine Seitde der Regel (L oder R) einschränkt: z.B. sum(LHS) < 100
+    - Class Constraints: S ⊂ A; S Mengenvariable, A Attribut, S ist Menge von Werten aus Definitionsbereich von A, z.B: $S_1 ⊂ Item$
+    - Aggregate Constraints: min, max, sum, count, avg; {=, ≠, <, ≤, >, ≥}; z.B. min(S) < 10
+- *2-var:* Contraint bezüglich beider Seiten: z.B. sum(LHS) < min(RHS)
 
+**Mining von Association Rules**:
+- *Postprocessing:* Finde alle Frequent Item Sets mit Apriori und überprüfe dann, ob sie Constraints entsprechen
+- *Optimierung:* umfassende Analyse der Eigenschaften der Constraints mit dem Ziel "tief in den Algorithmus hineinzudrücken"
 
+**Anti-Monotonizität**: Ziel Constraint früh zu überrüfen und Pruning so früh wie möglich stattfinden zu lassen; single-variable
+Constraint ist antimonoton, gdw für alle Mengen S, S' gilt: S ⊇ S', S erfüllt C ⇒ S' erfüllt C, d.h. jede Teilmenge erfüllt Constraint, 
+auch bei Löschen aus Menge ist Constraint noch erfüllt:   
+*Beispiel*: min(S) ≥ v ist anti monoton für $v = 5$ und $S = {10,15,20,27,19}$
+- max(S) ≥ v: Abhängig von v, aber nicht anti-monoton, da z.B. mit v = 25 und Löschen von 27 nichtmehr erfüllt
+- size(S) ≤ v: v = 5, anfangs erfüllt, egal wie viel raus gelöscht wird immer kleiner gleich 5 → anti-monoton
+- size(S) ≥ v: nein, wenn Menge kleiner wird, ist Gleichung nichtmehr erfüllt   
+Anti-Monotonizität ist interessant, weil Obermengen bei Apriori nichtmehr betrachtet werden müssen, wenn Teilmenge schon 
+Constraint nicht erfüllt
 
+**Succinctness**: Ziel Kandidaten, die Constraint nicht erfüllen, gar nicht erst zu erzeugen, "Succinct" = kurz und bündig, 
+kurz und knapp; Eigenschaft von Constraints; Constraint ist succinct, wenn alle Itemsets, die das Constraint erfüllen
+in kurzer Art und Weise hinschreiben kann   
+*Beispiel:* nur drei Produkte mit Type = Nonfood, d.h. Itemsets der drei Produkte erzeugen und ein mal Support-Counting
+
+**Support-basiertes Pruning**: Kandidat c der Länge k, c wird eliminiert, wenn (k-1)-elementige Teilfolge, die Constraint R erfüllt
+nicht frequent ist   
+*Beispiel:* Constraint (nicht anti-monoton): (ab)*, abab hat Teilfolge aab, aab ist möglicherweise frequent aber nie in $L_3$
+
+**Constraint-basiertes Pruning**: Schritt k generiert $L_k$ (Menge der häufigen k-Folgen, die Constraint erfüllen); wenn R sehr
+selektiv (nicht anti-monoton), dann funktioniert Constraint-basiertes Pruning gut, Support-basiertes nicht (betrachtet alle Teilstrukturen
+der Größe k-1 in $L_{k-1}, gibt aber mglws wenige)
+
+> Schwächere Constraints erleichtern Support-basiertes Pruning
+
+Wenn Constraint nicht anti-monoton: naives postprocessing, succinctness, kombination contraint-basiertes pruning mit ursprünglichem
+Constraint, Pruning mit abgeschwächtem Constraint: sowohl anti-monoton, als auch nicht anti-monoton
+
+**Prüfungsfrage: Was ist Constraint-basiertes Mining? Was sind die Vorteile?**  
+**Prüfungsfrage: Was für Arten von Constraints kennen sie? Beispiele hierfür.**  
+**Prüfungsfrage: Was ist Anti-Monotonizität, Succinctness? <Für ein bestimmtes Constraint sagen/begründen, ob anti-monoton/succinct.>**  
+**Prüfungsfrage: Wie lässt sich Apriori für das Mining von Teilfolgen verallgemeinern?**  
+**Prüfungsfrage: Antagonismus von Support-basiertem und Constraint-basiertem Pruning erklären können.**  
+**Prüfungsfrage: Alternativen für Constraint-basiertes Pruning (wenn Constraint nicht anti-monoton) erklären können.**  
+
+### Clustering (Teil 1)
+> Ziel von Clustering: ähnliche Datenobjekte zu einem Cluster zusammenfassen
+
+**Clustering**: Datenmenge mit N d-dimensionalen Datenobjekten; Finde natürliche Partitionierung der Daten in mehrere Cluster (k Cluster)
+und noise, Wahl der Cluster:
+- *Intra-cluster Similarity maximal:* Items im gleichen Cluster sind ähnlich
+- *Inter-cluster Similarity minimiert:* Items in unterschiedlichen Clustern sind verschieden
+
+**Criterion Function**: Bewertung des Clusterverfahrens durch$E = \sum_{i=1}^k \sum_{\vec{x} \in C_i} d(\vec{x},\vec{m_i})$, 
+Ziel des Clustering *Criterion Function* zu optimieren,k gegeben, minimiere E, wenn Punkt im falschen Cluster, wird E größer; 
+Criterion Function nur sinnvoll bei gleichem k, bei unterschiedlichem k nicht fair und kann keinen Vergleich mehr bieten
+
+**Silhouette-Koeffizient**: Wahl eines Datenpunktes in Cluster als *Repräsentant* des Clusters, Objekte sollen Repräsentaten des Clusters ähneln, 
+durchschnittlicher Abstand der Objekte zum Repräsentanten des Clusters; Objekte in unterschiedlichen Clustern sollten möglichst unähnlich sein
+- *a(o):* Durchschnittliche Distanz zwischen Objekt o und Objekten in seinem Cluster $a(o) = \frac{1}{\|C(o)\|} \sum_{p \in C(o)} dist(o,p)$
+- *b(o):* Durchschnittlidche Distanz zwischen o und Objekten im zweitnächsten Cluster $b(o) =  min_{C_i ≠ C(o)}(\frac{1}{\|C(o)\|}
+ \sum_{p \in C(o)} dist(o,p))$
+- *s(o):* Silhouette von Objekt o $s(o) = \begin{cases} 0 & a(o) = 0 (e.g. \|C_i\| = 1)
+ \\\\ \frac{b(o)-a(o)}{max{a(o), b(o)}} & \text{else} \end{cases}$; Wertebereich [-1,1]   
+
+*Interpretation Silhouette von Objekt o*: Wie gut ist die Zuordnung von o zu seinem Cluster?
+- s(o) = -1: schlecht, o ist im Mittel näher bei Elementen von B
+- s(o) = 0: zwischen A und B
+- s(o) = 1: gut, o gehört zu Cluster A
+
+*Silhouette-Koeffizient eines Clusterings*: $sil(C) = \frac{1}{C} \sum_{C_i \in C} \frac{a}{\|C_i\|} \sum_{o \in C_i} s(o)$; Wertebereich [-1,1]
+
+*Interpretation Silhouette eines Clusterings*: Durchschnit der Silhouetten aller Objekte
+- $0,7 < s_C ≤ 1,0$: gute Strukturierung
+- $0,5 < s_C ≤ 0,7$: mittelmäßige Strukturierung
+- $0,25 < s_C ≤ 0,5$: schwache Strukturierung (kommt fast nie vor, 0,3 ist z.B. sehr schlechtes Clustering)
+- $s_C ≤ 0,25$: keine Strukturierung
+
+Silhouette-Koeffizient ist weitgehend unabhängig von k. Ist k klein, ist der Abstand zum Cluster-Mittelpunkt groß, verglichen mit
+großem k. Allerdings sind dann auch die Abstände zu anderen Clustern größer, daher hebt es sich auf. Fall k = n kommt fast nie vor.
+
+> Effektive und effiziente Clustering Algorithmen für hochdimensionale Datenbestände mit hohem Noise-Anteil erfordern
+Skalierbarkeit hinsichtlich:
+> - Anzahl der Datenpunkte (N)
+> - Anzahl der Dimensionen (d)
+> - Noise Anteil
+
+**Distanzfunktionen für Mengen von Objekten**: $dist(p,q)$
+- *Single Link:* $dist_{sl}(X,Y) = min_{x \in X, y \in Y} dist(x,y)$
+- *Complete Link:* $dist_{cl}(X,Y) = max_{x \in X, y \in Y} dist(x,y)$
+- *Average Link:* $dist_{al}(X,Y) =\frac{1}{\|X\|*\|Y\|} \sum_{x \in X, y \in Y} dist(x,y)$
+
+#### Partitionierende Verfahren
+**k-Means**: iterativer Algorithmus, der jeden Medoid in Richtung des Schwerpunkts der ihm zugeordneten Menge von Punkten verschiebt
+
+*Medoid:* Punkt, der als Surrogat für den Schwerpunkt des Clusters dient 
+*Vorgehen:*
+- Initialisierung: Bestimme k Medoids p_1,...,p_k (Seed) für einen gegebenen Datenbestand
+- ordne jedem Datenpunkt dem nächstgelegenen Medoid zu, minimiere *Distance Stop Kriterium*: $\sum_{i=1}^k \sum_{j=1}^{N_i} d(p_i,x_j^i)$
+- berechne Schwerpunkte dieser Partitionen
+- wiederhole bis keine Verbesserung mehr
+
+*Ende der Vorlesung vom 27.11.2018*
