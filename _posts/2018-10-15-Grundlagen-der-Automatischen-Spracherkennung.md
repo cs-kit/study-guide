@@ -1460,3 +1460,371 @@ die Trainingsbeispiele vermischen oder alle benutzen und beim Mustervergleich mi
 DTW wurde für die Spracherkennung bei alten Handys oder im Embedded Bereich verwendet.
 Die Wahl der Parameter muss gesucht werden. Auch das kann als Lernverfahren
 betrachtet werden (Grid Search).
+
+## 11. Vorlesung
+
+26.11.2018
+
+DTW ist Sprecherabhängig und nur für kleines Vokabular.
+
+### DTW OSDP
+
+One Stage Dynamic Programming ist die Erweiterung von DTW auf eine Sequenz von
+Wörtern. Das heißt, es gibt dann in-word und cross-word transitions.
+Dafür muss die zu testende Aufnahme nicht segmentiert werden.
+
+An der Y-Achse werden alle Referenzwörter und an der X-Achse die Aufnahme angetragen.
+Wenn die obere rechte Ecke eines Referenzwortes erreicht wurde, dann darf zu den
+Anfängen von allen Referenzwörtern gesprungen werden (inklusive dem Anfang der
+  gleichen Box).
+
+Ein positiver Nebeneffekt ist, dass die Wortsegmentierung quasi nebenbei entsteht.
+
+Für die optimale Lösung muss man einige DP-Matrizen berechnen: $O(N \cdot M^{k_{max}} \cdot K)$.
+
+In der Praxis geringer wegen Strahlsuche oder Einschränkung des Suchraums.
+
+Den Speicherbedarf kann man von Rückzeigern und Distanzen jeder Spalte reduzieren,
+weil der genaue Verlauf der Pfade unwichtig sein kann, sondern nur die Wortsequenz.
+
+Man braucht eigentlich nur zwei Spalten und eine Liste von genommenen Übergängen
+ ("Rückzeiger bei Wortübergängen") .
+
+Syntaktische Einschränkung:
+Jedes Wort hat eine Menge erlaubter Vorgänger. Das reduziert auch den Suchaufwand.
+Und wenn man die Vorgängermenge abhängig machen möchte vom aktuellen Zustand,
+dann dupliziere Wörter bis man wieder nur eine Vorgängermenge braucht.
+
+Man hätte damals komplizierte Grammatiken aufbauen können, aber man hat sich
+lieber auf die stochastische Abstandsbemessung konzentriert.
+
+### Gauß
+
+Die Gaußverteilung wird auch Normalverteilung genannt.
+Sie ist wie folgt definiert:
+
+$$p(x) = {1 \over \sqrt{ 2 \pi \sigma^2 } e^{- 1 (x - \mu)^2 \over 2 \sigma^2}$$
+
+Mittelwert (1. Moment) ist $\mu$
+Varianz (2. Moment) ist $\sigma^2=E((X-\mu)^2)$, wobei $\sigma$ Standardabweichung genannt wird
+
+Wenn man Trainingsdaten X betrachtet und annimmt, dass sie gaußverteilt sind, also
+$X ~ \mathcal{N}$, dann kann man den Mittelwert und die Standardabweichung
+schätzen, indem man sie auf den Trainingsdaten berechnet.
+
+In realen Anwendungen sind die Merkmale jedoch höherdimensional
+-> **multivariate Gaußverteilung**
+
+Wenn n Trainingsdaten X d-dimensional, dann:
+
+$$ p(x) = {1 \over \sqrt{ (s \pi)^d det(\Sigma)}} e ^ { - 1 (x - \mu)^T \Sigma^{-1} (x - \mu) \over 2 } $$
+
+Wobei $\Sigma$ die Kovarianzmatrix ist: $$ Cov(X) = (Cov(X_i, X_j)) $$ für i, j= 1...n
+
+ - sie ist symmetrisch und positiv (semi-)definit
+ - wird als Ellipsoid dargestellt
+ - die Diagonaleinträge sind für "echte" Normalverteilungen größer 0
+ - Wenn alle Werte außerhalb der Diagonalen Null, dann sind die Achsen des Ellipsoiden
+   parallel zu den Hauptachsen und das heißt, dass die Dimensionen von X dekorreliert sind
+
+### GMM
+
+Gaussian Mixture Model bzw. Gauß-Mischverteilung
+
+[Visualisierung](https://en.wikipedia.org/wiki/Expectation%E2%80%93maximization_algorithm#Gaussian_mixture)
+
+Viele reale Prozesse sind aber nicht normalverteilt. Menschliche Sprache auch nicht.
+
+Dafür nähert man die gesucht Wahrscheinlichkeitsverteilung durch ein gewichtetes
+Aufaddieren von Gaußglocken an.
+
+$$ p(x) = \sigma_{i=1}^{k}{c_i \mathcal{N}(\mu_i, \Sigma)} $$
+
+Um Parameter und Rechenzeit zu sparen, werden nur Diagonalelemente in $\Sigma$
+verwendet. Das heißt, dass wir eine Modellannahme machen und zwar, dass die
+Ellipsoiden nicht gedreht sind.
+Diesem Nachteil kann man durch mehrere Mischungen von Glocken entgegenwirken.
+
+Man rechnet mit $log p(x)$, da der log monoton, entfällt dadurch die Auswertung
+der kostspieligen e-Funktion (Taylorreihenentwicklung), aber die wichtigen
+Eigenschaften von p bleiben bestehen. Meistens wird sowieso nur min und max betrachtet.
+Der log ist auch numerisch stabiler.
+
+Diese GMM entspricht der Mahalanobis-Distanz zwischen einem gegeben Vektor und
+dem Mittelwertsvektor. log-skalierte Mahalanobis-Distanz
+
+Auf GMM kann log leider nicht direkt angewandt werden, weil es sich um eine Summe
+handelt.
+
+Wie findet man Mittelwert und Kovarianzmatrix?
+
+### Vektorquantisierung
+
+VQ: Vektorquantisierung
+
+Zwischenspiel. Eigentlich wollen wir für unsere Rechnungen die Varianz und das
+Kontinuierliche wieder loswerden. Und wir wollen nicht mit dem gesamten Merkmalsraum
+rechnen.
+
+Abbildung gesucht: $R^n \to N$, um reelle Vektoren auf Index in Repräsentantenvektoren
+zu beziehen.
+
+Das heißt, wir suchen für jeden Merkmalsvektor x den "nächsten" Referenzvektor $\mu_i$:
+$$ I(X) = arg_i min d(X, \mu_i) $$
+Dabei entsteht zwangsläufig ein Quantisierungsfehler, den wir minimieren wollen.
+
+Welche Distanz?
+Wenn man Euklid wählt, dann teilt man den Raum in **Voronoi-Regionen** ein.
+Jede Region enthält nur einen Referenzvektor, dieser wird dann für alle Punkte genutzt,
+die in diese Region fallen.
+Nachteil: Liefert unintuitive Ergebnisse für Menschen, weil nicht die Varianz
+der Daten betrachtet wird.
+
+Deswegen nutzen wir die **Mahalanobis-Distanz**, weil sie die Streuung der Daten
+mitberücksichtigt. Diese Streuung muss aber im Vorhinein geschätzt werden.
+Für diese Schätzung muss also klar sein, welchen Referenzvektoren die Trainingsdaten x
+zugeordnet werden.
+
+**Klassifikationsproblem**: Gegeben Vektor x finde passenden Referenzvektor $\mu_i$.
+
+Probleme:
+ - Ausreißer in den Trainingsdaten verzerren Schätzung der Repräsentanten
+ - Immer nur einen Repräsentanten bis jetzt betrachtet. Wenn ein Punkt aber
+   genau zwischen zwei Repräsentanten liegt, dann würde man lieber mehr betrachten.
+
+**K-Nächste Nachbarn**: Bestimme für einen neuen Vektor die Klassen der k
+nächsten Nachbarn. Nimm die häufigst auftretende Klasse für die Klassifikation des
+Vektors.
+
+Bei vielen Referenzvektoren (16...1024) für viele Klassen (10e4 ... 10e5) und
+einer Dimensionalität der Vektoren (16...48), hat man zu hohen Rechenaufwand.
+
+-> Beschleunigung nötig!
+
+ - Keine garantierte Beschleunigung und immernoch korrektes Ergebnis: **Las Vegas**
+ - Garantierte Beschleunigung aber nicht unbedingt korrektes Ergebnis: **Monte Carlo**
+
+[Las Vegas und Monte Carlo Beispiel](https://yourbasic.org/algorithms/las-vegas/)
+
+Standardbeispiel beim Finden eines Minimums:
+Randomisiertes Ziehen (Sampling) ist abhängig von Annahme über Verteilung der Daten
+
+**Beschleunigung von knn:**
+
+Early abortion:
+Breche Distanzberechnungen ab, sobald betrachteter Vektor aktuelles Maximum überschritten hat.
+Garantiert korrektes Ergebnis und Beschleunigung außer Liste war aufsteigend sortiert.
+
+---
+
+Organisiere Merkmalsraum in Baumstruktur. An jedem Knoten liegt Entscheidung
+in Form einer Hyperebene in einer Dimension vor. Wenn Vektor x links, dann links absteigen etc.
+Die Blätter enthalten dann nur noch weniger nächste Nachbarn.
+
+Die Entscheidungsknoten werden entlang der größten restlichen Varianz getroffen.
+Berechne Richtung der größten Varianz und teile sie in links und rechts.
+
+**Beschleunigung GMM**:
+
+ - Nur den Wert der nächsten Gaußglocke wählen
+ - Baumstruktur
+ - Early abortion
+
+## 12. Vorlesung
+
+28.11.2018
+
+Woher kommen die Quantisierungsstufen?
+
+Wir wollen sie an die Daten anpassen indem wir Referenzvektoren finden.
+
+Keine gute Idee: Unterteile Raum in Gitter. Das ist , wenn die Daten nicht gleichverteilt
+
+### k-means
+
+**Unüberwachte k-Mittelwerte**:
+
+Gesucht sind die k Referenzvektoren.
+
+1. Initialisiere zufällig k Referenzvektoren
+2. Ordne jedem Trainingsvektor seinen nähsten Referenzvektor zu
+3. Durchschnitt einer Nachbarschaft ist neuer Referenzvektor
+
+Abbruch nach fester Anzahl Iterationen oder Distanz aller Vektoren unter Schwellwert
+oder durch Kreuzvalidierung mit gelabelten Trainingsdaten.
+
+### Learning VQ
+
+Überwacht
+
+Gesucht: Referenzvektoren
+
+Bewege Referenzpunkt hin zu Objekten seiner Klasse und weg von den anderen.
+Wie groß soll die Bewegung sein?
+
+Das erinnert an die Backpropagation, bzw. davon an die Bewegung auf der Fehleroberfläche.
+
+**LVQ2**: Bestimme die beiden nächstgelegenen Repräsentaten. Wenn beide unterschiedlich,
+dann verschiebe Referenz.
+
+**LVQ3**: Auch Update wenn beide Repräsentanten gleich weit weg
+
+LVQ kann als ein sehr einfaches neuronales Netzwerk interpretiert werden.
+
+Unter dem Strich kann k-means für die Initialisierung von GMM genutzt werden.
+Wir brauchen dafür: $\mu, \sigma$ und die Gewichtung der einzelnen Glocken.
+
+### Stochastik ASR
+
+Wir modellieren die Variabilität der Sprache mit Statistik.
+Für die Zeitvariabilität hatten wir DTW eingeführt.
+
+Für die unterschiedliche Ausprägung der Merkmale die Mahalanobis-Distanz.
+-> Bei einem großen Vokabular (400.000 Wörter) benötigen wir für jedes Wort
+eine Referenz. Und von jedem Wort am besten 1000 Aufnahmen um der Variabilität
+gerecht zu werden. Das wäre 4 x 10e8 Wörter. **Schwer zu sammeln!**
+Und die Grammatik fehlt da auch noch.
+
+Stattdessen hätten wir lieber kleine Bauteile, die zu beliebigen Wörtern zusammengesetzt
+werden können.
+
+### Fundamentalformel
+
+Dr. Stüker erwartet, dass man diese Formel nachts um 3:00 aufsagen kann:
+
+Naiver Bayes-Klassifikator:
+$$ \hat{W} = arg_w max P(W|X) = $$
+
+Anwendung der Bayes-Formel:
+
+$$ arg_w max { P(X|W) \cdot P(W) \over P(X)} $$
+
+Weil es um die Maximierung geht, können wir nur den Zähler betrachten
+
+$$ arg_W max P(X|W) \cdot P(W) $$
+
+$\hat{W}$ ist die Sequenz von Wörtern. W ist alle möglichen Sequenzen.
+X ist die "Aufnahme" nach der Vorverarbeitung.
+
+Also: Wähle $\hat{W}$ als wahrscheinlichste Wortfolge gegeben der Aufnahmedaten X.
+
+Nebenspiel: Warum ist die Sequenz nicht unendlich groß?
+
+ - maximale Sprechgeschwindigkeit
+ - Diskretisierung (-> mehr als ein Wort pro Frame)
+ - Inventar der Phoneme ist endlich
+
+$P(W|X)$ schwer zu modellieren, deswegen Bayes-Formel angewendet.
+
+Wir sind nicht interessiert, wie wahrscheinlich W ist, sondern wie sie aussieht.
+-> nur Zähler maximieren
+
+$\hat{W}$ heißt **Hypothese** und X **Merkmalsvektor**.
+
+P(X|W) ist da **akustische Modell**: Wie klingt die Wortfolge, wenn sie bei mir ankommt?
+Das ist die klassenbedingte Wahrscheinlichkeit einer Aufnahme (a-priori)
+
+P(W) ist **Sprachmodell**: Welche Wortfolgen sind wie wahrscheinlich?
+Die Wahrscheinlichkeiten von Sequenzen (a-priori) -> kann man zum Beispiel aus Textkorpora herausbekommen
+
+Mit Bayes minimiert man die Wahrscheinlichkeit für einen Klassifikationsfehler.
+Also die "Satzfehlerrate" (nur komplette Sequenzen). Sie sind entweder richtig oder nicht.
+Was wir nicht minimieren ist soetwas wie eine Levenshtein-Distanz.
+
+Klassifikatoren mit Wortfehlerrate zu bauen ist schwierig und wurde erst später
+realisierbar (kommt noch in der Vorlesung).
+
+### MM
+
+Markov-Modell
+
+Annahme: Sprachproduktion ist ein stochastischer Prozess.
+
+Gegeben ist ein Wahrscheinlichkeitsraum $( \Omega, F, P)$ mit:
+
+- Ergebnisse Omega
+- Ereignisse F
+- Wahrscheinlichkeiten von Ereignissen
+
+F Sigma-Algebra
+
+Ereignismenge ist abgeschlossen ggü. Vereinigung, Komplementbildung...
+
+Definition Zufallsvariable...
+
+F-Z-messbar...
+
+Zustände Z
+
+Wenn t ganzzahlig, dann ist es ein zeitdiskreter stochastischer Prozess.
+
+Für ASR nutzen wir zeitdiskrete Markov-Ketten.
+
+Eine Markov-Kette n-ter Ordnung: $X = (X_t)t=1..n$
+
+Annahme: Zustandsübergang ist nur von den vorherigen n-1 Zuständen abhängig.
+
+Für ASR nutzen wir noch einfachere Ketten: Markow-Kette erster Ordnung (also n=1)
+
+- Anfangsverteilung: $\mu$
+  Wahrscheinlichkeitsvektor der Anfangszustände: $\pi = (\pi_1 .. \pi_n)$ mit jedem $\pi_i >= 0$
+- $\sum \pi_i = 1$
+- Übergangswahrscheinlichkeiten $p_{ij}(t) := P(X_{t+1}=s_j \| X_t = s_i)$
+
+Wenn man die Abhängigkeit von t entfernt, dann kommt man zur **homogenen Markow-Kette**:
+$p_ij (t) = p_ij  \forall t$
+
+Diese ist vollständig beschrieben durch:
+
+ - Zustandsfolge S
+ - Anfang $\mu$
+ - Übergang $p_ij$
+
+Ein einfaches Beispiel dafür ist ein Wettermodell.
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/NKoPwE2LQhc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+Man kann dann auch Folgen von Zuständen zufällig generieren. Siehe Namensgenerator.
+Die Namen klingen richtig. Der Mensch scheint ebenfalls eine Modellierung dieser
+Art zu machen. Das ist als Bestätigung der These zu sehen, dass Sprache als
+stochastischer Prozess modelliert werden können
+
+Problem: Bei Sprache sieht man aber keine Buchstaben sondern Merkmalsvektoren.
+Wenn man ein Wort ausspricht, dann durchläuft man im modell Zustände.
+Diese Zustände könnten Phoneme sein.
+
+Es ist aber nicht beobachtbar, welche Phonemzustände durchschritten wurden.
+
+### HMM
+
+Hidden Markov Model
+
+Wir wissen nicht, welche Zustände Beobachtungen produzieren.
+
+Wenn Münzwurf hinter Vorhang passiert, dann können wir nicht den Zustand beobachten.
+Eine Person hinter dem Vorhang sagt uns aber, was das Ergebnis war.
+
+Aufgabe an die Zuschauer ist nach einer Sequenz von beobachteten Merkmalen,
+die Zustandsfolge herauszufinden -> ASR
+
+Dazu nächste Vorlesung mehr.
+
+
+ Literaturempfehlung für HMM:
+
+ [A tutorial on HMM and selected applications](https://www.robots.ox.ac.uk/~vgg/rg/papers/hmm.pdf)
+ Das Tutorial ist immernoch gut. Die Anwendungsfälle eher nicht mehr.
+
+ [Slides dazu](https://www.robots.ox.ac.uk/~vgg/rg/slides/hmm.pdf)
+
+
+
+ Neuerdings gibt es folgenden Ansatz:
+ P(W|X) direkt mit Neuronalem Netz und sehr vielen Daten schätzen.
+
+ 2000: Waren 80h gelabelte Trainingsdaten sehr viel
+ 2018: Heute sind es 140.000 h aus einer speziellen Domäne. Nur die großen Firmen
+ haben die Rechenkapazität und Daten für solches Training
+
+ Für jede Domäne, die nicht so viele Daten angesammelt hat, sind die HMMs
+ weiterhin ein sehr guter Kompromiss.
