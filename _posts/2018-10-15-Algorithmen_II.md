@@ -35,6 +35,7 @@ tags: lecture
 - **20.11.2018**: 6-3 bis Ende Kapitel 6; Übung 5
 - **26.11.2018**: Kapitel 7
 - **27.11.2018**: Kapitel 8-1 bis 8-6; Übung 6
+- **03.12.2018**: Kapitel 8-7 bis Ende, Kapitel 9-1 bis 9-7
 
 
 ### Material
@@ -421,16 +422,97 @@ offline:
 - $L_i$: $ \sum_{x(j)=i} t_j $ Last von Maschine i
 - Zielfunktion: Minimiere Makespan $L_{max} = max_i L_i$   
 
-*$L_{max} bei vielen kleinen Jobs:* 
+*$L_{max}$ bei vielen kleinen Jobs:* 
 - *obere Schranke:* Falls $l$ der zuletzt beendete Job ist: $L_{max} ≤ \sum_j \frac{t_j}{m} + \frac{m-1}{m} t_l$
 - *untere Schranken:* $L_{max} ≥ \sum_j \frac{t_j}{m}$ und $L_{max} ≥ max_j t_j$
 
 **Approximationsfaktor**: Ein Minimierungsalgorithmus erzielt einen Approximationsfator $\rho$ bezüglich Zielfunktion $f$, 
-falls er für alle Eingaben $I$, eine Lösung $x(I)$ findet, so dass: $ \frac{f(x(I)}{f(x*(I))} ≤ \rho $ wobei $x*(I)$ die optimale
+falls er für alle Eingaben $I$, eine Lösung $x(I)$ findet, so dass: $ \frac{f(x(I))}{f(x\*(I))} ≤ \rho $ wobei $x*(I)$ die optimale
 Lösung für die Eingabe $I$ bezeichnet.  
 → List Scheduling erzielt einen Approximationsfaktor von $2-\frac{1}{m}$
 
 *Ende Vorlesung vom 27.11.2018*
+
+**Traveling Salesman Problem (TSP)**: ist ein NP-vollständiges Problem, bei dem eine Reihenfolge für den Besuch mehrerer 
+Orte so zu wählen ist, dass keine Station außer der ersten mehr als einmal besucht wird, die gesamte Reisestrecke des 
+Handlungsreisenden möglichst kurz und die erste Station gleich der letzten Station ist.  
+
+*Nichtapproximierbarkeit des TSP:* Gegeben ein Graph G = (V,V × V), finde einen einfachen Kreis C = (v_1,v_2,...,v_n,v_1), 
+so dass n = |V| und $\sum_{(u,v) \in C} d(u,v)$ minimiert wird. Es ist NP-hart TSP innerhalb irgendeines Faktors a zu approximieren. 
+Aus diesem Grund werden nun Abschätzungen getroffen:
+
+**Abschätzung durch Hamiltonkreis**: HamiltonCycle $≤_p$ a-Approximation von TSP 
+
+*Hamiltonkreis*: ist ein geschlossener Pfad in einem Graphen,der jeden Knoten genau einmal enthält. Das Hamiltonkreisproblem NP-vollständig.
+
+**2-Approximation durch minimalen Spannbaum (MST)**: *Gesamtgewicht MST ≤ Gesamtgewicht jeder TSP-Tour*
+
+*Euler-Kreis*: Ein Euler-Kreis ist ein Zyklus, der alle Kanten eines Graphen genau einmal enthält. 
+Ein beliebiger zusammenhängender, ungerichteter Graph G = (V,E) und |E| = m hat einen Euler-Kreis genau dann, 
+wenn G zusammenhängend und alle Knoten einen geraden Grad haben.   
+*Analyse:* Euler-Kreise lassen sich in O(|E| + |V|) finden.
+
+*Minimale Spannbäume*: Ein Spannbaum ist ein Teilgraph eines ungerichteten Graphen, der ein Baum ist und alle Knoten 
+dieses Graphen enthält. Spannbäume existieren nur in zusammenhängenden Graphen. Ein Spannbaum ist*minimal*, wenn kein anderer 
+Spannbaum in demselben Graphen mit geringerem Gewicht existiert. 
+
+(Überschrift Approximationsklassen)
+
+**Pseudopolynomielle Algorithmen**: Eine Möglichkeit mit Problemen umzugehen, die ansonsten NP-hart sind sind *Pseudopolynomielle
+Algorithmen*.  Ein Algorithmus A ist ein polynomieller Algorithmus wenn seine Laufzeit ein Polynom im numerischen Wert der Eingabe ist 
+(A(n) ∈ P(n)). Dabei ist n die Anzahl der Eingabebits, wenn alle Zahlen unär (Beispiel: 0: , 1: |, 4: ||||) kodiert werden.
+
+*Rucksackproblem als Polynomieller Algorithmus*: Aus einer Menge n von Objekten, die jeweils ein Gewicht $w_i$ und einen Profit $p_i$ haben, soll eine Teilmenge x 
+ausgewählt werden, deren Gesamtgewicht eine vorgegebene Gewichtsschranke W nicht überschreitet. Unter dieser Bedingung 
+soll der Profit P der ausgewählten Objekte maximiert werden.   
+Die kleinste Kapazität der Gegenstände 1,...,i die einen Profit ≥ P ergeben: $ ∀ 1 ≤ i ≤ n : C(i, P) = min(C(i − 1, P),C(i − 1, P − p_i ) + w_i )$
+*Analyse:* P̂ ist die obere Schranke für den Profit: O(nP̂) pseudo polynomiell und Speicherbedarf P̂ + O(n) Maschinenworte plus P̂n bits
+
+**Polynomial Time Approximation Scheme (PTAS)**: für eine eingegebene Instanz I sowie einen Fehlerparameter ε, bei
+ einer Polynomiellen Zeit in |I|, ist ein Algorithmus A ist ein Polynomial Time Approximation Scheme (PTAS) für
+- *Minimization Problem*, wenn  die Ausgabequalität f(x) = (1+ε)opt.   
+- *Maximization Problem*, die Ausgabequalität f(x) = (1-ε)opt.
+   
+**Fully Polynomial Time Approximation Scheme (FPTAS)**: Wenn ein PTAS zudem polynomielle Güte 
+1/ε benötigt, heißt er Fully Polynomial Time Approximation Scheme (FPTAS).
+
+*Beispielschranken:*
+- PTAS: $n+2^{1/ε}, n{log 1/ε}, n^{1/ε}, n^{42/ε³}, n+2^{2^{1000/ε}}$
+- FPTAS: $n²+\frac{1}{ε}, n+\frac{1}{ε⁴}, \frac{n}{3} $
+
+(Hier Bild approximationsklassen.png einfügen)
+
+**FPTAS für das Rucksackproblem**: maximaler Einzelprofit $P := max_i p_i$, Skalierungsfaktor 
+$K := \frac{εP}{n}$, skaliere Profiten $p_i^' := \lfloor \frac{p_i}{K} \rfloor$, x' := dynamicProgrammingByProfit(p',w,C)
+gibt x' aus
+*Analyse*: p·x′ ≥ (1 − ε)opt und O(n³/ε)
+
+### Fixed-Parameter-Algorithmen
+Eine weiter Möglichkeit mit NP-harten Problemen umzugehen sind *Fixed Parameter Algorithmen*. Neben der Eingabegröße gibt es nun
+einen zweiten Parameter *k*. Dieser kann beispielweise k = Ausgabegröße gewählt werden.
+
+**Fixed Parameter Tractable**: Formal ist ein Problem parametrisierbar (auch: fixed parameter tractable oder FPT), 
+wenn ein Algorithmus existiert, der es mit einer Laufzeit von  $O(f(k) \cdot p(n))$ löst, 
+wobei f eine berechenbare Funktion, k der Parameter, p ein beliebiges Polynom und n die Eingabelänge ist. f ist unabhängig von n
+und p ist unabhängig von k.
+
+*Beispiele:* $2^k n^k, k^{k!}n^333, n + 1.1^k$   
+*Gegenbeispiele:* $n^k, n^{log log k}$
+
+**Vertex Cover**: ist ein klassisches NP-hartes Problem und ein trivialer Brute-Force-Algorithmus $(O(n^(k+1))$. Ein Vertex Cover ist
+zu einem gegebenen einfachen Graphen und einer natürlichen Zahl k eine Knotenüberdeckung der Größe von 
+höchstens k. In anderen Worten: Eine Teilmenge U, die aus maximal k Knoten besteht, ist ein Vertex Cover, wenn jede Kante des 
+Graphen mit mindestens einem Knoten aus U verbunden ist. 
+
+(Hier Bild vertex-cover.png einfügen)
+
+Vertex Cover ist ein FPT bezüglich des Parameters der Ausgabekomplexität. Mit Hilfe der Entwurfstechniken *Kernbildung* und *Suche mit
+beschränkter Tiefe* werden zwei Algorithmen zu Lösung von Vertex Cover Problemen entwickelt:
+- *Kernbildung (Kernelization):* Reduktionsregeln reduzieren das Problem aus die Größe O(f(k)) (also wird p(n) wegreduziert)
+- *Systematische Suche mit beschränkter Tiefe:* Parameter k beschränkt die Tiefe. Für den Fall k = 0 bricht der Algorithmus ab und die Laufzeit
+wird damit beschränkt.
+
+
 
 ## Übung
 ### Übung 1
