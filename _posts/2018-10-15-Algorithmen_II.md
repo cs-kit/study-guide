@@ -414,7 +414,8 @@ Elemente x = read(a) und y = read(b), von j=1 bis a+b: if x ≤ x → write(c), 
 ### Approximationsalgorithmen
 
 > Umgang mit NP-harten Probleme, fast alle interessanten Optimierungsprobleme sind NP-hart → trotzdem optimale Lösungen suchen und riskieren, dass 
-Algorithmus nicht fertig wird, wie gut ist Lösung? → **Approximationsalgorithmen**: polynomielle Ausführungszeit, aber Lösung "nah" am Optimum
+Algorithmus nicht fertig wird, wie gut ist Lösung? → **Approximationsalgorithmen**: polynomielle Ausführungszeit, aber Lösung die "nah" am Optimum 
+ist, also die *effiziente* Berechnung einer *vernünftigen Näherung*.
 
 **Scheduling** unabhängiger gewichteter Jobs auf parallelen Maschinen: identische Maschinen, unabhängige Jobs, bekannte Ausführungszeiten, 
 offline:
@@ -426,10 +427,15 @@ offline:
 - *obere Schranke:* Falls $l$ der zuletzt beendete Job ist: $L_{max} ≤ \sum_j \frac{t_j}{m} + \frac{m-1}{m} t_l$
 - *untere Schranken:* $L_{max} ≥ \sum_j \frac{t_j}{m}$ und $L_{max} ≥ max_j t_j$
 
-**Approximationsfaktor**: Ein Minimierungsalgorithmus erzielt einen Approximationsfator $\rho$ bezüglich Zielfunktion $f$, 
-falls er für alle Eingaben $I$, eine Lösung $x(I)$ findet, so dass: $ \frac{f(x(I))}{f(x\*(I))} ≤ \rho $ wobei $x*(I)$ die optimale
-Lösung für die Eingabe $I$ bezeichnet.  
+**Approximationsfaktor**: Der Approximationsfaktor ist das *Gütekriterium* eines Approximationsalgorithmuses. 
+Ein Minimierungsalgorithmus ALG erzielt einen Approximationsfator $\rho$ bezüglich Zielfunktion $f$, 
+falls er für alle Eingaben $I$, eine Lösung $ALG(I)$ findet, so dass: $ \frac{f(ALG(I))}{f(OPT\*(I))} ≤ \rho $ wobei $OPT(I)$ die optimale
+Lösung für die Eingabe $I$ bezeichnet.     
 → List Scheduling erzielt einen Approximationsfaktor von $2-\frac{1}{m}$
+*Beispiel*: Ein Algorithmus ALG schätzt die Distanz einer Strecke x auf die nächste Zweierpotenz $2^{\lceil log\|x\| \rceil}$.
+Der Algorithmus OPT bestimmt die korrekte Distanz \|x\|: $\frac{w(ALG)}{w(OPT)} = \frac{2^{\lceil log\|x\| \rceil}{\|x\|}} 
+≤ \frac{2^{log \|x\| + 1}}{\|x\|}} = \frac{2\|x\|}{\|x\|} = 2 = \rho$   
+Für $\|x\| = 2^{10} + 1 → \frac{2^{11}}{2^{10}+1} = s - \frac{2}{2^{10}+1} ≈ 2 $
 
 *Ende Vorlesung vom 27.11.2018*
 
@@ -456,17 +462,33 @@ wenn G zusammenhängend und alle Knoten einen geraden Grad haben.
 dieses Graphen enthält. Spannbäume existieren nur in zusammenhängenden Graphen. Ein Spannbaum ist*minimal*, wenn kein anderer 
 Spannbaum in demselben Graphen mit geringerem Gewicht existiert. 
 
+*3/2 Approximations Algorithmus für TSP:* Gegeben Graph G = (V,E) (vollständig, ungerichtet): 
+(hier Abbildung TSP-graph.png einfügen)
+1. bestimmte MST T
+2. bestimmte Knoten U mit ungeradem Grad in T
+3. finde minimales perfektes Matching M auf (U,E) (Summe der Gewichte der Matchingkanten minimal)
+4. fügen Kanten M zu T → T' hinzu
+5. bestimme Eulerkreis EK auf T' (alle Knoten haben geraden Grad)
+6. wandle EK zu Hamiltonkreis
+
+(Hier alle 6 Abbildungen einfügen TSP-i.png)
+
+*Beweis:* Zunächst folgende Abschätzung: w(HK) ≤ w(EK) = w(T') = w(T) + w(M) ≤ w(OPT) + w(M).
+Nun muss w(M) bestimmt werden: 
+- Sei HK' ein Hamiltonkreis auf U (Knoten mit ungeradem Grad T) (erzeugt durch Überspringen aller
+Knoten V ohne den Knoten in U im OPT) (Abbildung beweis-tsp-hk.png)
+- definiere alternierende perfekte Matchings $M_1, M_2$ auf HK' (muss existieren, da |U| gerade, HK' = $M_1 \cup M_2$)  
+(Abbildungen beweis-tsp-m1.png und beweis-tsp-m2.png)    
+→ $w(M) ≤ w(M_1), w(M) ≤ w(M_2)$ (M min. Matching!)  
+→ $2·w(M) ≤ w(M_1) + w(M_2) = w(HK') ≤ w(OPT)$  (Überspringen gerader Knoten und Dreiecks-Ungleichung)  
+Daraus ergibt sich die Abschätzung: $w(HK) ≤ \frac{3}{2} w(OPT)$  
+
+
 (Überschrift Approximationsklassen)
 
-**Pseudopolynomielle Algorithmen**: Eine Möglichkeit mit Problemen umzugehen, die ansonsten NP-hart sind sind *Pseudopolynomielle
+**Pseudopolynomielle Algorithmen (APX)**: Eine Möglichkeit mit Problemen umzugehen, die ansonsten NP-hart sind sind *Pseudopolynomielle
 Algorithmen*.  Ein Algorithmus A ist ein polynomieller Algorithmus wenn seine Laufzeit ein Polynom im numerischen Wert der Eingabe ist 
 (A(n) ∈ P(n)). Dabei ist n die Anzahl der Eingabebits, wenn alle Zahlen unär (Beispiel: 0: , 1: |, 4: ||||) kodiert werden.
-
-*Rucksackproblem als Polynomieller Algorithmus*: Aus einer Menge n von Objekten, die jeweils ein Gewicht $w_i$ und einen Profit $p_i$ haben, soll eine Teilmenge x 
-ausgewählt werden, deren Gesamtgewicht eine vorgegebene Gewichtsschranke W nicht überschreitet. Unter dieser Bedingung 
-soll der Profit P der ausgewählten Objekte maximiert werden.   
-Die kleinste Kapazität der Gegenstände 1,...,i die einen Profit ≥ P ergeben: $ ∀ 1 ≤ i ≤ n : C(i, P) = min(C(i − 1, P),C(i − 1, P − p_i ) + w_i )$
-*Analyse:* P̂ ist die obere Schranke für den Profit: O(nP̂) pseudo polynomiell und Speicherbedarf P̂ + O(n) Maschinenworte plus P̂n bits
 
 **Polynomial Time Approximation Scheme (PTAS)**: für eine eingegebene Instanz I sowie einen Fehlerparameter ε, bei
  einer Polynomiellen Zeit in |I|, ist ein Algorithmus A ist ein Polynomial Time Approximation Scheme (PTAS) für
@@ -476,14 +498,29 @@ Die kleinste Kapazität der Gegenstände 1,...,i die einen Profit ≥ P ergeben:
 **Fully Polynomial Time Approximation Scheme (FPTAS)**: Wenn ein PTAS zudem polynomielle Güte 
 1/ε benötigt, heißt er Fully Polynomial Time Approximation Scheme (FPTAS).
 
+**Übersicht**:
+- *Approximable (APX):* ρ = konstant, T polynomiell in n (z.B. $T(n, ε) = n^{\frac{1}{ε}}, ρ(n, ε) = 2$)
+- *Polynomial time approximation scheme (PTAS):* ρ = 1 ± ε, bel. ε ∈ ( 0 , 1 ) , T poly. in n  (z.B. $T(n, ε) = n^{\frac{1}{ε}}, ρ(n, ε) = 1 - ε$)
+- *Fully Polynomial time approximation scheme (FPTAS):* ρ = 1 ± ε, bel. ε ∈ ( 0 , 1 ) , T poly. in n  (z.B. $T(n, ε) = \frac{1}{ε}n, ρ(n, ε) = 1 + 2ε$)
+
+(Hier Bild approximationsklassen.png einfügen)
+
 *Beispielschranken:*
 - PTAS: $n+2^{1/ε}, n{log 1/ε}, n^{1/ε}, n^{42/ε³}, n+2^{2^{1000/ε}}$
 - FPTAS: $n²+\frac{1}{ε}, n+\frac{1}{ε⁴}, \frac{n}{3} $
 
 (Hier Bild approximationsklassen.png einfügen)
 
+(Überschrift Beispielalgorithmen Approximationsklassen)
+
+**Rucksackproblem als Polynomieller Algorithmus**: Aus einer Menge n von Objekten, die jeweils ein Gewicht $w_i$ und einen Profit $p_i$ haben, soll eine Teilmenge x 
+ausgewählt werden, deren Gesamtgewicht eine vorgegebene Gewichtsschranke W nicht überschreitet. Unter dieser Bedingung 
+soll der Profit P der ausgewählten Objekte maximiert werden.   
+Die kleinste Kapazität der Gegenstände 1,...,i die einen Profit ≥ P ergeben: $ ∀ 1 ≤ i ≤ n : C(i, P) = min(C(i − 1, P),C(i − 1, P − p_i ) + w_i )$
+*Analyse:* P̂ ist die obere Schranke für den Profit: O(nP̂) pseudo polynomiell und Speicherbedarf P̂ + O(n) Maschinenworte plus P̂n bits
+
 **FPTAS für das Rucksackproblem**: maximaler Einzelprofit $P := max_i p_i$, Skalierungsfaktor 
-$K := \frac{εP}{n}$, skaliere Profiten $p_i^' := \lfloor \frac{p_i}{K} \rfloor$, x' := dynamicProgrammingByProfit(p',w,C)
+$K := \frac{εP}{n}$, skaliere Profiten $p_{i^{'}} := \lfloor \frac{p_i}{K} \rfloor$, x' := dynamicProgrammingByProfit(p',w,C)
 gibt x' aus
 *Analyse*: p·x′ ≥ (1 − ε)opt und O(n³/ε)
 
@@ -508,9 +545,37 @@ Graphen mit mindestens einem Knoten aus U verbunden ist.
 
 Vertex Cover ist ein FPT bezüglich des Parameters der Ausgabekomplexität. Mit Hilfe der Entwurfstechniken *Kernbildung* und *Suche mit
 beschränkter Tiefe* werden zwei Algorithmen zu Lösung von Vertex Cover Problemen entwickelt:
-- *Kernbildung (Kernelization):* Reduktionsregeln reduzieren das Problem aus die Größe O(f(k)) (also wird p(n) wegreduziert)
-- *Systematische Suche mit beschränkter Tiefe:* Parameter k beschränkt die Tiefe. Für den Fall k = 0 bricht der Algorithmus ab und die Laufzeit
-wird damit beschränkt.
+
+*Kernbildung (Kernelization):* Reduktionsregeln reduzieren das Problem aus die Größe O(f(k)) (also wird p(n) wegreduziert). Die Beobachtung
+hinter der Idee der Kernbildung ist, dass alle Knoten v größer sein müssen als k. Daraus ergibt sich, dass v entweder in der Lösung
+des Vertex Covers liegen muss oder es keine Lösung für das Vertex Cover problem gibt. Insgesamt ergibt sich damit eine Laufzeit 
+von $O(nk+2^kk^2)$   
+Kernbildung ist außerdem eine wichtige Vor/Zwischenverarbeitungsstrategie für Optimierungsprobleme und auch polynomiell lösbar.
+
+(Hier Bild kernbildung.png einfügen)
+(Hier Bild bsp-kernbildung.png einfügen)
+
+*Systematische Suche mit beschränkter Tiefe:* Parameter k beschränkt die Tiefe. Für den Fall k = 0 bricht der Algorithmus ab und die Laufzeit
+wird damit beschränkt. Die Rekursionstiefe k führt zu $O(2^k)$ rekursiven Aufrufen, also insgesamt zu einer Laufzeit von $O(2^k(n+m))$. Die Lösung der
+Rekursion: T(k) = (n+m) + 2T(k-1).
+
+(Hier Bild tiefenbeschr-suche.png einfügen)
+
+### Parallele Algorithmen
+Parallele Algorithmen werden eingesetzt, um eine bessere Performance zu erreichen.
+- *Geschwindigkeitssteigerung:* Eine Anzahl von p Computern können ein Problem bis zu p mal so schnell lösen. Allerdings sind
+dabei gute Koordinationsalgorithmen notwendig.
+- *Energieersparnis:* Wenn zwei Prozessoren mit halber Taktfrequenz arbeiten, benötigen sie weniger Energie als ein voll getakteter Prozessor.
+- *Speicherbeschränkung* von Einzelprozessoren
+- *Kommunikationsersparnis:* Wenn Daten anfallen, kann man sie auch parallel (verteilt) (vor)verarbeiten.
+
+**Modell Nachrichtengekoppelte Parallelrechner**: In nachrichtengekoppelten Parallelrechner existieren P *Prozessoren*, die *RAMs* sind.
+Eine *asynchrone Programmabarbeitung* ist gewährleistet, sowie *Interaktion* der Prozessoren durch *Nachrichtenaustausch*. Jeder
+Prozessor kann gleichzeitig maximal eine Nachricht senden und empfangen (vollduplex). Dabei existiert eine *Punkt-zu-Punkt* Verbindung,
+sowie eine *vollständige Verknüfung*. Für eine Nachrichtenlänge l dauert der Austausch der Nachricht $T_{comm}(l) = T_{start} + l T_{byte}$.
+Wobei $T_{start}$ die Latenz ist und $T_{byte}$ die Kommunikationsbandbreite, welche stets größer als $T_{start}$ ist.
+
+(Hier Bild modell-nachr-parallel.png einfügen)
 
 
 
