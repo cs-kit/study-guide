@@ -828,4 +828,34 @@ packet loss is assumed; SSTresh (Slow Start Threshold)
 retransmisson timer expires, then retransmit, BUT to be faster: retransmission after
 receipt of specific number of duplicate ACKS e.g. 3
 
+#### Analysis of Improvements
+After observing Congestion Collapses the following mechanisms were introduced to the original TCP:
+- Slow-Start 
+- Round-trip time variance estimation
+- Exponential retransmission timer backoff
+- dynamic window sizing on congestion
+- more aggressice reciever achknoledgement policy
+
+→ packet conversation: keep TCP connection stable and achieve network stability
+
+**Self-Clocking**: is valid for any window-based system (TCP uses window-based flow control)   
+*Basic Assumption:* Complete flow control window in transit (TCP: receive window RcvWindow), 
+Bottleneck link with low data rate on path to receiver   
+*Basic scenario:* graue Kästchen = Pakete, Pakete vom schnellen Link auf langsamen Link geschickt → Auswirkung auf Sendezeit (da
+abhängig von Datenrate) → muss durch Bottleneck und braucht länger → *Inter Packet Gap* heißt Lücke die dadurch entsteht, bis 
+neues Packet sich durch Bottleneck gequetscht hat. Dieser wird recht groß und man wird ihn nichtmehr los. Packete werden
+im Zeitraum des Inter-Packet-Gaps weitergeschickt. Ziel ist es Zustand zu erzielen und zu halten.
+
+**Three Ways for Packet Conservation to fail**
+*1) Connection does not get to equilibrium*
+**Slow Start** brings TCP connection into equilibrium if connection has just started or restart after assumption of congestion.
+The idea of slow start is to no send the complete receive windoe (flow control) immediately, in case it is larger than
+the buffer at the bottleneck, then it would drop segments. Gradually increase number of segments that can be send without receiving
+an ACK   
+*Approach:* Apply congestion window in addition to receive window, minimum of congestion and receive window can be sent (
+Congestion Window: CWnd[MSS], Receive Window: RcvWindow[Byte]), new connection or congestion assumed: reset congestion window: CWnd = 1, 
+incoming ACK for sent (not retransmitted) segment: increase congestion window by one → exponential grows of CWnd
+
+About MSS: refers to payload, that can be send in TCP segment that consist of TCP header (max. 60 bytes) and payload. With
+IPv4 at least MSS of 536 byte must be supported
 
