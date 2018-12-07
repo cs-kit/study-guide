@@ -644,4 +644,145 @@ Schätzung (n-step)
 - *Eligibility Traces (Verantwortlichkeitsspur):* Zustände fpr Zustandsbewertung → V-Lernen, Zustand/Aktion für Q-Wert Bewertung → 
 Q-Lernen
 
+### Entscheidungsbäume
+**Ziel:** Partitionierung des Raums so, dass Daten in einer Region die gleiche Klasse haben.
 
+(hier Abb. dt-ziel.png)
+
+**Repräsentation**: 
+- *Knoten:* Attributtest
+- *Zweig:* Attributwert
+- *Blatt:* Aussage (Klassifikation)
+
+**Anwendung**: Instanzen lassen sich Attribut-Wert-Paar beschreiben, Zielfunktion besitzen diskrete Ausgabewerte, 
+Disjunkte Hypothesen erforderlich, Beispieldaten möglicherweise vertauscht, Beispieldaten enhalten fehlende Attribute
+
+**Verfahren**:
+- *ID3:* nicht-inkrementelles Verfahren
+- *C4.5:* Verbesserung von ID3 durch generalisierte Regeln (Pruning), kommerzielles System
+- *ID5R:* inkrementelles Verfahren
+
+**Entropie**: ist ein Maß der Homogenität der Trainingsdaten. Die Entropie gibt an, wie "überraschend" ein Ergebnis ist.
+Mit der Menge der Trainingsbeipiele S, Anteil der positiven
+Beispiele $p_+$ in S und Anteil der negativen Beispiele $p_-$ in S: $Entropie(S) = -p_+ log_2 p_+ - p_- log_2 p_-$
+
+(Abb entropie.png)
+
+*Ziel*: ist es, die Daten durch einen Attributwert v möglichst die Klassen + und - zuzuteilen und dabei schrittweise die Entropie
+maximal zu reduzieren.
+
+**Gewinn**: ist die erwartete Reduzierung der Entropie durch Einsortierung über dem Attribut A mit der Menge aller
+möglichen Attributwerte V(A) von A und der Untermenge $S_v$ von S, für die A den Wert v annimmt.
+$Gewinn(S,A) = Entropie(S) - \sum_{v n V(A)} \frac{\|S_v\|}{\|S\|} Entropie(S_v)$
+
+*Ziel* der maximierung des Gewinns ist es, einen Entscheidungsbaum mit niedriger Tiefe zu erreichen.
+
+**ID3**: ID3 (Iterative Dichotomiser 3) ist ein Algorithmus, der zur Entscheidungsfindung dient. Er wird bei Entscheidungsbäumen eingesetzt. 
+*Algorithmus:* (abb id3-aufbau.png)
+*Auswahl des besten Entscheidungsattribute (Schritt 1)*: Durch Vergleich der Teilbäume. Dazu schreibt man unter den Knoten 
+ein Label mit dem Anzahl der Positiven Beispiele (+) und Anzahl der negativen Beispiele (-).
+
+*Beispiel "Tennis Spielen":* (abb bsp-tennis1.png und bsp-tennis2.png)
+
+*Suche im Hypothesenraum*: Typischerweise gibt es viele Entscheidungsbäume für die Trainingsbeispiele. Bei Entscheidungsbäumen
+ist der Hypothesenraum *vollständig*, d.h. dass die Zielfunktion im Entscheidungsbaum enthalten sein muss. Diese Hypothese wird
+ "Simple-to-Complex" (Schrittweises erstellen ausgehend vom leeren Baum, "Hill-Climbing" gennannt) erstellt. Dabei sind allerdings
+ lokale Minima möglich.
+ 
+*Induktiver Bias*: Die Präferenz bei Entscheidungsbäumen liegt in kleinen Bäumen und Bäume, deren Attribute nahe an der Wurzel einen
+hohen Informationsgewinn besitzen. der ID3-Bias ist eine Präferenz für bestimmte Hypothesen (Präferenzbias) aber keine Eintschränkung
+des Hypothesenraums (Restriktionsbias) → nach Occam's Razor wird die einfachste Hypothese gewählt, die mit den Trainingsdaten 
+übereinstimmt. Einfache (in diesem Fall "kurze", da kleine Bäume) Hypothesen gibt es seltener als lange. Da ein kleiner Baum (=
+kurze Hypothese), der die Daten korrekt beschreibt mit großer Wahrscheinlichkeit auch richtig ist. Eine lange Hypothese könnte hingegen
+reiner Zufall sein. Außerdem sind kurze Bäume effiziente (in Repäsentation und Auswertung).
+
+*Overfitting*: Beim ID3-Verfahren wächst jeder Zweig so lange, bis die Trainingsbeispiele perfekt klassifiziert werden (basierend
+auf statistisch-approximierten Informationsgewinn: Entropie, Gewinn). Dabei kann es zu Problemen kommen, wenn die Daten verrauscht
+sind oder die Beispiele nicht repräsentativ sind (z.B. zu wenig Trainingsdaten). Die daraus entstehenden Hypothese enthält dann
+einen *Fehler*. Ein Fehler auf den Trainingsdaten heißt $Fehler_T(h)$, ein Fehler auf den gesamten Daten heißt $Fehler_D(h)$.   
+Eine Hypothese h *overfittet* die Daten d, wenn es eine alternative Hypothese h' gibt, so dass   
+1) $Fehler_T(h) < Fehler_T(h')     
+2) $Fehler_D(h) > Fehler_D(h')     
+→ Das Modell lernt als auswendig.
+
+(Abbildung id3-overfitting.png)
+
+Um Overfitting zu vermeiden, kann man das Baumwachstum frühzeitig stoppen oder den Baum nachträglich *Prunen* (besser in Praxis). Um die 
+optimale Baumgröße zu bestimmen kann man auf separaten Testdaten, die Richtigkeit des Baumen überprüfen oder statistische Test (wie
+z.b. $\chi²$) auf den Trainingsdaten ausführen. 
+
+*Reduced Error Pruning:* Eine Möglichkeit zur Vermeidung von Overfitting ist das "Zuschneiden" eines Entscheidungsbaums. 
+Dadurch bekommt man die kleinste Variante des akkuratesten Unterbaumes. Allerdings erhöht bei wenigen Daten, das Aufteilen der Daten
+die Fehleranfälligkeit.
+Vorgehen: (img. rep1.png)
+(img rep2.png)
+
+*GewinnAnteil:* Attribute mit vielen Werten werden durch Gewinn gegenüber solchen mit wenigen Werten bevorzugt (
+z.B. Datum). Aus diesem Grund werden nun Attributen "bestraft", wenn sie viele Werte besitzen. Danei ist die Menge aller möglichen Attributwerte
+V(A) von A und die Untermenge $S_v$ von S, für die A den Wert v annimmt:
+$GewinnAnteil(S,A) = \frac{Gewinn(S,A)}{SplittInformation(S,A)}$ mit $Splitinformation (S,A) = -\sum_{v \in V(A)} \frac{\|S_v\|}{\|S\|} log_2
+\frac{\|S_v\|}{\|S\|}$
+
+*Kontinuierliche Attributwerte*: Besitzt ein Attribut A kontinuierliche Werte, definieren wir dynamisch ein neues diskre-wertiges
+Attribut $A_c$, dass "wahr" ist, wenn A > c. Der Schwellwert c wird über den Informationsgewinn definiert. Nach Sortierung
+der Beispiele nach ihren Werten, liegt der optimale Schwellwert in der Mitte zwischen zwei benachbarten Beispielen mit unterschiedlicher
+Klassenzugehörigkeit. 
+(img id3-bsp-kont.png)
+
+*Unbekannte Attributwerte*: Fehlen Attributwerte, so werden die Beispiele wie gewohnt in den Entscheidungsbaum einsortiert und fehlende
+Attribute bekommen entweder den häufigsten Attributwert der Beispiele oder der Beispiele. Bei der Klassifikation wird genauso verfahren.
+
+*Attribute mit Kosten:* Die Bestimmung der Attributwerde ist mit unterschiedlichen Kosten verbunden. Deshalb ist es das Ziel, einen 
+Entscheidungsbaum zu finden, der niedrige erwartete Kosten hat:
+$\frac{Gewinn(S,A)²}{Kosten(A)}
+
+*Window*: ist eine Lernmethode für große Datenmengen. Dabei wird eine zufällige Untermenge der Trainingsdaten ausgewählt (=Window) und 
+daraus der Entscheidungsbaum gebildet. Alle übrigen Beispiele werden mit dem erstellten Entscheidungsbaum klassifiziert. Falls
+nicht alle Daten korrekt klassifiziert werden, wird ein Teil der falsch klassifizierten Daten (zufällige Auswahl) dem Window hinzugefügt 
+und ein neuer Entscheidungsbaum erstellt.
+
+*Einordnung*: (img einordnung-id3.png)
+
+**C4.5**: ist eine Weiterentwicklung des ursprünglichen ID3-Algorithmus. Es unterstützt kontinuierliche Attribut-Werte und kann mit
+fehlenden Attributwerten umgehen. Zudem verwendet es *Rule Post-Pruning*.
+
+*Rule-Post-Pruning:* (rpp-verfahren.png und rpp-beispiel.png)
+
+*Einordnung*: (img einordnung-c45.png)
+
+**ID5R**: ist ein inkrementelles Verfahren, d.h können neue Beispiele schrittweise eingebracht werden. Das Ergebnis ist
+äquivalent zu einem durch ID3 erstellten Entscheidungsbaum.
+
+*Repräsentation:* Zur Berechnung des Informationsgewinns auf jeder Ebene ohne die bisherigen Beispiele erneut zu betrachten, 
+werden die Knoten aufgeteilt:
+- Antwortknoten(Blätter): sind Klassenbezeichner und Beschreibungen der Instanzen, die zu der Klasse gehören
+- Entscheidungsknoten: sind Attributtest mit Zweigen für jeden Attributwert. Pro Attributwert gibt es einen
+Zähle für positive und negative Beispiel. Ein zusätzlicher Zähler zählt zudem die noch ausstehenden Attributtests.
+(img id5r-rep-bsp.png)
+
+*Update des Baumes beim Hinzufügen von Beispielen*: Da ID5R ein inkrementeller Verfahren ist, können zur Laufzeit neue
+Beispiele hinzugefügt werden. Um damit umuzgehen muss der Baum updatebar sein. 
+(img update-id5r-1.png und update-id5r-2.png)
+
+*Restrukturierung:* Wenn nach einem Update, das Attribut an der Wurzel nichtmehr den größten Informationsgewinn hat, muss umstrukturiert
+werden, damit das Attribut mit dem größten Informationsgewinn an der Wurzel steht.
+(img restruk-id5r.png)
+
+*Einordnung:* (img einordnung-id5r.png)
+
+**Random Forests**: ist ein Klassifikationsverfahren, das aus mehreren unkorrelierten Entscheidungsbäumen besteht. 
+Alle Entscheidungsbäume sind unter einer bestimmten Art von Randomisierung während des Lernprozesses gewachsen. 
+Für eine Klassifikation darf jeder Baum in diesem Wald eine Entscheidung treffen und die Klasse mit den meisten 
+Stimmen entscheidet die endgültige Klassifikation. [Wikipedia](https://de.wikipedia.org/wiki/Random_Forest)
+Random Forests lässt sich *schnell trainieren*, da die einzelnen Entscheidungsbäume kleiner sind und
+die Trainingszeit linear mit der Anzahl der Bäume steigt. Außerdem ist es *parallelisierbar* und *effizient*
+für große Datenmengen. 
+  
+*Vergleich zu Standard Entscheidungsbäumen*: Das Pruning der Bäume ist nicht notwendig. Overfitting ist erlaubt. Die
+Attributwahl findet auf einer zufälligen Untermenge aller Attribute statt (daher die Randomisierung).   
+
+*Eigenschaften der Bäume*: Jeder Baum sollte ein *guter Klassifikator* sein und die Bäume untereinander möglichst *unkorreliert*.
+
+*Randomisierungsmöglichkeiten*: sind entweder *Bootstraping* (Aus N Trainingsdaten werden N Trainingsbeispiele mit zurücklegen
+gezogen. Baum hat so ca ~63% der Größe verglichen mit allen Trainingsdaten.) oder die Auswahl des Attributtests aus einer Teilmenge der
+vorhandenen Attributtests.
