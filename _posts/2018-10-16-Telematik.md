@@ -846,8 +846,10 @@ abhängig von Datenrate) → muss durch Bottleneck und braucht länger → *Inte
 neues Packet sich durch Bottleneck gequetscht hat. Dieser wird recht groß und man wird ihn nichtmehr los. Packete werden
 im Zeitraum des Inter-Packet-Gaps weitergeschickt. Ziel ist es Zustand zu erzielen und zu halten.
 
-**Three Ways for Packet Conservation to fail**
-*1) Connection does not get to equilibrium*
+**Three Ways for Packet Conservation to fail**   
+
+*1) Connection does not get to equilibrium*  
+
 **Slow Start** brings TCP connection into equilibrium if connection has just started or restart after assumption of congestion.
 The idea of slow start is to no send the complete receive windoe (flow control) immediately, in case it is larger than
 the buffer at the bottleneck, then it would drop segments. Gradually increase number of segments that can be send without receiving
@@ -859,5 +861,121 @@ incoming ACK for sent (not retransmitted) segment: increase congestion window by
 About MSS: refers to payload, that can be send in TCP segment that consist of TCP header (max. 60 bytes) and payload. With
 IPv4 at least MSS of 536 byte must be supported
 
-2) Sender injects new packet before an old packet has exited
+
+*2) Sender injects new packet before an old packet has exited*
+
+**Retransmission Timer**:   
+*Assumption:* Complete receive window in transit
+- Alternative 1: ACK received, segment delivered and thus exited network → conversation of packets fulfilled
+- Alternative 2: Retransmission timer expired. Segment is dropped in the network → conversation of packets fulfilled;
+segment is delayed but not dropped → conversation not fulfilled → to short retransmission timeout causes connection to leave equilibrium   
+
+→ Good estimation of Round Trip Time essential for a good timer value
+- too small: unnecessary retransmissions
+- too large: slow reaction to packet losses
+
+*Estimation of Round Trip Time (RTT)*: RTT = wann kommt nächste Quittung an? → timer-based measurement, timer resolution up to 500ms, 
+requirements regarding timer resolutions vary (e.g. high resolution in high performance data center) 
+- SampleRTT: time interval between sending a segment and reception of ACK, single measurement, retransmissions ignored (ACK can not be
+associated with segment)
+- EstimatedRTT: smoothed value across a number of measurements, observation: measured values can fluctuate heavily
+
+→ apply exponential weighted moving average (EWMA), influence of each value becomes gradually less as it ages, unbiased estimator for 
+average value: *EstimatedRTT = (1-$\alpha)\*EstimatedRTT+ $\alpha$\*SampleRTT* (Typical $\alpha$ = 0,125)
+
+*Retransmission Timeout (RTO)*: RTO = $\beta$ * EstimatedRTT 
+
+*Estimation of Deviation*: Goal: avoid observed occasional retransmissions; Observations: Variation of RTT can greatly increase in higher
+loaded networks: Deviation = (a-$\gamma$) \* Deviation + $\gamma$ \* \|SampleRTT - EstimatedRtt\|
+
+*Improved Retransmission Timeout (RTO)*: RTO = $\beta$ * EstimatedRTT  RTO = EstimatedRTT + $\beta$ * Deviation (Typical $\beta = 4, $\gamma$=0,25)
+→ Observation: Differences between RTT and RTO are smaller
+
+*Multiple Retransmissions*: 
+- Problem 1: How large should timer interval be between two subsequent retransmissions of same segment? →
+*Exponential backoff* after each new retransmission RTO doubles (RTO = 2*RTO), maximum value should be applied (≥ 60 seconds)
+- Problem 2:To which segment does received ACK belong (original or retransmission)? → *Karn's Algorithm*: ACKs for
+retransmitted segments are not included into calculation of EstimatedRTT and Deviation, timeout value is set to value calculated
+by backoff algorithm until ACK of non-retransmitted segment received
+
+> Timeouts are importatant to keep TCP connection in equilibrium, to avoid unnecessary retransmissions. Carefully tuned timers are important 
+(apply EWMA and consider deviation)
+
+**Congestion Avoidance**:
+Consider *multiple* concurrent TCP streams → how to adapt available path capacity?
+Under the assumption that the TCP connection operaties in quilibrium, a packet loss is with high probability
+caused by a newly started TCP connection (new connection requires resources on bottleneck router/link). Therfore
+the load on existing TCP connections has to be reduced.
+
+*Congestion signal:* signals TCP senders that congestion is occurring or is about to occur (uses ACKs). An implicit
+congestion signal needs no support from network. A missing ACK indicates a congestion situation (retransmission timeout). 
+Duplicate ACKs are also used as congestion indication.
+
+*Additive increase/multiplicative decrease (AIMD):* Strategy to adjust traffic load 
+- Multiplicatively decrease load in case a congestion signal was experienced. The Retransmission Timeout is
+CWnd = y * CWnd with 0 < y < 1 (TCP Tahoe: y = 0.5)
+- Additively increase load in case of no congestion signal is applicable. ACK received: CWnd += 1/CWnd
+
+**Additive increase Multiplicative decrease**: is a general feedback control algorithm that is applied to congestion control.
+- Additive increase od data rate until congestion
+- Multiplication decrease of data rate in case of congestion signal 
+
+(img AIMD.png)
+
+*Asumptions:* explicit network feedback (increase/decrease load), system operates near the knee, system operation is 
+synchronous and in discrete time steps
+
+*Fairness:* network with two sources that share a bottleneck link with capacity C, Goal bring system close to optimal point (c/2)
+- Efficiency Line: $r_1 + r_2 = C$ holds for all points on the line, points under the line reflect an underloaded system (→ increase rate),
+points above the line reflect an overloaded system (→ decrease rate)
+- Fairness Line: All sources with fair allocation ($r_1 = r_2$), multiplying with b does not change fairness. 
+Jain's fairness index: $F(r_1, r_2) = \frac{(r_1 + r_2)²}{2(r_1² + r_2²)}$
+- Optimal Operating point: Intersection of efficiency line and fairness line
+(img AIMD-fairness.png)
+
+**TCP Fairness**: TCP connections compete for network resources. Goal all TCP connections receive equal share of bottleneck resource 
+(non-zero). If n TCP connections share the same bottleneck it would be fair if each connection receives 1/n-th of the bottleneck capacity.
+Both TCP connections have the same RTT and use the same MSS. Lost TCP segments are also detected instantly. 
+
+TCP Fairness refers to TCP connections. Therefore a user can open *multiple TCP connections* concurrently to *get more capacity*.
+Furthermore the ACK generation of the receiver can influence resource allocation. A "greedy" receiver can send several ACKs, 
+can send ACKs faster than it receives segments and can send duplicate ACKs.   
+It is possible to open congestion window faster and consequently get more resources allocation. Inconsistencies of the TCP
+specification can cause this: TCP sequence number countrs bytes, congestions window counts segments → Attack would be impossible
+if congestion window also counted bytes.   
+
+(img send-acks-fairness1.png)
+
+The receiver acknowledged each segment in several pieces and congestion window opens fast (increases per received ACK)
+The sender can also send ACKs faster/before data is received. Packet losses are unlikely, receiver anticipates successfull reception, since
+ACKs are not a proof for receip of corresponding data. To solve this it requires changes in the protocoll or increasing loss possibility
+of ACKs makes attack unprofitable.
+
+(img send-acks-fairness2.png)
+
+#### TCP Reno
+The TCP Reno concept differentiates between *Major congestion signal* (timeout of retransmission timer)
+ and *minor congestion signal* (receipt of duplicate ACKs). The difference of TCP Tahoe in case of minor congestion
+ signal is that Reno doesn't reset to slow start (duplicate ACKs mean successful delivery of segments) and does *fast recovery*
+ (controls sending of new segments until receipt of non-duplicate ACK). Major congestions signal still cause a slow start.
+ 
+**Fast Recovery**: is started on a receipt of a specified number of duplicate ACKs (usally 3). The idea ist that new segments should
+continue to be send, even if packet loss is not yet recovered. The network load is reduced by halving the congestion window.
+The first missing segment is fast retransmitted. 
+
+**Differences to TCP Tahoe:** in congestion avoidance. 
+- Timeout: slow start SSTresh = max(FlightSize/2, 2*MSS), CWnd = 1
+- Fast recovery (3 dup Acks): retransmission of oldest unacknowledged segment 
+
+**Evolution of Congestion Window**: (img congwindreno.png)
+
+**TCP Fairness**: Sending identical ACKs multiple times causes interpretation of duplicate ACKs (one segment has left network →
+new one should be sent). TCP Reno is sending duplicate ACKs before/without receiving new segments. The sender sends a new segment
+per received duplicate ACK. The self clocking continues and the congestion window grows. Remedy: retransmission timeout and reset
+congestion window.
+
+(img reno-fairness.png)
+
+
+
 
