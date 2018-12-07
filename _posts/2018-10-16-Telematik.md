@@ -859,3 +859,5 @@ incoming ACK for sent (not retransmitted) segment: increase congestion window by
 About MSS: refers to payload, that can be send in TCP segment that consist of TCP header (max. 60 bytes) and payload. With
 IPv4 at least MSS of 536 byte must be supported
 
+2) Sender injects new packet before an old packet has exited
+
