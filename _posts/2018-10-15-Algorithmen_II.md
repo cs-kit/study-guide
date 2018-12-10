@@ -577,6 +577,54 @@ Wobei $T_{start}$ die Latenz ist und $T_{byte}$ die Kommunikationsbandbreite, we
 
 (Hier Bild modell-nachr-parallel.png einfügen)
 
+**Analyse paralleler Algorithmen**: Im Gegensatz zur Analyse sequentieller Algorithmen, bei der die Laufzeit nur abhängig
+von der Eingabe I ist, ist die Laufzeit bei parallelen Algorithmen zusätzlich abhängig von der Prozessorenanzahl p. Ziel ist es
+die *Ausführungszeit* $T(I,p)$ zu finden.   
+*Work:* $W=pT(p)$ ist das Kostenmaß des Algorithmus. Wird p klein genug, ist die Arbeit lediglich vond er Instanzgröße I abhängig.   
+*Span:* $T_{\infty} = sup_p T(p)$ misst die Parallelisierbarkeit bzw. die Zeit die benötigt werden würde, wenn beliebig 
+viele Prozessoren zum Einsatz kommen. Das bedeutet, dass alle Berechnungen, die gleichzeitig stattfinden können, auch tatsächlich 
+gleichzeitig stattfinden.   
+*(absoluter) Speedup:* $S=T_seq/T(p)$ ist die Beschleuning die gegenüber des besten sequentiellen Algorithmus erreicht werden kann.   
+*Effizienz:* $E = S/p$. mit dem Ziel, dass E ≈ 1 bzw. E = Θ(1). Die *superlineare Beschleuningung* für E > 1, ist nur bedingt
+möglich. Die parallele Maschine hat mehr Ressourcen und kann daher besser arbeiten, aufgrund des Emulationsoverhead ist ein 
+solcher Speedup eher unwahrscheinlich.
+
+**Reduktion am Beispiel Assoziativer Operationen**: Ein assoziativer Operator, der in konstanter Zeit berechnen werden kann, 
+lässt sich zerlegen und in der Zeit O(log p) berechnen. Kommutative Beispiele sind + , · , max, min, ein nichtkommuatatives
+Beispiel ist die Matrixmultiplikation.
+
+(hier bild assoziation.png einfügen)
+
+*Beispiel Summe:* Zur verteilten Berechnung einer Summe addieren benachbarte Prozessoren ihre lokale Summe, dabei führt der
+Prozessor mit geradem Index die Berechnung aus. Der Prozessor mit ungeradem Index schickt sein Ergebnis an den benachbarten Prozessor
+mit gerader Summe. Dies wird mehrfach ausgeführt, am Ende berechnet Prozessor 0 die Gesamtsumme.   
+*Analyse*: Bei n Prozessoreinheiten benötigt die Berechnung der Summe O(log n) Zeit. Der Speedup ist O(n/log n) und die Effizienz O(1/log n).
+
+(hier bild verteilte-summe.png einfügen)
+
+Für p Prozessoreinheiten addiert nun jeder Prozessor n/p Elemente sequentiell, ehe er dann die parallele Summe für p 
+Teilsummen berechnet.   
+*Analyse:* Dafür wird insgesamt die Zeit $T_seq(n/p) + Θ(log p)$ benötigt. Die Effizienz benötigt 1/ (1 + Θ(p log(p)) /n) und wird
+daher besonders gut (≈ 1), wenn n groß gegen p log p wird.
+
+(hier bild verteilte-summe-inkl-sequentiell.png einfügen)
+
+**Hyperwürfel**: Hyperwürfel sind n-dimensionale Analogien zum Quadrat bzw. Würfel. Sie dienen zur Kommunikation zwischen
+Prozessoren und sind billiger als eine Vollvermaschung. Die Knoten sind jeweils mit dem Knoten verbunden, dessen Label in der Binärrepräsentation
+nur ein Bit unterschiedlich hat.  
+*Analyse:* $T_{Prefix} = O((T_{Start} + l T_{byte}) log p) ist nicht optimal bei $lT_{byte} > T_{start}$
+
+(hier bild hypercube.png einfügen)
+(hier bild hyperwürfelalg.png einfügen)
+
+Kapitel Sortieren
+
+**Paralleler Quicksort**: Der sequentielle Quicksort wählt ein Pivotelement und ordnet alle Elemente so, dass 
+d_0,...,d_{k−1} ≤ v < d_k,...,d_{n−1}. Anschließend werden für den ersten Teil ($d_0,...,d_{k−1}$) und den 
+zweiten Teil ($d_k,...,d_{n−1}$) rekursive Aufrufe gestartet. Eine Parallelisierun, die eine Laufzeit von 
+ $O(T_{start} log² p)$ benötigt, könnte beispielsweiseso aussehen: 
+
+(hier Bild par-qs.png)
 
 
 ## Übung
