@@ -976,6 +976,64 @@ congestion window.
 
 (img reno-fairness.png)
 
+#### Periodic Model
+For TCP Performance assesment interesting metrics:
+- *Throughput:* Data that can be transferred in a certain time interval
+- *Latency:* Experienced Delay while sending data
 
+**Variables for analysing TCP**:
+- X: Transfer rate measured in segments per time interval
+- N: Number of segments
+- A: Duration of a cycle
+- RTT: Rount trip time [s]
+- p: Loss probability of a segment
+- MSS: Maximum segment size [bit]
+- W: Value of a congestion measure in #MSS
+- E[z]: Expeted value of variable z
+- O: total amount of data to transfer [bit]
+- D: data rate measured in bit per second [bit/s]
 
+Under the assumption of a long-term steady state behavior of TCP (without slow start, linear CWnd → Congestion avoidance), a constant RTT and W,
+periodically occuring losses that are detected through ACKs (no timeouts) and without retransmissions the progress of the congestion
+window will be analysed. W is the value of the congestion window right before the packet loss is detected.
 
+(img peridic-model.png)
+
+The data rate when the segment loss occurs is $D = \frac{W MSS}{RTT}$, so a time of $\frac{w}{2} \cdot RTT$ is needed until congestions 
+window reaches W again. Therefore the average data rate of a TCP connection is $D = \frac{0,75 W MSS}{RTT}$
+
+**Round**: A Round starts with the sending of W segments. After sendig these W segments, the sender cannot send any further segments before
+receiving an ACK. This ACK marks the end of the current round and the beginning of the next round. The duration of a round corresponds to the RTT
+and is independent of the window size, but the time to send a complete window is shorter than RTT.
+
+**Cycle**: A Cycle are (several) rounds until a segment loss is detected. After a loss, the next cycle starts.
+
+(img round-cycle.png)
+
+The minimal value of a congestions window is $\frac{W}{2}$ and it opens by one segment per round. That means the duration
+of a cylcle is $\frac{W}{2} \cdot RTT$ and the number of delivered segments per cylce are $N = \frac{1}{p}$. 
+The average transfer rate is $X = \frac{N}{t}$. The *Inverse Square-Root p Law* says that the intensity is inversely 
+proportional to the square of the distance from the source of that physical quantity, which means: $X = 1,22 \frac{1}{RTT \sqrt{p}}$
+
+#### Active Queue Management
+In the simple queue management a full buffer means, that the next segment must be dropped (tail drop). The problem here
+is the synchronization. Segment of several TCP connections are dropped more or less at the same time.
+
+**Active Queue Management (AQM)**: The network gives an implicit notification of an arising congestion and reacts before
+the queue gets overloaded. Routers can then drop segments before queue is completely filled up. The decision which segment
+will be dropped is *random* that ensures more fairness. Consequently the average queue occupancy decreases and congestion
+can be detected early. 
+
+*Random Early Detection (RED)*: is an AQM algorithm. It does not drop segments if the queue occupancy is < $q_{min}$ and 
+does drop all segments if the occupancy is ≥ $q_{max}$. For $q_{min}$ ≤ queue occupancy < $q_{max}$ the probability of
+dropping an incoming signal is linearly increasing with the queue occupancy.   
+RED ist implemented in many routers/switches but rarely used. New AQM Algorithms are currently in development.
+
+*Explicit Congestion Notification (ECN)*: ist eine Erweiterung des Netzwerkprotokolls TCP/IP zur Überlastkontrolle. 
+Mittels ECN kann ein Router durch eine einfache Markierung eines Bits (genauer 2 bit) im IP-Header eine drohende Überlast mitteilen.
+ECN is based on queue occupandy and requires active queue management. The notifications must be issued before queue
+is completely filled up. To *notify* congestion, the IP datagram is marked but not dropped and then forwarded to the
+receiver. To *react* to the notified congestion, the sender receives the marked IP datagram and can then adjust congestion
+control window accordingly. The notification takes place on layer 3 (IP).
+
+(img ecn.png)
