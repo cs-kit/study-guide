@@ -525,8 +525,14 @@ gibt x' aus
 *Analyse*: p·x′ ≥ (1 − ε)opt und O(n³/ε)
 
 ### Fixed-Parameter-Algorithmen
-Eine weiter Möglichkeit mit NP-harten Problemen umzugehen sind *Fixed Parameter Algorithmen*. Neben der Eingabegröße gibt es nun
-einen zweiten Parameter *k*. Dieser kann beispielweise k = Ausgabegröße gewählt werden.
+Eine weiter Möglichkeit mit NP-harten Problemen umzugehen sind *Fixed Parameter Algorithmen*. Um diese "schwierigen"
+Probleme zu lösen (z.B. Minimum Vertex Cover), welche für allgemeine Instanzen zu lange Berechnungszeiten haben, gibt es die
+Möglichkeit mit parametrisierten Algorithmen diese Spezialfälle zu berechnen. Neben der Eingabegröße gibt es nuneinen zweiten Parameter 
+*k*. Falls die Komplexität der Berechnung des Problems in diesem Parameter steckt, kann man dadzrch effiziente
+Lösungen für ein konstantes k erreichen. Dieser kann beispielweise k = Ausgabegröße gewählt werden. 
+Beispiel: Finde die maximale Anzahl an Leuten, so dass in einem Graph alle Leute direkt oder über einen Freund erreicht werden bzw.
+mit einem Parameter k: Finde maximal k Leute, so dass alle Leute direkt oder über einen Freund erreicht werden können. Letzteres ist einfach
+zu lösen.
 
 **Fixed Parameter Tractable**: Formal ist ein Problem parametrisierbar (auch: fixed parameter tractable oder FPT), 
 wenn ein Algorithmus existiert, der es mit einer Laufzeit von  $O(f(k) \cdot p(n))$ löst, 
@@ -546,16 +552,18 @@ Graphen mit mindestens einem Knoten aus U verbunden ist.
 Vertex Cover ist ein FPT bezüglich des Parameters der Ausgabekomplexität. Mit Hilfe der Entwurfstechniken *Kernbildung* und *Suche mit
 beschränkter Tiefe* werden zwei Algorithmen zu Lösung von Vertex Cover Problemen entwickelt:
 
-*Kernbildung (Kernelization):* Reduktionsregeln reduzieren das Problem aus die Größe O(f(k)) (also wird p(n) wegreduziert). Die Beobachtung
+*Kernbildung (Kernelization):* Reduktionsregeln reduzieren das Problem aus die Größe O(f(k)) (also wird p(n) wegreduziert). Die
+Probleminstanz wird auf den (eigentlichen schwieirigen) Problemkern reduziert und dieser dann mit einer anderen Technik gelöst.  Die Beobachtung
 hinter der Idee der Kernbildung ist, dass alle Knoten v größer sein müssen als k. Daraus ergibt sich, dass v entweder in der Lösung
-des Vertex Covers liegen muss oder es keine Lösung für das Vertex Cover problem gibt. Insgesamt ergibt sich damit eine Laufzeit 
+des Vertex Covers liegen muss oder es keine Lösung für das Vertex Cover Problem gibt. Insgesamt ergibt sich damit eine Laufzeit 
 von $O(nk+2^kk^2)$   
 Kernbildung ist außerdem eine wichtige Vor/Zwischenverarbeitungsstrategie für Optimierungsprobleme und auch polynomiell lösbar.
 
 (Hier Bild kernbildung.png einfügen)
 (Hier Bild bsp-kernbildung.png einfügen)
 
-*Systematische Suche mit beschränkter Tiefe:* Parameter k beschränkt die Tiefe. Für den Fall k = 0 bricht der Algorithmus ab und die Laufzeit
+*Systematische Suche mit beschränkter Tiefe:* Der Parameter k beschränkt die Tiefe, wodruch erschöpfendes
+ Aufzählen und Testen aller Möglichkeiten durch einen geeigneten Suchbaum möglich sind. Für den Fall k = 0 bricht der Algorithmus ab und die Laufzeit
 wird damit beschränkt. Die Rekursionstiefe k führt zu $O(2^k)$ rekursiven Aufrufen, also insgesamt zu einer Laufzeit von $O(2^k(n+m))$. Die Lösung der
 Rekursion: T(k) = (n+m) + 2T(k-1).
 
@@ -569,13 +577,29 @@ dabei gute Koordinationsalgorithmen notwendig.
 - *Speicherbeschränkung* von Einzelprozessoren
 - *Kommunikationsersparnis:* Wenn Daten anfallen, kann man sie auch parallel (verteilt) (vor)verarbeiten.
 
-**Modell Nachrichtengekoppelte Parallelrechner**: In nachrichtengekoppelten Parallelrechner existieren P *Prozessoren*, die *RAMs* sind.
+**Modell Nachrichtengekoppelte Parallelrechner**: In nachrichtengekoppelten Parallelrechner existieren P *Prozessoren*, die *RAMs* (PRAMs) sind.
 Eine *asynchrone Programmabarbeitung* ist gewährleistet, sowie *Interaktion* der Prozessoren durch *Nachrichtenaustausch*. Jeder
 Prozessor kann gleichzeitig maximal eine Nachricht senden und empfangen (vollduplex). Dabei existiert eine *Punkt-zu-Punkt* Verbindung,
 sowie eine *vollständige Verknüfung*. Für eine Nachrichtenlänge l dauert der Austausch der Nachricht $T_{comm}(l) = T_{start} + l T_{byte}$.
 Wobei $T_{start}$ die Latenz ist und $T_{byte}$ die Kommunikationsbandbreite, welche stets größer als $T_{start}$ ist.
 
 (Hier Bild modell-nachr-parallel.png einfügen)
+
+*Bulk Synchronous Parallel Computers (BSP)*: bezeichnet ein Modell des massiv parallelen Rechners. Das BSP-Modell besagt, dass die 
+Laufzeit eines parallelen Algorithmus nicht nur von dem Grad der sequentiellen Teile abhängt, sondern von mehreren Parametern. 
+BSP berücksichtigt die Kosten des kollektiven Nachrichtenaustausches aller Rechner in Abhängigkeit zur Nachrichtenlänge.
+
+*Speicherkonflikte in PRAMs:* Beim zeitgleichen Zugriff mehrerer Rechner auf einen geteilten Speicher, kann es zu Speicherkonflikten
+kommen. Diese lassen sich in Lese- (read (R)) bzw Schreibzugriffe (write (W)) und in gleichzeitigen (concurrent (C)) bzw. exklusiven
+Zugriff (exclusive (E)) klassifizieren. Daraus ergeben sich die folgenden Zugriffsarten:
+- EREW: exclusive Read, exclusive Write
+- ERCW: exclusive Read, concurrent Write (Schwachsinn!)
+- CREW: concurrent Read, exclusive Write
+- CRCW: concurrent Read, concurrent Write
+    - common: Alle Prozessoren müssen den gleichen Wert schreiben.
+    - arbitrary: Der Wert eines zufälligen Prozessors muss geschrieben werden.
+    - priority: Der Wert des Prozessors mit der kleinsten Prozessor-ID wird geschrieben.
+    - combine: Die Aggregation der Werte aller Prozessoren wird geschrieben (z.B. Summe).
 
 **Analyse paralleler Algorithmen**: Im Gegensatz zur Analyse sequentieller Algorithmen, bei der die Laufzeit nur abhängig
 von der Eingabe I ist, ist die Laufzeit bei parallelen Algorithmen zusätzlich abhängig von der Prozessorenanzahl p. Ziel ist es
@@ -604,14 +628,19 @@ mit gerader Summe. Dies wird mehrfach ausgeführt, am Ende berechnet Prozessor 0
 
 Für p Prozessoreinheiten addiert nun jeder Prozessor n/p Elemente sequentiell, ehe er dann die parallele Summe für p 
 Teilsummen berechnet.   
-*Analyse:* Dafür wird insgesamt die Zeit $T_seq(n/p) + Θ(log p)$ benötigt. Die Effizienz benötigt 1/ (1 + Θ(p log(p)) /n) und wird
+*Analyse:* Dafür wird insgesamt die Zeit $T_{seq}(n/p) + Θ(log p)$ benötigt. Die Effizienz benötigt 1/ (1 + Θ(p log(p)) /n) und wird
 daher besonders gut (≈ 1), wenn n groß gegen p log p wird.
 
 (hier bild verteilte-summe-inkl-sequentiell.png einfügen)
 
+Kapitel Verbindungsnetzwerke
+
+**Vollverkabelung**: Eine vollständige Verkabelung ist nur bei einer geringen Anzahl an Rechnern sinnvoll. Für p Rechner sind die
+Kosten einer Vollverkabelung $\frac{p \cdot (p-1)}{2}. Eine Vollverkabelung gibt es als Simplex (i → j), Telefon (i ↔ j) und Duplex (i → j, j → i)
+
 **Hyperwürfel**: Hyperwürfel sind n-dimensionale Analogien zum Quadrat bzw. Würfel. Sie dienen zur Kommunikation zwischen
 Prozessoren und sind billiger als eine Vollvermaschung. Die Knoten sind jeweils mit dem Knoten verbunden, dessen Label in der Binärrepräsentation
-nur ein Bit unterschiedlich hat.  
+nur ein Bit unterschiedlich hat. Eine Verkabelung im Hyperwürfel kostet p log p Verbindungen.  
 *Analyse:* $T_{Prefix} = O((T_{Start} + l T_{byte}) log p) ist nicht optimal bei $lT_{byte} > T_{start}$
 
 (hier bild hypercube.png einfügen)
@@ -622,7 +651,7 @@ Kapitel Sortieren
 **Paralleler Quicksort**: Der sequentielle Quicksort wählt ein Pivotelement und ordnet alle Elemente so, dass 
 d_0,...,d_{k−1} ≤ v < d_k,...,d_{n−1}. Anschließend werden für den ersten Teil ($d_0,...,d_{k−1}$) und den 
 zweiten Teil ($d_k,...,d_{n−1}$) rekursive Aufrufe gestartet. Eine Parallelisierun, die eine Laufzeit von 
- $O(T_{start} log² p)$ benötigt, könnte beispielsweiseso aussehen: 
+ $O(T_{start} log² p)$ benötigt, könnte beispielsweise so aussehen: 
 
 (hier Bild par-qs.png)
 
