@@ -786,3 +786,131 @@ Attributwahl findet auf einer zufälligen Untermenge aller Attribute statt (dahe
 *Randomisierungsmöglichkeiten*: sind entweder *Bootstraping* (Aus N Trainingsdaten werden N Trainingsbeispiele mit zurücklegen
 gezogen. Baum hat so ca ~63% der Größe verglichen mit allen Trainingsdaten.) oder die Auswahl des Attributtests aus einer Teilmenge der
 vorhandenen Attributtests.
+
+### Hidden Markov Modelle
+Die *Prozesse* der realen Welt sind oft nichtdeterministisch aber stochastisch beschreibbar (z.B. durch Markovsche Entscheidungsprozesse).
+Die *Signale* der realen Welt sind meist verrauscht und besitzen nichtdeterministische Eigenschaften. Mit stochastischen Prozess-
+und Signalmodellen kann man diese Signale erkennen und theoretisch durch signalverarbeitende Systeme beschreiben oder simulieren. In der 
+Praxis sind die Ergebnisse außerordentlich gut.
+
+**Diskreter Markov Prozess**: Markow Prozesse eignen sich sehr gut, um zufällige Zustandsänderungen eines Systems zu modellieren, 
+falls man Grund zu der Annahme hat, dass die Zustandsänderungen nur über einen begrenzten Zeitraum hinweg Einfluss aufeinander 
+haben oder sogar gedächtnislos sind. N diskrete Zustände $S = \{S_1,S_2,..,S_N\}$, die Zeitpunkte der Zustandsübergänge t = 1,2,...,T
+und der aktuelle Zustand $q_t$ zur Zeit t bilden einen *diskreten Markov Prozess*.   
+Als Parameter sind die *Anfangszustandswahrescheinlichkeiten* $\pi_i = P(q_1 = S_i)$ und die *Übergangswahrscheinlichkeiten*
+$a_{ij} = P(q_t = s_j \| q_{t-1} = S_i) = P(S_j \| S_i)$ gegeben.   
+*Markov-Bedingung:* Die Übergangswahrscheinlicheiten geben an, wie sich ein Zustand in *einem* Zeitschritt entwickelt 
+- Beschränkter Horizont: Die Wahrscheinlichkeit einen Zustand zu erreichen ist nur von seinem *direkten* Vorgängerzustand abhängig
+$P(q_{t+1} = S_j \| q_t = S_i)$
+- Zeitinvarianz: Die Wahrscheinlichkeit eines Zustandsübergangs ist unabhängig von der Zeit.
+
+(img diskr-mark-pr.png)
+
+*Beispiel: Wetter*: Jeden Mittag wird das Wetter beobachtet. Möchliche Wetterlagen sind  S1 = Regen (Schnee), S2 = bewölkt und S3 = sonnig.
+Daraus ergeben sich die möglichen Zustände $S = \{S_1,S_2,S_3\}$ als Übergangswahrscheinlichkeiten sind ist die Übergangsmatrix A 
+gegeben, woraus sich dieser Graph entwickeln lässt. (img matrix-a.png und graph-wetter.png)   
+Wie wahrscheinlich ist es also, dass das Wetter in den nächsten 7 Tagen genau {sonnig, sonnig, Regen, Regen, sonnig, bewölkt, sonnig} ist?
+
+(img wetter-beobachtung.png)
+
+**Hidden Markov Modelle (HMM)**: Bisher waren die Ereignisse (Zustände) direkt beobachtbar, das ist bei Hidden Markov
+Modellen nichtmehr der Fall. Die Zustände können nur indirekt beobachtet werden, durch eine stochastische Funktion des Zustands
+(z.B. Mitbewohner der bei Regen oft einen Regenschirm mitnimmt). Hidden Markov Modelle beschreiben einen *doppelt
+stochastische Prozess*. Das heißt, dass der zugrunde liegende stochastische Prozessnur indirekt durch eine andere
+Menge an stochastischen Prozessen beobachtet werden kann und diese eine Beobachtungssequenz produziert.   
+HMM ist ein Fünf-Tupel $ \lambda = \{S,V,A,V,\Pi\}$ bestehend aus:
+- S: Menge der Zustände $ S= \{S_1,S_2,...,S_N\}
+- V: Menge der Ausgaben/Beobachtungen $V=\{V_1,V_2,...,V_M\}
+- A: Matrix der Übergangswahrscheinlichkeiten $A = (a_{ij}), A \in [0,1]^{NxN}$
+- B: Matrix der Emissions/Beobachtungswahrscheinlichkeiten $B = (b_{ik}), B \in [0,1]^{NxM}$
+- $\Pi$: Verteilung des Anfangszustands $\Pi = \{\pi_i \| \pi_i = P(q_1\| S_i)\}$ mit $q_1$ als Startzustand
+
+Dabei ist die Wahrscheinlichkeit für einen Zustand $p(q_{t+1} = S_j) = \sum_{S_i \in S} a_{ij} \cdot p(q_t = S_i)$ und die
+Wahrscheinlichkeit für eine Beobachtung $p(o_{t+1} = V_j) = \sum_{S_i \in S} b_{ik} \cdot p(q_t = S_i)$. Dabei bezeichnet
+$q_t$ den Zustand und $o_t$ die Ausgabe zum Zeitpunkt t.
+
+*Beispiel: Regenschirm*: Anstatt das Wetter direkt zu beobachten, wird nun der Mitbewohner beobachtet, 
+der einen Regenschirm mitnimmt. Regnet es draußen?   
+Dafür ist die Zustandsmenge $S = \{ S_1 = Regen, S_2 = Sonne \} $, die Ausgabemenge $V= \{ V_1 = Regenschirm, V_2 = kein Regenschirm \} $
+
+(img Matritzen-regenschirm-bsp.png und graph-regenschirm-bsp.png)
+
+*Beispiel: Münzwurf*: Jemand wirft eine Münze, dabei ist die Anzahl der gezinkten Münzen unbekannt. Bekannt ist nur
+das Ergebnis des Wurfs H = Kopf bzw. T = Zahl.
+
+(img muenzwurf-bsp.png)
+
+*Beispiel: Urnen ziehen*: Es gibt N unterschiedliche Urnen mit unterschiedlicher Anzahl an Bällen in M Farben. 
+Beim stochastischen ziehen aus einer Urne mit zurücklegen, wird die Sequenz der Farbe der gezogenen Bällen beobachtet.
+
+(img urnen-bsp.png)
+
+**Probleme im Zusammenhang mit HMMs** 
+
+**Problem 1: Evaluationsproblem:** (img hmm-prob-1.png)
+
+Das Evaluationsproblem beschreibt wie gut ein gegebenes Modell $ \lambda = \{S,V,A,V,\Pi\}$
+eine Beobachtungssequenz erklärt. Gesucht wird die Wahrscheinlichkeit P(0\| \lambda) für die Ausgabe $O = o_1 o_2 ... o_t$. 
+Da nicht bekannt sit, was die verdeckte Zustandsfolge ist, müssen alle möglichen Zustandsfolgen betrachtet werden. 
+*Algorithmus*: Der Vorwärts- bzw. Rückwärtsalgorithmus berechnet die Teilresultate (in Tabellen) und errechnet daraus eine
+Lösung, ohne nochmals alle Berechnungen zu starten und ist damit schneller, als der Naive Ansatz. 
+
+*Vorwärtsalgorithmus:* (img vorwaerts-alg.png)
+
+*Beispiel:* Wie hoch ist die Wahrscheinlichkeit, dass ein Mitbewohner in den letzten drei Tagen
+den Regenschirm mitgenommen hat? Die Zustände  $S = \{S_1 = Regen, S_2 = Sonne\}$, die Beobachtungen $V=\{V_1 = Regenschirm, V_2 = kein Regenschirm\}
+sowie das Modell sind gegeben:
+
+(img vorwaerts-modell.png)
+
+*Rückwärtsalgorithmus:* (img rückwärts-alg.png)
+
+**Problem 2: Dekodierungsproblem:** (img hmm-prob-2.png)
+
+Beim Dekodierungsproblem ist die Ausgabesequez O und das Modell $ \lambda = \{S,V,A,V,\Pi\}$
+gegeben und die wahrscheinlichste Zustandsfolge Q (optimale Zustandsfolge) wird gesucht, die O erklärt. Dabei
+werden die Zustände $q_t$ unter Verwendung des Vorwärts- und Rückwärtsalgorithmus so gewählt, dass die Zustände 
+unabhängig voneinander am Wahrscheinlichsten sind.  
+*Optimalitätskriterium:* Bei nicht völlständig vernetzen HMMs ergibt die Maximierung der wahrscheinlichen Zustände unter Umständen
+keinen gültigen Pfad (z.B. wenn der beste Zustand $S_1$ ist, aber der anschließend folgende Zustandsübergang 0 ist). Daher
+ist es besser die *insgesamt beste Zustandsfolge* zu finden.
+
+*Viterbi-Algorithmus*: Der Viterbi-Algorithmus findet diesen Pfad, mit der insgesamt besten Zustandsfolge, durch rekursive
+Maximierung entlang möglicher Zustandsfolgen (Pfade).
+
+(img viterbi-alg1.png und viterbi-alg2.png)
+
+**Problem 3: Lern- und Optimierungsproblem:**  (img hmm-prob-3.png)
+Das Lern- und Optimierungsproblem ist das schwierigste der drei Probleme und es ist kein analytischer Lösungsweg bekannt.
+Gegeben einer Ausgabesequenz O und ein Suchraum (Hypothesenraum) für Modelle, 
+ist die Anpassung der Parameter des Modells $ \lambda = \{S,V,A,V,\Pi\}$ gesucht, sodass O besser erklärt wird. Es gibt
+ keinen optimalen Weg, um die Modellparameter zu schätzen. Das Modell $\lambda$ soll also weiter optimiert/trainiert werden. 
+ Als Beispiel soll nun vorausgesagt werden können, wie die Wetterlage ist, abhängig von der Beobachtung "Regenschirm" bzw. 
+ "kein Regenschirm" (sehr vereinfachtes Beispiel!).
+ 
+ *Baum-Welch-Algorithmus:* ist Spezialfall des Expectation-Maximization-Algorithmus (EM) und ein iterativer Ansatz zur 
+ lokalen Maximierung von P(O|$\lambda$). Für eine Trainingssequen $O_{training}$ und einen Hypothesenraum für Modelle 
+ $ \lambda = \{S,V,A,V,\Pi\}$ wird ein Modell gesucht, das die Daten am besten erklärt. Dabei wird der Hypothesenraum
+ so gewählt, dass die Anzahl der Zustände vorgegeben wird und lediglich die stochastischen Modellparameter angepasst werden.
+ 
+ (img baum-welch.png)
+ 
+ Es gilt P(O|$\lambda$) ≥ P(O|\={$\lambda$}). Damit vebessert sich das Modell auf der Menge der Trainingsdaten und
+ realisiert den EM Ansatz. Das Training wird abgebrochen, wenn nur noch eine minimale Verbesserung eintritt, dennoch
+ kann kein globales Maximum garantiert werden.
+ 
+ **Arten von Hidden Markov Modellen**: 
+ - *Ergodisches Modell:* Jeder Zustand kann von jedem anderen Zustand aus in einer endlichen Anzahl von Schritten erreicht werden.
+ 
+ (img ergod-modell.png)
+ 
+ - *Links-nach-rechs-Modell (Bakis-Modell:* Der Zustandsindex wird mit der zeit größer oder bleibt gleich. Dieses Modell ist auch
+ mit parallelen Pfaden möglich. 
+ 
+ (img bakis.png)
+ 
+ **Einordnung**: (img einordnung-hmm.png)
+ 
+ **Anwendungen**: HMMs finden Anwendung in der Spracherkennung, der Gestenerkennung (z.B Robotik), im Autonomen Fahren (Ampelzustandsschätzung)
+ und in der Bioinformatik (Genomanalyse). Kurz gesagt, überall dort wo man zugrunde liegende stochastische Prozesse
+ nur indirekt beobachten kann.
