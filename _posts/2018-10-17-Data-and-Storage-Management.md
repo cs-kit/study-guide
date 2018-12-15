@@ -332,4 +332,19 @@ traffic, scaling mechanism in SAN connectivity
 **IP Storage**: Fiber Channel or LAN (iSAN); Motivation: Availability/low costs, no additional network topology, single integrated 
 network, remote data access, data replication; But: security considerations, performance, functionality
 
-*Ende der Vorleseung vom 28.11.2018*
+*Ende VL 27.11.2018*
+
+IP Storage Netzwerke und Technologien, die auf Transportprotokollen wie IP/Ethernet aufbauen, dabei sind Koexistenzen möglich:
+- *Fibre Channel over IP (FCIP):*  ist ein Transportprotokoll, welches Fibre Channel-Pakete in TCP einpackt (tunneling), 
+um sie über standardmäßige TCP/IP-Netzwerke zu transportieren. Fibre Channel findet vor allem bei Speichernetzwerken Verwendung 
+und zeichnet sich durch linksorientierte Flusskontrolle und Verlustfreiheit aus. FCIP ist sowohl für IP als auch für FC Netzwerke
+transparent und verbindet geografisch verteilte SANs.
+distributed SANs 
+- *Internet Fibre Channel Protocol (iFCP):* ist eine IP Infrastruktur zum routing/switching von Fiber Channel frames. Es
+ist ein gateway-to-gateway Protokoll das eine fibre channel fabric über ein TCP/IP Netwerk implementiert. Es verbindet
+Fiber Channel Geräte mit Fiber Channel SANs über die IP-Infrastrukur.
+- *internet Small Computer System Interface (iSCSI):* ist ein Verfahren, welches die Nutzung des SCSI-Protokolls über 
+TCP ermöglicht. SCSI commands werden über TCP/IP Netzwerke übertragen. Die IP-Infrastruktur wird verwendet für das 
+routen/switchen von SCSI commands und die übertragenen Daten sind block-orientierte Speicherdaten.
+
+(img ip-storage-netzwerk.png)
