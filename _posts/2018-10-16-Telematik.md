@@ -1037,3 +1037,125 @@ receiver. To *react* to the notified congestion, the sender receives the marked 
 control window accordingly. The notification takes place on layer 3 (IP).
 
 (img ecn.png)
+
+### Ethernet Evolution
+#### Aloha, Slotted Aloha
+**Aloha**: was the first media access control (MAC) protocol for packet-based, wireless networks. MAC ensures time multiplex,
+variable and random access. No previous sensing of medium an no announcement of intended transmission is possible. The access
+to the medium is asynchonous. Therefore collisions are possible. 
+
+(img collision-aloha.png)
+
+*Collision detection:* 
+- Explicit: Confirmation of collision through higher layers, requires an additional communication channel
+- Implicit: is used by aloha over satellite. The Satellite broastcasts received packets to all, the sending station
+receives packet again after one RTT and can then check its correctness.
+
+*Reaction to collisions:* is a Retransmission of the packets, but this should not introduce another collision. That's why the
+exact time of retransmission is *randomized*. After a certain amount of collisions, the sending is aborted.
+
+*Evalutation:* A collisions occurs if a previous packet from another sender has not been send completely 
+of another system starts sending before transmission is done. With N active systems in the network, the probability p 
+that a system starts sending, the probability that a collision occurs is $(1-p)^{N-1}$ and the probability for
+a successfull transmission by any system $Np(1-p)^{2(N-1)}$. This is resulting in a maximum utilization $U_{max} = 0,18$
+
+**Slotted Aloha**: works like Aloha but uses time slots and a synchronized access only at the beginning of the time slog. It has
+on average less collisions than normal Aloha. 
+
+(img slotted-aloha-coll.png)
+
+*Evalutation:* There are N active systems in the network. Each system starts to send with a probability p, so N-1 systems 
+are not sending with a probabiliy of $(1-p)^{N-1}$. So the successful transmission of any system is $Np(1-p)^{N-1}$
+The maximum utilization is $U_{max} = 0,36$
+
+#### CSMA-based Approaches
+**Carrier Sense Multiple Access (CSMA)**: is a media access control method that ckecks if the medium is free before starting to
+send, so it is "listening before talking".
+- *CSMA/CD (Collision Detection):* The sending station can detect collisions by listening (usage e.g. Ethernet)
+- *CSMA/CA (Collision Avoidance):* The sending station assumes collisions when ACK is missing (usage e.g. WLAN)
+
+#### Ethernet-Variants
+**Original Ethernet (IEEE 802.3)**: uses MAC (time multiplex, variable, random access) and CSMA/CD with exponential backoff 
+(Stauauflösungsmechanismus in Ethernet. Wird von Stationen im Ethernet eine Kollision erkannt, beenden diese Stationen ihre 
+Sendung und versuchen sofort oder nach einer Slot-Time erneut ihre Sendung über das Ethernet zu übertragen.) The network 
+topology was originally a bus topology with a data rate of 10 Mbit/s. Ethernet was wire based with a coaxial cable. The
+standard consists of Layer 1 and Layer 2a (MAC Protocol).
+
+*CSMA/CD-based approach:* checks the medium, which is considered to be free if there is no activity detected for 96 bit times (=
+Inter Frame Space). CSMA/CD is 1-persistent (Wenn das Medium als besetzt erkannt wird, wird geprüft, bis es frei wird; wenn frei, 
+wird gesendet (mit Wahrscheinlichkeit 1, d. h. immer)). The sender is doing collision detection. On detecting a collision, 
+the sending will be aborted and a jamming signal (Übertragung des anderen gezielt kaputt machen, damit er merkt, 
+dass eine Kollision stattgefunden hat und Daten kaputt sing) will be sent (length 48 bit). Exponential backoff is for 
+repeated transmissions.
+
+*Collision detection:* The sender is detecting a collision. This must happen before transmission is finished. The minimum 
+duration for sending is the doubled maximum propagation delay of the medium. If the frames are shorter and therefore the sending time
+it is not possible to detect a collision reliably (only CSMA, not CSMA/CD). To enforce the minimal frame length, the frame is
+extended by the padding field (PAD).
+
+(img ethernet-frames.png)
+
+*Utilization:* Under the Assumption that the Ethernet protocol works perfect without any interferences or errors and without
+an overhead or processing time the maximum utilization is $U_{max} = \frac{throughput}{data rate} =\frac{1}{1+a}$. The parameter
+a is used for performance evaluaion $a = \frac{propagation delay}{transmission delay}$. Two types of time intervals can be 
+discriminated:
+- Transmission intervals: 1/(2a) time slots
+- Collision intervals: collision or no transmissions
+
+(img ethernet-utilization.png)
+
+**Fast Ethernet (IEEE 802.3u)**: was introduced 1995 with a data rate of 100 Mbit/s (switchable between 10Mbit/s and 100 Mbit/s and 
+automatic negotiation (protocol for automatic seletection of technical communication settings)), a star network topology (half duplex
+and duplex links), medium access control (CSMA/CD for halb duplex links) that uses the same design as ethernet frames (collision detection
+has to be possible) and a modified encoding.
+
+*Congestion and Flow Control:* With faster interfaces and switches as a central component, switches can be the performance bottleneck and frames are
+temporarily buffered (buffer full → frame has to be dropped). Loss recovery is done at transport layer (TCP) which is not performant.
+Since buffer overflow and frame loss happens on layer 2, the resource bottleneck should be handled there. *Backpressure* is a workaround
+for half duplex links. It enforces collision, CSMA/CD detects the collision and the sender aborts sending and repeats the frame (backoff).
+This might cause a long delay.   
+ Furthermore backpressure pretends the medium is used and sends a potentially correct bit sequenece, CSMA/CS notices that the medium is
+ used and the sender is watining for the medium to be free. This is an implicit flow control. But it's not possible with
+ duplex links, since no CSMA/CD is used.    
+ 
+**Ethernet (IEEE 802.3x)**: A *pause function* was standardized to stop sending on receiving a pause frame and implicitly continue after
+a pause time that was given in the pause frame (multiple time for sending 512 bit) or explicitly continue when receiving a pause
+frame with time=0. This does not solve longer overload in the network and only deals with short, local overload on a single link.
+
+The pause function is a part of the newly introduced sublayer *MAC control* (Layer 2). All MAC control frames terminate on the MAC 
+control sublayer or are generated by it. All other frames are passed from/to higher layers.
+
+(img mac-control-frame.png)
+
+Components should discover automatically which data rate/enconding is possible for the communication. The *Auto-negotiation function*
+is between the end systems and a central node (hub, switch) to exchange 16-bit long messages to encode possible configurations.
+It is transmitted as a sequence of tact and data pulses. The *Auto-negotiation function* is not for variants using glass fiber.
+
+**1 Gigabit/s-Ethernet (IEEE 802.3z, IEEE 802.3ab)**: Is almost the same Ethernet as standardized in IEEE 802.3u except the data rate 
+ which has been upgraded to 1 Gbit/s but is still adjustable between 10Mbit/s and 100Mbit/s. Using half duplex links with
+ a data rate of 1 Gbit/s makes it difficult to ensure collision detection with CSMA/CD. Therefore it it possible to either restrict
+ the network size (max segment length of 10m) or change the minimum frame rate (efficient for a small amount of data). Since these
+ changes are still not good enough, new concepts has been established:
+ - *Carrier extension:* ensures collision detection on fast links. It is increasing the transmission without increasing the 
+ minimum length of the frames. The length of the time slot is not as long as the minimum length of a frame (minimum frame length: 512 Bit, 
+ new time slot length: 512 byte). 
+ 
+ (img carrier-extension.png)
+ 
+ - *Frame bursting:* transmits short frames efficiently. Stations are permitted to send burst of frames directly following each other.
+ The first frame has an extension if required (might be required for collision detection), the following frames are following (last
+ frame has to start after at most 8192 Bytes) 
+ 
+ (img frame-bursting.png)
+ 
+ **10 Gigabit/s-Ethernet (IEEE 802.3ae (glass fiber), IEEE 802.3an (twisted pair))**: Important characteristics of 
+ 10 Gigabit/s- Ethernet are a data rate of 10 Gbit/s, only point-to-point connections and only full duplex. It does no longer
+ support old legacies like half duplex or hubs, CSMA/CD, no frame bursting or carrier extension and it does not require a MAC
+ protocol. Jumbo frames with 9014 byte payload can be enabled optionally. It is the physical layer for locale networks (LANs) and 
+ wide area networks (WANs). But it still requires improved coding mechanisms (interference becomes more problematic, signal-noise-ratio
+ determines achievable data rate) and becomes technically challenging.
+ 
+ **40/100 Gigabit/s-Ethernet (IEEE 802.3ba)**:40 or 100 Gigabit/s Ethernet is the fastes generation of Ethernet. It supports
+  distances up to 40km and a multilane distribution (multiple parallel channels, different physical wires or different frequencies) and
+  a virtual lane (distribute data stream over number of virtaul lanes)
+  
