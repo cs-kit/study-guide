@@ -655,6 +655,133 @@ zweiten Teil ($d_k,...,d_{n−1}$) rekursive Aufrufe gestartet. Eine Parallelisi
 
 (hier Bild par-qs.png)
 
+### Geometrische Algorithmen
+*Geometrische Algorithmen* beschäftigen sich mit der algorithmischen Lösung geometrisch 
+formulierter Probleme. Ein zentrales Problem ist dabei die Speicherung und Verarbeitung 
+geometrischer Daten. Im Gegensatz zur Bildbearbeitung, deren Grundelemente Bildpunkte 
+(Pixel) sind, arbeitet die algorithmische Geometrie mit geometrischen Strukturelementen 
+wie Punkten, Linien, Kreisen, Polygonen und Körpern. Beipiele für Probleme geometrischer
+Algorithmen sind Konnvexe Hülle, Kleinste einschließende Kugel, Range Search.
+
+**Elementare geometrische Objekte** sind Punkte $x \in R^d$, Strecken $\overline{ab}:= { α a + (1 − α )b : α ∈ [0, 1]}$
+und noch mehr wie z.B. Halbräume, Ebenen und Kurven.
+
+**Dimension d**:
+- *1:* oft trivial und gilt nicht als geometrisches Problem
+- *2:* Geographische Informationssystem (GIS), Bildverarbeitung,...
+- *3:* Computergrafik, Simulationen, ...
+- *≥ 4:* Optimierung, Datenbanken, maschinelles Lernen, ... (curse of dimensionality)
+
+**Typische Fragestellungen**:
+- Schnittpunkte zwischen n Strecken
+- Konvexe Hülle
+- Triangulation von Punktmengen (z.B. Dalunaytriangulierung: Kein Dreieck enthält weitern Punkt)
+- Vornoi-Diagramme: Unterteilung von $M ⊆ R^d$ in n Voronoizellen
+- Punktlokalisierung
+
+**Geometrische Datenstrukturen**:
+- *Baumstrukturen:* 
+    - 1-dim: Interval Tree
+    - 2-dim: Quad Tree, Wavelet-Tree
+    - 3-dim: BinarySpacePartition Tree
+    - n-dim: k-d-Tree
+- *Facetten:* Delaunay Triangulierung (), Voronoi Diagramm
+
+**Streckenschnitt (line segment intersection)**   
+Beim *Streckenschnitt* will man gegeben n Strecken S={s1,...,sn} Schnittpunkte zwischen den Strecken finden. Ein
+allgemeiner Anwendungsfall sind *Plane-Sweep-Algorithmen* die unter anderem für die Kontruktion für konvexe Hüllen
+oder Voronoi-Diagrammen benötigt werden. Die Anzahl der ausgegebenen Schnitte ist k.
+
+(img streckenschnitt.png)
+
+Die *Sweep-Line* strukturiert die Abrarbeitung eines Problems. Dabei wird ausgenutzt, dass geometrisch nahe Objekte sich
+gegenseitig beeinflussen und geometrisch weit entferne Objekte (nahezu) unabhängig sind. Im Allgemeinen werden n-dim
+auf (n-1)-dim reduziert.
+
+*Dominierung*: Ein Punkt heißt nicht-dominiert genau dann, wenn kein anderer Punkt in der Menge existiert, dessen Koordinaten
+alle größer oder gleich der Koordinaten des Punktes sind. Formal dominiert a den Punkt b genau dann, wenn ∀i : ai ≤ bi
+und ∃i : ai < bi.
+
+(img dom.png)
+
+*Beispiel: Berechnung einer Skyline:* Dabei sind nur Höhenänderungen relevant. Jede Änderung definiert ein eindimensionales
+Problem (Maximumsbildung). Bei der Berechnung des Skylines Problem müssen *nicht dominierte Punktmengen* berechnet werden.
+
+Das naive Vorgehen zur Suche der Schnittpunkte wäre für jedes Streckenpaar die Schnittpunkte zu überprüfen, was
+mit einer Laufzeit von Θ(n²) zu langsam bei großen Datenmengen ist. 
+
+*Plane-Sweep-Algorithmen*: Eine (waagrechte) *Sweep-Line l* verläuft von oben nach unten. Die Invariante dieser 
+Algorithmen ist, dass Schnittpunkte oberhalb von *l* bereits korrekt ausgegeben wurden. Der Ansatz ist jeweils Segmente, 
+die l schneiden zu speichern und deren Schnittpunkte zu finden.
+
+(img plane-sweep1.png)
+
+*Plane-Sweep für orthogonale Strecken*   
+Ein möglicher *Plane-Sweep-Algorithmus für den orthogonalen Streckenschnitt* benötigt die Gesamtlaufzeit von O(n log n + k).
+
+(img plane-sweep-orth-pseudo.png)
+
+*Verallgemeinerung*
+Nun wied der orthogonalen Plane-Sweep-Algorithmus unter der Annahme, dass keine horizontalen Strecken und keine
+Überlappungen existieren, sowie dass Schnittpunkte jeweils im inneren von genau zwei Strecken liegen, verallgemeinert. 
+Dabei kann man beobachten, dass kleine zufällige Perturbationen (= Störungen) die allgemeine Lage produzieren.   
+Der *Status T* ist definiert als eine nach x geordnete Folge der l schneidenden Strecken. Ein *Ereginis* ist definiert
+als eine Statusänderung der Sweep-Line (sie berührt einen Startpunkt, Endpunkt oder Schnittpunkt). Der *Schnitttest* wird 
+nur für Segmente ausgeführt, die an einem Ereignispunkt in T benachbart sind.
+
+(img plane-sweep-verallg.png)
+
+Die *Korrektheit* ergibt sich dadurch, dass zwei Geraden s,t, die einen Schnittpunkt (x,y) gemeinsam haben, ein Eregnis triggern
+sodass die beiden Geraden auf l Nachbarn werden. Zu Beginn sind s,t nicht benachbart, bei einem y + ε sind s und t benachbart, das
+heißt es muss ein Ereignis geben, bei dem s und t Nachbarn werden.
+
+(img korrektheit-ps.png)
+
+*Implementierung*
+
+(img ps-impl1.png ps-impl2.png ps-impl3.png ps-impl4.png)
+
+*Beispiel*
+
+(img ps-bspi.png for i=1,..,16)
+
+Dieser Algorithmus benötigt eine *Laufzeit* von O((n+k) log n).
+
+**2D Konvexe Hülle**   
+Eine Menge heißt *konvex*, wenn für je zwei beliebige Punkte, die zur Menge gehören, auch stets deren Verbindungsstrecke 
+ganz in der Menge liegt. Die *konvexe Hülle* einer Teilmenge ist die kleinste konvexe Menge, die die Ausgangsmenge enthält.
+Die Menge wird also komplett von der konvexen Hülle eingeschlossen.
+
+Gegeben einer Menge P = {p1,...,pn} ∈ R² wird ein konvexes Polygon K mit Eckpunkten in P (also P ⊆ K) gesucht.
+
+*Graham's Scan* ist ein Algorithmus zur Berechnung der konvexen Hülle in O(sort(n)), also O(n log n). Dazu werden die
+Punkte in P lexikographisch nach (x,y) (zuerst x, wenn x gleich, nach y) sortiert. (p1<p2<.. <pn). Zudem wird nur die
+obere Hülle berechnet.
+
+(img grahams-scan.png grahams-scan-bsp.png)
+
+**Kleinste einschließende Kugel**   
+Die *Kleinste einschließende Kugel* ist eine kugelförmige konvexe Hülle. Gegeben einer Menge P = {p1,...,pn} ∈ R² wird 
+die kleinste einschließende Kugel mit Radius K in P (also P ⊆ K) gesucht.
+
+*Smallest Enclosing Ball (sEB)* ist ein Algorithmus zur Berechnung der kleinsten einschließenden Kugel in O(n).
+
+(img smallest-encl-ball.png)
+
+Zur *Korrektheit* ist zu Zeigen, dass ein x $\notin$ B existiert, das x auf dem Rand von sEB(P) liegt. Durch Kontraposition
+kann man zeigen, dass ein x, das nicht auf dem Rand von sEB(P) liegt, auf dem sEB(P\{x}) liegen muss, was wiederum = B ist.
+Dadurch muss x ∈ B gelten.  
+Smallest Enclosing Balls sind *eindeutig*. Zum Beweis wird angenommen, dass zwei sEBs B1, B2 existieren, welche nicht gleich
+sind. Daraus folgt → P ⊆ B1 ∧ P ⊆ B2 und P ⊆ B1 ∩ B2 ⊆ sEB(B1 ∩ B2) =: B. Aber dann muss gelten radius(B) < radius (B1), 
+was ein Widerspruch zur Annahme, dass B1 ein sEB ist.
+
+(img seb-korr.png)
+
+Die *Analyse* der kleinsten einschließenden Kugel ergibt, dass allgemein eine Zeit von T(p,0) ≥ d!n zur Berechnung von sEB gilt.
+
+(img seb-anal.png)
+
+
 
 ## Übung
 ### Übung 1
@@ -824,7 +951,7 @@ Wiederhole Test k mal mit unterschiedlicher Wahl von r:
 **Parallel Disk Model (PDM)**: Speicherzugriff in Blöcken, Blockzugriffe minimieren (Datenlokalität), Muster
 wiederholt sich in Speicherhierarchie immer wieder
 
-**I/O-effizientes Design**: nicht nur relevatn bei Disk I/O, z.B. Dijkstra → Strukturierter Zugriff wichtiges Designprinzip    
+**I/O-effizientes Design**: nicht nur relevant bei Disk I/O, z.B. Dijkstra → Strukturierter Zugriff wichtiges Designprinzip    
 *Blockgrößen*: 
 - $T_{seek}$: Positionierungszeit
 - $W_{max}$: maximale Bandbreite  
@@ -835,3 +962,4 @@ wiederholt sich in Speicherhierarchie immer wieder
     - Linearer Scan: $O(\frac{n}{B})$ I/Os
 - Sortieren: $ sort(n) = O(\frac{2n}{B}(1+\lceil log_{M/B} \frac{n}{M}))$ I/Os
 - Prioritätswarteschlangen: sort(n)I/Os
+
