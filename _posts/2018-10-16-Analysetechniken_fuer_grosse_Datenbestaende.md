@@ -819,6 +819,11 @@ Transaktionen T1 und T2 $\frac{\|T1 \cap T2\|}{\|T1 \cup T2\|}$ mit der maximale
 1 (alle Objekte gleich) und der minimalen Ähnlichkeit 0 (kein Objekt gleich). Der Jaccard
 Koeffizient berücksicht nur die zwei Punkte, die Nachbarschaft bleibt unberücksichtigt.
 
+
+#### Dichte-basierte Methoden/Darstellung der Cluster-Ergebnisse
+*Link-basierte* oder auch *Dichte-basierte* Methoden machen keine Annahme über die Form des
+Clusters und liefern bessere Ergebnisse als andere Verfahren.
+
 **Link-basierte Methode**: verbindet alle Punkte, deren Distanz kleiner als d ist. Links
  lösen die klassischen Probleme beim Umgang mit kategorischen Attributen. Zwei Punkte sind
  Nachbarn, wenn die Ähnlichkeit zwischen ihnen größer als ein Schwellwert sind. Die Anzahl
@@ -830,4 +835,159 @@ Koeffizient berücksicht nur die zwei Punkte, die Nachbarschaft bleibt unberück
  
 (img link-based.png)
 
-#### Dichte-basierte Methoden/Darstellung der Cluster-Ergebnisse
+**Density-Based Spatial Clustering of Applications with Noise (DBSCAN)**: (Wikipedia)[https://de.wikipedia.org/wiki/DBSCAN]:
+ ist ein Data-Mining-Algorithmus zur Clusteranalyse. Der Algorithmus arbeitet dichtebasiert und ist in der Lage, mehrere 
+ Cluster zu erkennen. Rauschpunkte werden dabei ignoriert und separat zurückgeliefert.   
+ Die Grundidee des Algorithmus ist der Begriff der Dichteverbundenheit. Zwei Objekte gelten als dichte-verbunden, wenn es
+  eine Kette von dichten Objekten (Kernobjekte, mit mehr als minPts Nachbarn) gibt, die diese Punkte 
+  miteinander verbinden. Die durch dieselben Kernobjekte miteinander verbundenen Objekte bilden einen Cluster. Objekte, die 
+  nicht Teil eines dichte-verbundenen Clusters sind, werden als Rauschen (engl. Noise) bezeichnet.
+ 
+ In DBSCAN gibt es drei Arten von Punkten:
+
+  - *Kernobjekte*, welche selbst dicht sind. (rote Punkte)
+  - *Dichte-erreichbare Objekte*. Dies sind Objekte, die zwar von einem Kernobjekt des Clusters erreicht werden können, 
+  selbst aber nicht dicht sind. Anschaulich bilden diese den Rand eines Clusters. (gelbe Punkte)
+ - *Rauschpunkte*, die weder dicht, noch dichte-erreichbar sind. (blauer Punkt)
+ 
+ (img Datei_DBSCAN_Illustration.svg)
+ 
+ Der Algorithmus verfügt über zwei Parameter: ε und minPts. Dabei definiert ε die Nachbarschaftslänge eines Punktes:
+ Von einem Punkt erreichbar ist ein zweiter Punkt genau dann, wenn sein Abstand kleiner als ε ist. minPts definiert dagegen,
+ wann ein Objekt dicht (d. h. ein Kernobjekt) ist: wenn es mindestens minPts ε-erreichbare Nachbarn hat.
+ 
+ Dichte-erreichbare Punkte können von mehr als einem Cluster dichte-erreichbar sein. Diese Punkte werden von dem 
+ Algorithmus nicht-deterministisch einem der möglichen Cluster zugeordnet. Dies impliziert auch, dass Dichteverbundenheit 
+ nicht transitiv ist; Dichte-Erreichbarkeit ist nicht symmetrisch.
+ 
+ Wenn *ε kleiner* wird, kann es sein, dass Objekte, die vorher Teil des Clusters waren, nichtmehr im gleichen Cluster sind.
+ Wenn *minPts kleiner* wird, werden mehr Objekte keinem Cluster mehr zugeorndet (→ mehr Ausreißer).
+ 
+ *DBSCAN Erweiterung: Ordering Points To Identify the Clustering Structure (OPTICS)*: (Wikipedia)[https://de.wikipedia.org/wiki/OPTICS]:
+  Das Grundprinzip des Algorithmus entstammt DBSCAN,
+  jedoch löst der Algorithmus eine wichtige Schwäche des DBSCAN-Algorithmus: im Gegensatz zu diesem kann er Cluster 
+  unterschiedlicher Dichte erkennen. Gleichzeitig eliminiert er (weitgehend) den ε-Parameter (*Core-Distance*) des DBSCAN-Algorithmus. 
+  Hierzu ordnet OPTICS die Punkte des Datensatzes linear so, dass räumlich benachbarte Punkte in dieser Ordnung nahe 
+  aufeinander folgen. Gleichzeitig wird die sogenannte „Erreichbarkeitsdistanz“ notiert. Zeichnet man diese 
+  Erreichbarkeitsdistanzen in ein Diagramm, so bilden Cluster „Täler“ und können so identifiziert werden.
+  
+  (img optics-idea.png)
+  
+  Die *Core-Distance* $core-distance_{MinPts}(o)$ ist der kleinste Wert, den ε annehmen kann, 
+  sodass o immer noch ein dichtes Objekt ist.
+
+  In der Prioritätsliste (die die Datenpunkte enthält) sollten Datenpunkte, die nahe 
+  beieinander liegen, aufeinander folgen (p1 ist nahe an dichtem Punkt o, p2 nicht: p1,o,p2).
+  Ist p näher an o als core-distnace, dann spielt die genaue Distanz für die Sortierung keine
+  Rolle. Ist ε (ε1) kleiner als die core-distance, dann ist o nicht dicht. Ist ε größer ist p (p1)
+  von o *dichteerreichbar*. Für den Fall, dass p von o weiter weg ist als die core-distance, 
+  so hängt es von ε (ε2) ab, ob p (p2) von o dichteereichbar ist. )
+  
+  (img core-dist.png)
+  
+  Die *Ereichbarkeitsdistanz* (reachibility distance) ist definiert als das Maximum des 
+  echten Abstandes und der Core-Distance des verweisenden Punktes. 
+
+   (img reach-dist.png)
+   
+   OPTICS verwendet eine Priority Queue (Control List (CL)) zum Speichern
+   der Datensätze. Eine Liste wäre zu aufwändig. OPTICS ordnet jetzt die Objekte in der 
+   Datenbank, indem es bei einem beliebigen unbearbeiteten Punkt anfängt, die Nachbarn 
+   in der ε-Umgebung ermittelt und sie sich nach 
+   ihrer bisher besten Erreichbarkeitsdistanz in einer Vorrangwarteschlange merkt. Es wird
+    jetzt immer derjenige Punkt als Nächstes in die Ordnung aufgenommen, der die kleinste 
+    Erreichbarkeitsdistanz hat. Durch das Verarbeiten eines neuen Punktes können sich die 
+    Erreichbarkeitsdistanzen der unverarbeiteten Punkte verbessern. Durch die Sortierung 
+    dieser Vorrangwarteschlange verarbeitet OPTICS einen detektierten Cluster vollständig, 
+    bevor er beim nächsten Cluster weitermacht.
+   
+   (img optics-vis.png)
+
+   *Beispiel - OPTICS:* Zunächst wird Objekt 1 angeschaut. Seine Core-Distance ist groß, da
+   es u keinem natürlichen Cluster gehört. Die Reachability distance ist undefined, da es das
+   erste Objekt, und somit noch kein Referenzobjekt in der Ergebnisliste steht. Die 
+   erreichbaren Nachbarn von Objekt 1 sind die Objekte 2 und 3. Diese werden in die CL 
+   geschrieben, 1 in die Ergebnisliste. Da Objekt 2 näher an Objekt 1, als Objekt 3 liegt, 
+   werden die Objekte in dieser Reihenfolge in die CL geschrieben (CL: 2,3; Output: 1).
+   Als nächstes wird Objekt 2 aus der CL genommen und abgearbeitet. Objekt 16 befindet
+   sich in der ε-Umgebung von Objekt 2, also wird es in die CL aufgenommen (CL: 3,16; 
+   Output: 2,3). Objekt 3 steht als nächstes in der Cl, wird also als nächstes abgearbeitet.
+   Es hat eine kleinere core-distance, da viele Objekte in seiner Umgebung liegen. Die 
+   Objekte die mit Objekt 3 im Cluster liegen ({4,...,15}) werden nun als nächstes in die CL
+   geschrieben.   
+   Ist die CL komplett abgearbeitet, wird das nächste Objekt zufällig aus dem Datensatz 
+   gewählt.
+   
+   (img optics-bsp.png optics-bsp2.png  optics-datastruc.png)
+   
+   Der bei OPTICS verwendete *Reachability Plot* repräsentiert die Cluster-Struktur 
+   dichtebasiert und ist leichter zu analysieren. Zudem ist er unabhängig von der
+   Dimensionaltät des Cluserbestands.
+   
+   OPTICS liefert ein gutes Ergebnis, solange die Parameterwerte groß genug sind. Für ein 
+   kleines ε bleiben größere Nachbarschaften außen vor, für größere ε ist das Ergebnis des
+   Clusters aber ungenauer. Für kleine minPts entstehen zu kleinteilige Cluster, da Objekte
+   mit eher wenigen Objekte in der Nachbarschaft als dicht gelten und ein Cluster bilden.
+   
+#### Cluster-Ensembles
+Zur Generierung *robuster* Clustering-Ergebnisse, werden bei *Cluster-Ensembles* die
+Resultate mehrere Clustering-Modelle kombiniert. Dazu generiert man k unterschiedliche
+Clusterings und leitet daraus die Resultate ab.
+
+Man unterscheidet zwischen:
+- *Modell-basiert:* unterschiedliche Verfahren bilden ein Ensemble bzw. das selbe Verfahren
+mit unterschiedlichen Parametern/Initialisierungen ausgeführt.
+- *Daten-basiert:* unterschiedliche Teilmengen der Daten generieren unterschiedliche Cluster.
+Dabei beschränkt man sich auf unterschiedliche Dimensionen.
+
+Zum *Vereinen* der Verfahren kann man unterschiedliche Algorithmen anwenden:
+- *Hypergraph Partitioning Algorithmus:* jedes Objekt ist ein Knoten in einem Graphen. Cluster
+sind sogennante *Hyper-Kanten*. Jede Hyper-Kante kann mehr als zwei Knoten miteinander 
+verbinden.
+- *Meta-Clustering Algorithmus:* Auch hier ist die Darstellung des Clusterings ein Graph. 
+Bei Überlappung der Objekt-Mengen im Cluster existieren Kanten zwischen den 
+Repräsentantenknoten. Der Jaccard-Koeffizient fungiert als Kantengewicht.
+
+#### Probabilitsitsches Clustering
+Da ein Wert im Allgemeinen zu mehr als einem Cluster gehören kann, ist die 
+wahrscheinlichkeitsbasierte Sichtweise auf Clustering notwendig. Man möchte die Cluster 
+finden, die für gegebene Daten am wahrscheinlichsten sind.
+
+Bei der Betrachtung von gekauften Kameras (A: Privat, B: Professionell) mit dem Preis
+an der x-Achse, lassen sich Werte besonders an der Überlappung der Cluster nicht eindeutig
+zuordnen. Unter der Annahme, dass eine Gauss-Verteilung zugrunde liegt, möchte man nun
+herausfinden, mit welcher Wahrscheinlichkeit eine Kamera von einer Privatperson oder einem
+Profi gekauft wurde.
+
+(img kamera.png)
+
+Das *Finite-Mixture-Problem* ist das Problem Wahrscheinlichkeitsverteilung durch eine Menge
+von k Wahrscheinlichkeitsverteilungen zu beschreiben. Dabei kann jede der k Verteilungen 
+ein Cluster beschreiben, die Verteilungen innerhalb eines Clustes sind aber nicht bekannt.
+Cluster selbst können unterschiedlich wahrscheinlich sein. 
+
+*Clustering mit Finite-Mixtures* finden die Parameter (pA, μA, μB, σ²A, σ²B) gegeben der
+Datenobjekte, der Anzahl der CLuster k und der Art der Verteilung der Cluster. Unter der
+Annahme einer Gauss-Verteilung ist dieses Problem lösbar, ohne Annahmen im Allgemeinen aber 
+nicht.
+
+Die Idee des **Expectation Maximization Algorthmus** ist es, mit einem zufällig gewählten 
+Modell zu starten, und abwechselnd die Zuordnung der Daten zu den einzelnen Teilen des 
+Modells (*Expectation-Schritt*) und die Parameter des Modells an die neueste Zuordnung 
+(*Maximization-Schritt*) iterativ zu verbessern.
+
+Die initiale Belegung der Parameter (pA, μA, μB, σ²A, σ²B) wird geraten, die Cluster-
+Wahrscheinlichkeiten für jedes Datenobjekt ausgerechnet (*Expectation-Schritt*), die
+Parameter des Clusters neu berechnet (*Maximization-Schritt*) und dann das Vorgehen wiederholt.
+Die Schätzung der Parameter ist abhängig davon, wie wahscheinlich ein Datenobjekt zu einem
+Cluster gehört. Die Wahrscheinlichkeiten wirken dabei wie Gewichte.
+EM terminiert dann, wenn das Gütermaß des Clustering (*overall likelihood*)
+erreicht wird. Der optimale Punkt wird allerdings nie erreicht. Es kann nur das lokale 
+Optimum gefunden werden, nicht das globale. Man kann den Algorithmus mit unterschiedlichen
+Initialisierungen wiederholen und das Gütemaß als Auswahlkriterium für den besten Algorithmus
+wählen.   Angenommen, die Verteilungen
+beschreiben Datenbestand gut:Dann sind viele Instanzennahe bei einem Cluster-Mittelpunkt
+(z. B. μB ), und Pr[x i | B] ist groß. Angenommen, die Cluster-Mittelpunkte sind abseitig:
+Dann ist sowohl Pr[x i | A] als auch Pr[x i | B] für viele Instanzen klein.
+
+(img overall-likelihood.png)
