@@ -914,3 +914,188 @@ ist die Anpassung der Parameter des Modells $ \lambda = \{S,V,A,V,\Pi\}$ gesucht
  **Anwendungen**: HMMs finden Anwendung in der Spracherkennung, der Gestenerkennung (z.B Robotik), im Autonomen Fahren (Ampelzustandsschätzung)
  und in der Bioinformatik (Genomanalyse). Kurz gesagt, überall dort wo man zugrunde liegende stochastische Prozesse
  nur indirekt beobachten kann.
+ 
+### Lernen nach Bayes
+**Lernen nach Bayes** ist ein *statistisches Lernverfahren* welches *vorhandenes Wissen*
+(a priori Wahrscheinlichkeiten) mit *beobachteten Daten* kombiniert. Hypothesen können mit
+einer Wahrscheinlichkeit angegeben werden. Jedes Beispiel kann die Glaubwürdigkeit einer 
+bestehenden Hypothese erhöhren oder verringern, allerding können Hypothesen dadruch nicht
+ausgeschlossen werden. Um genauere Ergebnisse zu erzielen, können mehrere Hypothesen
+gleichzeitig ausgewertet werden.
+
+Für dieses Verfahren ist allerding initiales Wissen über viele Wahrscheinlichkeiten/Verteilungen
+notwendig, dessen Schätzung oft auf Hintergrundwissen oder vorhandenen Daten basiert. 
+Zudem ist ein enormer Rechenaufwand notwendig.
+
+**Wahrscheinlichkeitstheorie** für Berechnungen:
+- *Produktregel:* Konjunktion zweiter Ereignisse A und B: P(A ⋀ B) = P(A\|B) P(B) = P(B\|A) P(A)
+- *Summenregel:* Disjunktion zweier Ereignisse A und B: P(A ⋁ B) = P(A) + P(B) - P(A ⋀ B)
+- *Theorem der totalen Wahrscheinlichkeit:* Für sich gegenseitig ausschließende Ereignisse
+deren Gesamtwahrscheinlichkeit 1 ist gilt: $P(B) = \sum_{i=1}^{n} P(B\|A_i) P(A_i)$
+- *Satz von Bayes:* $P(B\|A) = \frac{P(A\|B) P(B)}{P(A)}$
+
+**Theorem von Bayes**: 
+- *P(h)* ist die Wahrscheinlichkeit, dass die Hypothese h aus dem Hypothesenraum H gültig ist 
+(a priori, d.h. vor der Beobachtung von D)
+- *P(D)* ist die Wahrscheinlichkeit, dass D als Ereignisdatensatz auftritt ohne zu Wissen, ob
+die Hypothese gültig ist.
+- *P(D|h)* ist die Wahrscheinlichkeit des Auftretens von D in einem Raum, in dem die 
+Hypothese h gilt.
+- *P(h|D)* ist die Wahrscheinlichkeit, dass h gilt gegeben die beobachteten Daten D (a
+posteriori)
+
+(img bayes-theorem.png)
+
+**MAP-/ML-Hypothesen**   
+Bei der **Auswahl von Hypothesen** ist es das Ziel, die Hypothese h aus dem Hypothesenraum H
+zu finden, die die größte Wahrscheinlichkeit gegeben der beobachteten Daten D liefert.
+Diese Hypothese heißt *Maximum a posteriori (MAP) Hypothese*: 
+
+(img map.png)
+
+Unter der Annahme P(hi) = P(hj) lässt sich die MAP Hypothese zur *Maximum Likelihood (ML)
+Hypothese* vereinfachen: 
+
+(img ml.png)
+
+Um die beste MAP-Hypothese zu finden, kann man *Brute Force* ausführen. Also für jede
+Hypothese im Hypothesenraum H die a posteriori Wahrscheinlichkeit berechnen und die
+Hypothese ausgeben, die die größte Wahrscheinlichekeit besitzt.
+
+*Beispiel: Medizinische Diagnose:* Angenommen 0.8% der Bevölkerung leiden an Krebs. Hat man
+Krebs, so ist der Test in 98% der Fälle positiv. Hat man keinen Krebs, fällt der Test mit 3%
+trotzdem positiv aus. Wie hoch ist die Wahrscheinlichkeit, dass eine Person mit einem positiven
+Testeregebnis auch wirklich Krebs hat? (h = Krebs, h' = kein Krebs)
+
+(img krebs1.png krebs2.png)
+
+Beim **Konzeptlernen** ist ein endlicher Hypothesenraum H über dem Raum der Instanzen X
+gegeben. Die Aufgabe ist das Lernen eines Zielkonzepts c: X → {0,1} mit der Sequenz von 
+Instanzen {x1,...,xm} und Sequenz von Zielwerten D = {d1,...,dm}. Dabei wird angenommen, 
+dass die Trainingsdaten D nicht vertauscht sind, also zugehörig der Instanzen vorliegen 
+(di = c(xi)). Außerdem ist keine Hypothese wahrscheinlicher als eine andere.
+
+(img konzeptlernen.png)
+
+**Konsistenter Lerner**: Ein Lernverfahren ist ein *konsistenter Lernen*, wenn es eine 
+Hypothese liefert, die *keine Fehler auf den Trainingsdaten macht*. Unter den Voraussetzungen
+des Konzeptlernens, liefert jeder konsistente Lerner eine *MAP-Hypothese*. Dies ist eine 
+Methode um den induktiven Bias auszudrücken. Die Entwicklung der a posteriori 
+Wahrscheinlichkeiten mit wachsender Anzahl von Trainingsdaten sieht wie unten aus. Für
+inkonsistente Hypothesen gilt P(h) = 0.
+
+(img konsis.png)
+
+**Bayes-Klassifikator**
+
+Bisher wurde nach der Hypothese mit der größten Wahrscheinlichkeite gegeben der Daten D
+gesucht. Nun wollen wir die *wahrscheinlichste Klassifikation vj* einer Instanz x wissen.
+
+(img klass-bayes-ex.png)
+
+**Optimaler Bayes-Klassifikator**: ist ein aus dem Satz von Bayes hergeleiteter Klassifikator.
+ Er ordnet jedes Objekt der Klasse zu, zu der es mit der größten Wahrscheinlichkeit gehört.
+ Um den Bayes-Klassifikator zu definieren, wird ein Kostenmaß benötigt, das jeder möglichen
+ Klassifizierung Kosten zuweist. Der Bayes-Klassifikator ist genau derjenige Klassifikator,
+ der die durch alle Klassifizierungen entstehenden Kosten minimiert.
+ 
+ (img bayes-klass.png bayes-klass-bsp.png)
+ 
+ Am obigen Beispiel bei der Klassifikation der positiv und negativ zugeordneten 
+ Datenobjekten wird deutlich, dass die wahrscheinlichste Klasse mit a posteriori + wäre, mit
+ Bayes hingegen -. Kein anderes Klassifikationsverfahren schneidet durchschnittlich besser
+ ab als Bayes. Allerdings ist es bei großer Hyopthesenzahl sehr kostenintensiv.
+ 
+ **Gibbs Algorithmus**: Der Gibbs Algorithmus ist ein Bayes-Klassifikator. Er wäht h aus H
+ zufällig gemäß P(h\|D) und nutzt h(x) als Klassifikation von x). Es gilt die Eigenschaft, dass
+ der Fehler von Gibbs maximal so groß ist die 2 * der Fehler von dem optimalen Bayes 
+ Klassifikator.
+ 
+ **Naiver Bayes Klassifiktor**: Die naive Grundannahme ist dabei, dass jedes Attribut nur 
+ vom Klassenattribut abhängt. Obwohl dies in der Realität selten zutrifft, erzielen naive 
+ Bayes-Klassifikatoren bei praktischen Anwendungen häufig gute Ergebnisse, solange die 
+ Attribute nicht zu stark korreliert sind.  
+ Gegeben einer Instanz x als Konjuktion von Attributen a1,a2,...,an, einer endlichen Menge
+ von Klassen V = {v1,...,vm} und einer Menge von klassifizierten Beispielen wird die 
+ wahescheinlichste Klasse für die Instanz gesucht.
+ 
+ (img naiv-bay.png)
+ 
+ P(vj) lässt sich leicht aus dem Auftreten der KLasse vj in der Trainingsmenge berechnen
+ (einfaches Zählen). P(a1,a2,...,an\|vj) ist schwerer zu berechnen, da es nur durch Auszählen
+ aller Kombinationen der Attributwerte geht. Dazu benötigt man eine riesige Trainingsmenge.
+ Deshalb wird vereinfacht angenommen, dass ai bedingt unabhängig ist.
+ 
+ (img naiv-bay-unab.png)
+ 
+ Als naiver Bayes-Klassifikator ergibt sich daher: (img naiv-bay-klass.png)
+ 
+ (img bayes-tennis1.png bayes-tennis2.png)
+ 
+ **Laplace-Schätzer**: Nimmt ein Klasse und ein Attribut nicht einen bestimmten Wert
+ in den Daten an, so kann der Wert geschätzt werden. 
+ Allgemein definiert man einen Laplace-Schätzer als denjenigen Wert, der den Erwartungswert 
+ einer Verlustfunktion unter der A-posteriori-Verteilung minimiert.
+ 
+ *Beispiel: Klassifikation von Texten*: Das Ziel ist es zu Lernen, welche Nachrichten
+ interessant sind: Dokument → {+,-}. Zudem wird die Annahme (bag of words) gemacht, dass
+ die Wahrscheinlichkeit des Auftretens eines bestimmten Wortes unabhängig von der Position
+ im Text ist.
+ 
+ (img text-bay.png)
+ 
+ Zum Schätzen benötigt man das Vokabular, also alle Wörter und Token aus den Beispielen.
+ 
+ (img text-bay-schaetzen.png)
+ 
+ **Bayessche Netze**
+ 
+ Die naive Bayes-Annahme der bedingten Unabhängigkeit ist oft zu beschränkend. Allerdings
+ ist ohne solche vereinfachenden Annahmen das Lernen nach Bayes oft nicht möglich. 
+ 
+ **Bayessche Netze**: beschreiben bedingte (Un-)Abhängigkeiten bzgl. Untermengen von 
+ Variablen und erlauben somit die Kombination von a priori Wissen über bedingte 
+ (Un-)Abhängigkeiten von Variablen mit den beobachteten Trainingsdaten.
+ Ein *Bayessches Netz* ist ein gerichteter azyklischer Graph (DAG), 
+ in dem die Knoten Zufallsvariablen und die Kanten bedingte Abhängigkeiten zwischen den 
+ Variablen beschreiben. Jedem Knoten des Netzes ist eine bedingte 
+ Wahrscheinlichkeitsverteilung der durch ihn repräsentierten Zufallsvariable gegeben, 
+ die Zufallsvariablen an den Elternknoten zuordnet. Sie werden durch 
+ Wahrscheinlichkeitstabellen beschrieben. Vorgänger(Yi) ist die Menge der direkten
+ Vorgänger von Yi. Y ist Nachfolger von X , wenn ein gerichteter Pfad von X nach Y
+ existiert. Die Kanten repräsentieren die Zusicherung, dass eine Variable von ihren Nicht-
+ Nachfolgern bedingt unabhängig ist, gegeben ihre direkten Vorgänger.
+ 
+ (img bn-berechnung.png bn-graph.png bn-table.png)
+ 
+  **EM-Algorithmus**
+  
+  Bei bekannter Struktur, aber nur einigen beobachtbaren Variablen, kommt der EM-Algorithmus
+  zum Einsatz.
+  
+**Expectation-Maximization-Algorithmus (EM)**: ist ein iterativer Ansatz zum Schätzen der 
+nicht beobachtbaren Werte (E-Schritt) und Anpassung der Parameter (M-Schritt). Er wird
+verwendet zum Training von Bayesschen Netzen oder zum Lernen von Hidden Markov Modellen.
+
+(img em.png)
+
+*Ablauf* des EM-Algorithmus:
+1. Zufällige *Initialisierung* der Hypothese h.
+
+2. *Expectation (E) Schritt*: Berechne den Erwartungswert E[zij] für jede versteckte Variable
+unter der Annahme, dass die aktuelle Hypothese h gültig ist.
+
+3. *Maximization (M) Schritt*: Berechne eine nee Maximum Likelihood Hypothese h' unter der 
+Annahme, dass die Werte der versteckten Variabe zij die im E-Schritt berechneten 
+Erwartungswerte annehmen.
+
+4. Ersetze h durch die neue Hypotehese h' und iteriere.
+
+Der EM-Algorithmus konvergiert gegn eine lokale Maximum Likelihood Hypothese und liefert 
+Schätzungen für die versteckten Variablen Z. Er sucht die Maximum Likelihood Hypothese h', 
+welche den Erwartungswert über die möglichen Werte der versteckten Variablen gegeben
+der vollständigen Daten berechnet.
+
+ **Einordnung**: (img einordnung-bayes.png)
+
+
