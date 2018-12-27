@@ -1159,3 +1159,372 @@ It is transmitted as a sequence of tact and data pulses. The *Auto-negotiation f
   distances up to 40km and a multilane distribution (multiple parallel channels, different physical wires or different frequencies) and
   a virtual lane (distribute data stream over number of virtaul lanes)
   
+  
+#### Spanning Tree
+**Bridges**: connect local networks (LANs) on layer 2. The filter function detaches
+intra-network traffic in one LAN from inter-network traffic to other LANs, this increases
+network capacity of big networks.
+
+(img bridges.png)
+
+There are two types of bridges:
+- *Source-Routing bridges:* End systems add forwarding information in send packets. The 
+Bridges forward the packet based in this information. Sending packets is not transparent for
+the end system, it has to know the way.
+- *Transparent bridges:* The local forwarding decision takes place in each bridge. (
+Forwarding information is store in the forwarding table). The end system is not involved in
+forwarding decisions (existence of bridges is transparent for end systems). For each network
+interface exists an own layer 1 and a MAC instance.
+
+(img transp-bridge.png)
+
+**Spanning-Tree Algorithm**: To ensure the network is established as a loop-free topology (packets must no loop endlessly)
+ we use the *Spanning-Tree* Algorithm. To Forward packets, the switches have to learn the
+ location of end systems (and store it in forwarding tables). The forwarding table is then
+ used for filtering and forwarding of packets.
+ 
+ The *Spanning Tree* Algorithm organized the bridges as a tree topology (no loops possible), 
+ where nodes are bridges or LANs and edges are connections between interfaces and LANs. In
+ case the resoureces are not used optimally, it can be that bridges are not in the tree.
+ Forwarding of packets is onl possible along the tree.
+ 
+ (img example-network.png)
+ 
+ *Requirements* for using the bridge protocol:
+ - *Group address* to address al bridges in the network (MAC address)
+ - *Unique bridge identifier* per bridge in the network
+ - *Unique interface identifier* per interface in each bridge
+ - *Path costs* for all interfaces of a bridge
+ 
+ In the *Spanning Tree* Algorithm bridges send special packets, so called *Bridge Protocol
+ Data Units (BPDUs). It contains the identifier of the sending bridge, the identifier of 
+ the bridge that is assumed to be the root bridge and path costs of the sending bridge
+ to the root bridge.
+ 
+ *Implementation of Spanning Tree*: Determine the root bridge, then determine the root 
+ interfaces for each bridge (calculate path costs to the root bridge, select the interface
+ with the lowest costs) and then determine the designated bridge for each LAN (loop free). 
+ A LAN can have multiple bridges. Select the bridge with the lowest costs on the root interface 
+ (designated bridge, resolve equal costs over bridge identifier). The designated bridge is
+ responsible for the forwarding of packets. Other bridges in the LAN will be deactivated
+ (affected interfaces set to blocked).  
+ Initially bridges have no topology information. Therefore all bridges think they are the
+ root bridge (periodically sending BPDUs with itself as root bridge). As soon as the bridge
+ receives a BPDU with a smaller bridge identifier it no longer assumes itself as the 
+ root bridge (but the bridge with the smaller identifier). When it receives another BPDU
+ wit an even smaller identifier, then this bridge is the new root bridge. If the bridge
+ notices that it is not the designated bridge, it is no longer forwarding BPDUs.  
+ The Algorithm is in a stable phase, if the root bridge periodically sends BPDUs (only
+ active bridges forwar BPDUs), no more BPDUs are received (bridge again thinks its the 
+ root bridge, algorithm starts again), after stabilization packets are forwarded over the 
+ respective ports (based on forwarding table).
+ 
+ (img st-impl1.png st-impl2.png st-impl3.png st-impl4.png)
+ 
+ *Forwarding of packets*: The forwarding table contains the information required for forwarding, 
+ link destination address, outgoing port and timer, as well as static, created by network 
+ administrator and dynamic entries, learned and forgotten during operation (Learning
+ through incoming packets, forgetting based on timer (soft-state)). Packets with local
+ destinations are not forwarded over the bridge to separate the traffic and increase 
+ scalability.  
+ If the bridge is receiving a packet with a *known destination*, that means the destination
+  is identified by destination MAC address in the packet and matches an existing enstry in 
+  the forwarding table, the packet will be sent over the respective port.   
+  If the bridge is receiving a packet with a *unknown destination*, the packets will be 
+  flooded, that means it is sent over all ports except the input port and the bridge learns
+  the location of the source system by identifying the source MAC address in the packet and
+  creating a new entry in the forwarding table. The source system needs to be reachable 
+  over the input port.
+  
+  (img forwarding-sptr-ex.png)
+  
+  **Rapid Spanning Tree Protocol**: (Wikipedia)[https://de.wikipedia.org/wiki/Rapid_Spanning_Tree_Protocol]:
+  "Das Rapid Spanning Tree Protocol (RSTP) ist ein Netzprotokoll, um redundante Pfade in 
+  lokalen Netzen zu deaktivieren, bzw. im Bedarfsfall (Ausfall einer Verbindung) wieder zu 
+  aktivieren.
+  Werden beim STP beim Ausfall einer Netzkomponente (Switch, Bridge etc.) noch sämtliche 
+  Verbindungen unterbrochen, bis die neue Topologie berechnet ist, so fallen beim RSTP nur 
+  die Pfade aus, die über die defekte Komponente liefen. Ansonsten bleiben die bisherigen 
+  Pfade bestehen, bis die Berechnung der neuen Topologie beendet ist. Die Umschaltung auf 
+  die neue Topologie erfolgt dann sehr schnell. Häufig können die nicht-ausgefallenen 
+  Verbindungen weiter bestehen bleiben, da lediglich einige zusätzliche Ports freigeschaltet
+   werden, die zuvor wegen Redundanz deaktiviert waren.
+   
+   Two new types of port states:
+   - *Alternate Ports* are ports with the best alternative path to the root bridge.
+   - *Backup Ports* are also ports with alternative paths to a network that already has a
+   connection. The bridge has two ports which connect to the same network.
+   
+   Every bridge sends *peridic BPDUs* (Hello-Timer = 2s) to the next hierarchy level in the
+   tree. In case of a failure of a neighbor there are no BPDUs for 3 times.
+   
+   Different types of ports:
+   - *Edge port:* Only end systems are connected (no loops possible)
+   - *Point-to-Point port:* full duplex (only connects to  neighbors)
+   - *Shared port:* connects to a network (no fast switching possible)
+   
+   (img rsp-ex.png)
+
+#### Real time Ethernet
+Ethernet is a cheap technology and therefore used in manny new use cases (Industy automation, 
+vehicles, music industry). Real time Ethernet is in these use cases not possible.
+     
+**Time-Triggered Ethernet (TT-Ethernet)**: is used in control tasks for e.g. wind wheels and
+vehicles. Requirements are support of time-triggered real time communication (collision free
+sending), support of a data rate based communication and compatibility to normal Ethernet.
+
+TT-Ethernet defines three *traffic classes*:
+- time controlled, high priority frames (time-triggered)
+- rate limited data streams (rate-constrained)
+- best-effort traffic: normal Ethernet frames, only send and relayed if no higher priority
+frames are available
+
+(img tt-eth-classes.png)
+
+**EtherCAT**: is an Ethernet for control automation. Its topology is a logical ring, it needs
+hardware changes and efficient handling of small data packets. It allows very time critical
+applications.
+
+**Audio Video Bridging (AVB)**: is used for broadcasting, events (concerts, statium) and
+vehicles. It need time synchronization between AVB stations (< 1ms) and hardware changes.
+
+### Data Center Networking
+#### High-Level View
+
+**Data Center** typically has a large number of compute servers with virtual machine support
+and extensive storage facilities. It uses off-the-shelf commodity hardware devices (
+handelsübliche Hardware-Geräte) like switches with small buffers and a huge amount of servers
+(> 100.000). These devices fail regularly. Furthermore they should be extensible without 
+massive reorganization, need to be reliable (requires redundancy) and highly performant 
+(100Tbit/s, low latencies).
+
+(img dc-simpl.png)
+
+*Top-of-Rack Switches (ToR)* are Ethernet switches that connect servers within a rack. 
+Switches typically have small buffers. A rack has 42-48 rack units per rack.
+
+(img tor.png)
+
+*Challenges* are to maintain *scalability*, to maximize throughput while minimizing latency
+and cost. In case of failure to guarantee data integrity and service availability. Enhance
+power efficiency and reduce operational costs.
+
+A *Data Center Network* interconnects data center servers with each other and connects the
+data center to the internet. There are *two types of traffic*: Between external clients and 
+internal servers and between internal servers. *Border routers* connect the internal network
+of the data center to the internet.
+
+*Routing/Forwarding within a Data Center* requires for example network efficiency, no
+forwarding loops, a quick failure detection.
+
+(img dc-forwarding.png)
+
+**Typical Services**
+
+**Infrastructure as a Service (IaaS)**: providing virtual computing resources or virtual
+network resources by cloud providers.
+
+**Platform as a Service (PaaS)**: allows customers to manage services (e.g. web apps) with
+leased platforms from cloud providers without owning physical resources.
+
+**Software as a Service (SaaS)**: providing software services as needed. Customers do not
+need to purchase software licenses.
+
+**Storage as a Service (StaaS)**: providing storage and sharing infrastructure by cloud
+provider.
+
+#### Network Topology
+The Tree-Based Topology is often used in data centers.
+
+(img tree-based.png)
+
+**Traffic Types**
+*East-west traffic* is between internal servers and server racks. It is the result of internal
+applications like MapReduce and storage data movements.
+
+*North-south traffic* traffic between external cliens and internal servers.  It is is the 
+result of external requests from the internet. North-south traffic may cause east-west 
+traffic.
+
+**Fat Tree Networks**
+
+**Fat-Tree Networks**: is a tree structure in which branches nearer the top of the 
+hierarchy are "fatter" (thicker, higher bandwidth) than branches further down the hierarchy.
+It is a solution for the problem that switches only have a limited number of ports but we want
+to connect a large number servers with it.
+
+(img fat-tree-ex.png)
+
+But in this topology switches need different numbers of ports and switches with high numbers
+of ports are more expensive. The *k Pod Fat Tree* (below 4 pod fat tree) resolves this through
+creating "pods" (Hülle, Gehäuse) around switches. Each switch has k ports. To avoid re-numbering
+of IP addresses when topology changes the entire topology uses layer 2 forwarding.
+
+(img 4podfat.png kpodfatnumb.png)
+
+*Address Assignment*: for the private IPv4 address block 10.0.0.0/8
+- Pods: enumerated from left to right [0,k-1]
+- Switches in a pod: IP address *10.pod.switch.1*
+    - edge switches are enumerated from left to right [0, k/2 -1]
+    - enumeration continues with aggregation switches from left to right [k/2, k -1]
+- End hosts: IP address *10.pod.switch.ID*
+    - Based on the IP Address of the connected edge switch
+    - IDs are assigned to hosts from left to right starting at 2
+- Core swiches: IP address *10.k.x.y*
+    - k: number of pods
+    - x: starts at 1 and increments every k/2 core switches
+    - y: enumerates each switch in a block of k/2 core switches from left to rigt (starting 
+    with 1)
+    
+(img address-ex-pod.png)
+
+*Advantages* of k Pod Fat Trees are the identical switches, cheap commodity (handelsübliche)
+switches can be used and multiple equachl cost paths between any hosts. A *disadvantage* is
+the high cabling complexity.
+
+**Load Balancer** distributes traffic to servers and also collects traffic from servers. It
+provides NAT-like functions like translating private into public address spaces and hiding
+internal structure to the outside. The hierarchical topology supports scalability and
+redundant devices and links to increase reliability but it has many points of failure.
+
+(img load-balancer.png)
+
+**Clos Network**
+
+A **Clos Network** is a multi-rooted tree that allows forming a large switch out of smaller
+switches. Referred to as (m,n,r) switch with number of switches in the middle stage m, 
+number of input/output ports n and number of input/output switches r.
+
+(img clos.png)
+
+In clos networks has three different levels of switches.
+But clos networks are not limited to three levels. A recursive construction of clos networks 
+with odd number of switches is possible through  replacing the middle switches with a three
+level clos network. A Clos network is non-blocking if m ≥ 2n - 1.
+ 
+Three layers of switches:
+- *Input switches:* ToR swithes directly connected to servers
+- *Middle switches:* Aggregation switches directly connected to ToR switches
+- *Output switches:* Intermediate switches connected to the aggregation switches
+
+#### Ethernet within Data Centers
+Ethernet as a "fabric" for data centers has to cope with a mix of different traffic types and
+therefore needs *Prioritization*. **Priority Code Point (PCP)** is a field of the VLAN tag for
+traffic differentiation. But it is not enough for bandwidth reservation.
+
+**Data Center Bridging**
+
+**Data Center Bridging** is a unified, Ethernet-based solution for a wide variety of data
+center aplcations. It is extending Ethernet with the following four functions.
+
+*Priority-based Flow Control* is an extension of flow control via PAUSE frame. Eight priority
+levels are introduced using the VLAN tag (eight virtal links on one physical link). The 
+pause time can be individually selected for each priority level that allows differentiated
+quality of service.
+
+*Enhanced Transmission Selection* is introducing priority groups (PGs) to allow
+bandwidth reservation. It guarantees a minimum data rate per PG. Unused capacity is usable by
+other PGs.
+
+*Congestion control on Layer 2*: The Quantatized Congestion Notification (QCN) protocol 
+estimates of the strengthof the congestion (Detection) and sends a feedback to congestion 
+source via a special frame (Notification). The source can limit the transmission rate similar
+to TCP (decrease transmission rate multiplicative and increase it again additive)
+
+*Data Center Bridge Exchange* Protocol (DCBX) detects the capabilites of the network and 
+configueres the neighbors through sending periodic broadcasts to the neigbor, 
+for example to enable priority-based flow control.
+
+**Alternatives to Spanning Tree**
+
+To gain more flexibility, in terms of network topology and usage 
+and a better utilization of the total available capacity, data centers are using 
+*routing algorithms in Layer 2*.   
+The basic Procedure consists of two parts:
+*Intermediate-System-to-Intermediate-System (IS-IS) protocol* uses link state rounting, 
+doesn't rely on IP address and supports multipath.  
+The use of *tunneling* is encapsulated within the domain and adds a new header with addresses
+that is used for forwarding.
+
+(img l2f.png)
+
+*Alternative Concepts*
+
+*Shortest Path Bridging (SPB)*: Every bridge in the LAN calculated shortest paths using MAC
+address tabes. If the target is not known yet, the packet is forwarded via the shortest path 
+tree. The packets are encapsulated in the LAN (MAC-in-MAC).
+
+*Transparent Interconnection of Lots of Links (TRILL)*: Routing Bridges implement TRILL. 
+Each Routing Bridge is calculated in the LAN, the shortest routes to all Routing Bridges is
+stored in a tree. These trees are sed for traffic with multiple destination. Forwarding
+of the frame if target is unknown. The forwarding information base is quite small because it
+only contains Routing Bridges and no end systems.
+
+#### TCP within Data Centers
+For the use of TCP in Data Centers, relevant properties are:
+- low round trip times
+- incast communication: servers answer to the client at the same time (synchronized)
+- multiple patchs
+- mix of long and short-lived flows
+- virtualization
+- ethernet as a "fabric"
+- commodity switches
+
+The *goals* are simultaneous support for low delays and high throughput, high utilization of
+the infrastructure and low cost. At the same time data center should have the option to an
+administrative control, homogenous components, backwards compatibility and seperation of 
+traffic.
+
+*TCP Reno* is *not suitable* because of the requirement of large buffers and high end-to-end 
+delay. Most TCP concepts for congestion control in data centers require changes is end systems
+and switches.
+
+**Incast Problem in Data Centers**
+
+**TCP-Incast Problem**: Incast ist a many-to-one communication pattern. It is common in 
+applications such as web search and analytics. A Request is distributet to multiple servers
+which are responding almost synchronously. The total numver of responses can overwhelm small
+buffers in switches.
+
+(img tcp-incast.png)
+
+**Packet loss in Ethernet switches**: Ports often share buffers because individual answers may 
+be small. That's why larger number of responses can overload a port, high background traffic
+on the same port as incast or on a different port than incast can cause *packet losses*. 
+Losses cause *TCP retransmission timeouts* and no further data can be received. Duplicate
+ACKs cannot be generated.
+
+(img tcp-retrans.png)
+
+**Barrier Synchronization and Response Time**: A client has a TCP connection to each of the
+servers involved. Requests are sent synchronously to the servers which respond almost
+synchronously. The application needs answers from all servers before the next query. The
+consequence is that the slowest TCP connection determines the efficiency of the application. 
+This effect, that the affected TCP instance must wait for the retransmission timeout, 
+is called *Barrier Synchronization*. In this time the link is not used. The result are
+long periods where the TCP connection cannot transfer data and the application is blocked.
+
+To prevent these problems a *smaller minimum retransmission timeout* (ms → µs) and the
+*desynchronization* in case of a full buffer as well as randomization to desynchronize 
+retransmissions might be helpful.
+
+#### Data Center TCP 
+**Data Center TCP (DCTCP)**: achieves high burst tolerance, low latencies and high throughput
+with commodity switches. DCTCP works with low utilization of queues without reducing the
+throughput. DCTCP achieves the goal through responding to the strength of the congestion
+and not to its presence if congestion occurs. The response based on presence would be too
+strong in data center. Buffer underflow and a low throughput would be the result.
+
+*Explicit Congestion Notification (ECN)* is a very simple active queue management. If an
+element is in the queue > k the CE-Bit will be set.  
+DCTCP sets the ECN echo flag only in ACKs for segments that were marked with *Congestion
+Experienced*.
+
+*Benefits of DCTCP*:
+- *Incast:* If the queue is build up over multiple RTTs, DCTCPs early reaction will help. If
+the number of small flows is too large, no congestion controll will help to prevent segment
+loss.
+- *Building the queue:* DCTCP reacts if the queue is longer than k. For bursts there is
+more buffer space available.
+- *Buffer pressure:* Queues of loaded ports are kept small. The mutual influence among ports
+is reduced.
