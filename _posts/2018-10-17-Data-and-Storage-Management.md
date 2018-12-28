@@ -348,3 +348,108 @@ TCP ermöglicht. SCSI commands werden über TCP/IP Netzwerke übertragen. Die IP
 routen/switchen von SCSI commands und die übertragenen Daten sind block-orientierte Speicherdaten.
 
 (img ip-storage-netzwerk.png)
+
+**TCP/IP Offload Engines (TOE)**: TCP/IP protocol stack is not efficient for SAN applications.
+Protocol processing typically consumes too much processor time (multiple memory copies, too
+many interrupts, checksum calculations). iSCSI wirespeed with 1 GbE typically requires TOE.
+TOE is a network interface card (NIC), a host bus adapter (HBA) thath implements TCP/IP 
+protocols. There are two alternatives available with respect to technology. The first
+is ASICs which is required for iSCSI over 10 GbE, the sencond is GP Processor on TOE
+which is an software implementation of TCP/IP. Some TOE implement also the iSCSI layer.
+
+**Fiber Channel over Ethernet (FCoE)**: is a newly proposed standard that is being developed.
+The protocol specification maps Fibre Channel natively over Ethernet. It allows an evolutionary
+approach toward I/O consolidation by preserving Fiber Channel protocols, maintaining the same
+latency, security and traffic management attributes of Fibre Channel and preserving
+investments in Fibre Channel tools, training and SANs. Fibre Channel has proven to be the 
+dominant storage protocol in the data center. FCoE leverages FC and provides a viable I/O 
+consolidation solution. Using Ethernet avoid creating a separate protocol for I/O 
+consolidation.
+
+Ethernet adapters (NICs) have unique MAC addresses. Fibre Channel N_Ports have 24-bit
+addresses, called FC-ID. Since FCoE ports are Ethernet ports they have MAC addresses.
+
+*I/O Consolidation with FCoE:* (img fcoe-io.png)
+
+*FCoE Deployment:* FCoE is used in parallel SAN and LANs. It has a potentially less optimal
+use of networks. 4 or more connections per server mean higher adapter and cabling costs, 
+whicht adds capital expense and optertional expense. Each connection adds addtional points of
+failure to the network. That also means slower server provisioning and additional 
+redundancy due to separate physical infrastructure and seperate management realms.
+ 
+ (img fcoe-depl.png)
+ 
+ A single Converged Network Adapter (CNA) is used to connect the host to the CEE network.
+ This results in less components to deploy with LAN traffic and storage traffic sharing
+ the same hardware.
+ 
+ (img fcoe-depl2.png)
+
+**Converged Enhanced Ethernet (CEE):** FCoE is a new technology that enables Fibre Channel 
+traffic to traverse a new generation of lossless Ethernet known as Converged Enhanced
+Ethernet (CEE) also refered to as Data Center Ethernet (DCE) or Data Center Bridging (DCB). 
+CEE provides a transport to converge all network data entering and leaving servers.
+Lossless Ethernet enables I/O consolidation at the server by transporting storage and 
+networking traffic over CEE using a single Converged Network Adapter (CNA).
+
+*Reasons for CEE*:
+- high latency and dropped frames in traditional Ethernet
+- FC requires lossless, low latency and a low congestion transport medium
+- CEE is a term for an Ethernet technology that has been enhanced by additional standards to 
+meet the requirements for transporting fibre channel frames
+
+*CEE and Protocol Stack*: CEE provides the data link transport that will carry FC frames 
+encapsulated in FCoE headers. 
+
+(img cee-prot.png)
+
+### Storage Virtualization
+**Virtualization**: is a technique of abstracting physical resources into a logical view. It
+increases the utilization and capability of IT resources and simplifies resource management 
+by pooling and sharing resources. It can significantly reduce downtimes (planned or
+unplanned) and improves performance of the IT resources.
+
+*Forms of Virtualization:* 
+- *Virtual Memory:* Each application sees its own logical memory, independent of physical 
+memory
+- *Virtual Networks:* Each application sees its own logical network, independent of physical
+network
+- *Virtual Servers:* Each application sees its own logical server, independent of physical 
+servers
+- *Virtual Storage:* Each application sees its own logical storage, indepentent of physical
+storage
+
+**Storage Virtualization**
+
+Storage Virtualization is used to consolidate
+storage, migrate data without/with minimal downtimes, adding/removing disk space with 
+minimum overhead/downtime, to ensure availability, performance and reduce unused disk space.
+
+(img storage-virt.png)
+
+*Protocols and Layers*: (img sv-prot.png)
+
+**Disk Virtualization**: The physical data layout (disk on the right) is mapped to the 
+logical data layout (Logical Block Addresses (LBA) on the left). ATA, SATA, SCSI, SAS
+is used for this mapping.
+
+(img disk-virt.png)
+
+**Block Virtualization**: Physical disks with a fixed size, bounded performance and the 
+characteristic that they do break occasionally are virtualized to so called virtual disks.
+These are variable in size and performance, can be reliable and have the ability to grow, shrink
+or morph. Block virtualization happens on host side, in the storage device. 
+
+(img block-virt.png block-virt2.png)
+
+*In-Band:* The Aggregation device is in the data path and transparent from host perspective.
+Implementation can be switch-based (optimized for little impact on performance) or 
+server-based device (implement storage services flexibly and inexpensively).
+
+*Out-of-Band:* (img block-virt-out.png)
+
+**File Syste Virtualization**: 
+- Network Attached Storage (NAS): (img nas.png)
+- Directly Attached Storage (DAS): (img das.png)
+- Storage Area Network (SAN Attached): (img san.png)
+- Storage Area Network (iSCSI Attached): (img iscsi.png)
