@@ -44,11 +44,11 @@ Ein möglicher Studenplan könnte daher wie folgt aussehen:
         <a href="/master/Maschinelles_Lernen_1.html">Maschinelles Lernen 1 - Grundverfahren [3 LP] (W)]</a>
     </td>
     <td>
-        <a href="/master/Telematik.html">Telematik [6 LP] (SM)</a>, 
-        <a href="/master/Verteiltes_Rechnen.html">Verteiltes Rechnen [4 LP] (D)</a>, 
+        <a href="/master/Telematik.html">Telematik [6 LP] (SM)</a>,
+        <a href="/master/Verteiltes_Rechnen.html">Verteiltes Rechnen [4 LP] (D)</a>,
         <a href="/master/Data-and-Storage-Management.html">Data and Storage Management [4 LP] (D)</a>
     </td>
-    <td><a href="/master/Algorithmen_II.html">Algorithmen II [6 LP] (AP)</a>, 
+    <td><a href="/master/Algorithmen_II.html">Algorithmen II [6 LP] (AP)</a>,
     <a href="/master/Analysetechniken_fuer_grosse_Datenbestaende.html">Analysetechniken für große Datenbestände [5 LP] (D)</a></td>
     <td></td>
     <td></td>
@@ -56,7 +56,7 @@ Ein möglicher Studenplan könnte daher wie folgt aussehen:
   </tr>
   <tr>
     <th>2 (SS 19)</th>
-    <td>Kontextsensitive Systeme [5 LP] (W), Deep Learning & Neuronale Netze [6 LP] (W), 
+    <td>Kontextsensitive Systeme [5 LP] (W), Deep Learning & Neuronale Netze [6 LP] (W),
     Kognitive Systeme [6 LP] (SM), Mustererkennung [3 LP] (W)</td>
     <td>Access Control Systems: Foundations & Practice [4 LP]</td>
     <td>
@@ -109,8 +109,8 @@ Ein möglicher Studenplan könnte daher wie folgt aussehen:
  ☑ Mindestens  3 LP durch Seminare    
  ☑ Mindestens 6 LP durch Praktika in den Vertiefungsfächern und dem Wahlbereich erbracht werden. **8 LP**
  ☑ Es dürfen insgesamt max. 18 LP durch Praktika und Seminare erbracht werden. **11 LP**  
- ☑ Ergänzungsfach:  9 - 18 LP **10 LP** 
- ☐ Überfachliche Qualifikation:  2 - 6 LP **vermutlich Sprachkurs** 
+ ☑ Ergänzungsfach:  9 - 18 LP **10 LP**
+ ☐ Überfachliche Qualifikation:  2 - 6 LP **vermutlich Sprachkurs**
 
 
 Insgesamt fehlen mir also noch 3 LP Semiinar und 2 LP Praktikum. Ich habe insgesamt noch 4 LP übrig. Darüber wird abgeschnitten.
@@ -150,6 +150,20 @@ Vorlesungen:
 
  - Seminar: Neuronale Netze und künstliche Intelligenz (3 LP, WS)
 
+Interessenliste:
+
+ - Modul: Mobilkommunikation
+ - Modul: Netze und Punktwolken
+ - Modul: Lokalisierung mobiler Agente
+ - Modul: Mehrdimensionale Signalverarbeitung und Bildauswertung mit Graphikkar-ten und anderen Mehrkernprozessore
+ - Modul: Praktikum: Neuronale Netze - Praktische Übungen
+ - Modul: Probabilistische Planung
+ - Modul: Reinforcement Learning und multimodale Regelung in der Robotik (WS)
+ - Modul: Seminar: Neuronale Netze und künstliche Intelligenz [M-INFO-102412]
+ - Modul: Deep Learning für Computer Vision
+ -
+
+
 
 
 
@@ -161,7 +175,7 @@ Vorlesungen:
      <th>Wahlbereich [max. 39 LP]</th>
      <th>Vertiefungsfach Anthropomatik und Kognitive Systeme (VF 12)</th>
      <th>Vertiefungsfach Robotik und Automation (VF 11)</th>
-     <th>Ergänzungsfach</th>
+     <th>Ergänzungsfach: Maschinenbau</th>
      <th>Überfachliche Qualifikation [2-6 LP]</th>
      <th>LP</th>
    </tr>
@@ -169,23 +183,23 @@ Vorlesungen:
      <td>1 (WS)</td>
      <td>Telematik (6 LP)</td>
      <td>Grundlagen der automatischen Spracherkennung (6 LP), Maschinelles Lernen 1 (3 LP)</td>
-     <td>Robotik 1 (6 LP), Praxis der Forschung (10 LP)</td>
+     <td>Robotik 1 (6 LP), Seminar Humanoide Roboter (3 LP)</td>
      <td></td>
-     <td>[M-INFO-102418] Praxis der Forschung 1. Semester - ÜQ (2 LP)</td>
-     <td>6 + 9 + 16 + 0 + 2 = 33 LP</td>
+     <td></td>
+     <td>6 + 9 + 9 = 24 LP</td>
    </tr>
    <tr>
      <td>2</td>
-     <td>Echtzeitsysteme (6 LP)</td>
-     <td>Kognitive Systeme (6 LP), Mustererkennung (3 LP), Deep Learning und Neuronale Netze (6 LP), Deep Learning für CV (3 LP)</td>
-     <td>Robotik 2 (3 LP), Einführung in die Bildfolgenauswertung (3 LP), PdF (10 LP)</td>
      <td></td>
-     <td>[M-INFO-102423] Praxis der Forschung 2. Semester - ÜQ (2 LP)</td>
-     <td>6 + 18 + 16 + 0 + 2 = 39 LP</td>
+     <td>Kognitive Systeme (6 LP), Deep Learning und Neuronale Netze (6 LP), Deep Learning für CV (3 LP)</td>
+     <td>[Einführung in die Bildfolgenauswertung (3 LP) ODER Lokalisierung mobiler Agenten (6 LP)], Maschinelles Lernen 2 (3 LP) </td>
+     <td>Verhaltensgenerierung für Fahrzeuge (4 LP, SS), Automotive Vision / Fahrzeugsehen (6 LP, SS)</td>
+     <td></td>
+     <td>0 + 15 + 6 + 10 + 0 = 29 LP</td>
    </tr>
    <tr>
      <td>3</td>
-     <td></td>
+     <td>Computergrafik (6 LP)</td>
      <td>Seminar: Neuronale Netze und KI (3 LP)</td>
      <td>Probabilistische Planung (6 LP, WS), Mechano-Informatik in der Robotik (4 LP, WS)</td>
      <td></td>
@@ -217,16 +231,12 @@ Der Antrag ist formlos an den Prüfungsausschuss zu stellen:
 https://www.informatik.kit.edu/1319.php
 
 
-
 Antrag auf Sonderergänzungsfach für Veranstaltungen aus dem Maschinenbau:
 https://www.informatik.kit.edu/faq-wiki/doku.php?id=ergaenzungsfach
 
 
-Maschinenbau
-Modulkatalog: http://www.mach.kit.edu/download/MSc-Maschinenbau-Modulhandbuch_SPO_2015_gueltig_ab_20181001.pdf
 
-  - Verhaltensgenerierung für Fahrzeuge [Befindet sich nicht im Modulkatalog, vielleicht möglich] (4 LP, SS)
-  - Automotive Vision / Fahrzeugsehen [Befindet sich nicht im Modulkatalog, vielleicht möglich] (6 LP, SS)
+Modulkatalog: http://www.mach.kit.edu/download/MSc-Maschinenbau-Modulhandbuch_SPO_2015_gueltig_ab_20181001.pdf
 
 
 ### Anforderungen erfüllt?
@@ -234,10 +244,10 @@ Modulkatalog: http://www.mach.kit.edu/download/MSc-Maschinenbau-Modulhandbuch_SP
  ☑ 4 Stammmodule belegen  
  ☐ 2 Vertiefungsfächer (á 15 - 52 LP)  
  ☐ 10 LP aus Vorlesungen pro Vertiefungsfach  
- ☑ Mindestens  3 LP durch Seminare  
+ ☑ Mindestens  3 LP durch Seminare  (Seminar Humanoide Roboter)
  ☐ Mindestens 6 LP durch Praktika in den Vertiefungsfächern und dem Wahlbereich erbracht werden.  
  ☐ Es dürfen insgesamt max. 18 LP durch Praktika und Seminare erbracht werden.  
- ☐  Ergänzungsfach:  9 - 18 LP  
+ ☑  Ergänzungsfach( 9 - 18 LP  ): 10 LP durch Sonderergänzungsfach Maschinenbau
  ☐  Überfachliche Qualifikation:  2 - 6 LP  
 
 

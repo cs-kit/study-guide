@@ -26,22 +26,6 @@ Seminaren und begleitenden Lehrveranstaltungen, die teilweise vom House of Compe
 wichtige Methodenkompetenzen und in Vorlesungen wichtiges Faktenwissen kennen und setzen diese im praktischen
 Teil im Team um.
 
-### Warum belegen?
-
-Weitere Zitate aus Ilias:
-
-> Praxis der Forschung stellt eine optimale Vorbereitung für ihre spätere Karriere in der Wissenschaft (Kompetenz wissenschaftliches Arbeiten)
-oder Industrie (Kompetenz Projektarbeit) dar und kann als fachliche Vorarbeit für eine anschließende Masterarbeit dienen.
-
-> Die Projektarbeit hat Vorlesungs-, Praktikums- und Seminaranteile.
-Sie trägt außerdem zu den Schlüsselkompetenzen bei.
-Praxis der Forschung besteht aus 4 Modulen die auf eine Dauer von 2 Semestern ausgelegt sind.
-
-> Bei erfolgreicher Teilnahme erhalten Sie insgesamt 24 ECTS Punkte,
-die aus 4 ECTS für Überfachliche Qualifikationen,
-aus mind. 5 ECTS Vorlesungspunkten, und
-jeweils aus mind. 3 Praktikums- und Seminarpunkten bestehen.
-
 ### Themenfindung
 
 In den Wochen vor dem Uni-Start sammeln sich Stück für Stück die Themen
@@ -71,52 +55,6 @@ zu Beginn der Lehrveranstaltung für jedes Projekt bekannt gegegeben.
 Geeignet sind diese Module für Master-Studierende vorwiegend im ersten Jahr.
 Bachelorstudierende im letzten Jahr können ggf. teilnehmen, wenn sie über die
 erforderlichen Vorkenntnisse verfügen.
-
-### Prüfungsanmeldung
-
-Zu SPO 2015 steht in Ilias:
-
-> Anmeldung zu den Prüfung nach SPO 2015 im UseCampus System:
-
->Wählt zuerst im Studienablaufplan die Module für Praxis der Forschung aus:
-WICHTIG: Die Projekt-Module im Vertiefungs- oder Wahlbereich (je nachdem wo sie angerechnet werden sollen) und die Methoden-Module im Bereich "Überfachliche Qualifikationen".
-
->1. Semester:
-    Praxis der Forschung (Projekt, 1. Semester)
-    Praxis der Forschung (Methoden, 1. Semester)
-
->2. Semester:
-    Praxis der Forschung (Projekt, 2. Semester)
-    Praxis der Forschung (Methoden, 2. Semester)
-
-> Dann wählt in der Prüfungsansicht die entsprechenden Teilleistungen aus.
-
->Bitte zu allen 4 Teilleistungen anmelden, auch wenn PdF in der Vertiefungsfachprüfung geprüft werden soll.
-
->1. Semester:
-Für das Wintersemester:
-    7500079 Praxis der Forschung (Projekt, 1. Semester) - Mündliche Prüfung
-    7500080 Praxis der Forschung (Projekt, 1. Semester) - Präsentationen
-    7500081 Praxis der Forschung (Projekt, 1. Semester) - Schriftliche Prüfung
-    7500120 Praxis der Forschung (Methoden, 1. Semester) - Mündliche Prüfung
-Für das Sommersemester:
-    7500114 Praxis der Forschung (Projekt, 1. Semester) - Mündliche Prüfung
-    7500130 Praxis der Forschung (Projekt, 1. Semester) - Präsentationen
-    7500131 Praxis der Forschung (Projekt, 1. Semester) - Schriftliche Prüfung
-    7500128 Praxis der Forschung (Methoden, 1. Semester) - Mündliche Prüfung
-
-
->2. Semester:
-Für das Wintersemester:
-    7500077 Praxis der Forschung (Projekt, 2. Semester) - Präsentation
-    7500078 Praxis der Forschung (Projekt, 2. Semester) - Schriftliche Prüfung
-    7500171 Praxis der Forschung (Projekt, 2. Semester) - Mündliche Prüfung
-    7500121 Praxis der Forschung (Methoden, 2. Semester)
-Für das Sommersemester:
-    7500132 Praxis der Forschung (Projekt, 2. Semester) - Präsentation
-    7500133 Praxis der Forschung (Projekt, 2. Semester) - Schriftliche Prüfung
-    7500126 Praxis der Forschung (Projekt, 2. Semester) - Mündliche Prüfung
-    7500127 Praxis der Forschung (Methoden, 2. Semester)
 
 ### Anrechnung
 
@@ -149,9 +87,236 @@ Es gibt drei Typen von Terminen:
  - Projektanträge schreiben
  - Experimente - Design und Durchführung
 
-<table xmlns:xhtml="http://www.w3.org/1999/xhtml" class="ilc_table_StandardTable" style="" width=""><tbody><tr valign="top"><td style="padding: 2px;border: solid 1px;" width="5%" align="center"><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Strong">Termin</span><!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width="11%" align="center"><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Strong">Zeit</span><!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width="16%" align="center"><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Strong">Gruppe</span><!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width="24%" align="center"><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Strong">Veranstaltung</span><!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width="20%" align="center"><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Strong">Ort</span><!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width="19%" align="center"><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Strong">Dozent/in</span><!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width="5%" align="center"><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Strong">Zusatzinformationen</span><!--Break--></div></td></tr><tr valign="top"><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">25.10.2018<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">13:30 - 14:00<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Alle<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">KickOff 1. Semester<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Raum 010, Geb. 50.34<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Michael Kirsten<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent"><!--Break--></div></td></tr><tr valign="top"><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">25.10.2018<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">14:00 - 15:30<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Alle<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Literaturrechereche und Zitieren<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Raum 010, Geb. 50.34<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Michael Kirsten<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent"><!--Break--></div></td></tr><tr valign="top"><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">02.11.2018<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">09:00 - 17:00<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Alle<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Projektmanagement-Workshop<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Raum 010, Geb. 50.34<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Dr. Anders Lehr<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent"><!--Break--></div></td></tr><tr valign="top"><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">09.11.2018<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">09:00 - 17:00<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Alle<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Präsentationsworkshop<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">t.b.a.<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Birgit Jüttner<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent"><!--Break--></div></td></tr><tr valign="top"><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">KW 47 - 48<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">t.b.a.<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Alle<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Emph">Vortrag "State of the Art"</span>,<br>anschließend (Zeitpunkt<br>nach Betreuervorgabe)<br><span class="ilc_text_inline_Strong">Abgabe Seminarausarb.</span><!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">t.b.a.<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Emph">Studierende</span><!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Emph">Einzeln:</span><br><span class="ilc_text_inline_Emph">20 Min Vortrag</span><br><span class="ilc_text_inline_Emph">+ 10 Min Fragen</span><!--Break--></div><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Emph">2er-Gruppe:</span><br><span class="ilc_text_inline_Emph">25 Min Vortrag</span><br><span class="ilc_text_inline_Emph">+ 12 Min Fragen</span><!--Break--></div><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Emph">3/4er-Gruppe:</span><br><span class="ilc_text_inline_Emph">30 Min Vortrag</span><br><span class="ilc_text_inline_Emph">+ 15 Min Fragen</span><!--Break--></div></td></tr><tr valign="top"><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">29.11.2018<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">14:00 - 15:45<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Alle<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Erkenntnistheorie<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Raum 010, Geb. 50.34<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Prof. Snelting<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent"><!--Break--></div></td></tr><tr valign="top"><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">20.12.2018<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">11:30 - 13:00<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Alle<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Wissenschaftstheorie<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Raum 010, Geb. 50.34<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Prof. Reussner<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent"><!--Break--></div></td></tr><tr valign="top"><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">10.01.2019<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">11:30 - 13:00<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Alle<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Anträge Schreiben<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Raum 010, Geb. 50.34<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Prof. Beckert<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent"><!--Break--></div></td></tr><tr valign="top"><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">17.01.2019<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">09:45 - 13:00<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Alle<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Workshop zur Forschungsfrage<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Raum 010, Geb. 50.34<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">t.b.a.<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent"><!--Break--></div></td></tr><tr valign="top"><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">31.01.2019<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">09:45 - 11:15<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Alle<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Experimente I -<br>Design und Durchführung<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Raum 222, Geb. 07.07<br>(TECO, Vincenz-<br>Prießnitz-Str. 1)<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Dr. Andrea Schankin<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""></td></tr><tr valign="top"><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">KW 5 - 6<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">t.b.a.<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Alle<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Emph">Kurzvorstellung des Projekts</span><!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">t.b.a.<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Emph">Studierende</span><!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Emph">Einzeln:</span><br><span class="ilc_text_inline_Emph">5 Min Vortrag</span><br><span class="ilc_text_inline_Emph">+ 5 Min Fragen</span><!--Break--></div><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Emph">2er-Gruppe:</span><br><span class="ilc_text_inline_Emph">8 Min Vortrag</span><br><span class="ilc_text_inline_Emph">+ 8 Min Fragen</span><!--Break--></div><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Emph">3/4er-Gruppe:</span><br><span class="ilc_text_inline_Emph">10 Min Vortrag</span><br><span class="ilc_text_inline_Emph">+ 10 Min Fragen</span><!--Break--></div></td></tr><tr valign="top"><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">KW 13 - 15<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">t.b.a.<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Alle<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Emph">Erste Abschlusspräsentation</span><br><span class="ilc_text_inline_Emph">(Projektvorstellung)</span>,<br>anschließend (Zeitpunkt<br>nach Betreuervorgabe)<br><span class="ilc_text_inline_Strong">Abgabe Projektantrag</span><!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">t.b.a.<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Emph">Studierende</span><!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Emph">Einzeln:</span><br><span class="ilc_text_inline_Emph">20 Min Vortrag</span><br><span class="ilc_text_inline_Emph">+ 10 Min Fragen</span><!--Break--></div><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Emph">2er-Gruppe:</span><br><span class="ilc_text_inline_Emph">25 Min Vortrag</span><br><span class="ilc_text_inline_Emph">+ 12 Min Fragen</span><!--Break--></div><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Emph">3/4er-Gruppe:</span><br><span class="ilc_text_inline_Emph">30 Min Vortrag</span><br><span class="ilc_text_inline_Emph">+ 15 Min Fragen</span><!--Break--></div></td></tr><tr valign="top"><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">individuell<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">individuell<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">individuell<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Strong">Prüfung</span><!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">individuell<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Emph">Studierende</span><!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""></td></tr></tbody></table>
 
-Diese Tabelle zeigt die Pflichttermine im ersten Semester.
+#### Kick-Off-Veranstaltung
+
+ Acht Stundent*innen in einem Raum mit einem Dozenten. 15 Minuten ein paar
+ Folien über PdF. Nichts spezielles, allgemeines über die Module.
+
+ Bis zum 13.12.2018 muss man sich angemeldet haben. Davor kann man noch aussteigen,
+ wenn man nach der Literaturrecherche merkt, dass einem das Thema nicht liegt.
+ Das ist 1-2 Wochen nach dem State-of-the-Art-Vortrag.
+
+ Wenn man an den Abschlussvorträgen der vorherigen Semester teilnehmen möchte,
+ dann soll man sich vorher anmelden.
+
+#### Literaturrecherche & Zitieren
+
+ Direkter Übergang aus dem Kick-Off. Oberflächliche Folien über das Quellenfinden,
+ Fragenstellen, Literaturlesen, Zitieren, Literaturrechercheprogramme, etc.
+
+ Interessant war, dass Doktorarbeiten generell eher keine gute Quelle sind,
+ man sollte ihnen vor allem misstrauen, wenn sie nicht mit einer Veröffentlichung
+ eines Papers oder einem Vortrag zusammenhängen.
+
+ In Präsentationen sind numerische Fußnoten nicht zu empfehlen, da man nicht mal
+ schnell nachschauen kann um welche Quelle es sich denn jetzt handelt.
+
+ Recherche als zyklischer Prozess aus:
+
+  - Definieren der Suche
+  - Suche durchführen
+  - Material evaluieren
+  - Review schreiben zu Material
+
+ **Die BibTeX Einträge bei Google Scholar bedürfen manueller Überprüfung!**
+
+ Programme zur Literaturrecherche sind:
+
+  - Mendeley: Collab closed source
+  - Zotero: Collab open source
+  - JabRef: Java-Programm, das auch mal abstürzt
+
+#### Projektmanagement
+
+Kann man sich sparen. Passt auch nicht wirklich zu PdF.
+
+#### Präsentationsworkshop
+
+Kann man sich sparen. Wir haben eine Stunde darauf verwendet, Leute auf der
+Bühne nach ihrem Aussehen und Auftreten zu bewerten.
+Am Ende fühlt man sich eher noch unsicher.
+
+#### State of the Art Präsentation
+
+Finden in Kleingruppen mit Betreuung und Professoren statt.
+Es wird meiner Einschätzung nach sehr viel Wert darauf gelegt, dass du bereits
+weißt, was du machen willst (-> hat man die Forschungslücke identifiziert)?
+
+#### Literaturzusammenfassung
+
+Die Abgabe der Literaturzusammenfassung wird von der Betreuung bestimmt.
+Ich habe einiges an Zeit in dieses Dokument investiert und es wurde am Ende
+auch ganz anständig. Glücklicherweise hatte ich jede Woche ein Treffen mit
+meiner Betreuerin.
+
+Hier liegt sehr viel Zeitaufwand begraben. Man sollte sich daher ein Thema
+aussuchen, in das man sich auch gut einlesen will.
+
+
+#### Erkenntnistheorie
+
+Wir haben einen - meiner Meinung nach - sehr guten Vortrag hören dürfen.
+
+Solipsismus, Platonismus, Konstrukte, Rationalismus (Descartes), onthologischer
+Gottesbeweis, Empirismus Locke, kritischer Idealismus Kant, evolutionäre Erkenntnistheorie,
+objektiver Idealismus Hegel Dialektiv Weltgeist, Schopenhauer, dialektischer Materialismus
+Marx (Realität unabhängig von Beobachter), Positivismus Maxwellsche Gleichungen (Elektromagnetismus, Vorhersagen durch Modelle),
+früjer Wittgenstein, Ockham's Razor, objektive Realität Problem durch Quantenmechanik,
+Kopenhagener Deutung der Quantenmechanik: "Überlagerungszustände kalibrieren durch Beobachtung"
+
+Popper kritischer Rationalismus: Korrektheit nicht beweisen, sondern nur falsifizieren.
+Mathematische Induktion ist Deduktion. Erkenntnistheoretische Induktion gibt es nicht.
+Beispiel Merkurbahn (Newton-Mechanik -> Einstein) -> trotz richtiger Vorhersage
+nicht richtig (Michelson-Morley)
+
+
+Evolutionäre Erkenntnistheorie: homomorphes Bild. Kausalität -> Realität überleben,
+Farbwahrnehmung ist homomorph von Elektromagnetismus.
+
+Konstruktivismus: keine objektive Wahrheit, nur gesellschaftliche Übereinkünfte,
+Methodik gibt es nicht (-> Fakepaper).
+Einer der Mitbegründer war Paul Feierabend: Quarks seien nur Konstrukte, Jahrzehnte
+später erst bewiesen
+-> Genderkonstruktivismus sinnvoll?
+
+Popper sagt, alles, was nicht falsifizierbar, ist unwissenschaftlich.
+-> Stringtheorie? Das fand er trotzdem okay (nicht sehr dogmatisch)
+-> Problem der Falsifizierbarkeit des LHC (Large Hadron Colliders)
+
+Adorno: Theorie muss keine Voraussage machen (Geisteswissenschaften). Das widerspricht
+sich mit Naturwissenschaften.
+
+Popper greift wieder die drei Welten von Platon auf:
+- Physis: Außenwelt
+- Psyche: Innenwelt
+- objektive Ideen: platonische, mathematische Ideen
+
+Mathematiker sind demnach Erfinder aus der 3. Welt.
+
+Konstrukte: Erklären auch etwas. Da sie Pseudoerklärungen sind, haben sie jedoch
+keine "Vorhersagekraft". Bei Archäologie ist die Vorhersage nicht in der Zukunft,
+sondern zum Beispiel über fehlende Episoden der Vergangenheit.
+
+Falsifizierbarkeit bei Informatik schwer -> Software-Realität
+
+Korrektheitsbeweise? Dijkstra will Programme verifizieren. notwendig aber hinreichend
+
+Sanders & Wagner: Algorithm engineering -> testen auch wenn NP-vollständig
+
+#### Wissenschaftstheorie
+
+Früher unter dem Namen Erkenntnistheorie.
+
+Alle Theorien nach drei Dimensionen einteilen:
+
+- Rationalismus <-> Relativismus
+- Erkenntnisorientiert <-> Instrumentalismus (Nutzen)
+- Subjektivismus <-> Objektivismus
+
+Rationalismus: Popper (streng der Methode folgen)
+soziologischer Relativismus: Beispiel Mathe. Die Akzeptanz eines Beweises hat sich geändert.
+Der Satz von Pythagoras wurde initial nur durch Beispiele "bewiesen" -> soziale Akzeptanz war da
+
+Erkenntnisorientierung passiert selten in Ingenieurswissenschaften.
+Theoretische Informatik ist eher erkenntnisorientiert, nutzt aber die Komplexitätstheorie,
+welche beim Instrumentalismus zu verordnen ist.
+
+Objektivismus: "Wahrheit" kann nur approximiert werden.
+
+Was ist Wahrheit?
+
+Axiomensystem: Realtive Gültigkeit zu Axiomensystem und Schließsystem
+Zum Beispiel gibt es in der Mathematik die Konstruktivisten "Gang", die
+Widerspruchsbeweise ablehnen.
+Das kann man auf die doppelte Verneinung in der Logik herunterbrechen.
+
+Für Informatiker gilt auch: Aus Widersprüchen kann kein Programm gebaut werden.
+
+Manche Widerspruchsbeweise wurden auch auf konstruktive Weise durchgeführt und
+kamen zum selben Ergebnis.
+
+Nach Popper "empirischer Wahrheitsbegriff":
+
+- Jeden Morgen geht die Sonne aufbau
+- -> Induktionsproblem in der empirischen Welt nicht lösbar
+- -> in Mathematik schon
+- In der realen Welt: "Alle Autos sind grün?": Mit steigender Beobachtungszahl n steigt nicht die W'keit
+ für grüne Autos (relative Häufigkeit $n \over \infty$) bei unendlich vielen Autos.
+- Aber eine endliche Menge reicht für eine allquantifizierte Theorie
+- -> Poppers Falsifizierbarkeit ist durch Gegenbeispiel gegeben
+
+In der Physik kann das oft gefunden werden, zum Beispiel Nickelson-Morley-Experiment
+zur Konstanz der Lichtgeschwindigkeit. Messung mit oder gegen Erddrehung.
+Nach Newton dürfte sie nicht konstant sein. Bis heute keine Falsifikation der
+Relativitätstheorie.
+
+Auch Quantenmechanik kam aus der Falsifikation von Newton bei kleinen Entitäten.
+
+Popperianer akzeptieren popperschen Prozess. Man weiß nie, wann die objektive
+Wahrheit gefunden wurde.
+
+Verblüffend: Bei Problemen außerhalb der Erfahrungswelt in der Physik ist die
+Mathematik sehr hilfreich. -> Wie passt das zusammen?
+
+Formalisten: Der Brückenschlag zwischen Mathe und Physik hilft nicht.
+
+Platonisten: Von der realen Welt immer nur ein Abbild. Was ist ein Kreis? Im Mittelalter
+war Pi mit 22/7 ausreichend bestimmt. In der realen Welt Pi=3.14..., aber Abbild
+war nicht so genau.
+
+Was ist Informatik?
+
+Doppelnatur zwischen Mathe und Ingenieur. Dinge beweisen: Sortieren hat untere
+Schranke von O(n log n)
+
+Aussagen über die reale Welt kann ich nicht beweisen, sondern nur Experimente.
+So wie Ärzte und Psychologen.
+Die Methoden der Softwaretechnik hat man, um der Beschränktheit der menschlichen
+Natur entgegen zu gehen.
+
+Was heißt das für die Praxis? Nach Popper gute Wissenschaft ist falsifizierbar,
+gut verständlich und Experimente zum Nachvollziehen.
+
+Popper hat im Gegensatz zu anderen deutschen Philosophen sehr verständlich geschrieben.
+Beispiel: Kant war Dekan, hatte also keine Zeit und deswegen entstanden seine schwer
+verständlichen Sätze.
+Dazu kam dann  die Nachfrage nach komplexer Literatur aus Gründen der Eitelkeit der Leser.
+Bei Hegel war das dann am schlimmsten.
+-> "Nehmt euch ein Vorbild an den Engländern", sagte Popper dazu
+
+Durch ihre Schreibart haben sich Kant und Hegel der Nachvollziehbarkeit entzogen.
+-> Parodie von Popper durch leichte Version ihrer Texte
+
+Sind Informatiker vor soetwas gefeit? Nein. Zum Beispiel durch das Hinzufügen
+von Formeln, die man noch nicht mal erklärt, Messkurven oder Pseudocode.
+
+Dann gibt es das Problem des "least publishable unit". Dem wird durch den h-Index
+entgegengewirkt. Die Abhängigkeit von der Größe der Community verbleibt.
+
+Weitere Gefahr: Plagiate -> Originalität ist die Währung der Wissenschaft
+
+Wann zitiert man Sekundärliteratur?
+Bei Informatik nicht so schlimm, da der eigene Beitrag selten in Form von Text
+vorliegt.
+
+Selbstplagiat: Kann man bei Related Work und Foundations nicht so gut verhindern und
+ergibt ja auch Sinn.
+
+Betrug durch Datenfälschung ist nicht wirklich entdeckbar, daher muss man annehmen,
+dass das System per se nicht unterwandert wurde (Vertrauen?)
+
+Double blind review: Autoren und Reviewer anonym. Ist das so sinnvoll?
+
+Forum of negative results.
+
+Darf man als Mitglied eines Programmkomitees selbst Paper einreichen?
+
+#### Anträge Schreiben
+
+#### Workshop Forschungsfrage
+
+#### Experiment 1
 
 ### Zweites Semester
 
@@ -164,169 +329,4 @@ Diese Tabelle zeigt die Pflichttermine im ersten Semester.
  - Paper schreiben (Praxis II)
  - Wissenschaftstheorie I+II
 
-Einen Überblick über die Veranstaltung des zweiten Semesters liefert folgende Tabelle:
-
-<table xmlns:xhtml="http://www.w3.org/1999/xhtml" class="ilc_table_StandardTable" style="margin-left: auto; margin-right: auto;" width=""><tbody><tr valign="top"><td style="padding: 2px;border: solid 1px;" width="5%" align="center"><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Strong">Termin</span><!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width="11%" align="center"><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Strong">Zeit</span><!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width="16%" align="center"><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Strong">Gruppe</span><!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width="24%" align="center"><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Strong">Veranstaltung</span><!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width="20%" align="center"><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Strong">Ort</span><!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width="19%" align="center"><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Strong">Dozent*in</span><!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width="5%" align="center"><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Strong">Zusatzinformationen</span><!--Break--></div></td></tr><tr valign="top"><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">VL-Woche 1<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">0,5 Stunden<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Alle<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">KickOff für das 2. Semester<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">t.b.a.<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">t.b.a.<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent"><!--Break--></div></td></tr><tr valign="top"><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">VL-Woche 1<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">1,5 Stunden<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Alle<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Dokumentation wissensch.<br>Fortschritts<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">t.b.a.<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">t.b.a.<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent"><!--Break--></div></td></tr><tr valign="top"><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">VL-Woche 2<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">2,0 Stunden<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Alle<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Paper schreiben (Theorie)<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">t.b.a.<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">t.b.a.<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Important">inkl. schriftl.</span><br><span class="ilc_text_inline_Important">Hausaufgaben</span><!--Break--></div></td></tr><tr valign="top"><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">VL-Woche 4<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">1,5 Stunden<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Alle<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Experimente II -<br>Auswertung<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">t.b.a.<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">t.b.a.<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent"><!--Break--></div></td></tr><tr valign="top"><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">VL-Woche 8 - 9<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">t.b.a.<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Alle<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Emph">Zwischenpräsentation</span><!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">t.b.a.<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Emph">Studierende</span><!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Emph">Einzeln:</span><br><span class="ilc_text_inline_Emph">10 Min Vortrag + 5 Min Fragen</span><!--Break--></div><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Emph">2er-Gruppe:</span><br><span class="ilc_text_inline_Emph">12 Min Vortrag + 8 Min Fragen</span><!--Break--></div><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Emph">3/4er-Gruppe:</span><br><span class="ilc_text_inline_Emph">15 Min Vortrag + 10 Min Fragen</span><!--Break--></div></td></tr><tr valign="top"><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">VL-Woche 12<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">6,5 Stunden<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Alle<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Paper schreiben (Praxis) I<br>- Modelle &amp; Techniken<br>zum wiss. Schreiben<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">t.b.a.<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">t.b.a.<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Important">inkl. schriftl.</span><br><span class="ilc_text_inline_Important">Hausaufgaben</span><!--Break--></div></td></tr><tr valign="top"><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">VL-Woche 14<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">6,5 Stunden<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Alle<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Paper schreiben (Praxis) II<br>- Schreiben von Abstracts<br>und Präzisierungen<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">t.b.a.<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">t.b.a.<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Important">inkl. schriftl.</span><br><span class="ilc_text_inline_Important">Hausaufgaben</span><!--Break--></div></td></tr><tr valign="top"><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Semesterende<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">t.b.a.<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Alle<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Emph">Abschlusspräsentation,</span><br>anschließend (Zeitpunkt<br>nach Betreuervorgabe)<br><span class="ilc_text_inline_Emph"><span class="ilc_text_inline_Strong">Abgabe schriftl.</span></span><br><span class="ilc_text_inline_Emph"><span class="ilc_text_inline_Strong">Ausarbeitung</span></span><!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">t.b.a.<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Emph">Studierende</span><!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Emph">Einzeln:</span><br><span class="ilc_text_inline_Emph">20 Min Vortrag + 10 Min Fragen</span><!--Break--></div><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Emph">2er-Gruppe:</span><br><span class="ilc_text_inline_Emph">25 Min Vortrag + 12 Min Fragen</span><!--Break--></div><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Emph">3/4er-Gruppe:</span><br><span class="ilc_text_inline_Emph">30 Min Vortrag + 15 Min Fragen</span><!--Break--></div></td></tr><tr valign="top"><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Individuell<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Individuell<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Individuell<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Strong">Prüfung</span><!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent">Individuell<!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Emph">Studierende</span><!--Break--></div></td><td style="padding: 2px;border: solid 1px;" width=""><div class="ilc_Paragraph ilc_text_block_TableContent"><span class="ilc_text_inline_Emph">siehe jeweilige SPO</span><!--Break--></div></td></tr></tbody></table>
-
-
-
-
-## Kick-Off-Veranstaltung
-
-Acht Stundent*innen in einem Raum mit einem Dozenten. 15 Minuten ein paar
-Folien über PdF. Nichts spezielles, allgemeines über die Module.
-
-Bis zum 13.12.2018 muss man sich angemeldet haben. Davor kann man noch aussteigen,
-wenn man nach der Literaturrecherche merkt, dass einem das Thema nicht liegt.
-Das ist 1-2 Wochen nach dem State-of-the-Art-Vortrag.
-
-Wenn man an den Abschlussvorträgen der vorherigen Semester teilnehmen möchte,
-dann soll man sich vorher anmelden.
-
-## Literaturrecherche & Zitieren
-
-Direkter Übergang aus dem Kick-Off. Oberflächliche Folien über das Quellenfinden,
-Fragenstellen, Literaturlesen, Zitieren, Literaturrechercheprogramme, etc.
-
-Interessant war, dass Doktorarbeiten generell eher keine gute Quelle sind,
-man sollte ihnen vor allem misstrauen, wenn sie nicht mit einer Veröffentlichung
-eines Papers oder einem Vortrag zusammenhängen.
-
-In Präsentationen sind numerische Fußnoten nicht zu empfehlen, da man nicht mal
-schnell nachschauen kann um welche Quelle es sich denn jetzt handelt.
-
-Recherche als zyklischer Prozess aus:
-
- - Definieren der Suche
- - Suche durchführen
- - Material evaluieren
- - Review schreiben zu Material
-
-**Die BibTeX Einträge bei Google Scholar bedürfen manueller Überprüfung!**
-
-Programme zur Literaturrecherche sind:
-
- - Mendeley: Collab closed source
- - Zotero: Collab open source
- - JabRef: Java-Programm, das auch mal abstürzt
-
-## Projektmanagement
-
-## Präsentationsworkshop
-
-## Literaturrecherche
-
-Auf Anfrage bekam ich noch vor Beginn und Anmeldung von meiner Betreuerin zwei
-Paper aus dem Gebiet:
-
-1. (Santello 1998): Griffe für unterschiedliche Objekte aufgenommen und
-   herausgefunden, dass die "postural synergies" nicht mit der Grifftaxonomie
-   decken. Über 80% der Varianz in den 15 gemessenen Gelenkwinkeln konnte durch
-   PCA auf zwei Synergien reduziert werden.
-2. (Kent, 2014): Hat aufgenommen, wie ein zylindrisches Objekt gegriffen und
-   gefangen werden kann. Alle DoF werden reduziert auf den Zeitfaktor $t \in [0,1]$,
-   der angibt, an welchem Zustand der Bewegung man sich gerade befindet.
-   Dieses normalisierte Skalar t wurde dann durch ein EMG (electromyogram) von
-   Menschen gesteuert, um die Bewegung in der richtigen Geschwindigkeit abzuspielen.
-
-=> Aha: Man nutzt die latente Repräsentation, um Griffe vorherzusagen und zu
-   generieren
-=> Frage: Was sind die Grifftaxonomien?
-
-Nach unserem ersten Treffen hat sie mir dann drei weitere Paper gegeben über
-Themen, über die wir uns unterhalten hatte, oder die sie noch gefunden hatte.
-
-1. (Romero 2013): Ersetzt PCA durch GP-LVM und erzielt bessere Ergebnisse und
-   betrachtet auch dynamische Synergien als Folge statischer Griffe.
-2. (Weiner, Starke 2018): Underactuated prosthetic hand am KIT
-3. (Starke, 2018) "Synergy-Based, Data-Driven Generation of Object-Specific Grasps for Anthropomorphic Hands":
-   Statische Synergie mit Autoencoder. 3D-Latent-Space aus zwei Synergien und
-   der Größe des Objektes.
-
-=> Auf wie viele Variablen will man denn hinunter?
-   Wie sollte man eine Greifbewegung unterteilen?
-   Was sind Griffe, die nicht rekonstruiert werden können?
-   Wie sieht es mit dem sequentiellen Ausführen von Bewegungen für das Greifen aus? (Zum Beispiel Stift)
-   Wie sehen solche Daten aus, die man mit einem Cyberglove aufnimmt?
-
-
-
-
-
-
- https://www.youtube.com/watch?v=SJ84z53A4rY
-
- https://www.youtube.com/watch?v=VG7mx1fQYek
-
- https://h2t.anthropomatik.kit.edu/pdf/Fukaya2000.pdf
-
-## Treffen mit Betreuerin
-
- Erstes Treffen noch vor dem Kick-Off mit Betreuerin.
- Zugang zum Lehrstuhl per KITCard und digitaler Schlüssel für Labore.
-
- Zugang zu den Laboren kommt dann per E-Mail.
- Redmine (http://demo.redmine.org/) wird eingesetzt.
-
- Nochmal zwei Paper bekommen:
-
- Extracting Postural Synergies for Robotic Grasping
- Javier Romero, Thomas Feix, Member, IEEE, Carl Henrik Ek, Member, IEEE, Hedvig Kjellström,
- and Danica Kragic, Senior Member, IEEE
-
- -> Roboter Arm mit 2 DoF zum Greifen und Mitnehmen, kann eigentlich nicht linear
-    dargestellt werden
- -> Vergleich von PCA und GP-LVM (Gaussian Process Latent Variable Model)
-   letzeres ist nicht linear!
-
-   latent Representation X
-   observable Y
-   mapping function f
-
-
-   The dataset was generated from five subjects (three male,
-   two female), and it is available from http://grasp.xief.net/.
-
- https://www.youtube.com/watch?v=sHM17Q61M9A
-
- When we grasp an object we move simultaneously different muscles in a coordinated way. These preferred patterns of muscles are called postural synergies. In the video some synergies inferred by human behaviours are replicated using a robot hand (UB Hand IV).
-
- Power grip: Hands fix object against palm
-
-
- https://www.youtube.com/watch?v=6qRRbvNzHG8
-
- https://www.youtube.com/watch?v=rXNwBurCnTc
-
- https://www.youtube.com/watch?v=F_brnKz_2tI
-
- google "grasp autoencoder"
-
- tendons
-
- Santello et al.
-
- variational autoencoder
-
- Für die HoC Kurse wurde man einem Portal der WiWi hinzugefügt: portal.wiwi.kit.edu
-
-
- https://www.countbayesie.com/blog/2017/5/9/kullback-leibler-divergence-explained
-
- https://github.com/yzwxx/vae-celebA
-
- https://nips2017creativity.github.io/doc/Hierarchical_Variational_Autoencoders_for_Music.pdf
-
- https://arxiv.org/abs/1512.09300
-
-
-
- www.semanticscholar.org
-
-### Literaturrecherche
-
-Stukturierung als Graph? (eingehende und ausgehende Kanten)
-
-Zeithistogramm von Suche nach Schlagwörten Google
-
-Suche in anderen Sprachen (Japanisch?)
+Hier war ich nicht mehr dabei.
