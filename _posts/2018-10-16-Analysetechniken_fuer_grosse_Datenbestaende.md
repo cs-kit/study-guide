@@ -627,13 +627,367 @@ Skalierbarkeit hinsichtlich:
 - *Average Link:* $dist_{al}(X,Y) =\frac{1}{\|X\|*\|Y\|} \sum_{x \in X, y \in Y} dist(x,y)$
 
 #### Partitionierende Verfahren
-**k-Means**: iterativer Algorithmus, der jeden Medoid in Richtung des Schwerpunkts der ihm zugeordneten Menge von Punkten verschiebt
+**k-Means**: iterativer Algorithmus (Hill Climbing), der jeden Medoid in Richtung des Schwerpunkts der ihm zugeordneten 
+Menge von Punkten verschiebt
 
-*Medoid:* Punkt, der als Surrogat für den Schwerpunkt des Clusters dient 
-*Vorgehen:*
-- Initialisierung: Bestimme k Medoids p_1,...,p_k (Seed) für einen gegebenen Datenbestand
-- ordne jedem Datenpunkt dem nächstgelegenen Medoid zu, minimiere *Distance Stop Kriterium*: $\sum_{i=1}^k \sum_{j=1}^{N_i} d(p_i,x_j^i)$
-- berechne Schwerpunkte dieser Partitionen
-- wiederhole bis keine Verbesserung mehr
+*Medoid:* ist ein Datenpunkt, der als Surrogat für den Schwerpunkt des Clusters dient. Ein Medoid ist schlecht und sollte
+im nächsten Schritt ersetzt werden, wenn dem Medoid des Clusters am wenigsten Punkte zugeordnet werden oder weniger als
+N/k * minDev (Konstante) Punkte zugeordnet werden. Diese Punkte sind vermutlich Outlier oder Teile eines anderen Clusters.
 
-*Ende der Vorlesung vom 27.11.2018*
+*Vorgehen:* (img k-means-alg.png)
+
+Ziel der *Initialisiserungsphase* ist es, möglichst gute Seeds zu finden. Dabei werden die Seeds einer nach dem anderen ausgewählt 
+(Greedy-Verfahren). Die Seeds sind Datenpunkte. Neue Seeds sollen so gewählt werden, dass der Abstand zu bisherigen Seeds groß genug ist.  
+Das *Distance Stop Kriterium* tritt ein und der Algorithmus terminiert, wenn eine bestimmte Anzahl von Schritten keine Verbesserung 
+mehr bringt oder diese Verbesserung nur noch sehr klein ist. Die Wahl des Schwellenwert, ab dem das Distance Stop Kriterium erreicht ist,
+hängt stark vom Anwendungsfall ab. Bei einem kleinen Wert ist das Ergebnis näher am Optimum, der Rechenaufwand aber deutlich höher.
+Ein großer Wert liefert ein weniger genaues Ergebnis, hat aber eine bessere Performance.  
+Bei besonders großen Datensätzen kann K-Means auch mit einer *Stichprobe* durchgeführt werden, um unnötig große Laufzeiten zu
+ersparen. Um das Ergebnis zu verbessern, können auch mehrere *Runs/Durchläufe* des Algorithmus ausgeführt werden.
+In Experimenten zeigen fünf Durchläufe mit unterschiedlichen Stichproben ein gutes Ergebnis.  
+Zur Verfeinerung kann außerdem der Medoid, dem kaum Datenpunkte zugeordnet werden, ersetzt werden.
+
+*CLARANS* ist eine Variation von k-Means. k-Means ist zu stark von der Initialisierung abhängig ist und liefert keine Garantie 
+für die Richtigkeit der Cluster. CLARANS stellt das Problem als Graph dar, bei dem jeder Knoten einer Menge von Datenobjekten
+entspricht, die wiederum Medoide sind. Dabei entsteht ein sehr großer Graph, der nicht explizit erzeugt wird. Kanten
+zwischen zwei Knoten exisitieren genau dann, wenn ein Objekt in der Menge im Knoten unterschiedlich ist. Auch bei 
+CLARANS müssen die Seeds geschickt gewählt werden.
+
+(img clarans.png)
+
+Als Parameter benötigt CLARANS die Anzahl der betrachteten Nachbarn, die Azahl der Runs und ein Abbruchkriterium. Dadurch
+entsteht ein weniger "unkontrolliertes" Betrachten der Nachbarn als bisher, da mehrere Nachbarn in einem Schritt betrachtet werden. 
+Der Mittelpunkt wird zwischen den Nachbarn verschoben wenn der Mittelpunkt an der Stelle des Nachbarn besser ist. Dadruch ensteht eine 
+bessere Qualität, da die Suche breiter ist. Allerdings ist dadurch auch der Aufwand höher, da die potentiellen neuen Clustermittelpunkte
+in jedem Schritt berechnet werden müssen.
+
+**Balanced Iterative Reducing and Clustering using Hierarchies (BIRCH)**: ist ein Clustering-Verfahren für große Datenmengen.
+BIRCH baut ein Modell (Baum) auf, der die Datenverteilung beschreibt, ist dabei systematischer als partitionsbasierte
+Verfahren und kommt mit weniger Speicherplatz aus. Die I/O-Kosten wachsen linear mit der Größe des Datenbestands, wenn der
+CF-Tree in den Hauptspeicher passt. Eine Iteration des Algorithmus liefert bereits ein Clustering, mehrfaches
+iterieren liefert ein besseres Clustering. Der Wert k ist die gewünschte Anzahl an Clustern und ist Parameter des Algorithmus.
+Zudem hat BIRCH eine gute Laufzeit, da das Daten aus der DB lesen Kosten produziert und die Daten dann aber direkt in den Baum eingefügt
+werden können, welche Kosten vernachlässigbar ist.
+
+Gegeben einer Menge von Punkten heißt der Mittelpunkt *Centroid*, der *Radius* des Clusters gibt an, wie nah die Punkte
+beieinander liegen und der *Durchmesser* wird groß, wenn die Datenobjekte weit auseinander liegen und klein, wenn die 
+Punkte nah beieinander liegen. $D_2$ ist die *Inter-Cluster-Distanz*. 
+
+(img inter-cluster-distance.png)
+
+*Clustering Feature (CF):* ist die aggregierte Information zu jeder Menge von Punkten die BIRCH mitführt und definiert als 
+$CF = (N, \vec{LS}, \vec{SS})$. Dabei ist N die Anzahl der Punkte, die Lineares Summe (LS, Linear sum) die
+Summe der Punkte in einem Cluster und die Quadrat Summe (SS, square sum) die quadrierte Summe der Punkte eines Clusters.
+Aus dem CF lassen sich Centroid und Radius berechnen (TODO!). Beim Zusammenführen von zwei Clustern lässt sich das Clustering
+Feature trivialerweise aus den Ausgangsclustern berechnen.
+
+*CF Tree:* ist ein höhenbalancierte Baum, in dem jedem Knoten des Baums ein Cluster entspricht. Wenn ein Knoten zu einem Cluster A
+in einem Knoten zu Cluster B enthalten ist, heißt dass, dass das Cluster A in Cluster B enthalten sein muss. Ein *Blatt* 
+ist eine Menge von Clustering Features (Elementar-Cluster). Die Größe des Baums ist damit (relativ) unabhängign von der Anzahl
+der Datenobjekte. Die inneren Knoten enthalten Einträge der Form $[CF_i, child_i]$ ($child_i$ enthält einen
+Pointer auf den Kindknoten) dabei ist $CF_i$ ein Clustering Feature von $child_i$.  
+
+Der CF Tree hat die *Parameter*:
+- *B*: ist der Fan Out (Verzweigungsgrad) für innere Knoten. Die Kapazität für innere Knoten ist kleiner, da zudem
+noch die Pointer auf die Kindknoten gespeichert werden müssen.
+- *B'*: ist die Kapazität eines Blattes.
+- *T*: ist der Schwellenwert, der kleiner sein muss als der Radius (bzw. Durchmesser) des Elementarclusters. Ohne diese Bedingung
+würden alle Daten punkte in ein einziges Elementarcluster eingefügt werden. Ist T zu klein gewählt, entstehen zu viele 
+Elementarcluster, der Baum wird zu kleinteilig und passt nicht in den Hauptspeicher. Wählt man das T hingegen zu groß, 
+entstehen zu wenige Elementarcluster und die Repräsentation ist zu grob, um damit arbeiten zu können.
+
+
+(img birch-illustration.png)
+
+Beim *Einfügen* in den CF Tree wandert jeder Punkt in den Knoten, zu dessen Schwerpunkt er
+den kleinsten Abstand hat. Passt ein Punkt in kein Cluster auf dem Blatt, wird er
+als neues Cluster in ein neues Blatt eingeordnet. Die Knoten werden *gesplittet*, sobald der
+Cluster zu groß wird (zu viele Teil-Cluster existieren).   
+Beim *Node-Splitting* werden
+die am weitesten voneinander entfernten Punkte als Seeds gewählt. Die Nähe der
+anderen Punkte entscheidet über die Zuordnung zum jeweiligen neuen Cluster. Sobald der 
+Knoten, der einem Seed entspricht voll wird, wird einfach der andere Knoten aufgefüllt.
+Das Splitten der Knoten findet ledigtlich über das Clustering Feature statt, alle 
+Informationen über die Punkte sind im CF enthalten. BIRCH arbeitet ausschließlich mit CF, 
+damit möglichst viele Daten in den Hauptspeicher passen.
+
+(img birch-split1.png birch-split2.png birch-split3.png)
+
+Ein *Merge* der Knoten (Geschwisterknoten) passiert ggf. nach dem Splitting, um Platz zu sparen
+und eine bessere Qualität des Clusterings zu gewährleisten. Zwei Kinder des Knotens, der 
+ nach dem Splitting zwei neue Knoten enthält, mit minimalem Abstand zueinander werden zu einem
+ neuen Knoten zusammengefasst. Ein Merge kann ein *Resplitting* verursachen.
+ 
+#### Hierarchisches Clustering
+Oft reichen partitionierende Clustering Verfahren nicht aus, um den Datenbestand angemessen
+zu repräsentieren. Deshalb ist ein *hierarchisches Clustering* sinnvoll, um den Datenbestand
+in eine Menge hierarchisch geschachtelter Cluster zu unterteilen. 
+
+(img motivation-hierarchisches-c.png)
+
+Ein *Dendogramm* ist die übliche Darstellung des Ergebnisses eines hierarchisches Clusterings.
+Die Knoten des Dendogramms stehen für mögliche Cluster. Die Konstruktion kann entweder
+bottom-up (*agglomerativ*) oder top-down (*divisiv*) stattfinden.   
+Die Wurzel repräsentiert den gesamten Datenbestand, die Blätter die einzelnen Datenobjekte.
+Innere Knoten sind die Vereinigung der Datenobjekte mit seinem Teilbaum und die Höhe eines
+internen Knotens, ist der Abstand zwischen seinen zwei Kindknoten.
+Die Kanten, die sich beim horizontalen Schneiden durch den Baum ergeben, sind die Cluster. 
+Bei n Paaren (also Kanten), die nach dem Zusammenfassen noch möglich sind, ergibt sich
+ eine Laufzeit von O(n log n).
+
+(img dendogram.png dendogramm-interpret.png)
+
+**Agglomeratives hierarchisches Clustering**: benötigt eine Distanzfunktion, um den Abstand
+zwischen den Clustern zu berechnen (z.B. Euklidischer Abstand, Manhattan Distanz). 
+1. Jedes Objekt ist einelementiger Cluster
+2. Berechnung aller paarweisen Abstände zwischen Clustern
+3. Die Paare mit dem kleinsten Abstand werden gemerged
+4. besteht nur noch ein Cluster wird terminiert, andernfalls Schritt drei wiederholt
+
+**Divisives hierarchisches Cluserting**: teilt ein großes Cluster, bestehend aus alles Objekten
+schrittweise in kleinere Cluster, bis alle Objekte einem eigenen Cluster entsprechen.
+*DIANA*: ist ein Algorithmus, der divisives hierarchisches Clustering umsetzt. 
+Starte mit einem Cluster, der alle Beobachtungen enthält.
+1. Berechne den Durchmesser aller Cluster. 
+2. Der Durchmesser ist die maximale Distanz oder Unähnlichkeit aller Objekte 
+innerhalb des Clusters.
+3. Der Cluster mit dem größten Durchmesser wird in zwei Cluster geteilt.
+4. Dazu wird das Objekt in dem Cluster bestimmt, das die größte durchschnittliche 
+Distanz oder Unähnlichkeit zu allen anderen Objekten hat. Es bildet den Kern der 
+"Splittergruppe".
+5. Jedes Objekt, das näher an der Splittergruppe liegt als an den restlichen Objekten, 
+wird nun der Splittergruppe zugeordnet.
+6. Die Schritte 2–5 werden solange wiederholt, bis alle Cluster nur noch ein Objekt enthalten.
+
+Der markierte Punkt hat einen eher kleinen Abstand zum Objekt o, im Vergleich zu den
+Abständern zu den anderen Datenpunkten (links). Und wird daher der *Splittergruppe* 
+zugeordnet. Nach dem Verfahren gehören alle Punkt des linken und mittleren Clusters zur 
+Splittergruppe.
+
+(img Splittergruppe.png)
+
+**Vergleich agglomerativ vs. divisiv**: Beide Verfahren benötgen n-1 Schritte. Divisives
+Verfahren ist konzeptionell anspruchsvoller, weil das Vorgehen beim Split nicht direkt
+offensichtlich ist. Agglomeratives Clustering berücksichtigt lokale Muster, divisives
+hingegen die globale Datenverteilung und liefert dadurch ggf. bessere Resultate.
+
+#### Hochdimensionale Merkmalsräume
+In der Regel möchte man Cluster in allen Dimensionen herausfinden. Cluster die z.B im 
+zweidimensionalen richtig erscheinen, ergeben im höherdimensionalen Raum keinen Sinn.
+
+**Projected Clustering**: liefert gegeben einer Anzahl von Clustern k und der 
+durchschnittlichen Anzahl der Dimensionen pro Cluster I, die Partitionierung der Daten in k+1
+Mengen (Warum k+1?) und die Teilmengen $D_i$.
+
+(img projected-clustering-alg.png)
+
+*Ermitteln der Dimensionen* zu einem Medoid m. Für jeden Medoid, weden die Punkte in seiner
+Nähe betrachtet. Die *Locality* L ist definiert als die Menge der Punkte, deren Abstand
+von m kleiner ist als der Abstand von m zu einem Medoiden eines anderen Clusters.
+
+(img locality.png)
+
+Beim Vergleich der Distanzen ist zu beachten, dass die absoluten Werte irreführend sind, da 
+nicht normiert. Die Standardabweichung (Durchschnittliche Absweichung vom Mittelwert) der 
+Punkt zum Medoiden sollte betrachtet werden.
+
+*Bestimmung der Cluster*: findet über die Manhattan Distance statt. Jeder Punkt wird
+zu seinem nächsten Medoiden zugeordnet.
+
+(img manh-distance-projected.png)
+
+(img dim-diff.png)
+
+#### Umgang mit kategorischen Attributen
+Als *kategorische Attribute*, werden jene bezeichnet, welche eine endliche Menge von 
+Werten in ihrem Wertebereich haben (z.B. {braun, schwarz, weiß,...}) und deren Wertebereich
+nicht boolsch ist. Ziel ist es, Flags für eine bestimmte Menge von Attributen zu setzen, und
+so Datenobjekte mit gleichen Attributen zu finden. Algorithmen verwenden üblicherweise 
+die Euklidische Distanz zur Berechnung der Abstände. Dies funktoniert gut für numerische
+Attribute.
+
+Bei Datenbeständen mit kategorischen Attributen, kommt es zu *Problemen*, wenn ein Attribut
+mengenwertig ist, also die Anzahl der Items/Attribute sehr groß ist. Im Warenkorbszenario
+beispielsweise haben Kunden mit ähnlichem Kaufverhalten (gehören ins gleiche Cluster) nur
+wenige gleiche Produkte gekauft. Die Wahl des Schwellenwerts gestaltet sich dann sehr
+schwierig.   
+Zudem können die Abstandsmaße zu schlicht oder zu schwer zu
+definieren sein. Der *Overlap measure* ist ein Ähnlichkeitsmaß, das bei gleichen Objekten
+1 und bei unterschiedlichen Objekten 0 liefert. Dabei bleiben die Häufigkeiten allerdings
+unberücksichtigt. Der *Jaccard Koeffizient* bestimmt die Ähnlichkeit zwischen zwei
+Transaktionen T1 und T2 $\frac{\|T1 \cap T2\|}{\|T1 \cup T2\|}$ mit der maximalen Ähnlichkeit
+1 (alle Objekte gleich) und der minimalen Ähnlichkeit 0 (kein Objekt gleich). Der Jaccard
+Koeffizient berücksicht nur die zwei Punkte, die Nachbarschaft bleibt unberücksichtigt.
+
+
+#### Dichte-basierte Methoden/Darstellung der Cluster-Ergebnisse
+*Link-basierte* oder auch *Dichte-basierte* Methoden machen keine Annahme über die Form des
+Clusters und liefern bessere Ergebnisse als andere Verfahren.
+
+**Link-basierte Methode**: verbindet alle Punkte, deren Distanz kleiner als d ist. Links
+ lösen die klassischen Probleme beim Umgang mit kategorischen Attributen. Zwei Punkte sind
+ Nachbarn, wenn die Ähnlichkeit zwischen ihnen größer als ein Schwellwert sind. Die Anzahl
+ von Links zwischen zwei Punkten entspricht der Anzahl gemeinsamer Nachbarn dieser Punkte.
+ Das Vorgehen ist ein wiederholter Merge von Clustern mit maximaler Link-Anzahl. (TODO: 
+ Zeigen Sie, dass dieser Ansatz mit agglomerativem Clustering
+ zu korrektem Clustering führt, wenn (Schwellenwert) =0.5
+ und Jaccard Koeffizient.)
+ 
+(img link-based.png)
+
+**Density-Based Spatial Clustering of Applications with Noise (DBSCAN)**: (Wikipedia)[https://de.wikipedia.org/wiki/DBSCAN]:
+ ist ein Data-Mining-Algorithmus zur Clusteranalyse. Der Algorithmus arbeitet dichtebasiert und ist in der Lage, mehrere 
+ Cluster zu erkennen. Rauschpunkte werden dabei ignoriert und separat zurückgeliefert.   
+ Die Grundidee des Algorithmus ist der Begriff der Dichteverbundenheit. Zwei Objekte gelten als dichte-verbunden, wenn es
+  eine Kette von dichten Objekten (Kernobjekte, mit mehr als minPts Nachbarn) gibt, die diese Punkte 
+  miteinander verbinden. Die durch dieselben Kernobjekte miteinander verbundenen Objekte bilden einen Cluster. Objekte, die 
+  nicht Teil eines dichte-verbundenen Clusters sind, werden als Rauschen (engl. Noise) bezeichnet.
+ 
+ In DBSCAN gibt es drei Arten von Punkten:
+
+  - *Kernobjekte*, welche selbst dicht sind. (rote Punkte)
+  - *Dichte-erreichbare Objekte*. Dies sind Objekte, die zwar von einem Kernobjekt des Clusters erreicht werden können, 
+  selbst aber nicht dicht sind. Anschaulich bilden diese den Rand eines Clusters. (gelbe Punkte)
+ - *Rauschpunkte*, die weder dicht, noch dichte-erreichbar sind. (blauer Punkt)
+ 
+ (img Datei_DBSCAN_Illustration.svg)
+ 
+ Der Algorithmus verfügt über zwei Parameter: ε und minPts. Dabei definiert ε die Nachbarschaftslänge eines Punktes:
+ Von einem Punkt erreichbar ist ein zweiter Punkt genau dann, wenn sein Abstand kleiner als ε ist. minPts definiert dagegen,
+ wann ein Objekt dicht (d. h. ein Kernobjekt) ist: wenn es mindestens minPts ε-erreichbare Nachbarn hat.
+ 
+ Dichte-erreichbare Punkte können von mehr als einem Cluster dichte-erreichbar sein. Diese Punkte werden von dem 
+ Algorithmus nicht-deterministisch einem der möglichen Cluster zugeordnet. Dies impliziert auch, dass Dichteverbundenheit 
+ nicht transitiv ist; Dichte-Erreichbarkeit ist nicht symmetrisch.
+ 
+ Wenn *ε kleiner* wird, kann es sein, dass Objekte, die vorher Teil des Clusters waren, nichtmehr im gleichen Cluster sind.
+ Wenn *minPts kleiner* wird, werden mehr Objekte keinem Cluster mehr zugeorndet (→ mehr Ausreißer).
+ 
+ *DBSCAN Erweiterung: Ordering Points To Identify the Clustering Structure (OPTICS)*: (Wikipedia)[https://de.wikipedia.org/wiki/OPTICS]:
+  Das Grundprinzip des Algorithmus entstammt DBSCAN,
+  jedoch löst der Algorithmus eine wichtige Schwäche des DBSCAN-Algorithmus: im Gegensatz zu diesem kann er Cluster 
+  unterschiedlicher Dichte erkennen. Gleichzeitig eliminiert er (weitgehend) den ε-Parameter (*Core-Distance*) des DBSCAN-Algorithmus. 
+  Hierzu ordnet OPTICS die Punkte des Datensatzes linear so, dass räumlich benachbarte Punkte in dieser Ordnung nahe 
+  aufeinander folgen. Gleichzeitig wird die sogenannte „Erreichbarkeitsdistanz“ notiert. Zeichnet man diese 
+  Erreichbarkeitsdistanzen in ein Diagramm, so bilden Cluster „Täler“ und können so identifiziert werden.
+  
+  (img optics-idea.png)
+  
+  Die *Core-Distance* $core-distance_{MinPts}(o)$ ist der kleinste Wert, den ε annehmen kann, 
+  sodass o immer noch ein dichtes Objekt ist.
+
+  In der Prioritätsliste (die die Datenpunkte enthält) sollten Datenpunkte, die nahe 
+  beieinander liegen, aufeinander folgen (p1 ist nahe an dichtem Punkt o, p2 nicht: p1,o,p2).
+  Ist p näher an o als core-distnace, dann spielt die genaue Distanz für die Sortierung keine
+  Rolle. Ist ε (ε1) kleiner als die core-distance, dann ist o nicht dicht. Ist ε größer ist p (p1)
+  von o *dichteerreichbar*. Für den Fall, dass p von o weiter weg ist als die core-distance, 
+  so hängt es von ε (ε2) ab, ob p (p2) von o dichteereichbar ist. )
+  
+  (img core-dist.png)
+  
+  Die *Ereichbarkeitsdistanz* (reachibility distance) ist definiert als das Maximum des 
+  echten Abstandes und der Core-Distance des verweisenden Punktes. 
+
+   (img reach-dist.png)
+   
+   OPTICS verwendet eine Priority Queue (Control List (CL)) zum Speichern
+   der Datensätze. Eine Liste wäre zu aufwändig. OPTICS ordnet jetzt die Objekte in der 
+   Datenbank, indem es bei einem beliebigen unbearbeiteten Punkt anfängt, die Nachbarn 
+   in der ε-Umgebung ermittelt und sie sich nach 
+   ihrer bisher besten Erreichbarkeitsdistanz in einer Vorrangwarteschlange merkt. Es wird
+    jetzt immer derjenige Punkt als Nächstes in die Ordnung aufgenommen, der die kleinste 
+    Erreichbarkeitsdistanz hat. Durch das Verarbeiten eines neuen Punktes können sich die 
+    Erreichbarkeitsdistanzen der unverarbeiteten Punkte verbessern. Durch die Sortierung 
+    dieser Vorrangwarteschlange verarbeitet OPTICS einen detektierten Cluster vollständig, 
+    bevor er beim nächsten Cluster weitermacht.
+   
+   (img optics-vis.png)
+
+   *Beispiel - OPTICS:* Zunächst wird Objekt 1 angeschaut. Seine Core-Distance ist groß, da
+   es u keinem natürlichen Cluster gehört. Die Reachability distance ist undefined, da es das
+   erste Objekt, und somit noch kein Referenzobjekt in der Ergebnisliste steht. Die 
+   erreichbaren Nachbarn von Objekt 1 sind die Objekte 2 und 3. Diese werden in die CL 
+   geschrieben, 1 in die Ergebnisliste. Da Objekt 2 näher an Objekt 1, als Objekt 3 liegt, 
+   werden die Objekte in dieser Reihenfolge in die CL geschrieben (CL: 2,3; Output: 1).
+   Als nächstes wird Objekt 2 aus der CL genommen und abgearbeitet. Objekt 16 befindet
+   sich in der ε-Umgebung von Objekt 2, also wird es in die CL aufgenommen (CL: 3,16; 
+   Output: 2,3). Objekt 3 steht als nächstes in der Cl, wird also als nächstes abgearbeitet.
+   Es hat eine kleinere core-distance, da viele Objekte in seiner Umgebung liegen. Die 
+   Objekte die mit Objekt 3 im Cluster liegen ({4,...,15}) werden nun als nächstes in die CL
+   geschrieben.   
+   Ist die CL komplett abgearbeitet, wird das nächste Objekt zufällig aus dem Datensatz 
+   gewählt.
+   
+   (img optics-bsp.png optics-bsp2.png  optics-datastruc.png)
+   
+   Der bei OPTICS verwendete *Reachability Plot* repräsentiert die Cluster-Struktur 
+   dichtebasiert und ist leichter zu analysieren. Zudem ist er unabhängig von der
+   Dimensionaltät des Cluserbestands.
+   
+   OPTICS liefert ein gutes Ergebnis, solange die Parameterwerte groß genug sind. Für ein 
+   kleines ε bleiben größere Nachbarschaften außen vor, für größere ε ist das Ergebnis des
+   Clusters aber ungenauer. Für kleine minPts entstehen zu kleinteilige Cluster, da Objekte
+   mit eher wenigen Objekte in der Nachbarschaft als dicht gelten und ein Cluster bilden.
+   
+#### Cluster-Ensembles
+Zur Generierung *robuster* Clustering-Ergebnisse, werden bei *Cluster-Ensembles* die
+Resultate mehrere Clustering-Modelle kombiniert. Dazu generiert man k unterschiedliche
+Clusterings und leitet daraus die Resultate ab.
+
+Man unterscheidet zwischen:
+- *Modell-basiert:* unterschiedliche Verfahren bilden ein Ensemble bzw. das selbe Verfahren
+mit unterschiedlichen Parametern/Initialisierungen ausgeführt.
+- *Daten-basiert:* unterschiedliche Teilmengen der Daten generieren unterschiedliche Cluster.
+Dabei beschränkt man sich auf unterschiedliche Dimensionen.
+
+Zum *Vereinen* der Verfahren kann man unterschiedliche Algorithmen anwenden:
+- *Hypergraph Partitioning Algorithmus:* jedes Objekt ist ein Knoten in einem Graphen. Cluster
+sind sogennante *Hyper-Kanten*. Jede Hyper-Kante kann mehr als zwei Knoten miteinander 
+verbinden.
+- *Meta-Clustering Algorithmus:* Auch hier ist die Darstellung des Clusterings ein Graph. 
+Bei Überlappung der Objekt-Mengen im Cluster existieren Kanten zwischen den 
+Repräsentantenknoten. Der Jaccard-Koeffizient fungiert als Kantengewicht.
+
+#### Probabilitsitsches Clustering
+Da ein Wert im Allgemeinen zu mehr als einem Cluster gehören kann, ist die 
+wahrscheinlichkeitsbasierte Sichtweise auf Clustering notwendig. Man möchte die Cluster 
+finden, die für gegebene Daten am wahrscheinlichsten sind.
+
+Bei der Betrachtung von gekauften Kameras (A: Privat, B: Professionell) mit dem Preis
+an der x-Achse, lassen sich Werte besonders an der Überlappung der Cluster nicht eindeutig
+zuordnen. Unter der Annahme, dass eine Gauss-Verteilung zugrunde liegt, möchte man nun
+herausfinden, mit welcher Wahrscheinlichkeit eine Kamera von einer Privatperson oder einem
+Profi gekauft wurde.
+
+(img kamera.png)
+
+Das *Finite-Mixture-Problem* ist das Problem Wahrscheinlichkeitsverteilung durch eine Menge
+von k Wahrscheinlichkeitsverteilungen zu beschreiben. Dabei kann jede der k Verteilungen 
+ein Cluster beschreiben, die Verteilungen innerhalb eines Clustes sind aber nicht bekannt.
+Cluster selbst können unterschiedlich wahrscheinlich sein. 
+
+*Clustering mit Finite-Mixtures* finden die Parameter (pA, μA, μB, σ²A, σ²B) gegeben der
+Datenobjekte, der Anzahl der CLuster k und der Art der Verteilung der Cluster. Unter der
+Annahme einer Gauss-Verteilung ist dieses Problem lösbar, ohne Annahmen im Allgemeinen aber 
+nicht.
+
+Die Idee des **Expectation Maximization Algorthmus** ist es, mit einem zufällig gewählten 
+Modell zu starten, und abwechselnd die Zuordnung der Daten zu den einzelnen Teilen des 
+Modells (*Expectation-Schritt*) und die Parameter des Modells an die neueste Zuordnung 
+(*Maximization-Schritt*) iterativ zu verbessern.
+
+Die initiale Belegung der Parameter (pA, μA, μB, σ²A, σ²B) wird geraten, die Cluster-
+Wahrscheinlichkeiten für jedes Datenobjekt ausgerechnet (*Expectation-Schritt*), die
+Parameter des Clusters neu berechnet (*Maximization-Schritt*) und dann das Vorgehen wiederholt.
+Die Schätzung der Parameter ist abhängig davon, wie wahscheinlich ein Datenobjekt zu einem
+Cluster gehört. Die Wahrscheinlichkeiten wirken dabei wie Gewichte.
+EM terminiert dann, wenn das Gütermaß des Clustering (*overall likelihood*)
+erreicht wird. Der optimale Punkt wird allerdings nie erreicht. Es kann nur das lokale 
+Optimum gefunden werden, nicht das globale. Man kann den Algorithmus mit unterschiedlichen
+Initialisierungen wiederholen und das Gütemaß als Auswahlkriterium für den besten Algorithmus
+wählen.   Angenommen, die Verteilungen
+beschreiben Datenbestand gut:Dann sind viele Instanzennahe bei einem Cluster-Mittelpunkt
+(z. B. μB ), und Pr[x i | B] ist groß. Angenommen, die Cluster-Mittelpunkte sind abseitig:
+Dann ist sowohl Pr[x i | A] als auch Pr[x i | B] für viele Instanzen klein.
+
+(img overall-likelihood.png)

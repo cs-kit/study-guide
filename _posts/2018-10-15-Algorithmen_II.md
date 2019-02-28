@@ -35,6 +35,7 @@ tags: lecture
 - **20.11.2018**: 6-3 bis Ende Kapitel 6; Übung 5
 - **26.11.2018**: Kapitel 7
 - **27.11.2018**: Kapitel 8-1 bis 8-6; Übung 6
+- **03.12.2018**: Kapitel 8-7 bis Ende, Kapitel 9-1 bis 9-7
 
 
 ### Material
@@ -413,7 +414,8 @@ Elemente x = read(a) und y = read(b), von j=1 bis a+b: if x ≤ x → write(c), 
 ### Approximationsalgorithmen
 
 > Umgang mit NP-harten Probleme, fast alle interessanten Optimierungsprobleme sind NP-hart → trotzdem optimale Lösungen suchen und riskieren, dass 
-Algorithmus nicht fertig wird, wie gut ist Lösung? → **Approximationsalgorithmen**: polynomielle Ausführungszeit, aber Lösung "nah" am Optimum
+Algorithmus nicht fertig wird, wie gut ist Lösung? → **Approximationsalgorithmen**: polynomielle Ausführungszeit, aber Lösung die "nah" am Optimum 
+ist, also die *effiziente* Berechnung einer *vernünftigen Näherung*.
 
 **Scheduling** unabhängiger gewichteter Jobs auf parallelen Maschinen: identische Maschinen, unabhängige Jobs, bekannte Ausführungszeiten, 
 offline:
@@ -421,16 +423,365 @@ offline:
 - $L_i$: $ \sum_{x(j)=i} t_j $ Last von Maschine i
 - Zielfunktion: Minimiere Makespan $L_{max} = max_i L_i$   
 
-*$L_{max} bei vielen kleinen Jobs:* 
+*$L_{max}$ bei vielen kleinen Jobs:* 
 - *obere Schranke:* Falls $l$ der zuletzt beendete Job ist: $L_{max} ≤ \sum_j \frac{t_j}{m} + \frac{m-1}{m} t_l$
 - *untere Schranken:* $L_{max} ≥ \sum_j \frac{t_j}{m}$ und $L_{max} ≥ max_j t_j$
 
-**Approximationsfaktor**: Ein Minimierungsalgorithmus erzielt einen Approximationsfator $\rho$ bezüglich Zielfunktion $f$, 
-falls er für alle Eingaben $I$, eine Lösung $x(I)$ findet, so dass: $ \frac{f(x(I)}{f(x*(I))} ≤ \rho $ wobei $x*(I)$ die optimale
-Lösung für die Eingabe $I$ bezeichnet.  
+**Approximationsfaktor**: Der Approximationsfaktor ist das *Gütekriterium* eines Approximationsalgorithmuses. 
+Ein Minimierungsalgorithmus ALG erzielt einen Approximationsfator $\rho$ bezüglich Zielfunktion $f$, 
+falls er für alle Eingaben $I$, eine Lösung $ALG(I)$ findet, so dass: $ \frac{f(ALG(I))}{f(OPT\*(I))} ≤ \rho $ wobei $OPT(I)$ die optimale
+Lösung für die Eingabe $I$ bezeichnet.     
 → List Scheduling erzielt einen Approximationsfaktor von $2-\frac{1}{m}$
+*Beispiel*: Ein Algorithmus ALG schätzt die Distanz einer Strecke x auf die nächste Zweierpotenz $2^{\lceil log\|x\| \rceil}$.
+Der Algorithmus OPT bestimmt die korrekte Distanz \|x\|: $\frac{w(ALG)}{w(OPT)} = \frac{2^{\lceil log\|x\| \rceil}{\|x\|}} 
+≤ \frac{2^{log \|x\| + 1}}{\|x\|}} = \frac{2\|x\|}{\|x\|} = 2 = \rho$   
+Für $\|x\| = 2^{10} + 1 → \frac{2^{11}}{2^{10}+1} = s - \frac{2}{2^{10}+1} ≈ 2 $
 
 *Ende Vorlesung vom 27.11.2018*
+
+**Traveling Salesman Problem (TSP)**: ist ein NP-vollständiges Problem, bei dem eine Reihenfolge für den Besuch mehrerer 
+Orte so zu wählen ist, dass keine Station außer der ersten mehr als einmal besucht wird, die gesamte Reisestrecke des 
+Handlungsreisenden möglichst kurz und die erste Station gleich der letzten Station ist.  
+
+*Nichtapproximierbarkeit des TSP:* Gegeben ein Graph G = (V,V × V), finde einen einfachen Kreis C = (v_1,v_2,...,v_n,v_1), 
+so dass n = |V| und $\sum_{(u,v) \in C} d(u,v)$ minimiert wird. Es ist NP-hart TSP innerhalb irgendeines Faktors a zu approximieren. 
+Aus diesem Grund werden nun Abschätzungen getroffen:
+
+**Abschätzung durch Hamiltonkreis**: HamiltonCycle $≤_p$ a-Approximation von TSP 
+
+*Hamiltonkreis*: ist ein geschlossener Pfad in einem Graphen,der jeden Knoten genau einmal enthält. Das Hamiltonkreisproblem NP-vollständig.
+
+**2-Approximation durch minimalen Spannbaum (MST)**: *Gesamtgewicht MST ≤ Gesamtgewicht jeder TSP-Tour*
+
+*Euler-Kreis*: Ein Euler-Kreis ist ein Zyklus, der alle Kanten eines Graphen genau einmal enthält. 
+Ein beliebiger zusammenhängender, ungerichteter Graph G = (V,E) und |E| = m hat einen Euler-Kreis genau dann, 
+wenn G zusammenhängend und alle Knoten einen geraden Grad haben.   
+*Analyse:* Euler-Kreise lassen sich in O(|E| + |V|) finden.
+
+*Minimale Spannbäume*: Ein Spannbaum ist ein Teilgraph eines ungerichteten Graphen, der ein Baum ist und alle Knoten 
+dieses Graphen enthält. Spannbäume existieren nur in zusammenhängenden Graphen. Ein Spannbaum ist*minimal*, wenn kein anderer 
+Spannbaum in demselben Graphen mit geringerem Gewicht existiert. 
+
+*3/2 Approximations Algorithmus für TSP:* Gegeben Graph G = (V,E) (vollständig, ungerichtet): 
+(hier Abbildung TSP-graph.png einfügen)
+1. bestimmte MST T
+2. bestimmte Knoten U mit ungeradem Grad in T
+3. finde minimales perfektes Matching M auf (U,E) (Summe der Gewichte der Matchingkanten minimal)
+4. fügen Kanten M zu T → T' hinzu
+5. bestimme Eulerkreis EK auf T' (alle Knoten haben geraden Grad)
+6. wandle EK zu Hamiltonkreis
+
+(Hier alle 6 Abbildungen einfügen TSP-i.png)
+
+*Beweis:* Zunächst folgende Abschätzung: w(HK) ≤ w(EK) = w(T') = w(T) + w(M) ≤ w(OPT) + w(M).
+Nun muss w(M) bestimmt werden: 
+- Sei HK' ein Hamiltonkreis auf U (Knoten mit ungeradem Grad T) (erzeugt durch Überspringen aller
+Knoten V ohne den Knoten in U im OPT) (Abbildung beweis-tsp-hk.png)
+- definiere alternierende perfekte Matchings $M_1, M_2$ auf HK' (muss existieren, da |U| gerade, HK' = $M_1 \cup M_2$)  
+(Abbildungen beweis-tsp-m1.png und beweis-tsp-m2.png)    
+→ $w(M) ≤ w(M_1), w(M) ≤ w(M_2)$ (M min. Matching!)  
+→ $2·w(M) ≤ w(M_1) + w(M_2) = w(HK') ≤ w(OPT)$  (Überspringen gerader Knoten und Dreiecks-Ungleichung)  
+Daraus ergibt sich die Abschätzung: $w(HK) ≤ \frac{3}{2} w(OPT)$  
+
+
+(Überschrift Approximationsklassen)
+
+**Pseudopolynomielle Algorithmen (APX)**: Eine Möglichkeit mit Problemen umzugehen, die ansonsten NP-hart sind sind *Pseudopolynomielle
+Algorithmen*.  Ein Algorithmus A ist ein polynomieller Algorithmus wenn seine Laufzeit ein Polynom im numerischen Wert der Eingabe ist 
+(A(n) ∈ P(n)). Dabei ist n die Anzahl der Eingabebits, wenn alle Zahlen unär (Beispiel: 0: , 1: |, 4: ||||) kodiert werden.
+
+**Polynomial Time Approximation Scheme (PTAS)**: für eine eingegebene Instanz I sowie einen Fehlerparameter ε, bei
+ einer Polynomiellen Zeit in |I|, ist ein Algorithmus A ist ein Polynomial Time Approximation Scheme (PTAS) für
+- *Minimization Problem*, wenn  die Ausgabequalität f(x) = (1+ε)opt.   
+- *Maximization Problem*, die Ausgabequalität f(x) = (1-ε)opt.
+   
+**Fully Polynomial Time Approximation Scheme (FPTAS)**: Wenn ein PTAS zudem polynomielle Güte 
+1/ε benötigt, heißt er Fully Polynomial Time Approximation Scheme (FPTAS).
+
+**Übersicht**:
+- *Approximable (APX):* ρ = konstant, T polynomiell in n (z.B. $T(n, ε) = n^{\frac{1}{ε}}, ρ(n, ε) = 2$)
+- *Polynomial time approximation scheme (PTAS):* ρ = 1 ± ε, bel. ε ∈ ( 0 , 1 ) , T poly. in n  (z.B. $T(n, ε) = n^{\frac{1}{ε}}, ρ(n, ε) = 1 - ε$)
+- *Fully Polynomial time approximation scheme (FPTAS):* ρ = 1 ± ε, bel. ε ∈ ( 0 , 1 ) , T poly. in n  (z.B. $T(n, ε) = \frac{1}{ε}n, ρ(n, ε) = 1 + 2ε$)
+
+(Hier Bild approximationsklassen.png einfügen)
+
+*Beispielschranken:*
+- PTAS: $n+2^{1/ε}, n{log 1/ε}, n^{1/ε}, n^{42/ε³}, n+2^{2^{1000/ε}}$
+- FPTAS: $n²+\frac{1}{ε}, n+\frac{1}{ε⁴}, \frac{n}{3} $
+
+(Hier Bild approximationsklassen.png einfügen)
+
+(Überschrift Beispielalgorithmen Approximationsklassen)
+
+**Rucksackproblem als Polynomieller Algorithmus**: Aus einer Menge n von Objekten, die jeweils ein Gewicht $w_i$ und einen Profit $p_i$ haben, soll eine Teilmenge x 
+ausgewählt werden, deren Gesamtgewicht eine vorgegebene Gewichtsschranke W nicht überschreitet. Unter dieser Bedingung 
+soll der Profit P der ausgewählten Objekte maximiert werden.   
+Die kleinste Kapazität der Gegenstände 1,...,i die einen Profit ≥ P ergeben: $ ∀ 1 ≤ i ≤ n : C(i, P) = min(C(i − 1, P),C(i − 1, P − p_i ) + w_i )$
+*Analyse:* P̂ ist die obere Schranke für den Profit: O(nP̂) pseudo polynomiell und Speicherbedarf P̂ + O(n) Maschinenworte plus P̂n bits
+
+**FPTAS für das Rucksackproblem**: maximaler Einzelprofit $P := max_i p_i$, Skalierungsfaktor 
+$K := \frac{εP}{n}$, skaliere Profiten $p_{i^{'}} := \lfloor \frac{p_i}{K} \rfloor$, x' := dynamicProgrammingByProfit(p',w,C)
+gibt x' aus
+*Analyse*: p·x′ ≥ (1 − ε)opt und O(n³/ε)
+
+### Fixed-Parameter-Algorithmen
+Eine weiter Möglichkeit mit NP-harten Problemen umzugehen sind *Fixed Parameter Algorithmen*. Um diese "schwierigen"
+Probleme zu lösen (z.B. Minimum Vertex Cover), welche für allgemeine Instanzen zu lange Berechnungszeiten haben, gibt es die
+Möglichkeit mit parametrisierten Algorithmen diese Spezialfälle zu berechnen. Neben der Eingabegröße gibt es nuneinen zweiten Parameter 
+*k*. Falls die Komplexität der Berechnung des Problems in diesem Parameter steckt, kann man dadzrch effiziente
+Lösungen für ein konstantes k erreichen. Dieser kann beispielweise k = Ausgabegröße gewählt werden. 
+Beispiel: Finde die maximale Anzahl an Leuten, so dass in einem Graph alle Leute direkt oder über einen Freund erreicht werden bzw.
+mit einem Parameter k: Finde maximal k Leute, so dass alle Leute direkt oder über einen Freund erreicht werden können. Letzteres ist einfach
+zu lösen.
+
+**Fixed Parameter Tractable**: Formal ist ein Problem parametrisierbar (auch: fixed parameter tractable oder FPT), 
+wenn ein Algorithmus existiert, der es mit einer Laufzeit von  $O(f(k) \cdot p(n))$ löst, 
+wobei f eine berechenbare Funktion, k der Parameter, p ein beliebiges Polynom und n die Eingabelänge ist. f ist unabhängig von n
+und p ist unabhängig von k.
+
+*Beispiele:* $2^k n^k, k^{k!}n^333, n + 1.1^k$   
+*Gegenbeispiele:* $n^k, n^{log log k}$
+
+**Vertex Cover**: ist ein klassisches NP-hartes Problem und ein trivialer Brute-Force-Algorithmus $(O(n^(k+1))$. Ein Vertex Cover ist
+zu einem gegebenen einfachen Graphen und einer natürlichen Zahl k eine Knotenüberdeckung der Größe von 
+höchstens k. In anderen Worten: Eine Teilmenge U, die aus maximal k Knoten besteht, ist ein Vertex Cover, wenn jede Kante des 
+Graphen mit mindestens einem Knoten aus U verbunden ist. 
+
+(Hier Bild vertex-cover.png einfügen)
+
+Vertex Cover ist ein FPT bezüglich des Parameters der Ausgabekomplexität. Mit Hilfe der Entwurfstechniken *Kernbildung* und *Suche mit
+beschränkter Tiefe* werden zwei Algorithmen zu Lösung von Vertex Cover Problemen entwickelt:
+
+*Kernbildung (Kernelization):* Reduktionsregeln reduzieren das Problem aus die Größe O(f(k)) (also wird p(n) wegreduziert). Die
+Probleminstanz wird auf den (eigentlichen schwieirigen) Problemkern reduziert und dieser dann mit einer anderen Technik gelöst.  Die Beobachtung
+hinter der Idee der Kernbildung ist, dass alle Knoten v größer sein müssen als k. Daraus ergibt sich, dass v entweder in der Lösung
+des Vertex Covers liegen muss oder es keine Lösung für das Vertex Cover Problem gibt. Insgesamt ergibt sich damit eine Laufzeit 
+von $O(nk+2^kk^2)$   
+Kernbildung ist außerdem eine wichtige Vor/Zwischenverarbeitungsstrategie für Optimierungsprobleme und auch polynomiell lösbar.
+
+(Hier Bild kernbildung.png einfügen)
+(Hier Bild bsp-kernbildung.png einfügen)
+
+*Systematische Suche mit beschränkter Tiefe:* Der Parameter k beschränkt die Tiefe, wodruch erschöpfendes
+ Aufzählen und Testen aller Möglichkeiten durch einen geeigneten Suchbaum möglich sind. Für den Fall k = 0 bricht der Algorithmus ab und die Laufzeit
+wird damit beschränkt. Die Rekursionstiefe k führt zu $O(2^k)$ rekursiven Aufrufen, also insgesamt zu einer Laufzeit von $O(2^k(n+m))$. Die Lösung der
+Rekursion: T(k) = (n+m) + 2T(k-1).
+
+(Hier Bild tiefenbeschr-suche.png einfügen)
+
+### Parallele Algorithmen
+Parallele Algorithmen werden eingesetzt, um eine bessere Performance zu erreichen.
+- *Geschwindigkeitssteigerung:* Eine Anzahl von p Computern können ein Problem bis zu p mal so schnell lösen. Allerdings sind
+dabei gute Koordinationsalgorithmen notwendig.
+- *Energieersparnis:* Wenn zwei Prozessoren mit halber Taktfrequenz arbeiten, benötigen sie weniger Energie als ein voll getakteter Prozessor.
+- *Speicherbeschränkung* von Einzelprozessoren
+- *Kommunikationsersparnis:* Wenn Daten anfallen, kann man sie auch parallel (verteilt) (vor)verarbeiten.
+
+**Modell Nachrichtengekoppelte Parallelrechner**: In nachrichtengekoppelten Parallelrechner existieren P *Prozessoren*, die *RAMs* (PRAMs) sind.
+Eine *asynchrone Programmabarbeitung* ist gewährleistet, sowie *Interaktion* der Prozessoren durch *Nachrichtenaustausch*. Jeder
+Prozessor kann gleichzeitig maximal eine Nachricht senden und empfangen (vollduplex). Dabei existiert eine *Punkt-zu-Punkt* Verbindung,
+sowie eine *vollständige Verknüfung*. Für eine Nachrichtenlänge l dauert der Austausch der Nachricht $T_{comm}(l) = T_{start} + l T_{byte}$.
+Wobei $T_{start}$ die Latenz ist und $T_{byte}$ die Kommunikationsbandbreite, welche stets größer als $T_{start}$ ist.
+
+(Hier Bild modell-nachr-parallel.png einfügen)
+
+*Bulk Synchronous Parallel Computers (BSP)*: bezeichnet ein Modell des massiv parallelen Rechners. Das BSP-Modell besagt, dass die 
+Laufzeit eines parallelen Algorithmus nicht nur von dem Grad der sequentiellen Teile abhängt, sondern von mehreren Parametern. 
+BSP berücksichtigt die Kosten des kollektiven Nachrichtenaustausches aller Rechner in Abhängigkeit zur Nachrichtenlänge.
+
+*Speicherkonflikte in PRAMs:* Beim zeitgleichen Zugriff mehrerer Rechner auf einen geteilten Speicher, kann es zu Speicherkonflikten
+kommen. Diese lassen sich in Lese- (read (R)) bzw Schreibzugriffe (write (W)) und in gleichzeitigen (concurrent (C)) bzw. exklusiven
+Zugriff (exclusive (E)) klassifizieren. Daraus ergeben sich die folgenden Zugriffsarten:
+- EREW: exclusive Read, exclusive Write
+- ERCW: exclusive Read, concurrent Write (Schwachsinn!)
+- CREW: concurrent Read, exclusive Write
+- CRCW: concurrent Read, concurrent Write
+    - common: Alle Prozessoren müssen den gleichen Wert schreiben.
+    - arbitrary: Der Wert eines zufälligen Prozessors muss geschrieben werden.
+    - priority: Der Wert des Prozessors mit der kleinsten Prozessor-ID wird geschrieben.
+    - combine: Die Aggregation der Werte aller Prozessoren wird geschrieben (z.B. Summe).
+
+**Analyse paralleler Algorithmen**: Im Gegensatz zur Analyse sequentieller Algorithmen, bei der die Laufzeit nur abhängig
+von der Eingabe I ist, ist die Laufzeit bei parallelen Algorithmen zusätzlich abhängig von der Prozessorenanzahl p. Ziel ist es
+die *Ausführungszeit* $T(I,p)$ zu finden.   
+*Work:* $W=pT(p)$ ist das Kostenmaß des Algorithmus. Wird p klein genug, ist die Arbeit lediglich vond er Instanzgröße I abhängig.   
+*Span:* $T_{\infty} = sup_p T(p)$ misst die Parallelisierbarkeit bzw. die Zeit die benötigt werden würde, wenn beliebig 
+viele Prozessoren zum Einsatz kommen. Das bedeutet, dass alle Berechnungen, die gleichzeitig stattfinden können, auch tatsächlich 
+gleichzeitig stattfinden.   
+*(absoluter) Speedup:* $S=T_seq/T(p)$ ist die Beschleuning die gegenüber des besten sequentiellen Algorithmus erreicht werden kann.   
+*Effizienz:* $E = S/p$. mit dem Ziel, dass E ≈ 1 bzw. E = Θ(1). Die *superlineare Beschleuningung* für E > 1, ist nur bedingt
+möglich. Die parallele Maschine hat mehr Ressourcen und kann daher besser arbeiten, aufgrund des Emulationsoverhead ist ein 
+solcher Speedup eher unwahrscheinlich.
+
+**Reduktion am Beispiel Assoziativer Operationen**: Ein assoziativer Operator, der in konstanter Zeit berechnen werden kann, 
+lässt sich zerlegen und in der Zeit O(log p) berechnen. Kommutative Beispiele sind + , · , max, min, ein nichtkommuatatives
+Beispiel ist die Matrixmultiplikation.
+
+(hier bild assoziation.png einfügen)
+
+*Beispiel Summe:* Zur verteilten Berechnung einer Summe addieren benachbarte Prozessoren ihre lokale Summe, dabei führt der
+Prozessor mit geradem Index die Berechnung aus. Der Prozessor mit ungeradem Index schickt sein Ergebnis an den benachbarten Prozessor
+mit gerader Summe. Dies wird mehrfach ausgeführt, am Ende berechnet Prozessor 0 die Gesamtsumme.   
+*Analyse*: Bei n Prozessoreinheiten benötigt die Berechnung der Summe O(log n) Zeit. Der Speedup ist O(n/log n) und die Effizienz O(1/log n).
+
+(hier bild verteilte-summe.png einfügen)
+
+Für p Prozessoreinheiten addiert nun jeder Prozessor n/p Elemente sequentiell, ehe er dann die parallele Summe für p 
+Teilsummen berechnet.   
+*Analyse:* Dafür wird insgesamt die Zeit $T_{seq}(n/p) + Θ(log p)$ benötigt. Die Effizienz benötigt 1/ (1 + Θ(p log(p)) /n) und wird
+daher besonders gut (≈ 1), wenn n groß gegen p log p wird.
+
+(hier bild verteilte-summe-inkl-sequentiell.png einfügen)
+
+Kapitel Verbindungsnetzwerke
+
+**Vollverkabelung**: Eine vollständige Verkabelung ist nur bei einer geringen Anzahl an Rechnern sinnvoll. Für p Rechner sind die
+Kosten einer Vollverkabelung $\frac{p \cdot (p-1)}{2}. Eine Vollverkabelung gibt es als Simplex (i → j), Telefon (i ↔ j) und Duplex (i → j, j → i)
+
+**Hyperwürfel**: Hyperwürfel sind n-dimensionale Analogien zum Quadrat bzw. Würfel. Sie dienen zur Kommunikation zwischen
+Prozessoren und sind billiger als eine Vollvermaschung. Die Knoten sind jeweils mit dem Knoten verbunden, dessen Label in der Binärrepräsentation
+nur ein Bit unterschiedlich hat. Eine Verkabelung im Hyperwürfel kostet p log p Verbindungen.  
+*Analyse:* $T_{Prefix} = O((T_{Start} + l T_{byte}) log p) ist nicht optimal bei $lT_{byte} > T_{start}$
+
+(hier bild hypercube.png einfügen)
+(hier bild hyperwürfelalg.png einfügen)
+
+Kapitel Sortieren
+
+**Paralleler Quicksort**: Der sequentielle Quicksort wählt ein Pivotelement und ordnet alle Elemente so, dass 
+d_0,...,d_{k−1} ≤ v < d_k,...,d_{n−1}. Anschließend werden für den ersten Teil ($d_0,...,d_{k−1}$) und den 
+zweiten Teil ($d_k,...,d_{n−1}$) rekursive Aufrufe gestartet. Eine Parallelisierun, die eine Laufzeit von 
+ $O(T_{start} log² p)$ benötigt, könnte beispielsweise so aussehen: 
+
+(hier Bild par-qs.png)
+
+### Geometrische Algorithmen
+*Geometrische Algorithmen* beschäftigen sich mit der algorithmischen Lösung geometrisch 
+formulierter Probleme. Ein zentrales Problem ist dabei die Speicherung und Verarbeitung 
+geometrischer Daten. Im Gegensatz zur Bildbearbeitung, deren Grundelemente Bildpunkte 
+(Pixel) sind, arbeitet die algorithmische Geometrie mit geometrischen Strukturelementen 
+wie Punkten, Linien, Kreisen, Polygonen und Körpern. Beipiele für Probleme geometrischer
+Algorithmen sind Konnvexe Hülle, Kleinste einschließende Kugel, Range Search.
+
+**Elementare geometrische Objekte** sind Punkte $x \in R^d$, Strecken $\overline{ab}:= { α a + (1 − α )b : α ∈ [0, 1]}$
+und noch mehr wie z.B. Halbräume, Ebenen und Kurven.
+
+**Dimension d**:
+- *1:* oft trivial und gilt nicht als geometrisches Problem
+- *2:* Geographische Informationssystem (GIS), Bildverarbeitung,...
+- *3:* Computergrafik, Simulationen, ...
+- *≥ 4:* Optimierung, Datenbanken, maschinelles Lernen, ... (curse of dimensionality)
+
+**Typische Fragestellungen**:
+- Schnittpunkte zwischen n Strecken
+- Konvexe Hülle
+- Triangulation von Punktmengen (z.B. Dalunaytriangulierung: Kein Dreieck enthält weitern Punkt)
+- Vornoi-Diagramme: Unterteilung von $M ⊆ R^d$ in n Voronoizellen
+- Punktlokalisierung
+
+**Geometrische Datenstrukturen**:
+- *Baumstrukturen:* 
+    - 1-dim: Interval Tree
+    - 2-dim: Quad Tree, Wavelet-Tree
+    - 3-dim: BinarySpacePartition Tree
+    - n-dim: k-d-Tree
+- *Facetten:* Delaunay Triangulierung (), Voronoi Diagramm
+
+**Streckenschnitt (line segment intersection)**   
+Beim *Streckenschnitt* will man gegeben n Strecken S={s1,...,sn} Schnittpunkte zwischen den Strecken finden. Ein
+allgemeiner Anwendungsfall sind *Plane-Sweep-Algorithmen* die unter anderem für die Kontruktion für konvexe Hüllen
+oder Voronoi-Diagrammen benötigt werden. Die Anzahl der ausgegebenen Schnitte ist k.
+
+(img streckenschnitt.png)
+
+Die *Sweep-Line* strukturiert die Abrarbeitung eines Problems. Dabei wird ausgenutzt, dass geometrisch nahe Objekte sich
+gegenseitig beeinflussen und geometrisch weit entferne Objekte (nahezu) unabhängig sind. Im Allgemeinen werden n-dim
+auf (n-1)-dim reduziert.
+
+*Dominierung*: Ein Punkt heißt nicht-dominiert genau dann, wenn kein anderer Punkt in der Menge existiert, dessen Koordinaten
+alle größer oder gleich der Koordinaten des Punktes sind. Formal dominiert a den Punkt b genau dann, wenn ∀i : ai ≤ bi
+und ∃i : ai < bi.
+
+(img dom.png)
+
+*Beispiel: Berechnung einer Skyline:* Dabei sind nur Höhenänderungen relevant. Jede Änderung definiert ein eindimensionales
+Problem (Maximumsbildung). Bei der Berechnung des Skylines Problem müssen *nicht dominierte Punktmengen* berechnet werden.
+
+Das naive Vorgehen zur Suche der Schnittpunkte wäre für jedes Streckenpaar die Schnittpunkte zu überprüfen, was
+mit einer Laufzeit von Θ(n²) zu langsam bei großen Datenmengen ist. 
+
+*Plane-Sweep-Algorithmen*: Eine (waagrechte) *Sweep-Line l* verläuft von oben nach unten. Die Invariante dieser 
+Algorithmen ist, dass Schnittpunkte oberhalb von *l* bereits korrekt ausgegeben wurden. Der Ansatz ist jeweils Segmente, 
+die l schneiden zu speichern und deren Schnittpunkte zu finden.
+
+(img plane-sweep1.png)
+
+*Plane-Sweep für orthogonale Strecken*   
+Ein möglicher *Plane-Sweep-Algorithmus für den orthogonalen Streckenschnitt* benötigt die Gesamtlaufzeit von O(n log n + k).
+
+(img plane-sweep-orth-pseudo.png)
+
+*Verallgemeinerung*
+Nun wied der orthogonalen Plane-Sweep-Algorithmus unter der Annahme, dass keine horizontalen Strecken und keine
+Überlappungen existieren, sowie dass Schnittpunkte jeweils im inneren von genau zwei Strecken liegen, verallgemeinert. 
+Dabei kann man beobachten, dass kleine zufällige Perturbationen (= Störungen) die allgemeine Lage produzieren.   
+Der *Status T* ist definiert als eine nach x geordnete Folge der l schneidenden Strecken. Ein *Ereginis* ist definiert
+als eine Statusänderung der Sweep-Line (sie berührt einen Startpunkt, Endpunkt oder Schnittpunkt). Der *Schnitttest* wird 
+nur für Segmente ausgeführt, die an einem Ereignispunkt in T benachbart sind.
+
+(img plane-sweep-verallg.png)
+
+Die *Korrektheit* ergibt sich dadurch, dass zwei Geraden s,t, die einen Schnittpunkt (x,y) gemeinsam haben, ein Eregnis triggern
+sodass die beiden Geraden auf l Nachbarn werden. Zu Beginn sind s,t nicht benachbart, bei einem y + ε sind s und t benachbart, das
+heißt es muss ein Ereignis geben, bei dem s und t Nachbarn werden.
+
+(img korrektheit-ps.png)
+
+*Implementierung*
+
+(img ps-impl1.png ps-impl2.png ps-impl3.png ps-impl4.png)
+
+*Beispiel*
+
+(img ps-bspi.png for i=1,..,16)
+
+Dieser Algorithmus benötigt eine *Laufzeit* von O((n+k) log n).
+
+**2D Konvexe Hülle**   
+Eine Menge heißt *konvex*, wenn für je zwei beliebige Punkte, die zur Menge gehören, auch stets deren Verbindungsstrecke 
+ganz in der Menge liegt. Die *konvexe Hülle* einer Teilmenge ist die kleinste konvexe Menge, die die Ausgangsmenge enthält.
+Die Menge wird also komplett von der konvexen Hülle eingeschlossen.
+
+Gegeben einer Menge P = {p1,...,pn} ∈ R² wird ein konvexes Polygon K mit Eckpunkten in P (also P ⊆ K) gesucht.
+
+*Graham's Scan* ist ein Algorithmus zur Berechnung der konvexen Hülle in O(sort(n)), also O(n log n). Dazu werden die
+Punkte in P lexikographisch nach (x,y) (zuerst x, wenn x gleich, nach y) sortiert. (p1<p2<.. <pn). Zudem wird nur die
+obere Hülle berechnet.
+
+(img grahams-scan.png grahams-scan-bsp.png)
+
+**Kleinste einschließende Kugel**   
+Die *Kleinste einschließende Kugel* ist eine kugelförmige konvexe Hülle. Gegeben einer Menge P = {p1,...,pn} ∈ R² wird 
+die kleinste einschließende Kugel mit Radius K in P (also P ⊆ K) gesucht.
+
+*Smallest Enclosing Ball (sEB)* ist ein Algorithmus zur Berechnung der kleinsten einschließenden Kugel in O(n).
+
+(img smallest-encl-ball.png)
+
+Zur *Korrektheit* ist zu Zeigen, dass ein x $\notin$ B existiert, das x auf dem Rand von sEB(P) liegt. Durch Kontraposition
+kann man zeigen, dass ein x, das nicht auf dem Rand von sEB(P) liegt, auf dem sEB(P\{x}) liegen muss, was wiederum = B ist.
+Dadurch muss x ∈ B gelten.  
+Smallest Enclosing Balls sind *eindeutig*. Zum Beweis wird angenommen, dass zwei sEBs B1, B2 existieren, welche nicht gleich
+sind. Daraus folgt → P ⊆ B1 ∧ P ⊆ B2 und P ⊆ B1 ∩ B2 ⊆ sEB(B1 ∩ B2) =: B. Aber dann muss gelten radius(B) < radius (B1), 
+was ein Widerspruch zur Annahme, dass B1 ein sEB ist.
+
+(img seb-korr.png)
+
+Die *Analyse* der kleinsten einschließenden Kugel ergibt, dass allgemein eine Zeit von T(p,0) ≥ d!n zur Berechnung von sEB gilt.
+
+(img seb-anal.png)
+
+
 
 ## Übung
 ### Übung 1
@@ -600,7 +951,7 @@ Wiederhole Test k mal mit unterschiedlicher Wahl von r:
 **Parallel Disk Model (PDM)**: Speicherzugriff in Blöcken, Blockzugriffe minimieren (Datenlokalität), Muster
 wiederholt sich in Speicherhierarchie immer wieder
 
-**I/O-effizientes Design**: nicht nur relevatn bei Disk I/O, z.B. Dijkstra → Strukturierter Zugriff wichtiges Designprinzip    
+**I/O-effizientes Design**: nicht nur relevant bei Disk I/O, z.B. Dijkstra → Strukturierter Zugriff wichtiges Designprinzip    
 *Blockgrößen*: 
 - $T_{seek}$: Positionierungszeit
 - $W_{max}$: maximale Bandbreite  
@@ -611,3 +962,4 @@ wiederholt sich in Speicherhierarchie immer wieder
     - Linearer Scan: $O(\frac{n}{B})$ I/Os
 - Sortieren: $ sort(n) = O(\frac{2n}{B}(1+\lceil log_{M/B} \frac{n}{M}))$ I/Os
 - Prioritätswarteschlangen: sort(n)I/Os
+

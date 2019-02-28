@@ -361,5 +361,97 @@ rights management, Aspects of value: annotations, linking to related data, impro
 **Open Access**:
 - *Green Open Access:* publish work, self-archive manuscript, responsibility with author
 - *Gold Open Access:* publish work so its immediately available from publisher, charge, freely available online via publishers website
-- *Hybrid Open Access:* business model of publisher is partilly based on fees, provides gold open access only for those their authors paid a fee,
-Double dipping = double payment to publishers, Subscription fees + article processing charge
+- *Hybrid Open Access:* business model of publisher is partially based on fees, provides gold open access only for those their authors paid a fee
+
+*Open Access in Practice:* publishers of "cash cow" journals are at risk; Possibilities to stop that: make journal hybrid, 
+convert journal to gold, create companion journal
+
+**Double dipping**: double payment to publishers, Subscription fees + article processing charge   
+*Avoid Douple Dipping:* price reduction from publishers to subscription fee for articles that have been made Open Access, but the
+price reduction is often incomprehensible and irreproducible.
+- *Advantages*: simple model that can be realized easily
+- *Disdvantages*: non-transparent prices, no benefits for those who pay for a lot of article processing charges
+
+#### Metadata
+> **Metadata** is data that provides information about other data; short: metadata is data about data
+
+**Examples of metadata for data**: means of creation of the data, purpose of the data, time and date of creation, 
+creator or author ot data, location on computer network where data was created, standards used, file size
+
+**Metadata Types**: 
+- *Administrative:* Acquisition and location information, Documentation of legal access requirements
+- *Descriptive:* title, abstract, data creator, keywords, annotations by users
+- *Technical:* formats, compression ratios, scaling routine, Authentication and security data
+- *Preservation:* documentation of physical condition of resource, documentattion of actions taken to preserve physical and digital versions
+- *Use:* use and user tracking
+
+**Dublin Core Metadata Element Set**: is a small set of core vocabulary terms to describe web resources and physical resources 
+([Wikipedia](https://en.wikipedia.org/wiki/Dublin_Core))
+1) *Title:* A name given to the resource  
+2) *Creator:* An entity primarily responsible for making the resource  
+3) *Subject:* The topic of the resource  
+4) *Description:* An account of the resource  
+5) *Publisher:* +An entity responsible for making the resource available  
+6) *Contributor:* An entity responsible for making contributions to the resource  
+7) *Date:* A point or period of time associated with an event in the lifecycle of the resource  
+8) *Type:* The nature or genre of the resource  
+9) *Format:* The file format, physical medium, or dimensions of the resource  
+10) *Identifier:* An unambiguous reference to the resource within a given context  
+11) *Source:* A related resource from which the described resource is derived  
+12) *Language:* A language of the resource  
+13) *Relation:* A related resource  
+14) *Coverage:* The spatial or temporal topic of the resource, the spatial  
+   applicability of the resource, or the jurisdiction under which the resource is
+   relevant  
+15) *Rights:* Information about rights held in and over the resource  
+
+#### Map Reduce
+**Reasons for MapReduce**: *Massive data* cannot be stored on a single machine. It takes too long to process in serial. 
+*Application developers* have little experience with large amount of data and only some experience with parallel 
+computing. → problems
+
+**Map Reduce**: is a simple programming model from *Google*. (Hadoop: MapReduce implementation for clusters). 
+Map Reduce is a *Programming model for processing large scale data* with automatic parallelization, that is friendly
+to procedural languages and scalable with peta bytes data on thousands of machines.   
+The *basic data type* is a *key-value pait(k,v)* (e.g. key=Url, value=HTML on a web page).  
+Data processing is based on a *map step* and a *reduce step*. A map operation is applied on each logical "record" in the input
+to generate intermediate values. Followed by the reduce operation to *merge* the same intermediate values. To process
+data with MapReduce, it is neccessary that the data is *independent*!   
+*Application:* web data processing, data mining an machine learning, log file analysis  
+*Anatomy:* *Mappers* transform input record into intermediate records. *Reducers* reduce a set of intermediate valures, which share
+a key to a smaller set of values.
+
+(inser imt anatomy-mapreduce.png)
+
+
+
+**Example "WordCount":** This example simply counts the occurence of each word in a text. Therefore
+the data has to be separated at first. The data here is already splitted. 
+
+(insert img wordcount.png)
+
+**Example "PageRank":** PageRank uses the link structure of the web to find the "best" pages. Good pages are linked by 
+many other web pages. There are several formulations for this problem:
+- *Voting system:* the rank of a page is based on the weighted votes of pages linking to that site
+- *Eigenvector-Problem:* Ar = r where r ist the vector containing the ranks of all pages and A is the ajacency matrix
+- *Random Walk/Markov Chains:* If a surfer randomly surfes the web, the page rank expresses the probability of the surfer accessing
+a certain page in a given time.   
+ 
+*Simplified Algorithm:* sum of all PageRanks (PR) is between 0 and 1, we have four web pages, initial PageRank is evenly ditributed: 0.25;
+$PR(u) = \frac{1-\beta}{N} + \beta \sum_{v \in B_u} \frac{PR(v)}{L(v)} $ where $\beta$ is a scalar damping factor to get rid or *dead
+ends* (no outgoing edges) and *spider traps* (page is linking itself) $\beta$ is usally around 0.8; set $B_u$ contains all pages
+linking to page u; L(v) is the number of links from page v (outbound links). Iterate algorithm until result converges.   
+For given image: $PR(A) = \frac{PR(B)}{2} + \frac{PR(C)}{1} + \frac{PR(D)}{3} = 0,458$
+(insert img pagerank.png)
+
+Map emits: key is vertex, value is endpoint of outgoing link devided by the amound of outgoing links
+- (A, B/2), (C, B/2)
+- (A, C)
+- (A, D/3), (B, D/3), (C, D/3)
+Reduce gets: combine values for each vertex
+- (A, [B/2, C, D/3])
+- (B, [D/3])
+- (C, [B/2, D/3])
+
+
+

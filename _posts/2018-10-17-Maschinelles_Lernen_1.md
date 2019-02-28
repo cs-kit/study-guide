@@ -644,4 +644,458 @@ Schätzung (n-step)
 - *Eligibility Traces (Verantwortlichkeitsspur):* Zustände fpr Zustandsbewertung → V-Lernen, Zustand/Aktion für Q-Wert Bewertung → 
 Q-Lernen
 
+### Entscheidungsbäume
+**Ziel:** Partitionierung des Raums so, dass Daten in einer Region die gleiche Klasse haben.
+
+(hier Abb. dt-ziel.png)
+
+**Repräsentation**: 
+- *Knoten:* Attributtest
+- *Zweig:* Attributwert
+- *Blatt:* Aussage (Klassifikation)
+
+**Anwendung**: Instanzen lassen sich Attribut-Wert-Paar beschreiben, Zielfunktion besitzen diskrete Ausgabewerte, 
+Disjunkte Hypothesen erforderlich, Beispieldaten möglicherweise vertauscht, Beispieldaten enhalten fehlende Attribute
+
+**Verfahren**:
+- *ID3:* nicht-inkrementelles Verfahren
+- *C4.5:* Verbesserung von ID3 durch generalisierte Regeln (Pruning), kommerzielles System
+- *ID5R:* inkrementelles Verfahren
+
+**Entropie**: ist ein Maß der Homogenität der Trainingsdaten. Die Entropie gibt an, wie "überraschend" ein Ergebnis ist.
+Mit der Menge der Trainingsbeipiele S, Anteil der positiven
+Beispiele $p_+$ in S und Anteil der negativen Beispiele $p_-$ in S: $Entropie(S) = -p_+ log_2 p_+ - p_- log_2 p_-$
+
+(Abb entropie.png)
+
+*Ziel*: ist es, die Daten durch einen Attributwert v möglichst die Klassen + und - zuzuteilen und dabei schrittweise die Entropie
+maximal zu reduzieren.
+
+**Gewinn**: ist die erwartete Reduzierung der Entropie durch Einsortierung über dem Attribut A mit der Menge aller
+möglichen Attributwerte V(A) von A und der Untermenge $S_v$ von S, für die A den Wert v annimmt.
+$Gewinn(S,A) = Entropie(S) - \sum_{v n V(A)} \frac{\|S_v\|}{\|S\|} Entropie(S_v)$
+
+*Ziel* der maximierung des Gewinns ist es, einen Entscheidungsbaum mit niedriger Tiefe zu erreichen.
+
+**ID3**: ID3 (Iterative Dichotomiser 3) ist ein Algorithmus, der zur Entscheidungsfindung dient. Er wird bei Entscheidungsbäumen eingesetzt. 
+*Algorithmus:* (abb id3-aufbau.png)
+*Auswahl des besten Entscheidungsattribute (Schritt 1)*: Durch Vergleich der Teilbäume. Dazu schreibt man unter den Knoten 
+ein Label mit dem Anzahl der Positiven Beispiele (+) und Anzahl der negativen Beispiele (-).
+
+*Beispiel "Tennis Spielen":* (abb bsp-tennis1.png und bsp-tennis2.png)
+
+*Suche im Hypothesenraum*: Typischerweise gibt es viele Entscheidungsbäume für die Trainingsbeispiele. Bei Entscheidungsbäumen
+ist der Hypothesenraum *vollständig*, d.h. dass die Zielfunktion im Entscheidungsbaum enthalten sein muss. Diese Hypothese wird
+ "Simple-to-Complex" (Schrittweises erstellen ausgehend vom leeren Baum, "Hill-Climbing" gennannt) erstellt. Dabei sind allerdings
+ lokale Minima möglich.
+ 
+*Induktiver Bias*: Die Präferenz bei Entscheidungsbäumen liegt in kleinen Bäumen und Bäume, deren Attribute nahe an der Wurzel einen
+hohen Informationsgewinn besitzen. der ID3-Bias ist eine Präferenz für bestimmte Hypothesen (Präferenzbias) aber keine Eintschränkung
+des Hypothesenraums (Restriktionsbias) → nach Occam's Razor wird die einfachste Hypothese gewählt, die mit den Trainingsdaten 
+übereinstimmt. Einfache (in diesem Fall "kurze", da kleine Bäume) Hypothesen gibt es seltener als lange. Da ein kleiner Baum (=
+kurze Hypothese), der die Daten korrekt beschreibt mit großer Wahrscheinlichkeit auch richtig ist. Eine lange Hypothese könnte hingegen
+reiner Zufall sein. Außerdem sind kurze Bäume effiziente (in Repäsentation und Auswertung).
+
+*Overfitting*: Beim ID3-Verfahren wächst jeder Zweig so lange, bis die Trainingsbeispiele perfekt klassifiziert werden (basierend
+auf statistisch-approximierten Informationsgewinn: Entropie, Gewinn). Dabei kann es zu Problemen kommen, wenn die Daten verrauscht
+sind oder die Beispiele nicht repräsentativ sind (z.B. zu wenig Trainingsdaten). Die daraus entstehenden Hypothese enthält dann
+einen *Fehler*. Ein Fehler auf den Trainingsdaten heißt $Fehler_T(h)$, ein Fehler auf den gesamten Daten heißt $Fehler_D(h)$.   
+Eine Hypothese h *overfittet* die Daten d, wenn es eine alternative Hypothese h' gibt, so dass   
+1) $Fehler_T(h) < Fehler_T(h')     
+2) $Fehler_D(h) > Fehler_D(h')     
+→ Das Modell lernt als auswendig.
+
+(Abbildung id3-overfitting.png)
+
+Um Overfitting zu vermeiden, kann man das Baumwachstum frühzeitig stoppen oder den Baum nachträglich *Prunen* (besser in Praxis). Um die 
+optimale Baumgröße zu bestimmen kann man auf separaten Testdaten, die Richtigkeit des Baumen überprüfen oder statistische Test (wie
+z.b. $\chi²$) auf den Trainingsdaten ausführen. 
+
+*Reduced Error Pruning:* Eine Möglichkeit zur Vermeidung von Overfitting ist das "Zuschneiden" eines Entscheidungsbaums. 
+Dadurch bekommt man die kleinste Variante des akkuratesten Unterbaumes. Allerdings erhöht bei wenigen Daten, das Aufteilen der Daten
+die Fehleranfälligkeit.
+Vorgehen: (img. rep1.png)
+(img rep2.png)
+
+*GewinnAnteil:* Attribute mit vielen Werten werden durch Gewinn gegenüber solchen mit wenigen Werten bevorzugt (
+z.B. Datum). Aus diesem Grund werden nun Attributen "bestraft", wenn sie viele Werte besitzen. Danei ist die Menge aller möglichen Attributwerte
+V(A) von A und die Untermenge $S_v$ von S, für die A den Wert v annimmt:
+$GewinnAnteil(S,A) = \frac{Gewinn(S,A)}{SplittInformation(S,A)}$ mit $Splitinformation (S,A) = -\sum_{v \in V(A)} \frac{\|S_v\|}{\|S\|} log_2
+\frac{\|S_v\|}{\|S\|}$
+
+*Kontinuierliche Attributwerte*: Besitzt ein Attribut A kontinuierliche Werte, definieren wir dynamisch ein neues diskre-wertiges
+Attribut $A_c$, dass "wahr" ist, wenn A > c. Der Schwellwert c wird über den Informationsgewinn definiert. Nach Sortierung
+der Beispiele nach ihren Werten, liegt der optimale Schwellwert in der Mitte zwischen zwei benachbarten Beispielen mit unterschiedlicher
+Klassenzugehörigkeit. 
+(img id3-bsp-kont.png)
+
+*Unbekannte Attributwerte*: Fehlen Attributwerte, so werden die Beispiele wie gewohnt in den Entscheidungsbaum einsortiert und fehlende
+Attribute bekommen entweder den häufigsten Attributwert der Beispiele oder der Beispiele. Bei der Klassifikation wird genauso verfahren.
+
+*Attribute mit Kosten:* Die Bestimmung der Attributwerde ist mit unterschiedlichen Kosten verbunden. Deshalb ist es das Ziel, einen 
+Entscheidungsbaum zu finden, der niedrige erwartete Kosten hat:
+$\frac{Gewinn(S,A)²}{Kosten(A)}
+
+*Window*: ist eine Lernmethode für große Datenmengen. Dabei wird eine zufällige Untermenge der Trainingsdaten ausgewählt (=Window) und 
+daraus der Entscheidungsbaum gebildet. Alle übrigen Beispiele werden mit dem erstellten Entscheidungsbaum klassifiziert. Falls
+nicht alle Daten korrekt klassifiziert werden, wird ein Teil der falsch klassifizierten Daten (zufällige Auswahl) dem Window hinzugefügt 
+und ein neuer Entscheidungsbaum erstellt.
+
+*Einordnung*: (img einordnung-id3.png)
+
+**C4.5**: ist eine Weiterentwicklung des ursprünglichen ID3-Algorithmus. Es unterstützt kontinuierliche Attribut-Werte und kann mit
+fehlenden Attributwerten umgehen. Zudem verwendet es *Rule Post-Pruning*.
+
+*Rule-Post-Pruning:* (rpp-verfahren.png und rpp-beispiel.png)
+
+*Einordnung*: (img einordnung-c45.png)
+
+**ID5R**: ist ein inkrementelles Verfahren, d.h können neue Beispiele schrittweise eingebracht werden. Das Ergebnis ist
+äquivalent zu einem durch ID3 erstellten Entscheidungsbaum.
+
+*Repräsentation:* Zur Berechnung des Informationsgewinns auf jeder Ebene ohne die bisherigen Beispiele erneut zu betrachten, 
+werden die Knoten aufgeteilt:
+- Antwortknoten(Blätter): sind Klassenbezeichner und Beschreibungen der Instanzen, die zu der Klasse gehören
+- Entscheidungsknoten: sind Attributtest mit Zweigen für jeden Attributwert. Pro Attributwert gibt es einen
+Zähle für positive und negative Beispiel. Ein zusätzlicher Zähler zählt zudem die noch ausstehenden Attributtests.
+(img id5r-rep-bsp.png)
+
+*Update des Baumes beim Hinzufügen von Beispielen*: Da ID5R ein inkrementeller Verfahren ist, können zur Laufzeit neue
+Beispiele hinzugefügt werden. Um damit umuzgehen muss der Baum updatebar sein. 
+(img update-id5r-1.png und update-id5r-2.png)
+
+*Restrukturierung:* Wenn nach einem Update, das Attribut an der Wurzel nichtmehr den größten Informationsgewinn hat, muss umstrukturiert
+werden, damit das Attribut mit dem größten Informationsgewinn an der Wurzel steht.
+(img restruk-id5r.png)
+
+*Einordnung:* (img einordnung-id5r.png)
+
+**Random Forests**: ist ein Klassifikationsverfahren, das aus mehreren unkorrelierten Entscheidungsbäumen besteht. 
+Alle Entscheidungsbäume sind unter einer bestimmten Art von Randomisierung während des Lernprozesses gewachsen. 
+Für eine Klassifikation darf jeder Baum in diesem Wald eine Entscheidung treffen und die Klasse mit den meisten 
+Stimmen entscheidet die endgültige Klassifikation. [Wikipedia](https://de.wikipedia.org/wiki/Random_Forest)
+Random Forests lässt sich *schnell trainieren*, da die einzelnen Entscheidungsbäume kleiner sind und
+die Trainingszeit linear mit der Anzahl der Bäume steigt. Außerdem ist es *parallelisierbar* und *effizient*
+für große Datenmengen. 
+  
+*Vergleich zu Standard Entscheidungsbäumen*: Das Pruning der Bäume ist nicht notwendig. Overfitting ist erlaubt. Die
+Attributwahl findet auf einer zufälligen Untermenge aller Attribute statt (daher die Randomisierung).   
+
+*Eigenschaften der Bäume*: Jeder Baum sollte ein *guter Klassifikator* sein und die Bäume untereinander möglichst *unkorreliert*.
+
+*Randomisierungsmöglichkeiten*: sind entweder *Bootstraping* (Aus N Trainingsdaten werden N Trainingsbeispiele mit zurücklegen
+gezogen. Baum hat so ca ~63% der Größe verglichen mit allen Trainingsdaten.) oder die Auswahl des Attributtests aus einer Teilmenge der
+vorhandenen Attributtests.
+
+### Hidden Markov Modelle
+Die *Prozesse* der realen Welt sind oft nichtdeterministisch aber stochastisch beschreibbar (z.B. durch Markovsche Entscheidungsprozesse).
+Die *Signale* der realen Welt sind meist verrauscht und besitzen nichtdeterministische Eigenschaften. Mit stochastischen Prozess-
+und Signalmodellen kann man diese Signale erkennen und theoretisch durch signalverarbeitende Systeme beschreiben oder simulieren. In der 
+Praxis sind die Ergebnisse außerordentlich gut.
+
+**Diskreter Markov Prozess**: Markow Prozesse eignen sich sehr gut, um zufällige Zustandsänderungen eines Systems zu modellieren, 
+falls man Grund zu der Annahme hat, dass die Zustandsänderungen nur über einen begrenzten Zeitraum hinweg Einfluss aufeinander 
+haben oder sogar gedächtnislos sind. N diskrete Zustände $S = \{S_1,S_2,..,S_N\}$, die Zeitpunkte der Zustandsübergänge t = 1,2,...,T
+und der aktuelle Zustand $q_t$ zur Zeit t bilden einen *diskreten Markov Prozess*.   
+Als Parameter sind die *Anfangszustandswahrescheinlichkeiten* $\pi_i = P(q_1 = S_i)$ und die *Übergangswahrscheinlichkeiten*
+$a_{ij} = P(q_t = s_j \| q_{t-1} = S_i) = P(S_j \| S_i)$ gegeben.   
+*Markov-Bedingung:* Die Übergangswahrscheinlicheiten geben an, wie sich ein Zustand in *einem* Zeitschritt entwickelt 
+- Beschränkter Horizont: Die Wahrscheinlichkeit einen Zustand zu erreichen ist nur von seinem *direkten* Vorgängerzustand abhängig
+$P(q_{t+1} = S_j \| q_t = S_i)$
+- Zeitinvarianz: Die Wahrscheinlichkeit eines Zustandsübergangs ist unabhängig von der Zeit.
+
+(img diskr-mark-pr.png)
+
+*Beispiel: Wetter*: Jeden Mittag wird das Wetter beobachtet. Möchliche Wetterlagen sind  S1 = Regen (Schnee), S2 = bewölkt und S3 = sonnig.
+Daraus ergeben sich die möglichen Zustände $S = \{S_1,S_2,S_3\}$ als Übergangswahrscheinlichkeiten sind ist die Übergangsmatrix A 
+gegeben, woraus sich dieser Graph entwickeln lässt. (img matrix-a.png und graph-wetter.png)   
+Wie wahrscheinlich ist es also, dass das Wetter in den nächsten 7 Tagen genau {sonnig, sonnig, Regen, Regen, sonnig, bewölkt, sonnig} ist?
+
+(img wetter-beobachtung.png)
+
+**Hidden Markov Modelle (HMM)**: Bisher waren die Ereignisse (Zustände) direkt beobachtbar, das ist bei Hidden Markov
+Modellen nichtmehr der Fall. Die Zustände können nur indirekt beobachtet werden, durch eine stochastische Funktion des Zustands
+(z.B. Mitbewohner der bei Regen oft einen Regenschirm mitnimmt). Hidden Markov Modelle beschreiben einen *doppelt
+stochastische Prozess*. Das heißt, dass der zugrunde liegende stochastische Prozessnur indirekt durch eine andere
+Menge an stochastischen Prozessen beobachtet werden kann und diese eine Beobachtungssequenz produziert.   
+HMM ist ein Fünf-Tupel $ \lambda = \{S,V,A,V,\Pi\}$ bestehend aus:
+- S: Menge der Zustände $ S= \{S_1,S_2,...,S_N\}
+- V: Menge der Ausgaben/Beobachtungen $V=\{V_1,V_2,...,V_M\}
+- A: Matrix der Übergangswahrscheinlichkeiten $A = (a_{ij}), A \in [0,1]^{NxN}$
+- B: Matrix der Emissions/Beobachtungswahrscheinlichkeiten $B = (b_{ik}), B \in [0,1]^{NxM}$
+- $\Pi$: Verteilung des Anfangszustands $\Pi = \{\pi_i \| \pi_i = P(q_1\| S_i)\}$ mit $q_1$ als Startzustand
+
+Dabei ist die Wahrscheinlichkeit für einen Zustand $p(q_{t+1} = S_j) = \sum_{S_i \in S} a_{ij} \cdot p(q_t = S_i)$ und die
+Wahrscheinlichkeit für eine Beobachtung $p(o_{t+1} = V_j) = \sum_{S_i \in S} b_{ik} \cdot p(q_t = S_i)$. Dabei bezeichnet
+$q_t$ den Zustand und $o_t$ die Ausgabe zum Zeitpunkt t.
+
+*Beispiel: Regenschirm*: Anstatt das Wetter direkt zu beobachten, wird nun der Mitbewohner beobachtet, 
+der einen Regenschirm mitnimmt. Regnet es draußen?   
+Dafür ist die Zustandsmenge $S = \{ S_1 = Regen, S_2 = Sonne \} $, die Ausgabemenge $V= \{ V_1 = Regenschirm, V_2 = kein Regenschirm \} $
+
+(img Matritzen-regenschirm-bsp.png und graph-regenschirm-bsp.png)
+
+*Beispiel: Münzwurf*: Jemand wirft eine Münze, dabei ist die Anzahl der gezinkten Münzen unbekannt. Bekannt ist nur
+das Ergebnis des Wurfs H = Kopf bzw. T = Zahl.
+
+(img muenzwurf-bsp.png)
+
+*Beispiel: Urnen ziehen*: Es gibt N unterschiedliche Urnen mit unterschiedlicher Anzahl an Bällen in M Farben. 
+Beim stochastischen ziehen aus einer Urne mit zurücklegen, wird die Sequenz der Farbe der gezogenen Bällen beobachtet.
+
+(img urnen-bsp.png)
+
+**Probleme im Zusammenhang mit HMMs** 
+
+**Problem 1: Evaluationsproblem:** (img hmm-prob-1.png)
+
+Das Evaluationsproblem beschreibt wie gut ein gegebenes Modell $ \lambda = \{S,V,A,V,\Pi\}$
+eine Beobachtungssequenz erklärt. Gesucht wird die Wahrscheinlichkeit P(0\| \lambda) für die Ausgabe $O = o_1 o_2 ... o_t$. 
+Da nicht bekannt sit, was die verdeckte Zustandsfolge ist, müssen alle möglichen Zustandsfolgen betrachtet werden. 
+*Algorithmus*: Der Vorwärts- bzw. Rückwärtsalgorithmus berechnet die Teilresultate (in Tabellen) und errechnet daraus eine
+Lösung, ohne nochmals alle Berechnungen zu starten und ist damit schneller, als der Naive Ansatz. 
+
+*Vorwärtsalgorithmus:* (img vorwaerts-alg.png)
+
+*Beispiel:* Wie hoch ist die Wahrscheinlichkeit, dass ein Mitbewohner in den letzten drei Tagen
+den Regenschirm mitgenommen hat? Die Zustände  $S = \{S_1 = Regen, S_2 = Sonne\}$, die Beobachtungen $V=\{V_1 = Regenschirm, V_2 = kein Regenschirm\}
+sowie das Modell sind gegeben:
+
+(img vorwaerts-modell.png)
+
+*Rückwärtsalgorithmus:* (img rückwärts-alg.png)
+
+**Problem 2: Dekodierungsproblem:** (img hmm-prob-2.png)
+
+Beim Dekodierungsproblem ist die Ausgabesequez O und das Modell $ \lambda = \{S,V,A,V,\Pi\}$
+gegeben und die wahrscheinlichste Zustandsfolge Q (optimale Zustandsfolge) wird gesucht, die O erklärt. Dabei
+werden die Zustände $q_t$ unter Verwendung des Vorwärts- und Rückwärtsalgorithmus so gewählt, dass die Zustände 
+unabhängig voneinander am Wahrscheinlichsten sind.  
+*Optimalitätskriterium:* Bei nicht völlständig vernetzen HMMs ergibt die Maximierung der wahrscheinlichen Zustände unter Umständen
+keinen gültigen Pfad (z.B. wenn der beste Zustand $S_1$ ist, aber der anschließend folgende Zustandsübergang 0 ist). Daher
+ist es besser die *insgesamt beste Zustandsfolge* zu finden.
+
+*Viterbi-Algorithmus*: Der Viterbi-Algorithmus findet diesen Pfad, mit der insgesamt besten Zustandsfolge, durch rekursive
+Maximierung entlang möglicher Zustandsfolgen (Pfade).
+
+(img viterbi-alg1.png und viterbi-alg2.png)
+
+**Problem 3: Lern- und Optimierungsproblem:**  (img hmm-prob-3.png)
+Das Lern- und Optimierungsproblem ist das schwierigste der drei Probleme und es ist kein analytischer Lösungsweg bekannt.
+Gegeben einer Ausgabesequenz O und ein Suchraum (Hypothesenraum) für Modelle, 
+ist die Anpassung der Parameter des Modells $ \lambda = \{S,V,A,V,\Pi\}$ gesucht, sodass O besser erklärt wird. Es gibt
+ keinen optimalen Weg, um die Modellparameter zu schätzen. Das Modell $\lambda$ soll also weiter optimiert/trainiert werden. 
+ Als Beispiel soll nun vorausgesagt werden können, wie die Wetterlage ist, abhängig von der Beobachtung "Regenschirm" bzw. 
+ "kein Regenschirm" (sehr vereinfachtes Beispiel!).
+ 
+ *Baum-Welch-Algorithmus:* ist Spezialfall des Expectation-Maximization-Algorithmus (EM) und ein iterativer Ansatz zur 
+ lokalen Maximierung von P(O|$\lambda$). Für eine Trainingssequen $O_{training}$ und einen Hypothesenraum für Modelle 
+ $ \lambda = \{S,V,A,V,\Pi\}$ wird ein Modell gesucht, das die Daten am besten erklärt. Dabei wird der Hypothesenraum
+ so gewählt, dass die Anzahl der Zustände vorgegeben wird und lediglich die stochastischen Modellparameter angepasst werden.
+ 
+ (img baum-welch.png)
+ 
+ Es gilt P(O|$\lambda$) ≥ P(O|\={$\lambda$}). Damit vebessert sich das Modell auf der Menge der Trainingsdaten und
+ realisiert den EM Ansatz. Das Training wird abgebrochen, wenn nur noch eine minimale Verbesserung eintritt, dennoch
+ kann kein globales Maximum garantiert werden.
+ 
+ **Arten von Hidden Markov Modellen**: 
+ - *Ergodisches Modell:* Jeder Zustand kann von jedem anderen Zustand aus in einer endlichen Anzahl von Schritten erreicht werden.
+ 
+ (img ergod-modell.png)
+ 
+ - *Links-nach-rechs-Modell (Bakis-Modell:* Der Zustandsindex wird mit der zeit größer oder bleibt gleich. Dieses Modell ist auch
+ mit parallelen Pfaden möglich. 
+ 
+ (img bakis.png)
+ 
+ **Einordnung**: (img einordnung-hmm.png)
+ 
+ **Anwendungen**: HMMs finden Anwendung in der Spracherkennung, der Gestenerkennung (z.B Robotik), im Autonomen Fahren (Ampelzustandsschätzung)
+ und in der Bioinformatik (Genomanalyse). Kurz gesagt, überall dort wo man zugrunde liegende stochastische Prozesse
+ nur indirekt beobachten kann.
+ 
+### Lernen nach Bayes
+**Lernen nach Bayes** ist ein *statistisches Lernverfahren* welches *vorhandenes Wissen*
+(a priori Wahrscheinlichkeiten) mit *beobachteten Daten* kombiniert. Hypothesen können mit
+einer Wahrscheinlichkeit angegeben werden. Jedes Beispiel kann die Glaubwürdigkeit einer 
+bestehenden Hypothese erhöhren oder verringern, allerding können Hypothesen dadruch nicht
+ausgeschlossen werden. Um genauere Ergebnisse zu erzielen, können mehrere Hypothesen
+gleichzeitig ausgewertet werden.
+
+Für dieses Verfahren ist allerding initiales Wissen über viele Wahrscheinlichkeiten/Verteilungen
+notwendig, dessen Schätzung oft auf Hintergrundwissen oder vorhandenen Daten basiert. 
+Zudem ist ein enormer Rechenaufwand notwendig.
+
+**Wahrscheinlichkeitstheorie** für Berechnungen:
+- *Produktregel:* Konjunktion zweiter Ereignisse A und B: P(A ⋀ B) = P(A\|B) P(B) = P(B\|A) P(A)
+- *Summenregel:* Disjunktion zweier Ereignisse A und B: P(A ⋁ B) = P(A) + P(B) - P(A ⋀ B)
+- *Theorem der totalen Wahrscheinlichkeit:* Für sich gegenseitig ausschließende Ereignisse
+deren Gesamtwahrscheinlichkeit 1 ist gilt: $P(B) = \sum_{i=1}^{n} P(B\|A_i) P(A_i)$
+- *Satz von Bayes:* $P(B\|A) = \frac{P(A\|B) P(B)}{P(A)}$
+
+**Theorem von Bayes**: 
+- *P(h)* ist die Wahrscheinlichkeit, dass die Hypothese h aus dem Hypothesenraum H gültig ist 
+(a priori, d.h. vor der Beobachtung von D)
+- *P(D)* ist die Wahrscheinlichkeit, dass D als Ereignisdatensatz auftritt ohne zu Wissen, ob
+die Hypothese gültig ist.
+- *P(D|h)* ist die Wahrscheinlichkeit des Auftretens von D in einem Raum, in dem die 
+Hypothese h gilt.
+- *P(h|D)* ist die Wahrscheinlichkeit, dass h gilt gegeben die beobachteten Daten D (a
+posteriori)
+
+(img bayes-theorem.png)
+
+**MAP-/ML-Hypothesen**   
+Bei der **Auswahl von Hypothesen** ist es das Ziel, die Hypothese h aus dem Hypothesenraum H
+zu finden, die die größte Wahrscheinlichkeit gegeben der beobachteten Daten D liefert.
+Diese Hypothese heißt *Maximum a posteriori (MAP) Hypothese*: 
+
+(img map.png)
+
+Unter der Annahme P(hi) = P(hj) lässt sich die MAP Hypothese zur *Maximum Likelihood (ML)
+Hypothese* vereinfachen: 
+
+(img ml.png)
+
+Um die beste MAP-Hypothese zu finden, kann man *Brute Force* ausführen. Also für jede
+Hypothese im Hypothesenraum H die a posteriori Wahrscheinlichkeit berechnen und die
+Hypothese ausgeben, die die größte Wahrscheinlichekeit besitzt.
+
+*Beispiel: Medizinische Diagnose:* Angenommen 0.8% der Bevölkerung leiden an Krebs. Hat man
+Krebs, so ist der Test in 98% der Fälle positiv. Hat man keinen Krebs, fällt der Test mit 3%
+trotzdem positiv aus. Wie hoch ist die Wahrscheinlichkeit, dass eine Person mit einem positiven
+Testeregebnis auch wirklich Krebs hat? (h = Krebs, h' = kein Krebs)
+
+(img krebs1.png krebs2.png)
+
+Beim **Konzeptlernen** ist ein endlicher Hypothesenraum H über dem Raum der Instanzen X
+gegeben. Die Aufgabe ist das Lernen eines Zielkonzepts c: X → {0,1} mit der Sequenz von 
+Instanzen {x1,...,xm} und Sequenz von Zielwerten D = {d1,...,dm}. Dabei wird angenommen, 
+dass die Trainingsdaten D nicht vertauscht sind, also zugehörig der Instanzen vorliegen 
+(di = c(xi)). Außerdem ist keine Hypothese wahrscheinlicher als eine andere.
+
+(img konzeptlernen.png)
+
+**Konsistenter Lerner**: Ein Lernverfahren ist ein *konsistenter Lernen*, wenn es eine 
+Hypothese liefert, die *keine Fehler auf den Trainingsdaten macht*. Unter den Voraussetzungen
+des Konzeptlernens, liefert jeder konsistente Lerner eine *MAP-Hypothese*. Dies ist eine 
+Methode um den induktiven Bias auszudrücken. Die Entwicklung der a posteriori 
+Wahrscheinlichkeiten mit wachsender Anzahl von Trainingsdaten sieht wie unten aus. Für
+inkonsistente Hypothesen gilt P(h) = 0.
+
+(img konsis.png)
+
+**Bayes-Klassifikator**
+
+Bisher wurde nach der Hypothese mit der größten Wahrscheinlichkeite gegeben der Daten D
+gesucht. Nun wollen wir die *wahrscheinlichste Klassifikation vj* einer Instanz x wissen.
+
+(img klass-bayes-ex.png)
+
+**Optimaler Bayes-Klassifikator**: ist ein aus dem Satz von Bayes hergeleiteter Klassifikator.
+ Er ordnet jedes Objekt der Klasse zu, zu der es mit der größten Wahrscheinlichkeit gehört.
+ Um den Bayes-Klassifikator zu definieren, wird ein Kostenmaß benötigt, das jeder möglichen
+ Klassifizierung Kosten zuweist. Der Bayes-Klassifikator ist genau derjenige Klassifikator,
+ der die durch alle Klassifizierungen entstehenden Kosten minimiert.
+ 
+ (img bayes-klass.png bayes-klass-bsp.png)
+ 
+ Am obigen Beispiel bei der Klassifikation der positiv und negativ zugeordneten 
+ Datenobjekten wird deutlich, dass die wahrscheinlichste Klasse mit a posteriori + wäre, mit
+ Bayes hingegen -. Kein anderes Klassifikationsverfahren schneidet durchschnittlich besser
+ ab als Bayes. Allerdings ist es bei großer Hyopthesenzahl sehr kostenintensiv.
+ 
+ **Gibbs Algorithmus**: Der Gibbs Algorithmus ist ein Bayes-Klassifikator. Er wäht h aus H
+ zufällig gemäß P(h\|D) und nutzt h(x) als Klassifikation von x). Es gilt die Eigenschaft, dass
+ der Fehler von Gibbs maximal so groß ist die 2 * der Fehler von dem optimalen Bayes 
+ Klassifikator.
+ 
+ **Naiver Bayes Klassifiktor**: Die naive Grundannahme ist dabei, dass jedes Attribut nur 
+ vom Klassenattribut abhängt. Obwohl dies in der Realität selten zutrifft, erzielen naive 
+ Bayes-Klassifikatoren bei praktischen Anwendungen häufig gute Ergebnisse, solange die 
+ Attribute nicht zu stark korreliert sind.  
+ Gegeben einer Instanz x als Konjuktion von Attributen a1,a2,...,an, einer endlichen Menge
+ von Klassen V = {v1,...,vm} und einer Menge von klassifizierten Beispielen wird die 
+ wahescheinlichste Klasse für die Instanz gesucht.
+ 
+ (img naiv-bay.png)
+ 
+ P(vj) lässt sich leicht aus dem Auftreten der KLasse vj in der Trainingsmenge berechnen
+ (einfaches Zählen). P(a1,a2,...,an\|vj) ist schwerer zu berechnen, da es nur durch Auszählen
+ aller Kombinationen der Attributwerte geht. Dazu benötigt man eine riesige Trainingsmenge.
+ Deshalb wird vereinfacht angenommen, dass ai bedingt unabhängig ist.
+ 
+ (img naiv-bay-unab.png)
+ 
+ Als naiver Bayes-Klassifikator ergibt sich daher: (img naiv-bay-klass.png)
+ 
+ (img bayes-tennis1.png bayes-tennis2.png)
+ 
+ **Laplace-Schätzer**: Nimmt ein Klasse und ein Attribut nicht einen bestimmten Wert
+ in den Daten an, so kann der Wert geschätzt werden. 
+ Allgemein definiert man einen Laplace-Schätzer als denjenigen Wert, der den Erwartungswert 
+ einer Verlustfunktion unter der A-posteriori-Verteilung minimiert.
+ 
+ *Beispiel: Klassifikation von Texten*: Das Ziel ist es zu Lernen, welche Nachrichten
+ interessant sind: Dokument → {+,-}. Zudem wird die Annahme (bag of words) gemacht, dass
+ die Wahrscheinlichkeit des Auftretens eines bestimmten Wortes unabhängig von der Position
+ im Text ist.
+ 
+ (img text-bay.png)
+ 
+ Zum Schätzen benötigt man das Vokabular, also alle Wörter und Token aus den Beispielen.
+ 
+ (img text-bay-schaetzen.png)
+ 
+ **Bayessche Netze**
+ 
+ Die naive Bayes-Annahme der bedingten Unabhängigkeit ist oft zu beschränkend. Allerdings
+ ist ohne solche vereinfachenden Annahmen das Lernen nach Bayes oft nicht möglich. 
+ 
+ **Bayessche Netze**: beschreiben bedingte (Un-)Abhängigkeiten bzgl. Untermengen von 
+ Variablen und erlauben somit die Kombination von a priori Wissen über bedingte 
+ (Un-)Abhängigkeiten von Variablen mit den beobachteten Trainingsdaten.
+ Ein *Bayessches Netz* ist ein gerichteter azyklischer Graph (DAG), 
+ in dem die Knoten Zufallsvariablen und die Kanten bedingte Abhängigkeiten zwischen den 
+ Variablen beschreiben. Jedem Knoten des Netzes ist eine bedingte 
+ Wahrscheinlichkeitsverteilung der durch ihn repräsentierten Zufallsvariable gegeben, 
+ die Zufallsvariablen an den Elternknoten zuordnet. Sie werden durch 
+ Wahrscheinlichkeitstabellen beschrieben. Vorgänger(Yi) ist die Menge der direkten
+ Vorgänger von Yi. Y ist Nachfolger von X , wenn ein gerichteter Pfad von X nach Y
+ existiert. Die Kanten repräsentieren die Zusicherung, dass eine Variable von ihren Nicht-
+ Nachfolgern bedingt unabhängig ist, gegeben ihre direkten Vorgänger.
+ 
+ (img bn-berechnung.png bn-graph.png bn-table.png)
+ 
+  **EM-Algorithmus**
+  
+  Bei bekannter Struktur, aber nur einigen beobachtbaren Variablen, kommt der EM-Algorithmus
+  zum Einsatz.
+  
+**Expectation-Maximization-Algorithmus (EM)**: ist ein iterativer Ansatz zum Schätzen der 
+nicht beobachtbaren Werte (E-Schritt) und Anpassung der Parameter (M-Schritt). Er wird
+verwendet zum Training von Bayesschen Netzen oder zum Lernen von Hidden Markov Modellen.
+
+(img em.png)
+
+*Ablauf* des EM-Algorithmus:
+1. Zufällige *Initialisierung* der Hypothese h.
+
+2. *Expectation (E) Schritt*: Berechne den Erwartungswert E[zij] für jede versteckte Variable
+unter der Annahme, dass die aktuelle Hypothese h gültig ist.
+
+3. *Maximization (M) Schritt*: Berechne eine nee Maximum Likelihood Hypothese h' unter der 
+Annahme, dass die Werte der versteckten Variabe zij die im E-Schritt berechneten 
+Erwartungswerte annehmen.
+
+4. Ersetze h durch die neue Hypotehese h' und iteriere.
+
+Der EM-Algorithmus konvergiert gegn eine lokale Maximum Likelihood Hypothese und liefert 
+Schätzungen für die versteckten Variablen Z. Er sucht die Maximum Likelihood Hypothese h', 
+welche den Erwartungswert über die möglichen Werte der versteckten Variablen gegeben
+der vollständigen Daten berechnet.
+
+ **Einordnung**: (img einordnung-bayes.png)
+
 
