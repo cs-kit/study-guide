@@ -125,43 +125,20 @@ Insgesamt fehlen mir also noch 3 LP Semiinar und 2 LP Praktikum. Ich habe insges
 Von Informatik der LMU zum WS18/19 ans KIT für den Master in Informatik gewechselt.  
 
 
-Ich kann mich vor dem ersten Semester nicht entscheiden, ob ich lieber das
-Studienprofil <a href="/robotik">Robotik</a> oder <a href="/ki">Künstliche Intelligenz</a> wählen wollte.
-Daher baue ich mein erstes Semester wahrscheinlich so auf, dass ich mich noch
-im zweiten Semester entscheiden kann.
-
-Das Stammmodul für KI ist Kognitive Systeme. Für Robotik muss man Mindestens
-Robotik 1 oder Echtzeitsysteme belegt haben.
-
-Beide Profile haben Veranstaltungslisten. Folgende Veranstaltungen befinden sich
-auf beiden Listen:
-
-Vorlesungen:
-
- - Maschinelles Lernen 1 - Grundverfahren (3 LP, WS)
- - Maschinelles Lernen 2 - Fortgeschrittene Verfahren (3 LP, SS) **ACHTUNG: Lehrveranstaltung wird ab dem SS19 nicht mehr angeboten.**
- - Mustererkennung (3 LP, SS)
- - Neuronale Netze (6 LP) **Auslaufend ab WS18/19. Titeländerung > Wird ersetzt durch Deep Learning und Neuronale Netze M-INFO-104460/T-INFO-109124**
- - Deep Learning und Neuronale Netze (6 LP, SS)
- - Robotik II: Humanoide Robotik (3 LP, SS)
-
-
- Seminar:
-
- - Seminar: Neuronale Netze und künstliche Intelligenz (3 LP, WS)
-
 Interessenliste:
 
  - Modul: Mobilkommunikation
  - Modul: Netze und Punktwolken
- - Modul: Lokalisierung mobiler Agente
+ - Modul: Lokalisierung mobiler Agenten
  - Modul: Mehrdimensionale Signalverarbeitung und Bildauswertung mit Graphikkar-ten und anderen Mehrkernprozessore
  - Modul: Praktikum: Neuronale Netze - Praktische Übungen
  - Modul: Probabilistische Planung
  - Modul: Reinforcement Learning und multimodale Regelung in der Robotik (WS)
  - Modul: Seminar: Neuronale Netze und künstliche Intelligenz [M-INFO-102412]
  - Modul: Deep Learning für Computer Vision
- -
+ - Automated Planning and Scheduling
+ - Stochastische Informationsverarbeitung
+ Praktikum: Neuronale Netze - Praktische Übungen
 
 
 
@@ -192,19 +169,22 @@ Interessenliste:
      <td>2</td>
      <td></td>
      <td>Kognitive Systeme (6 LP), Deep Learning und Neuronale Netze (6 LP), Deep Learning für CV (3 LP)</td>
-     <td>[Einführung in die Bildfolgenauswertung (3 LP) ODER Lokalisierung mobiler Agenten (6 LP)], Maschinelles Lernen 2 (3 LP) </td>
+     <td>Einführung in die Bildfolgenauswertung (3 LP), Lokalisierung mobiler Agenten (6 LP) </td>
      <td>Verhaltensgenerierung für Fahrzeuge (4 LP, SS), Automotive Vision / Fahrzeugsehen (6 LP, SS)</td>
      <td></td>
-     <td>0 + 15 + 6 + 10 + 0 = 29 LP</td>
+     <td>0 + 15 + 9 + 10 + 0 = 34 LP</td>
    </tr>
    <tr>
      <td>3</td>
      <td>Computergrafik (6 LP)</td>
-     <td>Seminar: Neuronale Netze und KI (3 LP)</td>
-     <td>Probabilistische Planung (6 LP, WS), Mechano-Informatik in der Robotik (4 LP, WS)</td>
+     <td>Praktikum: Neuronale Netze (3 LP),
+     NLP (3 LP)</td>
+     <td>Probabilistische Planung (6 LP, WS)</td>
+     <td>Mehrdimensionale Signalverarbeitung und Bildauswertung mit Graphikkarten und anderen Mehrkernprozessoren (3 LP),
+     Projektpraktikum Bildauswertung und -fusion (6 LP),
+     Praktikum Automatische Spracherkennung (3 LP)</td>
      <td></td>
-     <td></td>
-     <td>13 LP</td>
+     <td>32 LP</td>
    </tr>
    <tr>
      <td>4</td>
