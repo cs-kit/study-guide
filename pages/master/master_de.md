@@ -128,14 +128,10 @@ Von Informatik der LMU zum WS18/19 ans KIT für den Master in Informatik gewechs
 Interessenliste:
 
  - Modul: Mobilkommunikation
- - Modul: Netze und Punktwolken
- - Modul: Lokalisierung mobiler Agenten
  - Modul: Mehrdimensionale Signalverarbeitung und Bildauswertung mit Graphikkar-ten und anderen Mehrkernprozessore
  - Modul: Praktikum: Neuronale Netze - Praktische Übungen
- - Modul: Probabilistische Planung
  - Modul: Reinforcement Learning und multimodale Regelung in der Robotik (WS)
  - Modul: Seminar: Neuronale Netze und künstliche Intelligenz [M-INFO-102412]
- - Modul: Deep Learning für Computer Vision
  - Automated Planning and Scheduling
  - Stochastische Informationsverarbeitung
  Praktikum: Neuronale Netze - Praktische Übungen
@@ -176,23 +172,21 @@ Interessenliste:
    </tr>
    <tr>
      <td>3</td>
-     <td>Computergrafik (6 LP)</td>
-     <td>Praktikum: Neuronale Netze (3 LP),
-     NLP (3 LP)</td>
-     <td>Probabilistische Planung (6 LP, WS)</td>
-     <td>Mehrdimensionale Signalverarbeitung und Bildauswertung mit Graphikkarten und anderen Mehrkernprozessoren (3 LP),
-     Projektpraktikum Bildauswertung und -fusion (6 LP),
-     Praktikum Automatische Spracherkennung (3 LP)</td>
-     <td></td>
-     <td>32 LP</td>
+     <td>Computergrafik (6 LP), Automated Planning and Scheduling (5 LP), Virtuelle Systeme (3 LP), </td>
+     <td>Praktikum parallele Numerik (6 LP, WS)</td>
+     <td>Stochastische Informationsverarbeitung (6 LP, WS)</td>
+     <td> GPGPU (3 LP)</td>
+     <td>6 ECTS ?</td>
+     <td>35 LP</td>
    </tr>
    <tr>
      <td>4</td>
-     <td colspan="4">Masterarbeit im Profil</td>
+     <td colspan="4">Masterarbeit im Profil  + eventuell Reinforcement Learning und neuronale Netze in der Robotik </td>
      <td></td>
      <td>30</td>
    </tr>
  </table>
+
 
 ### Ergänzungsfach
 
@@ -224,7 +218,7 @@ Modulkatalog: http://www.mach.kit.edu/download/MSc-Maschinenbau-Modulhandbuch_SP
  ☑ 4 Stammmodule belegen  
  ☐ 2 Vertiefungsfächer (á 15 - 52 LP)  
  ☐ 10 LP aus Vorlesungen pro Vertiefungsfach  
- ☑ Mindestens  3 LP durch Seminare  (Seminar Humanoide Roboter)
+ ☑ Mindestens  3 LP durch Seminare  (Seminar Humanoide Roboter)  
  ☐ Mindestens 6 LP durch Praktika in den Vertiefungsfächern und dem Wahlbereich erbracht werden.  
  ☐ Es dürfen insgesamt max. 18 LP durch Praktika und Seminare erbracht werden.  
  ☑  Ergänzungsfach( 9 - 18 LP  ): 10 LP durch Sonderergänzungsfach Maschinenbau
@@ -240,4 +234,4 @@ Modulkatalog: http://www.mach.kit.edu/download/MSc-Maschinenbau-Modulhandbuch_SP
 
 
 
-{% include posts_of_category.html category=site.categories.master cat_name=page.title%}
+{% include posts_of_category.html category=site.categories.master cat_name=page.title %}
